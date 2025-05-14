@@ -1,0 +1,12 @@
+# Backend (Java/Spring)
+springmart-backend/target/
+*.class
+
+# Frontend (Node.js)
+springmart-frontend/node_modules/
+springmart-frontend/dist/
+
+# IDE-specific files
+.idea/
+*.iml
+.vscode/

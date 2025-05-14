@@ -1,0 +1,129 @@
+/* src/styles/AddProduct.css */
+
+.add-product-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-product-container h2 {
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 1.2rem;
+}
+
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.product-form input,
+.product-form textarea {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.product-form button {
+    padding: 0.7rem;
+    background-color: #2a9d8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.product-form button:hover {
+    background-color: #21867a;
+}
+
+.status-message {
+    margin-top: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.styled-input {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.styled-input:focus {
+    border-color: #2a9d8f;
+    outline: none;
+}
+
+.styled-textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s;
+    resize: vertical;
+}
+
+.styled-textarea:focus {
+    border-color: #2a9d8f;
+    outline: none;
+}
+
+.styled-select {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.styled-select:focus {
+    border-color: #2a9d8f;
+    outline: none;
+}
+
+.styled-file-upload {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.styled-file-upload:focus {
+    border-color: #2a9d8f;
+    outline: none;
+}
+
+.styled-button {
+    padding: 0.8rem;
+    background-color: #2a9d8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.styled-button:hover {
+    background-color: #21867a;
+}
+
+.styled-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
