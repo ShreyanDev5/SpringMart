@@ -1,0 +1,169 @@
+---
+trigger: always_on
+---
+
+**SpringMart Project: Development Rules & Guidelines**
+
+---
+
+> *A concise, well-organized reference to streamline your SpringMart e-commerce workflow*
+
+---
+
+## 📦 1. Core Project Structure
+
+**Project Name:** SpringMart
+
+**Backend System:**
+
+* **Technology:** Spring Boot (Java)
+* **Purpose:** Serves as the central information hub and handles all core data processing.
+
+**Frontend System:**
+
+* **Technology:** React
+* **Purpose:** Provides the user interface and interaction layer.
+
+---
+
+## 🎨 2. Frontend Development Mission & Principles
+
+**Primary Goal:** Create an exceptional user experience.
+
+**Visual Design:**
+
+* Strive for a **visually appealing yet minimal** aesthetic (clean lines, no clutter).
+* Convey a **premium, polished, and trustworthy feel**.
+
+**User Experience (UX):**
+
+* Design for **intuitive navigation and ease of use**—users accomplish tasks without confusion.
+* Present **rich product details** clearly within the minimal layout.
+
+**Functionality:**
+
+* Frontend **must be fully functional and reliable**.
+* Ensure **seamless connection and data exchange** with the backend.
+
+---
+
+## 🖥️ 3. Backend System Specifications
+
+* **Spring Boot Version:** 3.4.5
+* **Java Version:** Java 21
+* **Database:**
+
+  * **Default:** H2 in-memory database.
+  * **Compatibility:** Any JPA-compatible database.
+* **Communication Protocol:** RESTful APIs for frontend interaction.
+
+**Core Backend Components:**
+
+* **`Product` Entity:** Defines the data structure for products.
+* **`ProductController`:** Manages incoming API requests.
+* **`ProductService`:** Implements business logic (CRUD, search).
+* **`ProductRepo`:** Handles database interactions.
+
+---
+
+## 🔗 4. Frontend-Backend Communication Protocol
+
+* **Method:** React ⟷ Spring Boot via **RESTful API endpoints**.
+* **Key Interactions:**
+
+  * Display product lists
+  * Show detailed product information
+  * Allow product searches
+  * *(Future)* Admin functions: add, update, delete products; manage images
+
+---
+
+## 📡 5. API Endpoint Specifications
+
+*Base URL:* `/api`
+
+* **GET `/`**
+
+  * **Purpose:** Returns a welcome message.
+  * **Status:** `200 OK`
+
+* **GET `/products`**
+
+  * **Purpose:** Fetches a paginated list of products.
+  * **Query Params:** `page` (int, default: `0`), `size` (int, default: `10`)
+  * **Responses:** `200 OK` (products), `204 No Content` (none)
+
+* **GET `/products/{id}`**
+
+  * **Purpose:** Fetches a product by ID.
+  * **Path Param:** `id` (int)
+  * **Responses:** `200 OK` (found), `404 Not Found` (missing)
+
+* **GET `/products/image/{id}`**
+
+  * **Purpose:** Returns product image.
+  * **Path Param:** `id` (int)
+  * **Responses:** `200 OK` (binary image), `404 Not Found`
+
+* **GET `/products/search`**
+
+  * **Purpose:** Search by keyword.
+  * **Query Param:** `keyword` (String)
+  * **Responses:** `200 OK` (matches), `204 No Content`
+
+* **POST `/products`**
+
+  * **Purpose:** Add new product.
+  * **Body:** JSON product details + optional image (Multipart)
+  * **Responses:** `201 Created`, `400 Bad Request`, `500 Internal Server Error`
+
+* **PUT `/products/{id}`**
+
+  * **Purpose:** Update product by ID.
+  * **Path Param:** `id` (int)
+  * **Body:** JSON updates + optional image
+  * **Responses:** `200 OK`, `404 Not Found`
+
+* **DELETE `/products/{id}`**
+
+  * **Purpose:** Delete product by ID.
+  * **Path Param:** `id` (int)
+  * **Responses:** `204 No Content`, `404 Not Found`
+
+---
+
+## 📋 6. `Product` Data Model Definition
+
+* **`id`** (int): Unique identifier (auto-generated).
+* **`name`** (String): Product name. **Required.**
+* **`price`** (Integer): Must be ≥ 0. **Required.**
+* **`description`** (String): Max 500 characters.
+* **`category`** (String): **Required.**
+* **`quantity`** (int): Must be ≥ 0.
+* **`brand`** (String): **Required.**
+* **`inStock`** (boolean): Availability.
+* **`releaseDate`** (Date): Product release date.
+* **`imageName`** (String): File name of image.
+* **`imageType`** (String): MIME type (e.g., `image/jpeg`).
+* **`imageData`** (byte\[]): Binary image data.
+
+---
+
+## 🔒 7. Backend Business Logic & Data Validation
+
+**Core Functions:**
+
+* CRUD operations for products
+* Image upload & retrieval
+* Search by name, description, category, brand
+
+**Validation:**
+
+* Use annotations (e.g., `@NotBlank`, `@Min`) for data integrity.
+* On validation failure, return **`400 Bad Request`**.
+
+---
+
+## ⚙️ 8. Critical Technical Configuration
+
+* **CORS:** Enable `@CrossOrigin` to allow frontend (e.g., `localhost:3000`) to access backend APIs (`localhost:8080`).
