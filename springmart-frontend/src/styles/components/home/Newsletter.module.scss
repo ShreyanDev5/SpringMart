@@ -1,0 +1,77 @@
+/* src/styles/components/home/Newsletter.module.scss */
+@use '../../index' as *;
+
+.newsletterSection {
+  padding: $spacing-3xl 0;
+  background-color: $lighter-gray;
+  border-radius: $radius-xl;
+  margin-bottom: $spacing-3xl;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
+    z-index: 0;
+  }
+}
+
+.newsletterContent {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-sm;
+    color: $dark;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: $gray;
+    margin-bottom: $spacing-lg;
+  }
+}
+
+.newsletterForm {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+  
+  input {
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    border-radius: $radius;
+    border: 2px solid $light-gray;
+    font-size: 1rem;
+    transition: $transition-fast;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary-light;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+  }
+}
+
+@include respond-to(md) {
+  .newsletterContent h2 {
+    font-size: 2.25rem;
+  }
+}
+
+@include respond-to(sm) {
+  .newsletterForm {
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+}

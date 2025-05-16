@@ -1,0 +1,97 @@
+/* src/styles/components/home/Features.module.scss */
+@use '../../index' as *;
+
+.features {
+  padding: $spacing-3xl 0;
+  background-color: $white;
+  border-radius: $radius-xl;
+  margin: $spacing-2xl 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: $shadow-md;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.03) 0%, rgba(16, 185, 129, 0.03) 100%);
+    z-index: 0;
+  }
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $spacing-lg;
+  padding: 0 $spacing-lg;
+}
+
+.featureCard {
+  padding: $spacing-xl;
+  border-radius: $radius-lg;
+  transition: $transition;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: $shadow-md;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(5px);
+  position: relative;
+  z-index: 1;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.featureIcon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 102, 204, 0.05) 100%);
+  border-radius: 50%;
+  margin-bottom: $spacing-md;
+  color: $primary;
+  font-size: 1.5rem;
+  transition: $transition;
+  
+  .featureCard:hover & {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.15) 0%, rgba(0, 102, 204, 0.08) 100%);
+  }
+}
+
+.featureTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: $spacing-sm;
+  color: $dark;
+}
+
+.featureDescription {
+  color: $gray;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: auto;
+}
+
+@include respond-to(md) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    padding: 0 $spacing-sm;
+  }
+}
+
+@include respond-to(sm) {
+  .featureCard {
+    padding: $spacing-lg;
+  }
+}

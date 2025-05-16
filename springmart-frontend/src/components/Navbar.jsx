@@ -2,20 +2,20 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./../styles/Navbar.css";
+import styles from "../styles/components/Navbar.module.scss";
 
 function Navbar() {
     const location = useLocation();
 
     return (
-        <nav className="navbar">
-            <div className="navbar-logo">
-                <img src="/logo.png" alt="SpringMart Logo" className="navbar-logo-img" />
-                <span className="navbar-brand">SpringMart</span>
+        <nav className={styles.navbar}>
+            <div className={styles.logo}>
+                <img src="/logo.png" alt="SpringMart Logo" className={styles.logoImg} />
+                <span className={styles.brand}>SpringMart</span>
             </div>
-            <div className="navbar-links">
-                <Link to="/" className={location.pathname === "/" ? "active" : ""}>Home</Link>
-                <Link to="/add" className={location.pathname === "/add" ? "active" : ""}>Add Product</Link>
+            <div className={styles.links}>
+                <Link to="/" className={location.pathname === "/" ? styles.active : ""}>Home</Link>
+                <Link to="/add" className={location.pathname === "/add" ? styles.active : ""}>Add Product</Link>
             </div>
         </nav>
     );

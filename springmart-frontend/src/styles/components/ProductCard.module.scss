@@ -1,0 +1,101 @@
+/* src/styles/components/ProductCard.module.scss */
+@use '../index' as *;
+
+.productCard {
+  @include card-base;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.productImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.productDetails {
+  padding: $spacing-md;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+  h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: $dark;
+    font-weight: 600;
+  }
+}
+
+.brand {
+  font-size: 0.9rem;
+  color: $gray;
+  margin-top: 0.25rem;
+}
+
+.price {
+  font-weight: bold;
+  margin-top: 0.5rem;
+  color: $primary;
+  font-size: 1.1rem;
+}
+
+.stock {
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+  
+  &.in {
+    color: $secondary;
+  }
+  
+  &.out {
+    color: $accent;
+  }
+}
+
+.productActions {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+  justify-content: space-between;
+}
+
+.editButton, .deleteButton {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  border-radius: $radius;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.editButton {
+  background-color: $primary-light;
+  color: $white;
+  
+  &:hover {
+    background-color: $primary;
+  }
+}
+
+.deleteButton {
+  background-color: rgba($accent, 0.8);
+  color: $white;
+  
+  &:hover {
+    background-color: $accent;
+  }
+}

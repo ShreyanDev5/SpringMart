@@ -1,0 +1,71 @@
+/* src/styles/mixins.scss */
+// This file will be forwarded by _index.scss
+@use 'variables' as *;
+
+// Flexbox mixins
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// Media query mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+// Button mixins
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  border-radius: $radius;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: $transition-fast;
+  border: 2px solid transparent;
+  font-size: 0.95rem;
+  margin: 0.5rem;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+  gap: 0.5rem;
+}
+
+// Card mixins
+@mixin card-base {
+  background: $white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  transition: $transition;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+// Glassmorphism effect
+@mixin glassmorphism($bg-color: rgba(255, 255, 255, 0.8), $blur: 10px) {
+  background: $bg-color;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

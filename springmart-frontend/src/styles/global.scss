@@ -1,0 +1,150 @@
+/* src/styles/global.scss */
+@use 'index' as *;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: $dark;
+  background-color: $light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.home-container {
+  max-width: $container-width;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  overflow: hidden;
+}
+
+/* Button Styles */
+.btn {
+  @include button-base;
+  
+  &-icon {
+    font-size: 1.1em;
+    transition: transform 0.2s ease;
+  }
+  
+  &:hover .btn-icon {
+    transform: translateX(3px);
+  }
+  
+  &-primary {
+    background-color: $primary;
+    color: $white;
+    
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+  }
+  
+  &-outline {
+    background-color: transparent;
+    border-color: $primary;
+    color: $primary;
+    
+    &:hover {
+      background-color: rgba(0, 102, 204, 0.08);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &-light {
+    background-color: $white;
+    color: $primary;
+    box-shadow: $shadow;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $shadow-lg;
+    }
+  }
+  
+  &-outline-light {
+    background-color: transparent;
+    border-color: $white;
+    color: $white;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Section Headers */
+.section-header {
+  margin-bottom: $spacing-xl;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-xs;
+    color: $dark;
+    letter-spacing: -0.01em;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    color: $gray;
+    max-width: 600px;
+  }
+  
+  &.centered {
+    text-align: center;
+    
+    p {
+      margin: 0 auto;
+    }
+  }
+  
+  &.with-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+}

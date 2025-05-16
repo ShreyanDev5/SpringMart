@@ -1,0 +1,118 @@
+/* src/styles/components/home/Testimonials.module.scss */
+@use '../../index' as *;
+
+.testimonialsSection {
+  padding: $spacing-3xl 0;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
+  }
+}
+
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: $spacing-lg;
+  margin-top: $spacing-lg;
+}
+
+.testimonialCard {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-md;
+  transition: $transition;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+.testimonialRating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: $spacing-sm;
+  color: $accent;
+  font-size: 1.1rem;
+}
+
+.testimonialText {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: $dark-gray;
+  margin-bottom: $spacing-lg;
+  font-style: italic;
+  position: relative;
+  
+  &::before {
+    content: '"';
+    font-size: 3rem;
+    line-height: 0;
+    position: absolute;
+    top: 0.5rem;
+    left: -1rem;
+    color: rgba(0, 0, 0, 0.05);
+    font-family: serif;
+  }
+}
+
+.testimonialAuthor {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.testimonialAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary-light, $primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.testimonialInfo {
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: $dark;
+  }
+  
+  p {
+    font-size: 0.875rem;
+    color: $gray;
+  }
+}
+
+@include respond-to(md) {
+  .testimonialsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include respond-to(sm) {
+  .testimonialText {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,78 @@
+/* src/styles/components/home/CtaBanner.module.scss */
+@use '../../index' as *;
+
+.ctaBanner {
+  background: linear-gradient(135deg, $primary, $primary-dark);
+  color: $white;
+  padding: $spacing-3xl $spacing-lg;
+  border-radius: $radius-xl;
+  margin: $spacing-3xl 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: $shadow-lg;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent 60%);
+    z-index: -1;
+    opacity: 0.3;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2), transparent 60%);
+    z-index: 0;
+  }
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: $spacing-sm;
+    color: $white;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    margin-bottom: $spacing-lg;
+    opacity: 0.9;
+  }
+}
+
+@include respond-to(md) {
+  .ctaBanner h2 {
+    font-size: 2.25rem;
+  }
+}
+
+@include respond-to(sm) {
+  .ctaBanner {
+    padding: $spacing-xl $spacing-md;
+  }
+
+  .ctaBanner h2 {
+    font-size: 1.75rem;
+  }
+
+  .ctaBanner p {
+    font-size: 1rem;
+  }
+}

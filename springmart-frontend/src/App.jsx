@@ -6,7 +6,7 @@ import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
 import EditProduct from "./pages/EditProduct"; // Placeholder
 import Navbar from "./components/Navbar";
-import "./styles/App.css"; // Import global CSS
+// Global styles are imported in index.js
 
 function App() {
     return (

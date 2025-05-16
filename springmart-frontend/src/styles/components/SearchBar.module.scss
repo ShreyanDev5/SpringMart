@@ -1,0 +1,71 @@
+/* src/styles/components/SearchBar.module.scss */
+@use '../index' as *;
+
+.searchBarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+  max-width: 600px;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
+  max-width: 600px;
+  gap: 0.5rem;
+  width: 100%;
+  
+  input {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 1px solid $light-gray;
+    border-radius: $radius;
+    font-size: 1rem;
+    outline: none;
+    transition: $transition-fast;
+    
+    &:focus {
+      border-color: $primary-light;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+  }
+  
+  button {
+    padding: 0.6rem 1.2rem;
+    background-color: $primary;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: $radius;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: $primary-dark;
+    }
+  }
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  
+  select {
+    padding: 0.5rem;
+    border: 1px solid $light-gray;
+    border-radius: $radius;
+    font-size: 1rem;
+    outline: none;
+    transition: $transition-fast;
+    
+    &:focus {
+      border-color: $primary-light;
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+  }
+}

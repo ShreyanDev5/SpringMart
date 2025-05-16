@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { getData } from "../services/api";
 import ProductCard from "../components/ProductCard";
-import "../styles/ProductList.css";
+import styles from "../styles/components/ProductList.module.scss";
 
 function ProductList() {
     const [products, setProducts] = useState([]);
@@ -25,14 +25,19 @@ function ProductList() {
         fetchProducts();
     }, []);
 
-    if (loading) return <p>Loading products...</p>;
-    if (error) return <p>{error}</p>;
-    if (products.length === 0) return <p>No products found.</p>;
+    if (loading) return (
+        <div className={styles.loadingState}>
+            <div className={styles.spinner}></div>
+            <p>Loading products...</p>
+        </div>
+    );
+    if (error) return <div className={styles.emptyState}><p>{error}</p></div>;
+    if (products.length === 0) return <div className={styles.emptyState}><p>No products found.</p></div>;
 
     return (
-        <div className="product-list-container">
+        <div className={styles.productListContainer}>
             <h2>All Products</h2>
-            <div className="product-grid">
+            <div className={styles.productGrid}>
                 {products.map(product => (
                     <ProductCard key={product.id} product={product} />
                 ))}

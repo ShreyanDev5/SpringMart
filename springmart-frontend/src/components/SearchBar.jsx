@@ -1,7 +1,7 @@
 // src/components/SearchBar.jsx
 
 import React, { useState, useEffect } from "react";
-import "../styles/SearchBar.css";
+import styles from "../styles/components/SearchBar.module.scss";
 
 function SearchBar({ onSearch, onFilter }) {
     const [query, setQuery] = useState("");
@@ -29,8 +29,8 @@ function SearchBar({ onSearch, onFilter }) {
     };
 
     return (
-        <div className="search-bar-container">
-            <form className="search-bar" onSubmit={(e) => e.preventDefault()}>
+        <div className={styles.searchBarContainer}>
+            <form className={styles.searchBar} onSubmit={(e) => e.preventDefault()}>
                 <input
                     type="text"
                     placeholder="Search products..."
@@ -41,7 +41,7 @@ function SearchBar({ onSearch, onFilter }) {
                     Search
                 </button>
             </form>
-            <div className="filters">
+            <div className={styles.filters}>
                 <select
                     value={category}
                     onChange={(e) => {

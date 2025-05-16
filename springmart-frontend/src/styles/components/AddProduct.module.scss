@@ -1,0 +1,145 @@
+/* src/styles/components/AddProduct.module.scss */
+@use '../index' as *;
+
+.addProductContainer {
+  max-width: 600px;
+  margin: $spacing-xl auto;
+  padding: $spacing-md;
+  border-radius: $radius-lg;
+  background-color: $white;
+  box-shadow: $shadow-md;
+  
+  h2 {
+    text-align: center;
+    color: $dark-gray;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.productForm {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.formGroup {
+  margin-bottom: $spacing-sm;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: $dark-gray;
+  }
+}
+
+.styledInput {
+  padding: 0.8rem;
+  border: 1px solid $light-gray;
+  border-radius: $radius;
+  font-size: 1rem;
+  background-color: $white;
+  transition: border-color 0.3s;
+  width: 100%;
+  
+  &:focus {
+    border-color: $primary;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+.styledTextarea {
+  padding: 0.8rem;
+  border: 1px solid $light-gray;
+  border-radius: $radius;
+  font-size: 1rem;
+  background-color: $white;
+  transition: border-color 0.3s;
+  resize: vertical;
+  width: 100%;
+  min-height: 100px;
+  
+  &:focus {
+    border-color: $primary;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+.styledSelect {
+  padding: 0.8rem;
+  border: 1px solid $light-gray;
+  border-radius: $radius;
+  font-size: 1rem;
+  background-color: $white;
+  transition: border-color 0.3s;
+  width: 100%;
+  
+  &:focus {
+    border-color: $primary;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+.styledFileUpload {
+  padding: 0.8rem;
+  border: 1px solid $light-gray;
+  border-radius: $radius;
+  font-size: 1rem;
+  background-color: $white;
+  transition: border-color 0.3s;
+  width: 100%;
+  
+  &:focus {
+    border-color: $primary;
+    outline: none;
+  }
+}
+
+.styledButton {
+  padding: 0.8rem;
+  background-color: $primary;
+  color: white;
+  border: none;
+  border-radius: $radius;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+  
+  &:hover {
+    background-color: $primary-dark;
+  }
+  
+  &:disabled {
+    background-color: $light-gray;
+    cursor: not-allowed;
+  }
+}
+
+.styledCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  
+  input {
+    width: auto;
+  }
+}
+
+.statusMessage {
+  margin-top: $spacing-md;
+  font-weight: bold;
+  text-align: center;
+  
+  &.success {
+    color: $secondary;
+  }
+  
+  &.error {
+    color: $accent;
+  }
+}
