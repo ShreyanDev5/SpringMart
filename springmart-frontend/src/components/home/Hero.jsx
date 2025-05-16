@@ -12,17 +12,12 @@ const Hero = ({ onSearch }) => {
       <div className={styles.heroContent}>
         <div className={styles.heroBadge}>Premium Shopping Experience</div>
         <h1 className={`${styles.heroTitle} ${styles.fadeIn}`}>
-          Welcome to <span className={styles.highlight}>SpringMart</span>
+          Welcome to <span className={`${styles.highlight} ${styles.underlined}`}>SpringMart</span>
         </h1>
         <p className={`${styles.heroSubtitle} ${styles.fadeIn}`} style={{animationDelay: '0.2s'}}>
           Discover amazing products at unbeatable prices with our curated collection
         </p>
-        <p className={`${styles.seasonalTagline} ${styles.fadeIn}`} style={{animationDelay: '0.4s'}}>
-          Summer Sale Now Live
-        </p>
-        <p className={`${styles.productCounter} ${styles.fadeIn}`} style={{animationDelay: '0.5s'}}>
-          1,200+ items curated for you
-        </p>
+        {/* Removed seasonal tagline and product counter as requested */}
         <div className={styles.searchContainer}>
           <SearchBar onSearch={onSearch} />
         </div>
