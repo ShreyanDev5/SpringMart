@@ -11,28 +11,49 @@
   font-weight: bold;
   flex-wrap: wrap;
   box-shadow: $shadow;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
 }
 
 .logoImg {
   width: 40px;
   height: 40px;
   margin-right: 0.8rem;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .brand {
   font-size: 1.4rem;
   font-weight: 700;
+  white-space: nowrap;
+}
+
+.searchContainer {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 1.5rem;
+  
+  @include respond-to(lg) {
+    margin: 0.5rem 0;
+    max-width: 100%;
+    order: 3;
+    width: 100%;
+  }
 }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   margin-top: 0.5rem;
+  flex: 0 0 auto;
   
   a {
     margin-left: 1.2rem;
@@ -54,10 +75,22 @@
   }
 }
 
+@include respond-to(lg) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    flex: 1;
+    margin-bottom: 0.5rem;
+  }
+}
+
 @include respond-to(md) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
   }
 
   .links {
@@ -67,6 +100,9 @@
     
     a {
       margin-left: 0;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
     }
   }
 }

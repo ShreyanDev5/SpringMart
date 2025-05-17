@@ -4,7 +4,7 @@ import axios from "axios";
 import { Hero, Features, Products, Testimonials, CtaBanner, Newsletter } from "../components/home";
 import "../styles/Home.scss";
 
-function Home() {
+function Home({ searchQuery }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -13,6 +13,13 @@ function Home() {
     useEffect(() => {
         fetchProducts();
     }, []);
+    
+    // Handle search from navbar
+    useEffect(() => {
+        if (searchQuery) {
+            handleSearch(searchQuery);
+        }
+    }, [searchQuery]);
 
     const fetchProducts = async () => {
         try {
@@ -52,8 +59,8 @@ function Home() {
 
     return (
         <div className="home-container">
-            {/* Hero Section */}
-            <Hero onSearch={handleSearch} />
+            {/* Hero Section - no longer needs search functionality */}
+            <Hero />
 
             {/* Features Section */}
             <Features />

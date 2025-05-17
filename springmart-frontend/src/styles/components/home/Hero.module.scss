@@ -21,7 +21,7 @@
     transform: translate(-50%, -50%);
     width: 150%;
     height: 150%;
-    background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.02) 40%, rgba(16, 185, 129, 0.01) 70%, rgba(16, 185, 129, 0.005) 100%);
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.04) 40%, rgba(16, 185, 129, 0.02) 70%, rgba(16, 185, 129, 0.01) 100%);
     border-radius: 50%;
     filter: blur(80px);
     z-index: 0;
@@ -56,6 +56,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center; /* Center-align content */
+  text-align: center; /* Center-align text */
 }
 
 .heroBadge {
@@ -70,6 +72,7 @@
   box-shadow: 0 2px 10px rgba(16, 185, 129, 0.1); /* Green shadow */
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+  align-self: center; /* Center the badge */
 }
 
 .heroTitle {
@@ -86,6 +89,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 90%; /* Constrain width for better readability */
 }
 
 .fadeIn {
@@ -101,6 +105,39 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
   }
 }
 
@@ -171,9 +208,11 @@
   font-size: 1.25rem;
   color: $gray;
   margin-bottom: $spacing-xl;
-  max-width: 90%;
+  max-width: 80%;
   line-height: 1.6;
   font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
   letter-spacing: 0.01em;
 }
 
@@ -198,9 +237,10 @@
 
 .ctaButtons {
   display: flex;
-  gap: $spacing-xs;
+  gap: $spacing-md;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  margin-top: $spacing-lg;
 }
 
 .ctaButton {
@@ -263,48 +303,56 @@
 
 .heroCard {
   position: relative;
-  background: rgba(255, 255, 255, 0.9);
-  width: 300px; /* Further reduced width */
-  padding: $spacing-md; /* Further reduced padding */
+  background: rgba(255, 255, 255, 0.95);
+  width: 300px;
+  padding: $spacing-md $spacing-md $spacing-md $spacing-md;
   border-radius: $radius-xl;
   box-shadow: $shadow-lg;
   transform: rotate(-3deg);
-  transition: $transition;
-  backdrop-filter: blur(10px);
-  height: auto; /* Ensure height is based on content */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Improved animation curve */
+  overflow: hidden;
   z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  
-  &.premiumCard {
-    background: linear-gradient(135deg, #f8f5f0 0%, #f5f2eb 100%);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   
   &:hover {
-    transform: translateY(-10px) rotate(0deg);
-    box-shadow: $shadow-xl;
+    transform: rotate(0deg) translateY(-10px) scale(1.03); /* Tilt back to 0° horizontal position and scale up */
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(255, 255, 255, 0.2) 100%);
+    z-index: 0;
   }
 }
 
 .heroCardBadge {
   position: absolute;
-  top: -12px;
-  left: $spacing-md;
-  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+  top: 0.2rem; /* Moved higher */
+  right: 0.75rem;
+  background: #10b981; /* Solid emerald green */
   color: white;
-  font-size: 0.8rem;
+  font-size: 0.65rem; /* Smaller text */
   font-weight: 700;
-  padding: 0.4rem 1.2rem;
-  border-radius: $radius;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px; /* Pill shape */
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
   letter-spacing: 0.02em;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   transform: translateY(0);
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  animation: none; /* No animation */
+  z-index: 2; /* Ensure it's above other elements */
   
   .heroCard:hover & {
-    transform: translateY(-3px);
+    transform: translateY(0); /* No movement on hover */
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
   }
 }
 
@@ -366,27 +414,30 @@
   position: absolute;
   top: 5%;
   right: 8%;
-  background: linear-gradient(135deg, $accent 0%, $accent-light 100%);
+  background: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
   color: white;
   font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.5rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   border-radius: $radius-lg;
-  white-space: nowrap; /* Ensure text appears on a single line */
   box-shadow: 0 8px 20px rgba(249, 115, 22, 0.25);
   z-index: 3;
-  animation: float 4s ease-in-out infinite;
-  transform-origin: center center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  cursor: pointer;
-  position: relative;
+  animation: float 5s ease-in-out infinite;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(249, 115, 22, 0.3);
+  }
   
   .infoIcon {
     font-size: 0.8rem;
-    opacity: 0.8;
+    margin-left: 0.25rem;
+    animation: pulse 2s ease-in-out infinite;
   }
   
   .tooltip {
@@ -394,15 +445,17 @@
     top: calc(100% + 10px);
     right: 0;
     background: white;
-    color: $dark;
     padding: 0.75rem 1rem;
-    border-radius: $radius;
-    box-shadow: $shadow-lg;
+    border-radius: $radius-lg;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     font-size: 0.8rem;
     font-weight: 500;
-    width: 200px;
+    width: 240px;
     z-index: 10;
     animation: fadeIn 0.3s ease-out;
+    color: $dark;
+    white-space: normal;
+    line-height: 1.4;
     
     &::before {
       content: '';
@@ -423,6 +476,8 @@
   height: 100%;
   z-index: 2;
   pointer-events: none;
+  /* Added more space between elements */
+  transform: scale(1.1);
 }
 
 .floatingIcon {
@@ -435,9 +490,12 @@
   border-radius: 50%;
   background: white;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  color: #0066cc; /* Changed to blue */
+  color: #3B82F6; /* Changed to blue */
   font-size: 1.2rem;
   z-index: 3;
+  pointer-events: auto; /* Allow interaction */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   
   // Add glow effect behind icons
   &::before {
@@ -446,40 +504,80 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 102, 204, 0.3) 0%, rgba(0, 102, 204, 0) 70%);
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%); /* Changed to blue */
     z-index: -1;
     filter: blur(8px);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
   
-  &:hover::before {
-    opacity: 1;
+  &:hover, &.active {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+    
+    &::before {
+      opacity: 1;
+    }
+  }
+  
+  &.active {
+    background: #3B82F6;
+    color: white;
+    animation: pulse 2s ease-in-out infinite !important;
+  }
+  
+  .iconTooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: $radius-md;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: $dark;
+    white-space: nowrap;
+    z-index: 10;
+    animation: fadeIn 0.3s ease-out;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 10px;
+      height: 10px;
+      background: white;
+    }
   }
   
   &.icon1 {
-    top: 70%;
-    right: 15%;
+    top: 75%;
+    right: 18%;
     animation: float 5s ease-in-out infinite;
   }
   
   &.icon2 {
-    top: 20%;
-    right: 25%;
+    top: 15%;
+    right: 35%; /* Moved further right to avoid collision with Top Deals badge */
     animation: float 7s ease-in-out infinite;
     animation-delay: 1s;
   }
   
   &.icon3 {
-    top: 50%;
-    right: 10%;
+    top: 55%;
+    right: 8%;
     animation: float 6s ease-in-out infinite;
     animation-delay: 2s;
   }
   
   &.icon4 {
-    top: 35%;
-    right: 30%;
+    top: 30%;
+    right: 40%; /* Moved further right for better spacing */
     animation: float 5.5s ease-in-out infinite;
     animation-delay: 0.5s;
   }
@@ -488,7 +586,7 @@
 .shape {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4d94ff, #0066cc); /* Changed to blue */
+  background: linear-gradient(135deg, #4d94ff, #10B981); /* Blend of blue and emerald green */
   opacity: 0.6;
   filter: blur(60px);
   animation: float 6s ease-in-out infinite;
@@ -499,6 +597,7 @@
     top: 10%;
     right: 10%;
     animation-delay: 0s;
+    background: linear-gradient(135deg, #10B981, #4d94ff); /* Emerald green to blue */
   }
   
   &.shape2 {
@@ -506,7 +605,7 @@
     height: 200px;
     bottom: 10%;
     right: 20%;
-    background: linear-gradient(135deg, #0066cc, #4d94ff); /* Changed to blue */
+    background: linear-gradient(135deg, #0066cc, #34d399); /* Blue to lighter emerald */
     animation-delay: 1s;
   }
   
@@ -515,7 +614,7 @@
     height: 150px;
     top: 40%;
     right: 30%;
-    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    background: linear-gradient(135deg, #10B981, #0066cc); /* Emerald to blue */
     animation-delay: 2s;
   }
 }
