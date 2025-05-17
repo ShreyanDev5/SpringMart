@@ -46,6 +46,20 @@ public class DataLoader
                                 "keyboard.jpg",
                                 "image/jpeg",
                                 null  // No image data for now
+                        ),
+                        new Product(
+                                0,
+                                "Gaming Headset",
+                                2999,
+                                "Over-ear gaming headset with mic",
+                                "Electronics",
+                                20,
+                                "Razer",
+                                true,
+                                new Date(),
+                                "headset.jpg",
+                                "image/jpeg",
+                                null  // No image data for now
                         )
                 );
 
