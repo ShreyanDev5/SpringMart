@@ -10,12 +10,9 @@ const CtaBanner = () => {
       <div className={styles.ctaContent}>
         <h2>Ready to find something amazing?</h2>
         <p>Join thousands of happy customers shopping with us today</p>
-        <div className="cta-buttons">
-          <Link to="/register" className="btn btn-light">
-            Sign Up Now <FiArrowRight className="btn-icon" />
-          </Link>
-          <Link to="/products" className="btn btn-outline-light">
-            Browse Products
+        <div className={styles.ctaButtons}>
+          <Link to="/products" className={`${styles.ctaButton} btn btn-outline-light`}>
+            Browse Products <FiArrowRight className="btn-icon" />
           </Link>
         </div>
       </div>
