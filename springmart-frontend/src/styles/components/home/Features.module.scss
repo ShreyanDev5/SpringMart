@@ -33,7 +33,7 @@
 .featureCard {
   padding: $spacing-xl;
   border-radius: $radius-lg;
-  transition: $transition;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: $shadow-md;
@@ -43,10 +43,19 @@
   backdrop-filter: blur(5px);
   position: relative;
   z-index: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   
   &:hover {
     transform: translateY(-8px);
-    box-shadow: $shadow-lg;
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.1),
+      0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+    transition-duration: 0.1s;
   }
 }
 
@@ -61,11 +70,16 @@
   margin-bottom: $spacing-md;
   color: $primary;
   font-size: 1.5rem;
-  transition: $transition;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   .featureCard:hover & {
     transform: scale(1.1);
     background: linear-gradient(135deg, rgba(0, 102, 204, 0.15) 0%, rgba(0, 102, 204, 0.08) 100%);
+  }
+  
+  .featureCard:active & {
+    transform: scale(1.05);
+    transition-duration: 0.1s;
   }
 }
 
@@ -87,11 +101,55 @@
   .featuresGrid {
     grid-template-columns: 1fr;
     padding: 0 $spacing-sm;
+    gap: $spacing-md;
+  }
+  
+  .featureCard {
+    padding: $spacing-lg;
+    
+    &:hover {
+      transform: translateY(-6px);
+    }
+  }
+  
+  .featureIcon {
+    width: 54px;
+    height: 54px;
+    font-size: 1.4rem;
   }
 }
 
 @include respond-to(sm) {
   .featureCard {
-    padding: $spacing-lg;
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+    
+    &:active {
+      transform: translateY(-1px);
+    }
+  }
+  
+  .featureIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .featureTitle {
+    font-size: 1.1rem;
+    margin-bottom: $spacing-xs;
+  }
+  
+  .featureDescription {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 }

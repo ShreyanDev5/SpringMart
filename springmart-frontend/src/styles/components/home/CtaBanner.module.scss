@@ -58,21 +58,75 @@
 }
 
 @include respond-to(md) {
-  .ctaBanner h2 {
-    font-size: 2.25rem;
+  .ctaBanner {
+    padding: $spacing-2xl $spacing-lg;
+    margin: $spacing-2xl 0;
+    border-radius: $radius-lg;
+  }
+  
+  .ctaContent {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: $spacing-xs;
+    }
+    
+    p {
+      font-size: 1rem;
+      margin-bottom: $spacing-md;
+      padding: 0 $spacing-md;
+    }
+  }
+  
+  .ctaButtons {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+    
+    .btn {
+      min-width: 160px;
+      height: 48px;
+      font-size: 0.95rem;
+    }
   }
 }
 
 @include respond-to(sm) {
   .ctaBanner {
     padding: $spacing-xl $spacing-md;
+    margin: $spacing-xl 0;
+    border-radius: $radius-md;
+    
+    &::before,
+    &::after {
+      opacity: 0.2;
+    }
   }
-
-  .ctaBanner h2 {
-    font-size: 1.75rem;
+  
+  .ctaContent {
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: $spacing-xs;
+    }
+    
+    p {
+      font-size: 0.95rem;
+      margin-bottom: $spacing-md;
+      padding: 0;
+    }
   }
-
-  .ctaBanner p {
-    font-size: 1rem;
+  
+  .ctaButtons {
+    flex-direction: column;
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    
+    .btn {
+      width: 100%;
+      height: 44px;
+      font-size: 0.95rem;
+      margin: 0;
+    }
   }
 }

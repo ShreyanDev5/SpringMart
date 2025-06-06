@@ -9,9 +9,10 @@
 
 .productGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: $spacing-md;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $spacing-lg;
   margin-top: $spacing-md;
+  padding: 0 $spacing-sm;
 }
 
 .emptyState {
@@ -36,4 +37,50 @@
   border-top-color: $primary;
   margin: 0 auto $spacing-md;
   animation: spin 1s linear infinite;
+}
+
+@include respond-to(md) {
+  .productListContainer {
+    padding: $spacing-md $spacing-sm;
+  }
+  
+  .productGrid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: $spacing-md;
+  }
+}
+
+@include respond-to(sm) {
+  .productListContainer {
+    padding: $spacing-sm;
+  }
+  
+  .productGrid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: $spacing-sm;
+    padding: 0;
+  }
+  
+  .emptyState {
+    padding: $spacing-lg $spacing-md;
+    margin: $spacing-md 0;
+    
+    h3 {
+      font-size: 1.1rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  .loadingState {
+    padding: $spacing-lg $spacing-md;
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border-width: 3px;
+    }
+  }
 }

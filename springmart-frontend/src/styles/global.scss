@@ -92,12 +92,18 @@ body {
     margin-bottom: $spacing-xs;
     color: $dark;
     letter-spacing: -0.01em;
+    line-height: 1.2;
+    background: linear-gradient(135deg, $dark 0%, $dark-gray 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   
   p {
     font-size: 1.1rem;
     color: $gray;
     max-width: 600px;
+    line-height: 1.6;
   }
   
   &.centered {
@@ -112,6 +118,86 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+  }
+}
+
+@include respond-to(md) {
+  .section-header {
+    margin-bottom: $spacing-lg;
+    
+    h2 {
+      font-size: 2.25rem;
+      letter-spacing: -0.015em;
+    }
+    
+    p {
+      font-size: 1.05rem;
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .section-header {
+    margin-bottom: $spacing-md;
+    padding: 0 $spacing-xs;
+    
+    h2 {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: $spacing-xs;
+      line-height: 1.3;
+    }
+    
+    p {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: $dark-gray;
+    }
+    
+    &.with-action {
+      flex-direction: column;
+      gap: $spacing-sm;
+      
+      .action {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+  @include respond-to(sm) {
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+}
+
+h1 {
+  @include respond-to(sm) {
+    font-size: 2.25rem;
+    font-weight: 800;
+  }
+}
+
+h2 {
+  @include respond-to(sm) {
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+}
+
+h3 {
+  @include respond-to(sm) {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+p {
+  @include respond-to(sm) {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 }
 
