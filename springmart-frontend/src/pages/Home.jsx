@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Hero, Features, Products, Testimonials, CtaBanner, Newsletter } from "../components/home";
+import { Hero, Features, Products, CtaBanner } from "../components/home";
 import "../styles/Home.scss";
 
 function Home({ searchQuery }) {
@@ -72,14 +72,8 @@ function Home({ searchQuery }) {
                 error={error} 
             />
 
-            {/* Testimonials Section */}
-            <Testimonials />
-
             {/* CTA Banner */}
             <CtaBanner />
-
-            {/* Newsletter Section */}
-            <Newsletter />
         </div>
     );
 }
