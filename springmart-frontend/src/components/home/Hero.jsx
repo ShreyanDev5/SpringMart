@@ -1,12 +1,13 @@
 // src/components/home/Hero.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart, FiInfo } from "react-icons/fi";
 import styles from "../../styles/components/home/Hero.module.scss";
 
 const Hero = ({ onSearch }) => {
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [activeIcon, setActiveIcon] = useState(null);
+  // Remove state for tooltips and active icons
+  // const [showTooltip, setShowTooltip] = useState(false);
+  // const [activeIcon, setActiveIcon] = useState(null);
   
   // Handle parallax effect for floating elements
   useEffect(() => {
@@ -17,8 +18,8 @@ const Hero = ({ onSearch }) => {
       const badge = document.querySelector(`.${styles.floatingBadge}`);
       
       // Calculate mouse position relative to the center of the screen
-      const mouseX = (e.clientX / window.innerWidth - 0.5) * 20; // Reduced movement amount
-      const mouseY = (e.clientY / window.innerHeight - 0.5) * 10; // Reduced movement amount
+      const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+      const mouseY = (e.clientY / window.innerHeight - 0.5) * 10;
       
       // Apply subtle parallax to floating icons
       icons.forEach(icon => {
@@ -32,9 +33,11 @@ const Hero = ({ onSearch }) => {
         shape.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
       });
       
-      // Apply subtle rotation to card
-      if (card) {
-        card.style.transform = `rotate(${-3 + mouseX * 0.05}deg) translateY(${mouseY * 0.1}px)`;
+      // Apply subtle rotation to card only if not being hovered
+      if (card && !card.matches(':hover')) {
+        const rotation = -2 + mouseX * 0.05;  // Start from -2deg (initial tilt)
+        const translation = mouseY * 0.1;
+        card.style.transform = `rotate(${rotation}deg) translateY(${translation}px)`;
       }
       
       // Apply subtle movement to badge
@@ -49,6 +52,7 @@ const Hero = ({ onSearch }) => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
+
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
@@ -59,7 +63,6 @@ const Hero = ({ onSearch }) => {
         <p className={`${styles.heroSubtitle} ${styles.fadeIn}`} style={{animationDelay: '0.2s'}}>
           Discover amazing products at unbeatable prices with our curated collection
         </p>
-        {/* Removed search bar as it's now in the navbar */}
         <div className={`${styles.ctaButtons} ${styles.fadeIn}`} style={{animationDelay: '0.4s'}}>
           <Link to="/products" className={`btn btn-primary ${styles.ctaButton}`}>
             Shop Now <FiShoppingCart className="btn-icon" />
@@ -82,60 +85,39 @@ const Hero = ({ onSearch }) => {
         </div>
         <div 
           className={styles.floatingBadge} 
-          onMouseEnter={() => setShowTooltip(true)} 
-          onMouseLeave={() => setShowTooltip(false)}
           aria-label="Top Deals Today"
         >
           🛍️ Top Deals Today
           <FiInfo className={styles.infoIcon} />
-          {showTooltip && (
-            <div className={styles.tooltip}>Limited time offers with up to 50% off!</div>
-          )}
         </div>
         <div className={styles.floatingIcons}>
           <div 
-            className={`${styles.floatingIcon} ${styles.icon1} ${activeIcon === 'bag' ? styles.active : ''}`}
-            onClick={() => setActiveIcon(activeIcon === 'bag' ? null : 'bag')}
+            className={`${styles.floatingIcon} ${styles.icon1}`}
             data-depth="0.6"
             aria-label="Shopping Bag"
           >
             <FiShoppingBag />
-            {activeIcon === 'bag' && (
-              <div className={styles.iconTooltip}>Bag your favorites</div>
-            )}
           </div>
           <div 
-            className={`${styles.floatingIcon} ${styles.icon2} ${activeIcon === 'tag' ? styles.active : ''}`}
-            onClick={() => setActiveIcon(activeIcon === 'tag' ? null : 'tag')}
+            className={`${styles.floatingIcon} ${styles.icon2}`}
             data-depth="0.4"
             aria-label="Price Tag"
           >
             <FiTag />
-            {activeIcon === 'tag' && (
-              <div className={styles.iconTooltip}>Best prices</div>
-            )}
           </div>
           <div 
-            className={`${styles.floatingIcon} ${styles.icon3} ${activeIcon === 'star' ? styles.active : ''}`}
-            onClick={() => setActiveIcon(activeIcon === 'star' ? null : 'star')}
+            className={`${styles.floatingIcon} ${styles.icon3}`}
             data-depth="0.8"
             aria-label="Star Rating"
           >
             <FiStar />
-            {activeIcon === 'star' && (
-              <div className={styles.iconTooltip}>Top rated items</div>
-            )}
           </div>
           <div 
-            className={`${styles.floatingIcon} ${styles.icon4} ${activeIcon === 'cart' ? styles.active : ''}`}
-            onClick={() => setActiveIcon(activeIcon === 'cart' ? null : 'cart')}
+            className={`${styles.floatingIcon} ${styles.icon4}`}
             data-depth="0.5"
             aria-label="Shopping Cart"
           >
             <FiShoppingCart />
-            {activeIcon === 'cart' && (
-              <div className={styles.iconTooltip}>Start shopping</div>
-            )}
           </div>
         </div>
         <div className={styles.floatingShapes}>
