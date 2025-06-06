@@ -1,21 +1,16 @@
 // src/components/home/Hero.jsx
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart, FiInfo } from "react-icons/fi";
+import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart } from "react-icons/fi";
 import styles from "../../styles/components/home/Hero.module.scss";
 
 const Hero = ({ onSearch }) => {
-  // Remove state for tooltips and active icons
-  // const [showTooltip, setShowTooltip] = useState(false);
-  // const [activeIcon, setActiveIcon] = useState(null);
-  
   // Handle parallax effect for floating elements
   useEffect(() => {
     const handleMouseMove = (e) => {
       const icons = document.querySelectorAll(`.${styles.floatingIcon}`);
       const shapes = document.querySelectorAll(`.${styles.shape}`);
       const card = document.querySelector(`.${styles.heroCard}`);
-      const badge = document.querySelector(`.${styles.floatingBadge}`);
       
       // Calculate mouse position relative to the center of the screen
       const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
@@ -38,11 +33,6 @@ const Hero = ({ onSearch }) => {
         const rotation = -2 + mouseX * 0.05;  // Start from -2deg (initial tilt)
         const translation = mouseY * 0.1;
         card.style.transform = `rotate(${rotation}deg) translateY(${translation}px)`;
-      }
-      
-      // Apply subtle movement to badge
-      if (badge) {
-        badge.style.transform = `translate(${mouseX * 0.2}px, ${mouseY * 0.2}px)`;
       }
     };
     
@@ -82,13 +72,6 @@ const Hero = ({ onSearch }) => {
               Explore <FiArrowRight />
             </Link>
           </div>
-        </div>
-        <div 
-          className={styles.floatingBadge} 
-          aria-label="Top Deals Today"
-        >
-          🛍️ Top Deals Today
-          <FiInfo className={styles.infoIcon} />
         </div>
         <div className={styles.floatingIcons}>
           <div 

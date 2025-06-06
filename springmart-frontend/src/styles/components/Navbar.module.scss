@@ -5,45 +5,76 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #10b981; /* Changed from blue to green */
-  padding: 1rem 2rem;
-  color: white;
-  font-weight: bold;
+  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
+  padding: $spacing-sm $spacing-2xl;
+  color: $white;
+  font-weight: 500;
   flex-wrap: wrap;
-  box-shadow: $shadow;
+  box-shadow: 
+    0 2px 12px rgba(0, 0, 0, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.04);
   position: sticky;
   top: 0;
   z-index: 100;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+    z-index: -1;
+  }
 }
 
 .logo {
   display: flex;
   align-items: center;
-  flex: 0 0 auto;
+  gap: $spacing-xs;
+  transition: transform 0.3s ease;
+  padding-top: 4px;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .logoImg {
-  width: 56px;
-  height: 56px;
-  margin-right: 0.4rem;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  border-radius: 12px;
-  margin-top: 0.4rem; /* Subtle vertical adjustment */
+  transition: all 0.3s ease;
+  transform: translateY(4px);
+  
+  &:hover {
+    transform: translateY(4px) scale(1.05);
+  }
 }
 
 .brand {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
   white-space: nowrap;
+  background: linear-gradient(135deg, $white 0%, rgba(255, 255, 255, 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .searchContainer {
   flex: 1;
   max-width: 500px;
-  margin: 0 1.5rem;
+  margin: 0 $spacing-xl;
+  position: relative;
   
   @include respond-to(lg) {
-    margin: 0.5rem 0;
+    margin: $spacing-md 0;
     max-width: 100%;
     order: 3;
     width: 100%;
@@ -52,58 +83,148 @@
 
 .links {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-  flex: 0 0 auto;
+  gap: $spacing-lg;
+  align-items: center;
   
   a {
-    margin-left: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: $radius;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.95rem;
+    padding: $spacing-xs $spacing-md;
+    border-radius: $radius-full;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: -1;
+      border-radius: $radius-full;
+    }
     
     &:hover {
-      background-color: #0d9668; /* Darker green for hover */
-      transform: scale(1.05);
+      color: $white;
+      transform: translateY(-1px);
+      
+      &::before {
+        transform: translateY(0);
+      }
     }
     
     &.active {
-      background-color: #0d9668; /* Darker green for active */
-      font-weight: bold;
+      color: $white;
+      background: rgba(255, 255, 255, 0.15);
+      font-weight: 500;
+      border-radius: $radius-full;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 16px;
+        height: 2px;
+        background: $white;
+        border-radius: $radius-full;
+      }
     }
+  }
+}
+
+@include respond-to(xl) {
+  .navbar {
+    padding: $spacing-md $spacing-xl;
+  }
+  
+  .brand {
+    font-size: 1.6rem;
+  }
+  
+  .logoImg {
+    width: 56px;
+    height: 56px;
   }
 }
 
 @include respond-to(lg) {
   .navbar {
-    flex-wrap: wrap;
+    padding: $spacing-md;
   }
   
   .logo {
     flex: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: $spacing-xs;
+  }
+  
+  .links {
+    width: 100%;
+    justify-content: center;
+    margin-top: $spacing-sm;
+    gap: $spacing-sm;
+    
+    a {
+      font-size: 1rem;
+      padding: $spacing-xs $spacing-md;
+    }
   }
 }
 
 @include respond-to(md) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
+    padding: $spacing-sm;
   }
-
+  
+  .brand {
+    font-size: 1.4rem;
+  }
+  
+  .logoImg {
+    width: 48px;
+    height: 48px;
+  }
+  
   .links {
-    margin-top: 1rem;
-    width: 100%;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
     
     a {
-      margin-left: 0;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      padding: 0.3rem 0.6rem;
+      font-size: 0.95rem;
+      padding: $spacing-xs $spacing-sm;
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .navbar {
+    padding: $spacing-xs $spacing-sm;
+  }
+  
+  .brand {
+    font-size: 1.6rem;
+  }
+  
+  .logoImg {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .links {
+    justify-content: space-between;
+    
+    a {
+      font-size: 0.85rem;
+      padding: $spacing-xs;
+      flex: 1;
+      text-align: center;
     }
   }
 }

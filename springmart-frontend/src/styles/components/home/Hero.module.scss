@@ -9,28 +9,36 @@
   padding: $spacing-3xl $spacing-2xl;
   min-height: 80vh;
   position: relative;
-  background: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(255, 255, 255, 0.95) 50%,
-    rgba(255, 255, 255, 0.98) 100%
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.88) 50%,
+    rgba(255, 255, 255, 0.92) 100%
   );
   border-radius: $radius-2xl;
   overflow: hidden;
-  box-shadow: $shadow-lg;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.7);
   margin: $spacing-xl auto;
   max-width: 1400px;
+  backdrop-filter: blur(15px);
   
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: 
-      radial-gradient(circle at top right, rgba(0, 102, 204, 0.08) 0%, transparent 70%),
-      radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+      radial-gradient(circle at top right, rgba(0, 102, 204, 0.15) 0%, transparent 65%),
+      radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.15) 0%, transparent 65%),
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.2) 100%
+      );
     z-index: 0;
+    animation: gradientShift 15s ease infinite;
   }
 }
 
@@ -254,11 +262,11 @@
   color: $gray;
   margin-bottom: $spacing-xl;
   max-width: 85%;
-  line-height: 1.7;
+  line-height: 1.5;
   font-weight: 400;
   letter-spacing: 0.01em;
   position: relative;
-  padding-left: $spacing-md;
+  padding: $spacing-sm 0 $spacing-sm $spacing-md;
   opacity: 0.9;
   
   &::before {
@@ -279,15 +287,115 @@
   width: 100%;
   position: relative;
   
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: $radius-lg;
+    backdrop-filter: blur(8px);
+    z-index: 0;
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.02),
+      0 4px 8px rgba(0, 0, 0, 0.02),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, 
+      rgba($primary, 0.1) 0%,
+      rgba($secondary, 0.1) 100%
+    );
+    border-radius: calc($radius-lg + 1px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:focus-within::after {
+    opacity: 1;
+  }
+  
+  .searchWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    left: $spacing-md;
+    color: $gray;
+    font-size: 1.1rem;
+    pointer-events: none;
+    transition: color 0.3s ease;
+  }
+  
   input {
-    border: 2px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    height: 48px;
+    padding: 0 $spacing-lg 0 calc($spacing-lg + $spacing-lg);
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    color: $dark;
+    border-radius: $radius-lg;
     transition: all 0.3s ease;
     
+    &::placeholder {
+      color: rgba($gray, 0.8);
+      font-weight: 500;
+    }
+    
     &:focus {
-      box-shadow: 0 4px 20px rgba(0, 102, 204, 0.15);
-      border-color: rgba(0, 102, 204, 0.3);
-      transform: translateY(-2px);
+      outline: none;
+      
+      & + .searchIcon {
+        color: $primary;
+      }
+    }
+  }
+  
+  .searchButton {
+    position: absolute;
+    right: $spacing-xs;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: $spacing-xs $spacing-md;
+    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    color: white;
+    border: none;
+    border-radius: $radius-md;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: 0 2px 4px rgba($primary, 0.2);
+    
+    &:hover {
+      transform: translateY(-50%) translateY(-1px);
+      box-shadow: 0 4px 8px rgba($primary, 0.25);
+    }
+    
+    &:active {
+      transform: translateY(-50%) translateY(1px);
+    }
+  }
+  
+  &:focus-within {
+    .searchButton {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    input {
+      padding-right: calc($spacing-lg + 70px);
     }
   }
 }
@@ -302,7 +410,7 @@
   .btn {
     min-width: 160px;
     height: 48px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: 0.01em;
     position: relative;
@@ -394,8 +502,7 @@
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   transform: rotate(-2deg);
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 2;
   overflow: visible;
   will-change: transform;
@@ -403,33 +510,67 @@
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg,
-      rgba(0, 102, 204, 0.05) 0%,
-      rgba(16, 185, 129, 0.05) 100%
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(0, 102, 204, 0.08) 0%,
+      rgba(16, 185, 129, 0.08) 25%,
+      rgba(0, 102, 204, 0.12) 50%,
+      rgba(16, 185, 129, 0.08) 75%,
+      rgba(0, 102, 204, 0.08) 100%
     );
+    background-size: 200% 200%;
+    animation: gradientShift 6s ease infinite;
+    border-radius: inherit;
+    z-index: -1;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at top right, rgba(0, 102, 204, 0.15) 0%, transparent 70%),
+      radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+    border-radius: inherit;
+    z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: inherit;
   }
   
   &:hover {
     transform: rotate(0deg) translateY(-10px) !important;
     box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.12),
-      0 2px 5px rgba(0, 0, 0, 0.08);
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 2px 5px rgba(0, 0, 0, 0.1);
     border-color: rgba(255, 255, 255, 0.5);
     
     &::before {
+      animation: gradientShift 4s ease infinite;  // Faster animation on hover
+    }
+    
+    &::after {
       opacity: 1;
     }
     
     .heroCardContent h3 {
       background-size: 200% 200%;
     }
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: brightness(1.05) saturate(1.1);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: brightness(1) saturate(1);
   }
 }
 
@@ -513,27 +654,6 @@
   height: 100%;
   z-index: 1;
   pointer-events: none;
-}
-
-.floatingBadge {
-  position: absolute;
-  top: 5%;
-  right: 15%;
-  background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
-  color: $white;
-  padding: $spacing-xs $spacing-lg;
-  border-radius: $radius-full;
-  font-size: 0.9rem;
-  font-weight: 600;
-  box-shadow: $shadow-md;
-  z-index: 3;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-3px);
-    box-shadow: $shadow-lg;
-  }
 }
 
 .floatingIcons {
@@ -707,6 +827,18 @@
     padding: $spacing-2xl $spacing-lg;
     min-height: auto;
     gap: $spacing-xl;
+    
+    &::before {
+      animation-duration: 12s;
+      background: 
+        radial-gradient(circle at top right, rgba(0, 102, 204, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.4) 0%,
+          rgba(255, 255, 255, 0.15) 100%
+        );
+    }
   }
 
   .heroContent {
@@ -777,8 +909,17 @@
     width: 260px;
     padding: $spacing-sm;
     
+    &::before {
+      background-size: 150% 150%;
+      animation-duration: 5s;  // Slightly faster on larger tablets
+    }
+    
     &:hover {
       transform: rotate(0deg) translateY(-8px);
+      
+      &::before {
+        animation-duration: 3.5s;  // Faster hover animation
+      }
     }
   }
   
@@ -791,11 +932,6 @@
       font-size: 0.9rem;
       margin-bottom: $spacing-sm;
     }
-  }
-  
-  .floatingBadge {
-    top: 2%;
-    right: 10%;
   }
   
   .floatingIcon {
@@ -811,6 +947,22 @@
 }
 
 @include respond-to(md) {
+  .hero {
+    padding: $spacing-xl $spacing-md;
+    
+    &::before {
+      animation-duration: 10s;
+      background: 
+        radial-gradient(circle at top right, rgba(0, 102, 204, 0.1) 0%, transparent 55%),
+        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1) 0%, transparent 55%),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.35) 0%,
+          rgba(255, 255, 255, 0.1) 100%
+        );
+    }
+  }
+  
   .heroTitle {
     font-size: 2.75rem;
   }
@@ -818,6 +970,8 @@
   .heroSubtitle {
     font-size: 1rem;
     max-width: 90%;
+    line-height: 1.75;
+    padding: $spacing-xs 0 $spacing-xs $spacing-md;
   }
   
   .heroBadge {
@@ -831,6 +985,15 @@
   .heroCard {
     width: 240px;
     padding: $spacing-xs;
+    
+    &::before {
+      background-size: 120% 120%;
+      animation-duration: 4s;  // Even faster on medium screens
+    }
+    
+    &:hover::before {
+      animation-duration: 3s;
+    }
   }
   
   .heroCardContent {
@@ -876,11 +1039,36 @@
     &.icon3 { right: 10%; }
     &.icon4 { right: 12%; }
   }
+  
+  .searchContainer {
+    input {
+      height: 44px;
+      font-size: 0.9rem;
+    }
+    
+    .searchButton {
+      padding: $spacing-xs $spacing-sm;
+      font-size: 0.8rem;
+    }
+  }
 }
 
 @include respond-to(sm) {
   .hero {
-    padding: $spacing-xl $spacing-md;
+    padding: $spacing-lg $spacing-sm;
+    margin: $spacing-md auto;
+    
+    &::before {
+      animation: none;
+      background: 
+        radial-gradient(circle at top right, rgba(0, 102, 204, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.3) 0%,
+          rgba(255, 255, 255, 0.05) 100%
+        );
+    }
   }
   
   .heroTitle {
@@ -890,6 +1078,8 @@
   .heroSubtitle {
     font-size: 0.95rem;
     max-width: 100%;
+    line-height: 1.7;
+    padding: $spacing-xs 0;
   }
   
   .seasonalTagline {
@@ -903,6 +1093,17 @@
   .heroCard {
     width: 220px;
     padding: $spacing-xs;
+    
+    &::before {
+      background-size: 100% 100%;
+      animation: none;  // Static gradient on mobile
+      background: linear-gradient(
+        135deg,
+        rgba(0, 102, 204, 0.1) 0%,
+        rgba(16, 185, 129, 0.1) 50%,
+        rgba(0, 102, 204, 0.1) 100%
+      );
+    }
   }
   
   .heroCardContent {
@@ -933,8 +1134,23 @@
   
   .searchContainer {
     input {
-      height: 50px;
-      font-size: 1rem;
+      height: 42px;
+      font-size: 0.9rem;
+      padding-left: calc($spacing-md + $spacing-md);
+    }
+    
+    .searchIcon {
+      left: $spacing-sm;
+      font-size: 0.95rem;
+    }
+    
+    .searchButton {
+      padding: $spacing-xs $spacing-sm;
+      font-size: 0.8rem;
+    }
+    
+    &:focus-within input {
+      padding-right: calc($spacing-md + 65px);
     }
   }
   

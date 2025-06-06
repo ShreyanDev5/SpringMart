@@ -10,56 +10,115 @@
 
 .searchBar {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  gap: 0.5rem;
-  position: relative;
+  align-items: center;
+  gap: $spacing-sm;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: $radius-full;
+  padding: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  will-change: transform, box-shadow;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
   
   input {
     flex: 1;
-    padding: 0.7rem 1rem;
+    background: transparent;
     border: none;
-    border-radius: 20px; /* iOS-style rounded corners */
-    font-size: 0.95rem;
+    padding: $spacing-xs $spacing-xl;
+    color: $white;
+    font-size: 0.9rem;
+    height: 36px;
+    min-width: 0;
     outline: none;
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly translucent white */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.05); /* Soft shadow and subtle border */
-    transition: all 0.2s ease;
-    color: #333;
-    backdrop-filter: blur(5px); /* iOS-style blur effect */
+    transition: all 0.3s ease;
     
     &::placeholder {
-      color: #888;
-      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
     }
     
     &:focus {
-      background-color: white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(16, 185, 129, 0.3);
-      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
   }
   
   button {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0.4rem 0.8rem;
-    background-color: #10b981;
+    background: rgba(255, 255, 255, 0.12);
+    color: $white;
     border: none;
-    color: white;
-    font-weight: 600;
-    border-radius: 16px;
+    padding: 0 $spacing-lg;
+    height: 28px;
+    border-radius: $radius-full;
     font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 80px;
+    position: relative;
+    overflow: hidden;
+    will-change: transform, background-color;
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
     
     &:hover {
-      background-color: #0d9668;
-      box-shadow: 0 3px 8px rgba(16, 185, 129, 0.3);
-      transform: translateY(-50%) scale(1.05);
+      background: rgba(255, 255, 255, 0.15);
+      
+      &::before {
+        opacity: 1;
+      }
+    }
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+@include respond-to(md) {
+  .searchBar {
+    input {
+      height: 38px;
+      padding: $spacing-xs $spacing-lg;
+      font-size: 0.85rem;
+    }
+    
+    button {
+      height: 30px;
+      min-width: 70px;
+      padding: 0 $spacing-sm;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .searchBar {
+    input {
+      height: 36px;
+      padding: $spacing-xs $spacing-md;
+      font-size: 0.8rem;
+    }
+    
+    button {
+      height: 28px;
+      min-width: 60px;
+      padding: 0 $spacing-sm;
+      font-size: 0.75rem;
     }
   }
 }

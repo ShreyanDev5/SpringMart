@@ -1,7 +1,8 @@
 // src/components/SearchBar.jsx
 
 import React, { useState, useEffect } from "react";
-import styles from "../styles/components/SearchBar.module.scss";
+import { FiSearch } from "react-icons/fi";
+import styles from "../styles/components/home/Hero.module.scss";
 
 function SearchBar({ onSearch }) {
     const [query, setQuery] = useState("");
@@ -22,18 +23,23 @@ function SearchBar({ onSearch }) {
         onSearch(debouncedQuery);
     }, [debouncedQuery, onSearch]);
 
-    // Filter functionality removed
+    const handleSearch = (e) => {
+        e.preventDefault();
+        onSearch(query);
+    };
 
     return (
-        <div className={styles.searchBarContainer}>
-            <form className={styles.searchBar} onSubmit={(e) => e.preventDefault()}>
+        <div className={styles.searchContainer}>
+            <form className={styles.searchWrapper} onSubmit={handleSearch}>
+                <FiSearch className={styles.searchIcon} />
                 <input
                     type="text"
-                    placeholder="Search products..."
+                    placeholder="Search for products..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    aria-label="Search products"
                 />
-                <button type="button" onClick={() => onSearch(query)}>
+                <button type="submit" className={styles.searchButton}>
                     Search
                 </button>
             </form>
