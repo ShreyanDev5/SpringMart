@@ -4,60 +4,156 @@
 .productCard {
   @include card-base;
   overflow: hidden;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
+  background: $white;
+  border: 1px solid rgba($gray, 0.1);
+  max-width: 520px;
+  margin: 0 auto;
+  width: 100%;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $primary, $secondary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
   
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: $shadow-lg;
+    transform: translateY(-6px);
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.08),
+      0 6px 12px rgba(0, 0, 0, 0.04);
+    
+    &::before {
+      opacity: 1;
+    }
+    
+    .productImage {
+      transform: scale(1.05);
+    }
+    
+    .productActions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+    transition-duration: 0.1s;
   }
 }
 
 .productImage {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 380px;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+  background: linear-gradient(45deg, #f8f8f8, $white);
+  padding: $spacing-md;
 }
 
 .productDetails {
-  padding: $spacing-md;
+  padding: $spacing-sm $spacing-lg;
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  background: $white;
   
   h3 {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin: 0;
-    color: $dark;
-    font-weight: 600;
+    color: #0F1111;
+    font-weight: 500;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    letter-spacing: -0.01em;
   }
 }
 
 .brand {
-  font-size: 0.9rem;
-  color: $gray;
-  margin-top: 0.25rem;
+  font-size: 1rem;
+  color: #565959;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.category {
+  font-size: 1rem;
+  color: #565959;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  line-height: 1.2;
+  
+  &::before {
+    content: '•';
+    color: #C45500;
+  }
 }
 
 .price {
-  font-weight: bold;
-  margin-top: 0.5rem;
-  color: $primary;
-  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+  color: #B12704;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  line-height: 1;
+  
+  &::before {
+    content: '₹';
+    font-size: 0.9em;
+    font-weight: 500;
+  }
 }
 
 .stock {
   font-size: 0.85rem;
-  margin-top: 0.3rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
   
   &.in {
     color: $secondary;
+    
+    &::before {
+      background-color: $secondary;
+    }
   }
   
   &.out {
     color: $accent;
+    
+    &::before {
+      background-color: $accent;
+    }
   }
 }
 
@@ -65,37 +161,130 @@
   display: flex;
   gap: $spacing-sm;
   margin-top: $spacing-md;
-  justify-content: space-between;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  
+  @include respond-to(sm) {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.editButton, .deleteButton {
-  padding: 0.5rem 0.75rem;
+.editButton,
+.deleteButton {
+  flex: 1;
+  padding: $spacing-sm;
   border: none;
   border-radius: $radius;
   font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex: 1;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 .editButton {
-  background-color: $primary-light;
-  color: $white;
+  background: rgba($primary, 0.1);
+  color: $primary;
   
   &:hover {
-    background-color: $primary;
+    background: rgba($primary, 0.15);
   }
 }
 
 .deleteButton {
-  background-color: rgba($accent, 0.8);
-  color: $white;
+  background: rgba($accent, 0.1);
+  color: $accent;
   
   &:hover {
-    background-color: $accent;
+    background: rgba($accent, 0.15);
+  }
+}
+
+@include respond-to(md) {
+  .productCard {
+    max-width: 460px;
+  }
+  
+  .productImage {
+    height: 340px;
+  }
+  
+  .productDetails {
+    padding: $spacing-xs $spacing-md;
+    gap: 0.3rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  .brand {
+    font-size: 0.95rem;
+  }
+  
+  .category {
+    font-size: 0.95rem;
+  }
+  
+  .price {
+    font-size: 1.35rem;
+  }
+}
+
+@include respond-to(sm) {
+  .productCard {
+    max-width: 420px;
+  }
+  
+  .productImage {
+    height: 300px;
+  }
+  
+  .productDetails {
+    padding: $spacing-xs;
+    gap: 0.25rem;
+  }
+  
+  h3 {
+    font-size: 1.15rem;
+  }
+  
+  .brand {
+    font-size: 0.9rem;
+  }
+  
+  .category {
+    font-size: 0.9rem;
+  }
+  
+  .price {
+    font-size: 1.25rem;
+  }
+  
+  .stock {
+    font-size: 0.8rem;
+  }
+  
+  .productActions {
+    margin-top: $spacing-xs;
+  }
+  
+  .editButton,
+  .deleteButton {
+    padding: 0.4rem;
+    font-size: 0.8rem;
   }
 }
