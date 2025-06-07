@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
-import ProductList from "../../pages/ProductList";
+import ProductCard from "../ProductCard";
 import styles from "../../styles/components/home/Products.module.scss";
 
 const Products = ({ products, loading, error }) => {
@@ -32,7 +32,11 @@ const Products = ({ products, loading, error }) => {
           <p>No products found. Check back later!</p>
         </div>
       ) : (
-        <ProductList products={products} />
+        <div className={styles.productGrid}>
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       )}
     </section>
   );

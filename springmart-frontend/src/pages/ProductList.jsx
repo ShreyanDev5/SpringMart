@@ -36,7 +36,6 @@ function ProductList() {
 
     return (
         <div className={styles.productListContainer}>
-            <h2>All Products</h2>
             <div className={styles.productGrid}>
                 {products.map(product => (
                     <ProductCard key={product.id} product={product} />

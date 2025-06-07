@@ -27,7 +27,7 @@ function ProductCard({ product }) {
                 <h3>{name}</h3>
                 <p className={styles.brand}>{brand}</p>
                 <p className={styles.category}>Category: {category}</p>
-                <p className={styles.price}>₹{price}</p>
+                <p className={styles.price}>{price}</p>
                 <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`}>
                     {inStock ? "In Stock" : "Out of Stock"}
                 </p>
