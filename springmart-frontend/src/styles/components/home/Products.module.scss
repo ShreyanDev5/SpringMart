@@ -2,9 +2,9 @@
 @use '../../index' as *;
 
 .productsSection {
-  padding: $spacing-3xl 0;
+  padding: $spacing-2xl 0;
   position: relative;
-  margin: $spacing-xl 0;
+  margin: $spacing-lg 0;
   border-radius: $radius-2xl;
   background: linear-gradient(
     135deg,
@@ -66,8 +66,8 @@
 
   :global(.section-header) {
     max-width: $container-width;
-    margin: 0 auto;
-    padding: $spacing-xs $spacing-3xl;
+    margin: 0 auto $spacing-md auto;
+    padding: 0 $spacing-3xl $spacing-xs;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -146,8 +146,9 @@
   }
   
   &:hover {
-    background: rgba($primary, 0.12);
-    color: $primary-dark;
+    background: rgba($primary, 0.15);
+    color: darken($primary, 10%);
+    box-shadow: 0 4px 12px rgba($primary, 0.15);
     transform: translateY(-1px);
     
     &::before {

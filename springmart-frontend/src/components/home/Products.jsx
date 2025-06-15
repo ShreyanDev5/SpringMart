@@ -13,9 +13,11 @@ const Products = ({ products, loading, error }) => {
           <h2>Featured Products</h2>
           <p>Explore our top picks for you</p>
         </div>
+        <div className="action">
         <Link to="/products" className={styles.viewAllLink}>
           View All <FiArrowRight />
         </Link>
+        </div>
       </div>
 
       {loading ? (

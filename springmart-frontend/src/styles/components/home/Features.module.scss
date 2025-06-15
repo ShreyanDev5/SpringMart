@@ -97,6 +97,13 @@
   
   @include respond-to(sm) {
     padding: $spacing-lg 0;
+    background: white; // Replace gradient with solid color for better performance
+    box-shadow: none; // Remove box shadow for better performance
+    
+    &::before,
+    &::after {
+      display: none; // Remove complex background patterns on mobile
+    }
     
     .section-header {
       padding: 0 $spacing-md;
@@ -105,6 +112,7 @@
       h2 {
         font-size: 2.1rem;
         margin-bottom: $spacing-sm;
+        text-shadow: none; // Remove text shadow for better performance
       }
       
       p {
@@ -143,9 +151,28 @@
   
   @include respond-to(sm) {
     grid-template-columns: 1fr;
-    gap: $spacing-lg;
+    gap: $spacing-md; // Reduce gap for mobile
     margin: $spacing-sm 0;
-    padding: 0 $spacing-xs;
+    padding: 0 $spacing-sm;
+    
+    // Optimize animations and transitions for mobile
+    .featureCard {
+      min-height: auto;
+      padding: $spacing-md;
+      transform: none !important; // Remove transform animations on mobile
+      transition: none; // Disable transitions for better performance
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); // Lighter shadow
+      backdrop-filter: none; // Remove backdrop-filter for better performance
+      
+      &::before,
+      &::after {
+        display: none; // Remove decorative elements on mobile
+      }
+      
+      &:hover {
+        transform: none !important; // Disable hover effects on mobile
+      }
+    }
   }
 }
 
@@ -169,7 +196,11 @@
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transform: translateY(0);
-  will-change: transform, box-shadow;
+  will-change: auto; // Remove will-change for better performance on mobile
+  
+  @include respond-to(sm) {
+    will-change: auto;
+  }
   
   &::before {
     content: '';
@@ -184,6 +215,10 @@
     );
     border-radius: 0 0 0 60px;
     transition: all 0.3s ease;
+    
+    @include respond-to(sm) {
+      display: none; // Hide decorative gradient on mobile
+    }
   }
   
   &::after {
@@ -198,6 +233,10 @@
       rgba(16, 185, 129, 0.03) 2px,
       transparent 2px
     );
+    
+    @include respond-to(sm) {
+      display: none; // Hide decorative radial gradient on mobile
+    }
     background-size: 20px 20px;
     opacity: 0;
     transition: opacity 0.3s ease;

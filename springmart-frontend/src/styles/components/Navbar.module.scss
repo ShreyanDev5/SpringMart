@@ -253,9 +253,7 @@
   .navbar {
     padding: $spacing-xs;
     background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
-    box-shadow: 
-      0 3px 8px rgba(0, 0, 0, 0.06),
-      0 1px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   }
   
   .brand {
@@ -292,7 +290,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: none; // Disable heavy transitions on mobile
       background: none;
       position: relative;
       border-radius: $radius-full;

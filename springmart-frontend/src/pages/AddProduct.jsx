@@ -44,7 +44,8 @@ function AddProduct() {
         }
 
         try {
-            const res = await axios.post("http://localhost:8080/api/products", formData, {
+            const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
+                const res = await axios.post(`${API_BASE_URL}/api/products`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }

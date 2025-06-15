@@ -7,6 +7,11 @@ import styles from "../../styles/components/home/Hero.module.scss";
 const Hero = ({ onSearch }) => {
   // Handle parallax effect for floating elements
   useEffect(() => {
+    // Disable parallax for small screens to improve mobile performance
+    if (window.innerWidth <= 768) {
+      return;
+    }
+
     const handleMouseMove = (e) => {
       const icons = document.querySelectorAll(`.${styles.floatingIcon}`);
       const shapes = document.querySelectorAll(`.${styles.shape}`);

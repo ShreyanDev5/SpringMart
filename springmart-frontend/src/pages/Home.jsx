@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Hero, Features, Products, CtaBanner } from "../components/home";
 import "../styles/Home.scss";
@@ -9,21 +9,13 @@ function Home({ searchQuery }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Fetch all products initially
-    useEffect(() => {
-        fetchProducts();
-    }, []);
     
-    // Handle search from navbar
-    useEffect(() => {
-        if (searchQuery) {
-            handleSearch(searchQuery);
-        }
-    }, [searchQuery]);
 
-    const fetchProducts = async () => {
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8080`;
+
+    const fetchProducts = useCallback(async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/products");
+            const res = await axios.get(`${API_BASE_URL}/api/products`);
             if (res.status === 200) {
                 setProducts(res.data.content || []);
             } else if (res.status === 204) {
@@ -35,9 +27,9 @@ function Home({ searchQuery }) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [API_BASE_URL]);
 
-    const handleSearch = async (keyword) => {
+    const handleSearch = useCallback(async (keyword) => {
         if (!keyword.trim()) {
             fetchProducts(); // fallback to all products
             return;
@@ -45,7 +37,7 @@ function Home({ searchQuery }) {
 
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/products/search?keyword=${keyword}`
+                `${API_BASE_URL}/api/products/search?keyword=${encodeURIComponent(keyword)}`
             );
             if (res.status === 200) {
                 setProducts(res.data);
@@ -55,7 +47,19 @@ function Home({ searchQuery }) {
         } catch (err) {
             console.error("Search failed", err);
         }
-    };
+    }, [API_BASE_URL, fetchProducts]);
+
+    // Fetch all products initially
+    useEffect(() => {
+        fetchProducts();
+    }, [fetchProducts]);
+
+    // Handle search from navbar
+    useEffect(() => {
+        if (searchQuery) {
+            handleSearch(searchQuery);
+        }
+    }, [searchQuery, handleSearch]);
 
     return (
         <div className="home-container">

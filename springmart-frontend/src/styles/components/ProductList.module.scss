@@ -56,14 +56,15 @@
   }
   
   .productGrid {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: $spacing-sm;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); // smaller cards to fit more products
+    gap: $spacing-xs; // tighter gap improves density and reduces whitespace
     padding: 0;
   }
   
   .emptyState {
     padding: $spacing-lg $spacing-md;
     margin: $spacing-md 0;
+    box-shadow: none; // remove heavy shadow on mobile
     
     h3 {
       font-size: 1.1rem;
@@ -75,7 +76,7 @@
   }
   
   .loadingState {
-    padding: $spacing-lg $spacing-md;
+    padding: $spacing-md $spacing-sm;
     
     .spinner {
       width: 40px;
