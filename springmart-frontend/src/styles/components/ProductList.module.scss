@@ -7,6 +7,14 @@
   margin: auto;
 }
 
+.pageTitle {
+  font-size: 2rem;
+  color: $dark;
+  margin-bottom: $spacing-lg;
+  text-align: center;
+  font-weight: 600;
+}
+
 .productGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -22,6 +30,40 @@
   border-radius: $radius-lg;
   box-shadow: $shadow;
   margin: $spacing-lg 0;
+  
+  p {
+    margin: 0;
+    color: $dark;
+    font-size: 1.1rem;
+  }
+}
+
+.emptyStateSubtext {
+  margin-top: $spacing-sm !important;
+  color: $gray !important;
+  font-size: 0.95rem !important;
+  opacity: 0.8;
+}
+
+.retryButton {
+  margin-top: $spacing-md;
+  padding: $spacing-sm $spacing-lg;
+  background: $primary;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $transition;
+  
+  &:hover {
+    background: $primary-dark;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 .loadingState {
@@ -32,11 +74,17 @@
 .spinner {
   width: 50px;
   height: 50px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
+  border: 4px solid rgba($primary, 0.1);
   border-radius: 50%;
   border-top-color: $primary;
   margin: 0 auto $spacing-md;
   animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @include respond-to(md) {
@@ -56,15 +104,15 @@
   }
   
   .productGrid {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); // smaller cards to fit more products
-    gap: $spacing-xs; // tighter gap improves density and reduces whitespace
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: $spacing-xs;
     padding: 0;
   }
   
   .emptyState {
     padding: $spacing-lg $spacing-md;
     margin: $spacing-md 0;
-    box-shadow: none; // remove heavy shadow on mobile
+    box-shadow: none;
     
     h3 {
       font-size: 1.1rem;

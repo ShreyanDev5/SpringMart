@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
 import EditProduct from "./pages/EditProduct"; // Placeholder
+import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
 // Global styles are imported in index.js
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="/" element={<Home searchQuery={searchQuery} />} />
                 <Route path="/add" element={<AddProduct />} />
                 <Route path="/edit/:id" element={<EditProduct />} />
+                <Route path="/products" element={<ProductList />} />
             </Routes>
         </Router>
     );

@@ -62,7 +62,7 @@ const Hero = ({ onSearch }) => {
           <Link to="/products" className={`btn btn-primary ${styles.ctaButton}`}>
             Shop Now <FiShoppingCart className="btn-icon" />
           </Link>
-          <Link to="/add-product" className={`btn btn-outline ${styles.ctaButton}`}>
+          <Link to="/add" className={`btn btn-outline ${styles.ctaButton}`}>
             Sell with Us
           </Link>
         </div>
