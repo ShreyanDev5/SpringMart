@@ -5,6 +5,8 @@ import com.backend.springmart.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +20,21 @@ public class DataLoader
             // Load demo products only if table is empty
             if (productRepository.count() == 0)
             {
+                // Helper method to load image bytes from classpath resources
+                java.util.function.Function<String, byte[]> loadImage = (resourcePath) -> {
+                    try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
+                        if (is != null) {
+                            return is.readAllBytes();
+                        } else {
+                            System.out.println("Image not found: " + resourcePath);
+                            return null;
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Error loading image: " + resourcePath);
+                        return null;
+                    }
+                };
+
                 List<Product> demoProducts = List.of(
                         new Product(
                                 0,
@@ -31,7 +48,7 @@ public class DataLoader
                                 new Date(),
                                 "mouse.jpg",
                                 "image/jpeg",
-                                null  // No image data for now
+                                loadImage.apply("images/mouse.jpg") // Load image from classpath
                         ),
                         new Product(
                                 0,
@@ -45,7 +62,7 @@ public class DataLoader
                                 new Date(),
                                 "keyboard.jpg",
                                 "image/jpeg",
-                                null  // No image data for now
+                                loadImage.apply("images/keyboard.jpg")
                         ),
                         new Product(
                                 0,
@@ -59,7 +76,7 @@ public class DataLoader
                                 new Date(),
                                 "headset.jpg",
                                 "image/jpeg",
-                                null  // No image data for now
+                                loadImage.apply("images/headset.jpg")
                         )
                 );
 
