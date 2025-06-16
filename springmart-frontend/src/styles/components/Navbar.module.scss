@@ -6,19 +6,20 @@
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(135deg, $secondary 0%, $secondary-dark 100%);
-  padding: $spacing-sm $spacing-2xl;
+  padding: $spacing-xs $spacing-xl;
   color: $white;
   font-weight: 500;
   flex-wrap: wrap;
   box-shadow: 
-    0 2px 12px rgba(0, 0, 0, 0.08),
-    0 1px 2px rgba(0, 0, 0, 0.04);
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.03);
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
+  min-height: 64px;
   
   &::before {
     content: '';
@@ -37,7 +38,7 @@
   gap: $spacing-xs;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding-top: 0;
-  margin-bottom: -4px;
+  margin-bottom: -2px;
   
   &:hover {
     transform: translateY(-1px);
@@ -45,8 +46,8 @@
 }
 
 .logoImg {
-  width: 72px;
-  height: 72px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateY(0);
@@ -57,7 +58,7 @@
 }
 
 .brand {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
   white-space: nowrap;
   background: linear-gradient(135deg, $white 0%, rgba(255, 255, 255, 0.9) 100%);
@@ -66,18 +67,19 @@
   color: transparent;
   letter-spacing: -0.02em;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: -4px;
+  margin-top: -2px;
   line-height: 1;
+  transform: translateY(-1px);
 }
 
 .searchContainer {
   flex: 1;
-  max-width: 500px;
-  margin: 0 $spacing-xl;
+  max-width: 480px;
+  margin: 0 $spacing-lg;
   position: relative;
   
   @include respond-to(lg) {
-    margin: $spacing-md 0;
+    margin: $spacing-xs 0;
     max-width: 100%;
     order: 3;
     width: 100%;
@@ -86,18 +88,21 @@
 
 .links {
   display: flex;
-  gap: $spacing-lg;
+  gap: $spacing-sm;
   align-items: center;
   
   a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     font-size: 0.95rem;
-    padding: $spacing-xs $spacing-md;
+    padding: $spacing-xs $spacing-sm;
     border-radius: $radius-full;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    height: 36px;
+    display: flex;
+    align-items: center;
     
     &::before {
       content: '';
@@ -145,7 +150,7 @@
 
 @include respond-to(xl) {
   .navbar {
-    padding: $spacing-md $spacing-xl;
+    padding: $spacing-xs $spacing-lg;
   }
   
   .brand {
@@ -153,14 +158,14 @@
   }
   
   .logoImg {
-    width: 56px;
-    height: 56px;
+    width: 44px;
+    height: 44px;
   }
 }
 
 @include respond-to(lg) {
   .navbar {
-    padding: $spacing-sm;
+    padding: $spacing-xs $spacing-md;
   }
   
   .logo {
@@ -171,18 +176,15 @@
   .links {
     width: 100%;
     justify-content: center;
-    margin-top: $spacing-sm;
+    margin-top: $spacing-xs;
     gap: $spacing-xs;
     padding: $spacing-xs 0;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     
     a {
-      font-size: 0.95rem;
-      padding: $spacing-sm $spacing-md;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 0.9rem;
+      padding: $spacing-xs $spacing-md;
+      height: 32px;
     }
   }
 }

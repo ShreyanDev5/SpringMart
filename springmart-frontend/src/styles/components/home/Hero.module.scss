@@ -337,7 +337,7 @@
   
   input {
     width: 100%;
-    height: 48px;
+    height: 42px;
     padding: 0 $spacing-lg 0 calc($spacing-lg + $spacing-lg);
     border: none;
     background: transparent;
@@ -365,11 +365,11 @@
     right: $spacing-xs;
     top: 50%;
     transform: translateY(-50%);
-    padding: $spacing-xs $spacing-md;
+    padding: 0 $spacing-sm;
     background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
     color: white;
     border: none;
-    border-radius: $radius-md;
+    border-radius: $radius-full;
     font-weight: 600;
     font-size: 0.85rem;
     cursor: pointer;
@@ -377,14 +377,19 @@
     opacity: 0;
     visibility: hidden;
     box-shadow: 0 2px 4px rgba($primary, 0.2);
+    height: 32px;
+    min-width: 80px;
+    letter-spacing: 0.01em;
     
     &:hover {
       transform: translateY(-50%) translateY(-1px);
       box-shadow: 0 4px 8px rgba($primary, 0.25);
+      background: linear-gradient(135deg, darken($primary, 2%) 0%, darken($primary-dark, 2%) 100%);
     }
     
     &:active {
       transform: translateY(-50%) translateY(1px);
+      box-shadow: 0 2px 4px rgba($primary, 0.2);
     }
   }
   
