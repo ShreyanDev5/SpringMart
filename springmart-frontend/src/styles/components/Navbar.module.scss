@@ -35,7 +35,7 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: $spacing-xs;
+  gap: $spacing-xs * 0.25;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding-top: 0;
   margin-bottom: -2px;
@@ -46,14 +46,14 @@
 }
 
 .logoImg {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(0);
+  transform: translateY(4px);
   
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) translateY(4px);
   }
 }
 
@@ -158,8 +158,8 @@
   }
   
   .logoImg {
-    width: 44px;
-    height: 44px;
+    width: 66px;
+    height: 66px;
   }
 }
 
@@ -205,9 +205,9 @@
   }
   
   .logoImg {
-    width: 56px;
-    height: 56px;
-    transform: translateY(1px);
+    width: 84px;
+    height: 84px;
+    transform: translateY(5px);
   }
   
   .logo {
@@ -265,9 +265,9 @@
   }
   
   .logoImg {
-    width: 58px;
-    height: 58px;
-    transform: translateY(2px);
+    width: 87px;
+    height: 87px;
+    transform: translateY(6px);
   }
   
   .logo {
