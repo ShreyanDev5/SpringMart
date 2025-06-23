@@ -5,7 +5,7 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import styles from "../styles/components/ProductList.module.scss";
 
-function ProductList() {
+function ProductList({ searchQuery = "" }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -61,9 +61,36 @@ function ProductList() {
     }, [API_BASE_URL]);
 
     useEffect(() => {
-        console.log('ProductList component mounted');
-        fetchProducts();
-    }, [fetchProducts]);
+        if (searchQuery && searchQuery.trim()) {
+            // Perform search
+            const searchProducts = async () => {
+                setLoading(true);
+                setError(null);
+                try {
+                    const res = await axios.get(
+                        `${API_BASE_URL}/api/products/search?keyword=${encodeURIComponent(searchQuery)}`
+                    );
+                    if (res.status === 200) {
+                        setProducts(res.data);
+                    } else if (res.status === 204) {
+                        setProducts([]);
+                    }
+                } catch (err) {
+                    const errorMessage = err.response?.data?.message || 
+                                       err.message || 
+                                       "Failed to search products. Please try again later.";
+                    setError(errorMessage);
+                    setProducts([]);
+                } finally {
+                    setLoading(false);
+                }
+            };
+            searchProducts();
+        } else {
+            // If no search query, fetch all products
+            fetchProducts();
+        }
+    }, [searchQuery, fetchProducts]);
 
     // Debug render
     console.log('Current state:', { 
