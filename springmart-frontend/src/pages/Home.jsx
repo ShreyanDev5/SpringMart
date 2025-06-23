@@ -1,15 +1,15 @@
 // src/pages/Home.jsx
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
-import { Hero, Features, Products, CtaBanner } from "../components/home";
+import { Hero, Features, CtaBanner } from "../components/home";
+import Products from "../components/home/Products";
 import "../styles/Home.scss";
 
 function Home({ searchQuery }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-
-    
+    const productsSectionRef = useRef(null);
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8080`;
 
@@ -58,6 +58,12 @@ function Home({ searchQuery }) {
     useEffect(() => {
         if (searchQuery) {
             handleSearch(searchQuery);
+            // Smooth scroll to products section after search
+            setTimeout(() => {
+                if (productsSectionRef.current) {
+                    productsSectionRef.current.scrollIntoView({ behavior: "smooth" });
+                }
+            }, 100); // slight delay to ensure products are rendered
         }
     }, [searchQuery, handleSearch]);
 
@@ -71,6 +77,7 @@ function Home({ searchQuery }) {
 
             {/* Products Section */}
             <Products 
+                ref={productsSectionRef}
                 products={products.slice(0, 4)} 
                 loading={loading} 
                 error={error} 

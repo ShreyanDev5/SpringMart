@@ -1,27 +1,11 @@
 // src/components/SearchBar.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import styles from "../styles/components/home/Hero.module.scss";
 
 function SearchBar({ onSearch }) {
     const [query, setQuery] = useState("");
-    const [debouncedQuery, setDebouncedQuery] = useState("");
-
-    // Debounce logic
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedQuery(query);
-        }, 300); // 300ms debounce delay
-
-        return () => {
-            clearTimeout(handler);
-        };
-    }, [query]);
-
-    useEffect(() => {
-        onSearch(debouncedQuery);
-    }, [debouncedQuery, onSearch]);
 
     const handleSearch = (e) => {
         e.preventDefault();
