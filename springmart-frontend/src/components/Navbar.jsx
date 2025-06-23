@@ -1,27 +1,128 @@
 // src/components/Navbar.jsx
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import styles from "../styles/components/Navbar.module.scss";
+import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {
     const location = useLocation();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    // Toggle mobile menu
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    // Close mobile menu when a link is clicked
+    const closeMenu = () => {
+        if (isMobile) {
+            setIsOpen(false);
+        }
+    };
+
+    // Handle window resize
+    useEffect(() => {
+        const handleResize = () => {
+            const mobile = window.innerWidth <= 768;
+            setIsMobile(mobile);
+            if (!mobile) {
+                setIsOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
-        <nav className={styles.navbar}>
-            <div className={styles.logo}>
-                <img src="/SpringMart_Logo_1.1.png" alt="SpringMart Logo" className={styles.logoImg} />
-                <span className={styles.brand}>SpringMart</span>
+        <nav className="navbar">
+            <div className="navbar-content">
+                <div className="navbar-left">
+                    <div className="logo">
+                        <img src="/SpringMart_Logo_1.1.png" alt="SpringMart Logo" className="logo-img" />
+                        <span className="brand">SpringMart</span>
+                    </div>
+                </div>
+
+                <div className="navbar-center">
+                    {/* Search bar only visible in header on desktop, not on mobile */}
+                    {!isMobile && (
+                        <div className="search-container">
+                            <SearchBar onSearch={onSearch} />
+                        </div>
+                    )}
+                </div>
+
+                <div className="navbar-right">
+                    {/* Hamburger menu button (mobile only) - moved here to the right */}
+                    <button 
+                        className={`hamburger ${isOpen ? 'is-active' : ''}`} 
+                        onClick={toggleMenu}
+                        aria-label="Toggle menu"
+                        aria-expanded={isOpen}
+                    >
+                        <span className="hamburger-box">
+                            <span className="hamburger-inner"></span>
+                        </span>
+                    </button>
+                    <div className="desktop-nav">
+                        <Link 
+                            to="/" 
+                            className={location.pathname === "/" ? "active" : ""}
+                        >
+                            Home
+                        </Link>
+                        <Link 
+                            to="/add" 
+                            className={location.pathname === "/add" ? "active" : ""}
+                        >
+                            Add Product
+                        </Link>
+                        <Link 
+                            to="/products" 
+                            className={location.pathname === "/products" ? "active" : ""}
+                        >
+                            View Products
+                        </Link>
+                    </div>
+                </div>
             </div>
-            <div className={styles.searchContainer}>
-                <SearchBar onSearch={onSearch} />
-            </div>
-            <div className={styles.links}>
-                <Link to="/" className={location.pathname === "/" ? styles.active : ""}>Home</Link>
-                <Link to="/add" className={location.pathname === "/add" ? styles.active : ""}>Add Product</Link>
-                <Link to="/products" className={location.pathname === "/products" ? styles.active : ""}>View Products</Link>
-            </div>
+
+            {/* Mobile search and navigation (only visible on mobile) */}
+            {isMobile && (
+                <div className={`mobile-menu ${isOpen ? 'show' : ''}`}>
+                    {isOpen && (
+                        <div className="mobile-search">
+                            <SearchBar onSearch={onSearch} />
+                        </div>
+                    )}
+                    <div className="mobile-links">
+                        <Link 
+                            to="/" 
+                            className={location.pathname === "/" ? "active" : ""}
+                            onClick={closeMenu}
+                        >
+                            Home
+                        </Link>
+                        <Link 
+                            to="/add" 
+                            className={location.pathname === "/add" ? "active" : ""}
+                            onClick={closeMenu}
+                        >
+                            Add Product
+                        </Link>
+                        <Link 
+                            to="/products" 
+                            className={location.pathname === "/products" ? "active" : ""}
+                            onClick={closeMenu}
+                        >
+                            View Products
+                        </Link>
+                    </div>
+                </div>
+            )}
         </nav>
     );
 }
