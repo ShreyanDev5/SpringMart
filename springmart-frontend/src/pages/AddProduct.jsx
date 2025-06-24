@@ -5,8 +5,10 @@ import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
-function AddProduct() {
+function AddProduct({ onProductUpdate }) {
+    const navigate = useNavigate();
     const [product, setProduct] = useState({
         name: "",
         price: "",
@@ -109,19 +111,19 @@ function AddProduct() {
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {
-            formData.append("image", image);
+            formData.append("imageFile", image);
         }
 
         try {
             const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
             const res = await axios.post(`${API_BASE_URL}/api/products`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
+                // By removing the manual 'Content-Type' header, we allow the browser
+                // to automatically set it with the correct 'boundary' for multipart data.
             });
 
             if (res.status === 201) {
-                toast.success("✅ Product added successfully!");
+                toast.success("✅ Product added successfully! Redirecting...");
+                onProductUpdate();
                 // Reset form
                 setProduct({
                     name: "",
@@ -136,6 +138,7 @@ function AddProduct() {
                 setImage(null);
                 setImagePreview(null);
                 setErrors({});
+                setTimeout(() => navigate("/"), 2000);
             }
         } catch (err) {
             toast.error(err.response?.data?.message || "❌ Failed to add product");

@@ -5,7 +5,7 @@ import { Hero, Features, CtaBanner } from "../components/home";
 import Products from "../components/home/Products";
 import "../styles/Home.scss";
 
-function Home({ searchQuery }) {
+function Home({ searchQuery, imageVersion }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -78,6 +78,7 @@ function Home({ searchQuery }) {
                 products={products.slice(0, 4)} 
                 loading={loading} 
                 error={error} 
+                imageVersion={imageVersion}
             />
 
             {/* Features Section */}

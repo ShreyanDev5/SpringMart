@@ -4,7 +4,7 @@ import styles from "../styles/components/AddProduct.module.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function EditProduct() {
+function EditProduct({ onProductUpdate }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [product, setProduct] = useState({
@@ -110,7 +110,7 @@ function EditProduct() {
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {
-            formData.append("image", image);
+            formData.append("imageFile", image);
         }
         try {
             const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
@@ -120,6 +120,7 @@ function EditProduct() {
             });
             if (!res.ok) throw new Error("Failed to update product");
             toast.success("Product updated successfully!");
+            onProductUpdate();
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {
             toast.error("Failed to update product");

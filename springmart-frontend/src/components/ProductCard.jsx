@@ -4,7 +4,7 @@ import React from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
 
-function ProductCard({ product }) {
+function ProductCard({ product, imageVersion }) {
     const {
         id,
         name,
@@ -16,19 +16,25 @@ function ProductCard({ product }) {
     } = product;
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
-    const imageUrl = `${API_BASE_URL}/api/products/image/${id}`;
+    const imageUrl = `${API_BASE_URL}/api/products/image/${id}?v=${imageVersion}`;
     const navigate = useNavigate();
 
     const handleEdit = () => {
         navigate(`/edit/${id}`);
     };
 
+    const handleImageError = (e) => {
+        e.target.onerror = null;
+        e.target.src = '/no_image.jpg';
+    };
+
     return (
         <div className={styles.productCard}>
             <img
-                src={imageName ? imageUrl : "/placeholder.png"}
+                src={imageUrl}
                 alt={name}
                 className={styles.productImage}
+                onError={handleImageError}
             />
             <div className={styles.productDetails}>
                 <h3>{name}</h3>

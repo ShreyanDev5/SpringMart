@@ -12,11 +12,16 @@ import Navbar from "./components/Navbar";
 function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchTarget, setSearchTarget] = useState("home"); // 'home' or 'products'
+    const [imageVersion, setImageVersion] = useState(Date.now());
 
     // We need to use useNavigate, so wrap the Routes in a component with access to hooks
     const AppRoutes = () => {
         const navigate = useNavigate();
         const location = useLocation();
+
+        const updateImageVersion = () => {
+            setImageVersion(Date.now());
+        };
 
         const handleSearch = (query, target = null) => {
             // Determine current page
@@ -43,10 +48,10 @@ function App() {
             <>
                 <Navbar onSearch={handleSearch} />
                 <Routes>
-                    <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} />} />
-                    <Route path="/add" element={<AddProduct />} />
-                    <Route path="/edit/:id" element={<EditProduct />} />
-                    <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} />} />
+                    <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} imageVersion={imageVersion} />} />
+                    <Route path="/add" element={<AddProduct onProductUpdate={updateImageVersion} />} />
+                    <Route path="/edit/:id" element={<EditProduct onProductUpdate={updateImageVersion} />} />
+                    <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} />} />
                 </Routes>
             </>
         );
