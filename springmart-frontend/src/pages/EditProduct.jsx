@@ -30,6 +30,16 @@ function EditProduct() {
                 const res = await fetch(`${API_BASE_URL}/api/products/${id}`);
                 if (!res.ok) throw new Error("Failed to fetch product");
                 const data = await res.json();
+                let releaseDate = "";
+                if (data.releaseDate) {
+                    const dateObj = new Date(data.releaseDate);
+                    if (!isNaN(dateObj)) {
+                        const yyyy = dateObj.getFullYear();
+                        const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const dd = String(dateObj.getDate()).padStart(2, '0');
+                        releaseDate = `${yyyy}-${mm}-${dd}`;
+                    }
+                }
                 setProduct({
                     name: data.name || "",
                     price: data.price || "",
@@ -38,7 +48,7 @@ function EditProduct() {
                     quantity: data.quantity || "",
                     brand: data.brand || "",
                     inStock: data.inStock ?? true,
-                    releaseDate: data.releaseDate || "",
+                    releaseDate: releaseDate,
                 });
                 if (data.imageName) {
                     setImagePreview(`${API_BASE_URL}/api/products/image/${id}`);
