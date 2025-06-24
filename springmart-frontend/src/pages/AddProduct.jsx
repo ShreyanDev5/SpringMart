@@ -6,6 +6,7 @@ import styles from "../styles/components/AddProduct.module.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { categories } from "../utils/categories";
 
 function AddProduct({ onProductUpdate }) {
     const navigate = useNavigate();
@@ -210,10 +211,11 @@ function AddProduct({ onProductUpdate }) {
                         className={`${styles.styledSelect} ${errors.category ? styles.invalid : ''}`}
                     >
                         <option value="">Select Category</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="home">Home</option>
-                        <option value="books">Books</option>
+                        {categories.map((cat) => (
+                            <option key={cat} value={cat}>
+                                {cat}
+                            </option>
+                        ))}
                     </select>
                     {errors.category && <span className={styles.validationMessage}>{errors.category}</span>}
                 </div>

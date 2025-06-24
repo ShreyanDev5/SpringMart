@@ -75,7 +75,7 @@ function Home({ searchQuery, imageVersion }) {
             {/* Products Section */}
             <Products 
                 ref={productsSectionRef}
-                products={products.slice(0, 4)} 
+                products={products.slice(0, 3)} 
                 loading={loading} 
                 error={error} 
                 imageVersion={imageVersion}
