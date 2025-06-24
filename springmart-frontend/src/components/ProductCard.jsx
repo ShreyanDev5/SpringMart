@@ -2,6 +2,7 @@
 
 import React from "react";
 import styles from "../styles/components/ProductCard.module.scss";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({ product }) {
     const {
@@ -16,6 +17,11 @@ function ProductCard({ product }) {
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
     const imageUrl = `${API_BASE_URL}/api/products/image/${id}`;
+    const navigate = useNavigate();
+
+    const handleEdit = () => {
+        navigate(`/edit/${id}`);
+    };
 
     return (
         <div className={styles.productCard}>
@@ -33,7 +39,7 @@ function ProductCard({ product }) {
                     {inStock ? "In Stock" : "Out of Stock"}
                 </p>
                 <div className={styles.productActions}>
-                    <button className={styles.editButton}>🛠️ Edit</button>
+                    <button className={styles.editButton} onClick={handleEdit}>🛠️ Edit</button>
                     <button className={styles.deleteButton}>🗑️ Delete</button>
                 </div>
             </div>
