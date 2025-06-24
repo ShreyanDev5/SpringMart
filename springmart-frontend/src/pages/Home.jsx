@@ -72,9 +72,6 @@ function Home({ searchQuery }) {
             {/* Hero Section - no longer needs search functionality */}
             <Hero />
 
-            {/* Features Section */}
-            <Features />
-
             {/* Products Section */}
             <Products 
                 ref={productsSectionRef}
@@ -82,6 +79,9 @@ function Home({ searchQuery }) {
                 loading={loading} 
                 error={error} 
             />
+
+            {/* Features Section */}
+            <Features />
 
             {/* CTA Banner */}
             <CtaBanner />

@@ -119,10 +119,10 @@ function EditProduct() {
                 body: formData
             });
             if (!res.ok) throw new Error("Failed to update product");
-            toast.success("✅ Product updated successfully!");
+            toast.success("Product updated successfully!");
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {
-            toast.error("❌ Failed to update product");
+            toast.error("Failed to update product");
         } finally {
             setLoading(false);
         }
