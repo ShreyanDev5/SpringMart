@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import EditProduct from "./pages/EditProduct"; // Placeholder
 import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Global styles are imported in index.js
 
 function App() {
@@ -60,6 +62,7 @@ function App() {
     return (
         <Router>
             <AppRoutes />
+            <ToastContainer position="bottom-right" />
         </Router>
     );
 }

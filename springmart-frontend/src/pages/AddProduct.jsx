@@ -7,6 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { categories } from "../utils/categories";
+import { showSuccessToast, showErrorToast } from '../utils/toast';
 
 function AddProduct({ onProductUpdate }) {
     const navigate = useNavigate();
@@ -77,12 +78,14 @@ function AddProduct({ onProductUpdate }) {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                toast.error("Image size should be less than 5MB");
+                console.log('Image size error');
+                showErrorToast("Image size should be less than 5MB");
                 return;
             }
             
             if (!file.type.startsWith('image/')) {
-                toast.error("Please upload an image file");
+                console.log('Image type error');
+                showErrorToast("Please upload a valid image file (JPG, PNG, etc.)");
                 return;
             }
             
@@ -103,7 +106,8 @@ function AddProduct({ onProductUpdate }) {
         e.preventDefault();
         
         if (!validateForm()) {
-            toast.error("Please fix the errors in the form");
+            console.log('Form validation error');
+            showErrorToast("Please fix the errors in the form before submitting.");
             return;
         }
         
@@ -123,7 +127,7 @@ function AddProduct({ onProductUpdate }) {
             });
 
             if (res.status === 201) {
-                toast.success("✅ Product added successfully! Redirecting...");
+                showSuccessToast("Product added successfully! Redirecting to home page...");
                 onProductUpdate();
                 // Reset form
                 setProduct({
@@ -142,7 +146,8 @@ function AddProduct({ onProductUpdate }) {
                 setTimeout(() => navigate("/"), 2000);
             }
         } catch (err) {
-            toast.error(err.response?.data?.message || "❌ Failed to add product");
+            console.log('API/network error', err);
+            showErrorToast(err.response?.data?.message || "Failed to add product. Please try again.");
             console.error(err);
         } finally {
             setLoading(false);
@@ -308,7 +313,7 @@ function AddProduct({ onProductUpdate }) {
                     {loading ? 'Adding Product...' : 'Add Product'}
                 </button>
             </form>
-            <ToastContainer position="bottom-right" />
+            {/* <ToastContainer position="bottom-right" /> */}
         </div>
     );
 }

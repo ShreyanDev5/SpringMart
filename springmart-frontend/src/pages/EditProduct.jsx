@@ -4,6 +4,7 @@ import styles from "../styles/components/AddProduct.module.scss";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { categories } from "../utils/categories";
+import { showSuccessToast, showErrorToast } from '../utils/toast';
 
 function EditProduct({ onProductUpdate }) {
     const { id } = useParams();
@@ -55,7 +56,8 @@ function EditProduct({ onProductUpdate }) {
                     setImagePreview(`${API_BASE_URL}/api/products/image/${id}`);
                 }
             } catch (err) {
-                toast.error("Failed to load product data");
+                console.log('Failed to load product data error', err);
+                showErrorToast("Failed to load product data. Please try again later.");
             } finally {
                 setLoading(false);
             }
@@ -89,11 +91,13 @@ function EditProduct({ onProductUpdate }) {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 5 * 1024 * 1024) {
-                toast.error("Image size should be less than 5MB");
+                console.log('Image size error');
+                showErrorToast("Image size should be less than 5MB");
                 return;
             }
             if (!file.type.startsWith('image/')) {
-                toast.error("Please upload an image file");
+                console.log('Image type error');
+                showErrorToast("Please upload a valid image file (JPG, PNG, etc.)");
                 return;
             }
             setImage(file);
@@ -104,7 +108,8 @@ function EditProduct({ onProductUpdate }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            toast.error("Please fix the errors in the form");
+            console.log('Form validation error');
+            showErrorToast("Please fix the errors in the form before submitting.");
             return;
         }
         setLoading(true);
@@ -120,11 +125,12 @@ function EditProduct({ onProductUpdate }) {
                 body: formData
             });
             if (!res.ok) throw new Error("Failed to update product");
-            toast.success("Product updated successfully!");
+            showSuccessToast("Product updated successfully! Redirecting to home page...");
             onProductUpdate();
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {
-            toast.error("Failed to update product");
+            console.log('API/network error', err);
+            showErrorToast("Failed to update product. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -279,7 +285,7 @@ function EditProduct({ onProductUpdate }) {
                     {loading ? 'Updating Product...' : 'Update Product'}
                 </button>
             </form>
-            <ToastContainer position="bottom-right" />
+            {/* <ToastContainer position="bottom-right" /> */}
         </div>
     );
 }
