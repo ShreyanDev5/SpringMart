@@ -43,19 +43,69 @@ public class ProductService
 
     public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
     {
-        if (imageFile != null && !imageFile.isEmpty())
+        Product existing = null;
+        if (product.getId() != 0) // id is primitive int in Product.java
         {
-            try
+            existing = repo.findById(product.getId()).orElse(null);
+            if (existing == null)
+            {
+                throw new RuntimeException("Product not found");
+            }
+        }
+        try
+        {
+            if (imageFile != null && !imageFile.isEmpty())
             {
                 product.setImageData(imageFile.getBytes());
                 product.setImageType(imageFile.getContentType());
+                product.setImageName(imageFile.getOriginalFilename());
             }
-            catch (Exception e)
+            else if (existing != null)
             {
-                e.printStackTrace();
+                product.setImageData(existing.getImageData());
+                product.setImageType(existing.getImageType());
+                product.setImageName(existing.getImageName());
             }
+
+            // Retain unchanged fields from existing if not provided in update
+            if (existing != null)
+            {
+                if (product.getName() == null || product.getName().isBlank())
+                {
+                    product.setName(existing.getName());
+                }
+                if (product.getDescription() == null)
+                {
+                    product.setDescription(existing.getDescription());
+                }
+                if (product.getCategory() == null || product.getCategory().isBlank())
+                {
+                    product.setCategory(existing.getCategory());
+                }
+                if (product.getBrand() == null || product.getBrand().isBlank())
+                {
+                    product.setBrand(existing.getBrand());
+                }
+                if (product.getPrice() == null)
+                {
+                    product.setPrice(existing.getPrice());
+                }
+                if (product.getQuantity() == 0)
+                {
+                    product.setQuantity(existing.getQuantity());
+                }
+                product.setInStock(product.isInStock() || existing.isInStock());
+                if (product.getReleaseDate() == null)
+                {
+                    product.setReleaseDate(existing.getReleaseDate());
+                }
+            }
+            return repo.save(product);
         }
-        return repo.save(product);
+        catch (Exception e)
+        {
+            throw new RuntimeException("Failed to process product: " + e.getMessage(), e);
+        }
     }
 
     public void deleteProduct(int id)

@@ -98,16 +98,22 @@ public class ProductController
 
 
     @PutMapping("/products/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable int id, @Valid @RequestPart Product product, @RequestPart(required = false) MultipartFile imageFile)
+    public ResponseEntity<?> updateProduct(@PathVariable int id, @Valid @RequestPart Product product, @RequestPart(required = false) MultipartFile imageFile)
     {
-        Product existingProduct = service.getProductById(id);
-        if (existingProduct == null)
-        {
-            return ResponseEntity.notFound().build();
+        try {
+            Product existingProduct = service.getProductById(id);
+            if (existingProduct == null)
+            {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+            }
+            product.setId(id);
+            Product updatedProduct = service.addOrUpdateProduct(product, imageFile);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
         }
-        product.setId(id);
-        Product updatedProduct = service.addOrUpdateProduct(product, imageFile);
-        return ResponseEntity.ok(updatedProduct);
     }
 
     @DeleteMapping("/products/{id}")
@@ -122,4 +128,3 @@ public class ProductController
         return ResponseEntity.noContent().build();
     }
 }
-

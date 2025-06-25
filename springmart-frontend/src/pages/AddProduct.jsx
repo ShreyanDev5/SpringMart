@@ -62,9 +62,13 @@ function AddProduct({ onProductUpdate }) {
         const { name, value, type, checked } = e.target;
         setProduct((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]:
+                name === "price" || name === "quantity"
+                    ? value === "" ? "" : parseInt(value, 10)
+                    : type === "checkbox"
+                        ? checked
+                        : value,
         }));
-        
         // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => ({
@@ -147,7 +151,14 @@ function AddProduct({ onProductUpdate }) {
             }
         } catch (err) {
             console.log('API/network error', err);
-            showErrorToast(err.response?.data?.message || "Failed to add product. Please try again.");
+            let errorMsg = err.response?.data?.message || "Failed to add product. Please try again.";
+            // Intercept backend integer parse error and show user-friendly message
+            if (errorMsg && errorMsg.includes('Cannot deserialize value of type `java.lang.Integer`')) {
+                const match = errorMsg.match(/from String \"(.*?)\"/);
+                const received = match ? match[1] : 'a decimal value';
+                errorMsg = `Invalid input: Expected an integer (whole number), but received \"${received}\". Please enter a value without decimals, e.g., \"10\".`;
+            }
+            showErrorToast(errorMsg);
             console.error(err);
         } finally {
             setLoading(false);

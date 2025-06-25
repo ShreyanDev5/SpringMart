@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "../styles/components/AddProduct.module.scss";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
+import { categories } from "../utils/categories";
 
 function EditProduct({ onProductUpdate }) {
     const { id } = useParams();
@@ -80,7 +78,12 @@ function EditProduct({ onProductUpdate }) {
         const { name, value, type, checked } = e.target;
         setProduct((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]:
+                name === "price" || name === "quantity"
+                    ? value === "" ? "" : parseInt(value, 10)
+                    : type === "checkbox"
+                        ? checked
+                        : value,
         }));
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: undefined }));
@@ -264,6 +267,9 @@ function EditProduct({ onProductUpdate }) {
                     />
                     {imagePreview && (
                         <div style={{ marginTop: '1rem' }}>
+                            <div style={{ fontWeight: 500, marginBottom: 4 }}>
+                                {image ? "New Image Preview" : "Current Image"}
+                            </div>
                             <img
                                 src={imagePreview}
                                 alt="Preview"
@@ -285,7 +291,6 @@ function EditProduct({ onProductUpdate }) {
                     {loading ? 'Updating Product...' : 'Update Product'}
                 </button>
             </form>
-            {/* <ToastContainer position="bottom-right" /> */}
         </div>
     );
 }
