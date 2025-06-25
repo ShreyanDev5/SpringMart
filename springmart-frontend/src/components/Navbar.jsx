@@ -1,12 +1,13 @@
 // src/components/Navbar.jsx
 
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {
     const location = useLocation();
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -35,6 +36,19 @@ function Navbar({ onSearch }) {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    // Add handler for Home link
+    const handleHomeClick = (e) => {
+        if (location.pathname === "/") {
+            // Already on home page
+            if (window.scrollY > 100) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+            // Prevent navigation (no reload)
+            e.preventDefault();
+        }
+        // else, let Link handle navigation
+    };
 
     return (
         <nav className="navbar">
@@ -71,6 +85,7 @@ function Navbar({ onSearch }) {
                         <Link 
                             to="/" 
                             className={location.pathname === "/" ? "active" : ""}
+                            onClick={handleHomeClick}
                         >
                             Home
                         </Link>
@@ -102,7 +117,7 @@ function Navbar({ onSearch }) {
                         <Link 
                             to="/" 
                             className={location.pathname === "/" ? "active" : ""}
-                            onClick={closeMenu}
+                            onClick={(e) => { handleHomeClick(e); closeMenu(); }}
                         >
                             Home
                         </Link>
