@@ -3,8 +3,10 @@
 import React from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
+import { deleteData } from "../services/api";
+import { showSuccessToast, showErrorToast } from "../utils/toast";
 
-function ProductCard({ product, imageVersion }) {
+function ProductCard({ product, imageVersion, onProductDelete }) {
     const {
         id,
         name,
@@ -28,6 +30,24 @@ function ProductCard({ product, imageVersion }) {
         e.target.src = '/no_image.jpg';
     };
 
+    const handleDelete = async () => {
+        const confirmed = window.confirm(`Are you sure you want to delete the product "${name}"? This action cannot be undone.`);
+        if (!confirmed) return;
+        try {
+            const status = await deleteData(`/products/${id}`);
+            if (status === 204) {
+                showSuccessToast("Product deleted successfully.");
+                if (onProductDelete) onProductDelete();
+            } else if (status === 404) {
+                showErrorToast("Product not found. It may have already been deleted.");
+            } else {
+                showErrorToast("Unexpected response from server.");
+            }
+        } catch (err) {
+            showErrorToast("Failed to delete product. Please try again.");
+        }
+    };
+
     return (
         <div className={styles.productCard}>
             <img
@@ -46,7 +66,7 @@ function ProductCard({ product, imageVersion }) {
                 </p>
                 <div className={styles.productActions}>
                     <button className={styles.editButton} onClick={handleEdit}>🛠️ Edit</button>
-                    <button className={styles.deleteButton}>🗑️ Delete</button>
+                    <button className={styles.deleteButton} onClick={handleDelete}>🗑️ Delete</button>
                 </div>
             </div>
         </div>

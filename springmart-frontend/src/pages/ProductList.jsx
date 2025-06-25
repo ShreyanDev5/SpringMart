@@ -145,6 +145,7 @@ function ProductList({ searchQuery = "", imageVersion }) {
                             key={product.id} 
                             product={product}
                             imageVersion={imageVersion}
+                            onProductDelete={fetchProducts}
                         />
                     );
                 })}
