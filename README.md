@@ -2,6 +2,22 @@
 
 A modern, full-stack e-commerce platform built with **Spring Boot (Java)** and **React**. SpringMart demonstrates robust backend development, RESTful API design, and seamless UI integration. This project is intended for learning and demonstration purposes only.
 
+## 📚 Table of Contents
+
+- [Overview](#-overview)
+- [Tech Stack](#-tech-stack)
+- [App Screenshots](#-app-screenshots)
+- [Design & UX Principles](#-design--ux-principles)
+- [Backend Specifications](#-backend-specifications)
+- [API Overview](#-api-overview)
+- [Product Entity Structure](#-product-entity-structure)
+- [Business Logic Summary](#-business-logic-summary)
+- [Getting Started](#-getting-started)
+- [Development Notes](#-development-notes)
+- [Troubleshooting](#-troubleshooting)
+- [Final Checklist](#-final-checklist)
+- [Author's Note](#-authors-note)
+
 ---
 
 ## 🚀 Overview
@@ -28,38 +44,30 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 
 > _Sample UI screens from SpringMart in action._
 
-<div align="center">
+<p align="center">
+  <img src="assets/home_page.png" alt="Home Page" width="420" />
+  <br/><sub><b>Home Page</b></sub>
+</p>
 
-<table>
-  <tr>
-    <td align="center" style="padding: 24px 32px;">
-      <img src="assets/home_page.png" alt="Home Page" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
-      <div style="margin-top:8px;"><b>Home Page</b></div>
-    </td>
-    <td align="center" style="padding: 24px 32px;">
-      <img src="assets/featured_products.png" alt="Featured Products" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
-      <div style="margin-top:8px;"><b>Featured Products</b></div>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="padding: 24px 32px;">
-      <img src="assets/all_products.png" alt="All Products" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
-      <div style="margin-top:8px;"><b>All Products List</b></div>
-    </td>
-    <td align="center" style="padding: 24px 32px;">
-      <img src="assets/single_product_card.png" alt="Single Product Card" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
-      <div style="margin-top:8px;"><b>Product Card</b></div>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2" style="padding: 24px 32px;">
-      <img src="assets/add_product_form.png" alt="Add Product Form" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
-      <div style="margin-top:8px;"><b>Add Product Form</b></div>
-    </td>
-  </tr>
-</table>
+<p align="center">
+  <img src="assets/featured_products.png" alt="Featured Products" width="420" />
+  <br/><sub><b>Featured Products</b></sub>
+</p>
 
-</div>
+<p align="center">
+  <img src="assets/all_products.png" alt="All Products List" width="420" />
+  <br/><sub><b>All Products List</b></sub>
+</p>
+
+<p align="center">
+  <img src="assets/single_product_card.png" alt="Product Card" width="420" />
+  <br/><sub><b>Product Card</b></sub>
+</p>
+
+<p align="center">
+  <img src="assets/add_product_form.png" alt="Add Product Form" width="420" />
+  <br/><sub><b>Add Product Form</b></sub>
+</p>
 
 ---
 
@@ -99,7 +107,7 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 | `/products/{id}`       | PUT    | Update product by ID   | `id` + updated data; `200 OK` / `404`         |
 | `/products/{id}`       | DELETE | Remove product by ID   | `id`; `204 No Content` / `404 Not Found`      |
 
-> _All endpoints are public for demonstration. No authentication is implemented._
+> _All endpoints are public for demonstration. **No authentication is implemented.**_
 
 ---
 
