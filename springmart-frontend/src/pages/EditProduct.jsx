@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "../styles/components/AddProduct.module.scss";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
 import { categories } from "../utils/categories";
+import { toBoolean } from "../utils/booleanUtils";
 
 function EditProduct({ onProductUpdate }) {
     const { id } = useParams();
@@ -47,9 +48,10 @@ function EditProduct({ onProductUpdate }) {
                     category: data.category || "",
                     quantity: data.quantity || "",
                     brand: data.brand || "",
-                    inStock: data.inStock ?? true,
+                    inStock: toBoolean(data.inStock),
                     releaseDate: releaseDate,
                 });
+                console.log('Loaded product data - inStock:', data.inStock, 'converted to:', toBoolean(data.inStock));
                 if (data.imageName) {
                     setImagePreview(`${API_BASE_URL}/api/products/image/${id}`);
                 }
@@ -76,6 +78,9 @@ function EditProduct({ onProductUpdate }) {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+        if (name === 'inStock') {
+            console.log('Checkbox changed - name:', name, 'checked:', checked, 'type:', type);
+        }
         setProduct((prev) => ({
             ...prev,
             [name]:
@@ -116,6 +121,8 @@ function EditProduct({ onProductUpdate }) {
             return;
         }
         setLoading(true);
+        console.log('Submitting product with inStock:', product.inStock, 'type:', typeof product.inStock);
+        console.log('Complete product object:', product);
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {

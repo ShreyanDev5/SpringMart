@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
+import { toBoolean } from "../utils/booleanUtils";
 
 function AddProduct({ onProductUpdate }) {
     const navigate = useNavigate();
@@ -117,6 +118,7 @@ function AddProduct({ onProductUpdate }) {
         
         setLoading(true);
         
+        console.log('Submitting product with inStock:', product.inStock, 'type:', typeof product.inStock);
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {

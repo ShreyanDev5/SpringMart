@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
@@ -15,6 +15,7 @@ function App() {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchTarget, setSearchTarget] = useState("home"); // 'home' or 'products'
     const [imageVersion, setImageVersion] = useState(Date.now());
+    const [productRefreshTrigger, setProductRefreshTrigger] = useState(0);
 
     // We need to use useNavigate, so wrap the Routes in a component with access to hooks
     const AppRoutes = () => {
@@ -24,6 +25,11 @@ function App() {
         const updateImageVersion = () => {
             setImageVersion(Date.now());
         };
+
+        const refreshProducts = useCallback(() => {
+            setProductRefreshTrigger(prev => prev + 1);
+            updateImageVersion();
+        }, []);
 
         const handleSearch = (query, target = null) => {
             // Determine current page
@@ -50,10 +56,10 @@ function App() {
             <>
                 <Navbar onSearch={handleSearch} />
                 <Routes>
-                    <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} imageVersion={imageVersion} />} />
-                    <Route path="/add" element={<AddProduct onProductUpdate={updateImageVersion} />} />
-                    <Route path="/edit/:id" element={<EditProduct onProductUpdate={updateImageVersion} />} />
-                    <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} />} />
+                    <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
+                    <Route path="/add" element={<AddProduct onProductUpdate={refreshProducts} />} />
+                    <Route path="/edit/:id" element={<EditProduct onProductUpdate={refreshProducts} />} />
+                    <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
                 </Routes>
             </>
         );

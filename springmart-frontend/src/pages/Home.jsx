@@ -5,7 +5,7 @@ import { Hero, Features, CtaBanner } from "../components/home";
 import Products from "../components/home/Products";
 import "../styles/Home.scss";
 
-function Home({ searchQuery, imageVersion }) {
+function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -54,6 +54,13 @@ function Home({ searchQuery, imageVersion }) {
         fetchProducts();
     }, [fetchProducts]);
 
+    // Refetch products when refreshTrigger changes (when products are updated)
+    useEffect(() => {
+        if (refreshTrigger > 0) {
+            fetchProducts();
+        }
+    }, [refreshTrigger, fetchProducts]);
+
     // Handle search from navbar
     useEffect(() => {
         if (searchQuery) {
@@ -79,6 +86,7 @@ function Home({ searchQuery, imageVersion }) {
                 loading={loading} 
                 error={error} 
                 imageVersion={imageVersion}
+                onProductDelete={fetchProducts}
             />
 
             {/* Features Section */}

@@ -5,6 +5,7 @@ import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteData } from "../services/api";
 import { showSuccessToast, showErrorToast } from "../utils/toast";
+import { toBoolean } from "../utils/booleanUtils";
 
 function ProductCard({ product, imageVersion, onProductDelete }) {
     const {
@@ -12,10 +13,15 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         name,
         brand,
         price,
-        inStock,
+        inStock: rawInStock,
         imageName,
         category
     } = product;
+
+    // Ensure inStock is always a boolean
+    const inStock = toBoolean(rawInStock);
+    
+    console.log('ProductCard - Product:', name, 'Raw inStock:', rawInStock, 'Converted inStock:', inStock);
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
     const imageUrl = `${API_BASE_URL}/api/products/image/${id}?v=${imageVersion}`;

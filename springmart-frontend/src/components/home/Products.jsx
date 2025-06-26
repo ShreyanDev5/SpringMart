@@ -5,7 +5,7 @@ import { FiArrowRight } from "react-icons/fi";
 import ProductCard from "../ProductCard";
 import styles from "../../styles/components/home/Products.module.scss";
 
-const Products = React.forwardRef(({ products, loading, error, imageVersion }, ref) => {
+const Products = React.forwardRef(({ products, loading, error, imageVersion, onProductDelete }, ref) => {
   return (
     <section ref={ref} className={styles.productsSection}>
       <div className="section-header centered">
@@ -29,7 +29,12 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion }, r
         ) : (
           <>
             {products.map(product => (
-              <ProductCard key={product.id} product={product} imageVersion={imageVersion} />
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                imageVersion={imageVersion}
+                onProductDelete={onProductDelete}
+              />
             ))}
             <div className={styles.viewAllContainer}>
               <Link to="/products" className={styles.viewAllLink}>

@@ -5,7 +5,7 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import styles from "../styles/components/ProductList.module.scss";
 
-function ProductList({ searchQuery = "", imageVersion }) {
+function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -91,6 +91,13 @@ function ProductList({ searchQuery = "", imageVersion }) {
             fetchProducts();
         }
     }, [searchQuery, fetchProducts]);
+
+    // Refetch products when refreshTrigger changes (when products are updated)
+    useEffect(() => {
+        if (refreshTrigger > 0 && !searchQuery) {
+            fetchProducts();
+        }
+    }, [refreshTrigger, fetchProducts, searchQuery]);
 
     // Debug render
     console.log('Current state:', { 

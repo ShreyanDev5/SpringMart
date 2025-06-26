@@ -94,7 +94,7 @@ public class ProductService
                 {
                     product.setQuantity(existing.getQuantity());
                 }
-                product.setInStock(product.isInStock() || existing.isInStock());
+                product.setInStock(product.isInStock());
                 if (product.getReleaseDate() == null)
                 {
                     product.setReleaseDate(existing.getReleaseDate());
