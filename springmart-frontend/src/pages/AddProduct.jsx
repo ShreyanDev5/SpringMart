@@ -3,12 +3,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
-import { toBoolean } from "../utils/booleanUtils";
 
 function AddProduct({ onProductUpdate }) {
     const navigate = useNavigate();
@@ -156,9 +153,9 @@ function AddProduct({ onProductUpdate }) {
             let errorMsg = err.response?.data?.message || "Failed to add product. Please try again.";
             // Intercept backend integer parse error and show user-friendly message
             if (errorMsg && errorMsg.includes('Cannot deserialize value of type `java.lang.Integer`')) {
-                const match = errorMsg.match(/from String \"(.*?)\"/);
+                const match = errorMsg.match(/from String "(.*?)"/);
                 const received = match ? match[1] : 'a decimal value';
-                errorMsg = `Invalid input: Expected an integer (whole number), but received \"${received}\". Please enter a value without decimals, e.g., \"10\".`;
+                errorMsg = `Invalid input: Expected an integer (whole number), but received "${received}". Please enter a value without decimals, e.g., "10".`;
             }
             showErrorToast(errorMsg);
             console.error(err);
@@ -326,7 +323,6 @@ function AddProduct({ onProductUpdate }) {
                     {loading ? 'Adding Product...' : 'Add Product'}
                 </button>
             </form>
-            {/* <ToastContainer position="bottom-right" /> */}
         </div>
     );
 }

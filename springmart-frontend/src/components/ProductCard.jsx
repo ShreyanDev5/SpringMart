@@ -14,7 +14,6 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         brand,
         price,
         inStock: rawInStock,
-        imageName,
         category
     } = product;
 

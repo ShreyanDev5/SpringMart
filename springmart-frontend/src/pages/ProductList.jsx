@@ -90,7 +90,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             // If no search query, fetch all products
             fetchProducts();
         }
-    }, [searchQuery, fetchProducts]);
+    }, [searchQuery, fetchProducts, API_BASE_URL]);
 
     // Refetch products when refreshTrigger changes (when products are updated)
     useEffect(() => {

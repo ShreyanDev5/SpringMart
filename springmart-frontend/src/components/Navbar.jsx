@@ -1,13 +1,12 @@
 // src/components/Navbar.jsx
 
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {
     const location = useLocation();
-    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
