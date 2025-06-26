@@ -20,29 +20,29 @@ A modern, full-stack e-commerce platform.
 
 <table>
   <tr>
-    <td align="center" style="padding: 10px">
-      <img src="assets/home_page.png" alt="Home Page" width="350"/>
-      <br/><b>Home Page</b>
+    <td align="center" style="padding: 24px 32px;">
+      <img src="assets/home_page.png" alt="Home Page" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
+      <div style="margin-top:8px;"><b>Home Page</b></div>
     </td>
-    <td align="center" style="padding: 10px">
-      <img src="assets/featured_products.png" alt="Featured Products" width="350"/>
-      <br/><b>Featured Products</b>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="padding: 10px">
-      <img src="assets/all_products.png" alt="All Products" width="350"/>
-      <br/><b>All Products List</b>
-    </td>
-    <td align="center" style="padding: 10px">
-      <img src="assets/single_product_card.png" alt="Single Product Card" width="350"/>
-      <br/><b>Product Card</b>
+    <td align="center" style="padding: 24px 32px;">
+      <img src="assets/featured_products.png" alt="Featured Products" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
+      <div style="margin-top:8px;"><b>Featured Products</b></div>
     </td>
   </tr>
   <tr>
-    <td align="center" colspan="2" style="padding: 10px">
-      <img src="assets/add_product_form.png" alt="Add Product Form" width="350"/>
-      <br/><b>Add Product Form</b>
+    <td align="center" style="padding: 24px 32px;">
+      <img src="assets/all_products.png" alt="All Products" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
+      <div style="margin-top:8px;"><b>All Products List</b></div>
+    </td>
+    <td align="center" style="padding: 24px 32px;">
+      <img src="assets/single_product_card.png" alt="Single Product Card" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
+      <div style="margin-top:8px;"><b>Product Card</b></div>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2" style="padding: 24px 32px;">
+      <img src="assets/add_product_form.png" alt="Add Product Form" width="420" style="border:1px solid #ddd; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:10px;"/>
+      <div style="margin-top:8px;"><b>Add Product Form</b></div>
     </td>
   </tr>
 </table>
