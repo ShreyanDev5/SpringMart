@@ -14,6 +14,43 @@ A modern, full-stack e-commerce platform.
 
 ---
 
+## ✨ App Screenshots
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center" style="padding: 10px">
+      <img src="assets/home_page.png" alt="Home Page" width="350"/>
+      <br/><b>Home Page</b>
+    </td>
+    <td align="center" style="padding: 10px">
+      <img src="assets/featured_products.png" alt="Featured Products" width="350"/>
+      <br/><b>Featured Products</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="padding: 10px">
+      <img src="assets/all_products.png" alt="All Products" width="350"/>
+      <br/><b>All Products List</b>
+    </td>
+    <td align="center" style="padding: 10px">
+      <img src="assets/single_product_card.png" alt="Single Product Card" width="350"/>
+      <br/><b>Product Card</b>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2" style="padding: 10px">
+      <img src="assets/add_product_form.png" alt="Add Product Form" width="350"/>
+      <br/><b>Add Product Form</b>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 ## 🎨 Frontend Guidelines
 
 - **Design Aesthetic:**
