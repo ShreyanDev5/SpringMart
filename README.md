@@ -17,12 +17,10 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 
 ## 🛠️ Tech Stack
 
-![Java](https://img.shields.io/badge/Java-21-blue?logo=java)
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java Logo" width="32" style="vertical-align:middle; margin-right:8px;"/>
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-brightgreen?logo=spring)
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![H2](https://img.shields.io/badge/H2--DB-lightgrey?logo=h2)
-<img src="https://www.h2database.com/html/images/h2-logo-2.png" alt="H2 Logo" width="32" style="vertical-align:middle; margin-left:8px;"/>
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
+![React](https://img.shields.io/badge/React-18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![H2](https://img.shields.io/badge/H2_Database-In--Memory-1E90FF?style=for-the-badge&logo=database&logoColor=white)
 
 ---
 
