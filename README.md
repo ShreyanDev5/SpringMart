@@ -15,6 +15,15 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 
 ---
 
+## 🛠️ Tech Stack
+
+![Java](https://img.shields.io/badge/Java-21-blue?logo=java)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-brightgreen?logo=spring)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![H2](https://img.shields.io/badge/H2--DB-lightgrey?logo=h2)
+
+---
+
 ## ✨ App Screenshots
 
 > _Sample UI screens from SpringMart in action._
@@ -182,15 +191,15 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 
 ## ✅ Final Checklist
 
-- [ ] All API interactions follow REST best practices
-- [ ] UI is minimal, polished, and professional
-- [ ] User experience is smooth from frontend to backend
-- [ ] CORS is functioning correctly for cross-origin access
+- [x] All API interactions follow REST best practices
+- [x] UI is minimal, polished, and professional
+- [x] User experience is smooth from frontend to backend
+- [x] CORS is functioning correctly for cross-origin access
 
 ---
 
 ## 👤 Author's Note
 
-I built SpringMart from scratch, focusing on backend development with Spring Boot and H2. For the frontend, I leveraged AI tools like Cursor and Widsurf to design and implement a polished React UI and integrate it with my backend APIs. This approach allowed me to deliver a professional, full-stack application that combines robust backend logic with a modern, user-friendly interface.
+I developed SpringMart as a full-stack application, with a primary focus on robust backend development using Spring Boot and H2. On the frontend, I leveraged AI-powered tools such as Cursor and Widsurf to significantly accelerate the design and implementation of the React user interface. This integrated approach allowed for the delivery of a polished, professional-grade application featuring strong backend functionality and an intuitive user experience.
 
 📌 _Refer to the codebase for implementation specifics if needed during development._
