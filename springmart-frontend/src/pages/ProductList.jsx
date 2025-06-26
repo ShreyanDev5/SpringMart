@@ -97,7 +97,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         if (refreshTrigger > 0 && !searchQuery) {
             fetchProducts();
         }
-    }, [refreshTrigger, fetchProducts, searchQuery]);
+    }, [refreshTrigger, fetchProducts, searchQuery, API_BASE_URL]);
 
     // Debug render
     console.log('Current state:', { 

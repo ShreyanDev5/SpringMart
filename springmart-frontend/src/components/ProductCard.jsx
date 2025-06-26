@@ -15,6 +15,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         price,
         inStock: rawInStock,
         category
+        // imageName is not currently used
     } = product;
 
     // Ensure inStock is always a boolean
