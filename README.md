@@ -1,31 +1,23 @@
 # 🛒 SpringMart
 
-A modern, full-stack e-commerce platform.
+A modern, full-stack e-commerce platform built with **Spring Boot (Java)** and **React**. SpringMart demonstrates robust backend development, RESTful API design, and seamless UI integration. This project is intended for learning and demonstration purposes only.
 
 ---
 
-> ### 🚀 **About This Project**
->
-> I built the **SpringMart** e-commerce platform entirely from scratch:
->
-> - The **backend** was developed using **Spring Boot** and an **H2 database** for robust, scalable data management.
-> - As I'm not proficient in frontend development, I leveraged AI tools like **Cursor** and **Widsurf** to design and implement a polished, user-friendly **React** frontend and seamlessly integrate it with my backend APIs.
->
-> _This approach allowed me to deliver a professional, full-stack application with a modern UI and reliable backend, combining my backend expertise with the power of AI-driven frontend development._
+## 🚀 Overview
 
----
+SpringMart is a **prototype, full-stack showcase project** for learning and demonstration. It features:
 
-## 🛠️ Project Summary
-
-**Project Name:** SpringMart  
-**Tech Stack:**
-
-- **Backend:** Spring Boot (Java) – Core logic & data operations
-- **Frontend:** React – UI and user-facing interactions
+- **Backend:** Spring Boot (Java) with H2 database (JPA-compatible)
+- **Frontend:** React for a modern, minimal UI
+- **RESTful APIs:** For all data operations
+- **Demo Data:** Preloaded on first run
 
 ---
 
 ## ✨ App Screenshots
+
+> _Sample UI screens from SpringMart in action._
 
 <div align="center">
 
@@ -62,32 +54,24 @@ A modern, full-stack e-commerce platform.
 
 ---
 
-## 🎨 Frontend Guidelines
+## 🎨 Design & UX Principles
 
-- **Design Aesthetic:**
-  - Clean, minimal, and premium
-  - Inspires trust and modern polish
-- **UX Focus:**
-  - Smooth, intuitive navigation
-  - Clear product presentation, frictionless interaction
-- **Integration:**
-  - Fully synced with backend APIs
-  - Handles errors gracefully
+- **Aesthetic:** Clean, minimal, and premium; inspires trust and modern polish
+- **User Experience:** Smooth, intuitive navigation; clear product presentation; frictionless interaction
+- **Integration:** Fully synced with backend APIs; handles errors gracefully
 
 ---
 
 ## ⚙️ Backend Specifications
 
-- **Tech Stack:**
-  - Spring Boot `v3.4.5`, Java `21`
-  - H2 database (can be swapped for any JPA-compatible DB)
-- **Architecture:**
-  - RESTful API structure
-  - Main components:
-    - `Product` entity
-    - `ProductController` – handles HTTP requests
-    - `ProductService` – business logic (CRUD & search)
-    - `ProductRepo` – DB layer (JPA repository)
+- **Spring Boot** `v3.4.5`, **Java** `21`
+- **H2 database** (JPA-compatible, can be swapped)
+- **RESTful API** structure
+- **Main components:**
+  - `Product` entity
+  - `ProductController` – handles HTTP requests
+  - `ProductService` – business logic (CRUD & search)
+  - `ProductRepo` – DB layer (JPA repository)
 
 ---
 
@@ -106,35 +90,37 @@ A modern, full-stack e-commerce platform.
 | `/products/{id}`       | PUT    | Update product by ID   | `id` + updated data; `200 OK` / `404`         |
 | `/products/{id}`       | DELETE | Remove product by ID   | `id`; `204 No Content` / `404 Not Found`      |
 
+> _All endpoints are public for demonstration. No authentication is implemented._
+
 ---
 
 ## 🧩 Product Entity Structure
 
-- **Required Fields:**
-  - `name` (String)
-  - `price` (Integer ≥ 0)
-  - `category` (String)
-  - `brand` (String)
-- **Optional Fields:**
-  - `description` (String ≤ 500 chars)
-  - `quantity` (Integer ≥ 0)
-  - `inStock` (Boolean)
-  - `releaseDate` (Date)
-  - `imageName`, `imageType`, `imageData` (for image storage)
+| Field       | Type    | Required | Description                        |
+| ----------- | ------- | -------- | ---------------------------------- |
+| id          | int     | Auto     | Unique identifier (auto-generated) |
+| name        | String  | Yes      | Product name                       |
+| price       | Integer | Yes      | Must be ≥ 0                        |
+| category    | String  | Yes      | Product category                   |
+| brand       | String  | Yes      | Product brand                      |
+| description | String  | No       | Max 500 characters                 |
+| quantity    | int     | No       | Must be ≥ 0                        |
+| inStock     | boolean | No       | Availability                       |
+| releaseDate | Date    | No       | Product release date               |
+| imageName   | String  | No       | File name of image                 |
+| imageType   | String  | No       | MIME type (e.g., image/jpeg)       |
+| imageData   | byte[]  | No       | Binary image data                  |
 
 ---
 
 ## 🧠 Business Logic Summary
 
-- **Core Features:**
-  - Full CRUD support
-  - Image upload/download
-  - Search across name, description, category, brand
-- **Validation:**
-  - Javax annotations (`@NotBlank`, `@Min`, etc.)
-  - Error responses: `400 Bad Request` for invalid inputs
-- **CORS Policy:**
-  - Configured via `@CrossOrigin` to allow `localhost:3000` (React) to access `localhost:8080` (Spring Boot)
+- Full CRUD support
+- Image upload/download
+- Search across name, description, category, brand
+- Validation via Javax annotations (`@NotBlank`, `@Min`, etc.)
+- Error responses: `400 Bad Request` for invalid inputs
+- **CORS Policy:** Configured via `@CrossOrigin` to allow `localhost:3000` (React) to access `localhost:8080` (Spring Boot)
 
 ---
 
@@ -177,25 +163,34 @@ A modern, full-stack e-commerce platform.
    ```
 4. The frontend runs on [http://localhost:3000](http://localhost:3000) by default.
 
+#### Troubleshooting
+
+- **Port in use:** Make sure ports 8080 (backend) and 3000 (frontend) are free.
+- **CORS errors:** Ensure both servers are running and CORS is enabled in the backend.
+- **Database issues:** The H2 console is available at [http://localhost:8080/h2-console](http://localhost:8080/h2-console) (JDBC URL: `jdbc:h2:file:./data/springmartdb`).
+
 ---
 
 ## 📝 Development Notes
 
 - **Backend:** Use IntelliJ IDEA or your preferred Java IDE.
 - **Frontend:** Use VS Code or your preferred JS editor.
-- **H2 Console:** Access at [http://localhost:8080/h2-console](http://localhost:8080/h2-console) (JDBC URL: `jdbc:h2:file:./data/springmartdb`)
 - **Demo Data:** The backend loads demo products and images on first run if the DB is empty.
 - **CORS:** Pre-configured for local development.
 
 ---
 
-## 🔑 Final Requirements
+## ✅ Final Checklist
 
-- Follow REST best practices across all API interactions
-- Keep UI minimal yet polished and professional
-- Ensure smooth user experience from frontend to backend
-- Confirm CORS is functioning correctly for cross-origin access
+- [ ] All API interactions follow REST best practices
+- [ ] UI is minimal, polished, and professional
+- [ ] User experience is smooth from frontend to backend
+- [ ] CORS is functioning correctly for cross-origin access
 
 ---
+
+## 👤 Author's Note
+
+I built SpringMart from scratch, focusing on backend development with Spring Boot and H2. For the frontend, I leveraged AI tools like Cursor and Widsurf to design and implement a polished React UI and integrate it with my backend APIs. This approach allowed me to deliver a professional, full-stack application that combines robust backend logic with a modern, user-friendly interface.
 
 📌 _Refer to the codebase for implementation specifics if needed during development._
