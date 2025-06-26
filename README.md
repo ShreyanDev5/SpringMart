@@ -2,22 +2,6 @@
 
 A modern, full-stack e-commerce platform built with **Spring Boot (Java)** and **React**. SpringMart demonstrates robust backend development, RESTful API design, and seamless UI integration. This project is intended for learning and demonstration purposes only.
 
-## 📚 Table of Contents
-
-- [Overview](#-overview)
-- [Tech Stack](#-tech-stack)
-- [App Screenshots](#-app-screenshots)
-- [Design & UX Principles](#-design--ux-principles)
-- [Backend Specifications](#-backend-specifications)
-- [API Overview](#-api-overview)
-- [Product Entity Structure](#-product-entity-structure)
-- [Business Logic Summary](#-business-logic-summary)
-- [Getting Started](#-getting-started)
-- [Development Notes](#-development-notes)
-- [Troubleshooting](#-troubleshooting)
-- [Final Checklist](#-final-checklist)
-- [Author's Note](#-authors-note)
-
 ---
 
 ## 🚀 Overview
@@ -34,9 +18,11 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 ## 🛠️ Tech Stack
 
 ![Java](https://img.shields.io/badge/Java-21-blue?logo=java)
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java Logo" width="32" style="vertical-align:middle; margin-right:8px;"/>
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-brightgreen?logo=spring)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
 ![H2](https://img.shields.io/badge/H2--DB-lightgrey?logo=h2)
+<img src="https://www.h2database.com/html/images/h2-logo-2.png" alt="H2 Logo" width="32" style="vertical-align:middle; margin-left:8px;"/>
 
 ---
 
