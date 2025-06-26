@@ -4,6 +4,17 @@ A modern, full-stack e-commerce platform.
 
 ---
 
+> ### 🚀 **About This Project**
+>
+> I built the **SpringMart** e-commerce platform entirely from scratch:
+>
+> - The **backend** was developed using **Spring Boot** and an **H2 database** for robust, scalable data management.
+> - As I'm not proficient in frontend development, I leveraged AI tools like **Cursor** and **Widsurf** to design and implement a polished, user-friendly **React** frontend and seamlessly integrate it with my backend APIs.
+>
+> _This approach allowed me to deliver a professional, full-stack application with a modern UI and reliable backend, combining my backend expertise with the power of AI-driven frontend development._
+
+---
+
 ## 🛠️ Project Summary
 
 **Project Name:** SpringMart  
