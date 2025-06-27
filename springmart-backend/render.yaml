@@ -1,4 +1,4 @@
-# render.yaml
+# .render.yaml - SpringMart H2 (file-based)
 
 services:
   - type: web
@@ -7,32 +7,7 @@ services:
     build:
       command: ./mvnw clean package -DskipTests
       publish: target/*.jar
+    startCommand: java -jar target/springmart-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: springmartdb
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: springmartdb
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: springmartdb
-          property: password
-      - key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
-        value: org.postgresql.Driver
-      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: update
-      - key: SPRING_JPA_SHOW_SQL
-        value: "false"
-      - key: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
-        value: org.hibernate.dialect.PostgreSQLDialect
-
-databases:
-  - name: springmartdb
-    databaseName: springmartdb
-    user: springmart_user
-    plan: free
