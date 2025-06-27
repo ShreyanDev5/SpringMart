@@ -92,7 +92,7 @@
                         </exclude>
                     </excludes>
                     <executable>true</executable>
-                    <mainClass>com.backend.springmart.SpringmartApplication</mainClass>
+                    <mainClass>com.backend.springmart.SpringMartApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
