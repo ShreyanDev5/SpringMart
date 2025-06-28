@@ -2,9 +2,6 @@
   "name": "springmart-monorepo",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "springmart-frontend"
-  ],
   "description": "SpringMart E-commerce Platform - Full Stack Monorepo",
   "scripts": {
     "build:frontend": "cd springmart-frontend && npm run build",
