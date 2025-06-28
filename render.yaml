@@ -6,8 +6,8 @@ services:
     name: springmart-backend-java
     env: java
     plan: free
-    buildCommand: ./mvnw -f springmart-backend/springmart/pom.xml clean package -DskipTests
-    startCommand: java -jar springmart-backend/springmart/target/springmart-0.0.1-SNAPSHOT.jar
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/springmart-0.0.1-SNAPSHOT.jar
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
