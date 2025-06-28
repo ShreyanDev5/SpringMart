@@ -1,25 +1,17 @@
 # .render.yaml - SpringMart Backend Deployment
 # Explicitly configured for Java/Spring Boot monorepo
 
+# Force Java environment using Docker
 services:
   - type: web
     name: springmart-backend-java
-    env: java
+    env: docker
     plan: free
-    buildCommand: |
-      echo "Setting up Java environment..."
-      export JAVA_HOME=/opt/java/openjdk
-      export PATH=$JAVA_HOME/bin:$PATH
-      java -version
-      echo "Building Spring Boot application..."
-      ./mvnw clean package -DskipTests
-    startCommand: java -jar target/springmart-0.0.1-SNAPSHOT.jar
+    region: oregon
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: PORT
         value: 8080
-      - key: JAVA_VERSION
-        value: 21
-      - key: JAVA_HOME
-        value: /opt/java/openjdk
+    autoDeploy: true
