@@ -6,7 +6,7 @@ services:
     env: java
     plan: free
     build:
-      command: ./mvnw -f springmart-backend/springmart/pom.xml clean package -DskipTests
+      command: ./springmart-backend/springmart/mvnw clean package -DskipTests
       publish: springmart-backend/springmart/target/*.jar
     startCommand: java -jar springmart-backend/springmart/target/springmart-0.0.1-SNAPSHOT.jar
     envVars:
