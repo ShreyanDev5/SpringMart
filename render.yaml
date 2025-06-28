@@ -1,4 +1,5 @@
 # .render.yaml - SpringMart H2 (file-based)
+# Updated build command to use root mvnw with correct pom.xml path
 
 services:
   - type: web
