@@ -1,6 +1,6 @@
 // src/services/api.js
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8080`;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://springmart-backend.onrender.com';
 const BASE_URL = `${API_BASE_URL}/api`;
 
 // Generic GET request
