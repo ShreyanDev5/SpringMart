@@ -3,7 +3,7 @@
 
 services:
   - type: web
-    name: springmart-backend
+    name: springmart-backend-java
     env: java
     plan: free
     buildCommand: ./mvnw -f springmart-backend/springmart/pom.xml clean package -DskipTests
