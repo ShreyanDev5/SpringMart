@@ -8,4 +8,11 @@ springmart-frontend/
 .git/
 .vscode/
 .idea/
-*.log 
+*.log
+
+# Ignore frontend assets
+assets/
+public/
+
+# Ignore any other non-backend files
+README.md 
