@@ -1,0 +1,11 @@
+# Ignore Node.js related files to prevent auto-detection as Node.js project
+package.json
+package-lock.json
+node_modules/
+springmart-frontend/
+
+# Ignore development files
+.git/
+.vscode/
+.idea/
+*.log 
