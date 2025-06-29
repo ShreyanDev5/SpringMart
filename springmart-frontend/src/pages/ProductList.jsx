@@ -13,16 +13,13 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8080`;
 
     const fetchProducts = useCallback(async () => {
-        console.log('Fetching products from:', `${API_BASE_URL}/api/products`);
         setLoading(true);
         setError(null);
         
         try {
             const res = await axios.get(`${API_BASE_URL}/api/products`);
-            console.log('API Response:', res);
             
             if (res.status === 200) {
-                console.log('Products data:', res.data);
                 // Handle different possible response structures
                 let productsData = [];
                 
@@ -37,15 +34,8 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                     throw new Error("Invalid data format received from server");
                 }
                 
-                if (productsData.length === 0) {
-                    console.log('No products found in the response');
-                    setProducts([]);
-                } else {
-                    console.log(`Found ${productsData.length} products`);
-                    setProducts(productsData);
-                }
+                setProducts(productsData);
             } else if (res.status === 204) {
-                console.log('No products found (204 response)');
                 setProducts([]);
             }
         } catch (err) {
@@ -99,14 +89,6 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         }
     }, [refreshTrigger, fetchProducts, searchQuery, API_BASE_URL]);
 
-    // Debug render
-    console.log('Current state:', { 
-        productsCount: products.length, 
-        loading, 
-        error,
-        firstProduct: products[0] // Log first product for debugging
-    });
-
     if (loading) {
         return (
             <div className={styles.loadingState}>
@@ -145,17 +127,14 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         <div className={styles.productListContainer}>
             <h1 className={styles.pageTitle}>All Products</h1>
             <div className={styles.productGrid}>
-                {products.map(product => {
-                    console.log('Rendering product:', product);
-                    return (
-                        <ProductCard 
-                            key={product.id} 
-                            product={product}
-                            imageVersion={imageVersion}
-                            onProductDelete={fetchProducts}
-                        />
-                    );
-                })}
+                {products.map(product => (
+                    <ProductCard 
+                        key={product.id} 
+                        product={product}
+                        imageVersion={imageVersion}
+                        onProductDelete={fetchProducts}
+                    />
+                ))}
             </div>
         </div>
     );

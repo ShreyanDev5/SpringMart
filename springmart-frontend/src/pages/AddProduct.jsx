@@ -1,6 +1,6 @@
 // src/pages/AddProduct.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +24,15 @@ function AddProduct({ onProductUpdate }) {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [imagePreview, setImagePreview] = useState(null);
+
+    // Cleanup image preview URL on component unmount
+    useEffect(() => {
+        return () => {
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview);
+            }
+        };
+    }, [imagePreview]);
 
     const validateForm = () => {
         const newErrors = {};
@@ -80,15 +89,18 @@ function AddProduct({ onProductUpdate }) {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                console.log('Image size error');
                 showErrorToast("Image size should be less than 5MB");
                 return;
             }
             
             if (!file.type.startsWith('image/')) {
-                console.log('Image type error');
                 showErrorToast("Please upload a valid image file (JPG, PNG, etc.)");
                 return;
+            }
+            
+            // Clean up previous preview URL to prevent memory leaks
+            if (imagePreview) {
+                URL.revokeObjectURL(imagePreview);
             }
             
             setImage(file);
@@ -108,14 +120,12 @@ function AddProduct({ onProductUpdate }) {
         e.preventDefault();
         
         if (!validateForm()) {
-            console.log('Form validation error');
             showErrorToast("Please fix the errors in the form before submitting.");
             return;
         }
         
         setLoading(true);
         
-        console.log('Submitting product with inStock:', product.inStock, 'type:', typeof product.inStock);
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {
@@ -132,6 +142,12 @@ function AddProduct({ onProductUpdate }) {
             if (res.status === 201) {
                 showSuccessToast("Product added successfully! Redirecting to home page...");
                 onProductUpdate();
+                
+                // Clean up image preview URL
+                if (imagePreview) {
+                    URL.revokeObjectURL(imagePreview);
+                }
+                
                 // Reset form
                 setProduct({
                     name: "",
@@ -149,7 +165,6 @@ function AddProduct({ onProductUpdate }) {
                 setTimeout(() => navigate("/"), 2000);
             }
         } catch (err) {
-            console.log('API/network error', err);
             let errorMsg = err.response?.data?.message || "Failed to add product. Please try again.";
             // Intercept backend integer parse error and show user-friendly message
             if (errorMsg && errorMsg.includes('Cannot deserialize value of type `java.lang.Integer`')) {

@@ -1,6 +1,6 @@
 // src/components/ProductCard.jsx
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { deleteData } from "../services/api";
@@ -20,12 +20,38 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
 
     // Ensure inStock is always a boolean
     const inStock = toBoolean(rawInStock);
-    
-    console.log('ProductCard - Product:', name, 'Raw inStock:', rawInStock, 'Converted inStock:', inStock);
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
     const imageUrl = `${API_BASE_URL}/api/products/image/${id}?v=${imageVersion}`;
     const navigate = useNavigate();
+    
+    const imgRef = useRef(null);
+
+    // Intersection Observer for lazy loading
+    useEffect(() => {
+        const currentImgRef = imgRef.current;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && currentImgRef) {
+                        currentImgRef.src = imageUrl;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { rootMargin: '50px' } // Start loading 50px before the image comes into view
+        );
+
+        if (currentImgRef) {
+            observer.observe(currentImgRef);
+        }
+
+        return () => {
+            if (currentImgRef) {
+                observer.unobserve(currentImgRef);
+            }
+        };
+    }, [imageUrl]);
 
     const handleEdit = () => {
         navigate(`/edit/${id}`);
@@ -61,6 +87,8 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
                 alt={name}
                 className={styles.productImage}
                 onError={handleImageError}
+                loading="lazy"
+                ref={imgRef}
             />
             <div className={styles.productDetails}>
                 <h3>{name}</h3>

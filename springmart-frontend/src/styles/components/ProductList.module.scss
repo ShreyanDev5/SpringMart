@@ -2,39 +2,140 @@
 @use '../index' as *;
 
 .productListContainer {
-  padding: $spacing-lg;
+  padding: $spacing-2xl 0;
   max-width: $container-width;
-  margin: auto;
+  margin: $spacing-lg auto;
+  position: relative;
+  border-radius: $radius-2xl;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 251, 247, 0.98) 0%,
+    rgba(252, 247, 242, 0.95) 100%
+  );
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.1),
+    0 10px 20px -10px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transform: translateY(-2px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 25px 50px -15px rgba(0, 0, 0, 0.12),
+      0 15px 25px -10px rgba(0, 0, 0, 0.07),
+      0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 153, 0, 0.03) 0%,
+      rgba(255, 153, 0, 0.01) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
+    );
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 }
 
 .pageTitle {
-  font-size: 2rem;
-  color: $dark;
-  margin-bottom: $spacing-lg;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: $spacing-2xl;
   text-align: center;
-  font-weight: 600;
+  color: $dark;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 2;
+  padding: 0 $spacing-lg;
 }
 
 .productGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: $spacing-lg;
-  margin-top: $spacing-md;
-  padding: 0 $spacing-sm;
+  margin: 0 auto;
+  max-width: $container-width;
+  padding: 0 $spacing-xl;
+  position: relative;
+  z-index: 1;
 }
 
 .emptyState {
   text-align: center;
-  padding: $spacing-xl;
-  background: $white;
-  border-radius: $radius-lg;
-  box-shadow: $shadow;
-  margin: $spacing-lg 0;
+  padding: $spacing-2xl;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: $radius-xl;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  margin: $spacing-xl auto;
+  max-width: 600px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 153, 0, 0.02) 0%,
+      rgba(255, 153, 0, 0.01) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
   
   p {
     margin: 0;
     color: $dark;
     font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -68,7 +169,40 @@
 
 .loadingState {
   text-align: center;
-  padding: $spacing-xl;
+  padding: $spacing-2xl;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-radius: $radius-xl;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  margin: $spacing-xl auto;
+  max-width: 600px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 153, 0, 0.02) 0%,
+      rgba(255, 153, 0, 0.01) 100%
+    );
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  
+  p {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .spinner {
@@ -89,42 +223,51 @@
 
 @include respond-to(md) {
   .productListContainer {
-    padding: $spacing-md $spacing-sm;
+    padding: $spacing-xl 0;
+    margin: $spacing-md auto;
   }
   
   .productGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-md;
+    padding: 0 $spacing-lg;
+  }
+  
+  .pageTitle {
+    font-size: 2rem;
+    padding: 0 $spacing-md;
   }
 }
 
 @include respond-to(sm) {
   .productListContainer {
-    padding: $spacing-sm;
+    padding: $spacing-lg 0;
+    margin: $spacing-sm auto;
   }
   
   .productGrid {
     grid-template-columns: 1fr;
     gap: $spacing-xs;
-    padding: 0;
+    padding: 0 $spacing-md;
+  }
+  
+  .pageTitle {
+    font-size: 1.8rem;
+    padding: 0 $spacing-sm;
   }
   
   .emptyState {
-    padding: $spacing-lg $spacing-md;
-    margin: $spacing-md 0;
-    box-shadow: none;
-    
-    h3 {
-      font-size: 1.1rem;
-    }
+    padding: $spacing-xl $spacing-lg;
+    margin: $spacing-lg auto;
     
     p {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
   }
   
   .loadingState {
-    padding: $spacing-md $spacing-sm;
+    padding: $spacing-xl $spacing-lg;
+    margin: $spacing-lg auto;
     
     .spinner {
       width: 40px;
