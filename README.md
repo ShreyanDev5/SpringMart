@@ -8,10 +8,24 @@ A modern, full-stack e-commerce platform built with **Spring Boot (Java)** and *
 
 SpringMart is a **prototype, full-stack showcase project** for learning and demonstration. It features:
 
-- **Backend:** Spring Boot (Java) with H2 database (JPA-compatible)
+- **Backend:** Spring Boot (Java) with H2 file-based database (JPA-compatible)
 - **Frontend:** React for a modern, minimal UI
 - **RESTful APIs:** For all data operations
 - **Demo Data:** Preloaded on first run
+
+---
+
+## 🌐 Deployment Information
+
+- **Frontend:** Hosted on Netlify
+- **Backend:** Hosted on Render
+- **Live Application:** [https://springmart.netlify.app/](https://springmart.netlify.app/)
+
+---
+
+## 🗄️ Database Choice: H2 File-Based
+
+This project uses an **H2 file-based database** (rather than PostgreSQL or MySQL). The primary reason for this choice is to effectively showcase my skills through a simple, portable setup. This application is functional but not intended for real-world, continuous use; I anticipate that users or recruiters will likely access it only once to verify its functionality. The H2 file-based approach ensures easy demo access and resets.
 
 ---
 
@@ -20,7 +34,7 @@ SpringMart is a **prototype, full-stack showcase project** for learning and demo
 ![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![H2](https://img.shields.io/badge/H2_Database-In--Memory-1E90FF?style=for-the-badge&logo=database&logoColor=white)
+![H2](https://img.shields.io/badge/H2_Database-File--Based-1E90FF?style=for-the-badge&logo=database&logoColor=white)
 
 ---
 
