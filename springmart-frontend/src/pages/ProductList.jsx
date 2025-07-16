@@ -94,6 +94,10 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             <div className={styles.loadingState}>
                 <div className={styles.spinner}></div>
                 <p>Loading products...</p>
+                <p style={{ marginTop: '1rem', color: '#b36b00', fontSize: '0.98rem' }}>
+                  This app is hosted on Render's free tier, which may cause slow loading times due to server cold starts.<br/>
+                  If products do not load within 2 minutes, please check back again later.
+                </p>
             </div>
         );
     }
