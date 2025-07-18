@@ -18,46 +18,39 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class ProductController
-{
+public class ProductController {
 
     @Autowired
     private ProductService service;
 
     @GetMapping("/")
-    public ResponseEntity<String> hello()
-    {
+    public ResponseEntity<String> hello() {
         return ResponseEntity.ok("Hello from Spring Boot!");
     }
 
     @GetMapping("/products")
-    public ResponseEntity<Page<Product>> getProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size)
-    {
+    public ResponseEntity<Page<Product>> getProducts(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
         Page<Product> products = service.getAllProducts(PageRequest.of(page, size));
-        if (products.isEmpty())
-        {
+        if (products.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable int id)
-    {
+    public ResponseEntity<Product> getProductById(@PathVariable int id) {
         Product product = service.getProductById(id);
-        if (product == null)
-        {
+        if (product == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(product);
     }
 
     @GetMapping("/products/image/{id}")
-    public ResponseEntity<byte[]> getProductImage(@PathVariable int id)
-    {
+    public ResponseEntity<byte[]> getProductImage(@PathVariable int id) {
         Product product = service.getProductById(id);
-        if (product == null || product.getImageData() == null)
-        {
+        if (product == null || product.getImageData() == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok()
@@ -65,45 +58,36 @@ public class ProductController
                 .body(product.getImageData());
     }
 
-    @GetMapping ("/products/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword)
-    {
+    @GetMapping("/products/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
         List<Product> products = service.searchProducts(keyword);
-        if (products.isEmpty())
-        {
+        if (products.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(products);
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> addProduct(@Valid @RequestPart Product product, @RequestPart(required = false) MultipartFile imageFile)
-    {
-        try
-        {
+    public ResponseEntity<Product> addProduct(@Valid @RequestPart Product product,
+            @RequestPart(required = false) MultipartFile imageFile) {
+        try {
             Product createdProduct = service.addOrUpdateProduct(product, imageFile);
             HttpHeaders headers = new HttpHeaders();
             headers.add("Location", "/api/products/" + createdProduct.getId());
             return new ResponseEntity<>(createdProduct, headers, HttpStatus.CREATED);
-        }
-        catch (RuntimeException e)
-        {
+        } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-
     @PutMapping("/products/{id}")
-    public ResponseEntity<?> updateProduct(@PathVariable int id, @Valid @RequestPart Product product, @RequestPart(required = false) MultipartFile imageFile)
-    {
+    public ResponseEntity<?> updateProduct(@PathVariable int id, @Valid @RequestPart Product product,
+            @RequestPart(required = false) MultipartFile imageFile) {
         try {
             Product existingProduct = service.getProductById(id);
-            if (existingProduct == null)
-            {
+            if (existingProduct == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
             }
             product.setId(id);
@@ -117,14 +101,23 @@ public class ProductController
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable int id)
-    {
+    public ResponseEntity<Void> deleteProduct(@PathVariable int id) {
         Product product = service.getProductById(id);
-        if (product == null)
-        {
+        if (product == null) {
             return ResponseEntity.notFound().build();
         }
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 }
+
+// --------------------------------------------------------------------------------------
+// ProductController: REST controller exposing product-related API endpoints.
+//
+// - Handles HTTP requests for products (CRUD, image upload/download, search).
+// - Delegates business logic to ProductService; no direct data access here.
+// - Uses validation and exception handling for robust API behavior.
+// - Returns ResponseEntity for flexible HTTP responses and status codes.
+// - Acts as the main interface between frontend clients and backend product
+// logic.
+// --------------------------------------------------------------------------------------

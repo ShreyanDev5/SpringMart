@@ -11,8 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Product
-{
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -43,3 +42,17 @@ public class Product
     @Lob
     private byte[] imageData;
 }
+// --------------------------------------------------------------------------------------
+// Product: JPA entity representing a product in the system.
+//
+// Key details:
+// - Annotated with @Entity for ORM mapping; fields correspond to database columns.
+// - Includes validation annotations (e.g., @NotBlank, @Min) to enforce data integrity.
+// - Contains fields for product details (name, price, description, category,
+// brand, etc.), stock status, release date, and image data.
+// - Uses Lombok annotations (@Data, @AllArgsConstructor, @NoArgsConstructor) to
+// reduce boilerplate (getters, setters, constructors).
+// - Image data is stored as a byte array with @Lob for large objects; image
+// metadata is also included.
+//
+// This entity is central to the domain model and is used by repositories, services, and controllers.

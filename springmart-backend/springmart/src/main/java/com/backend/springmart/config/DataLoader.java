@@ -11,15 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 @Configuration
-public class DataLoader
-{
+public class DataLoader {
     @Bean
-    CommandLineRunner loadDemoData(ProductRepository productRepository)
-    {
+    CommandLineRunner loadDemoData(ProductRepository productRepository) {
         return args -> {
             // Load demo products only if table is empty
-            if (productRepository.count() == 0)
-            {
+            if (productRepository.count() == 0) {
                 // Helper method to load image bytes from classpath resources
                 java.util.function.Function<String, byte[]> loadImage = resourcePath -> {
                     try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
@@ -35,6 +32,7 @@ public class DataLoader
                     }
                 };
 
+                // List of demo products to seed the database
                 List<Product> demoProducts = List.of(
                         new Product(
                                 0,
@@ -48,8 +46,7 @@ public class DataLoader
                                 new Date(),
                                 "mouse.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/mouse.jpg") // Load image from classpath
-                        ),
+                                loadImage.apply("images/mouse.jpg")),
                         new Product(
                                 0,
                                 "Mechanical Keyboard",
@@ -62,8 +59,7 @@ public class DataLoader
                                 new Date(),
                                 "keyboard.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/keyboard.jpg")
-                        ),
+                                loadImage.apply("images/keyboard.jpg")),
                         new Product(
                                 0,
                                 "Gaming Headset",
@@ -76,8 +72,7 @@ public class DataLoader
                                 new Date(),
                                 "headset.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/headset.jpg")
-                        ),
+                                loadImage.apply("images/headset.jpg")),
                         new Product(
                                 0,
                                 "Leather Bag for Women",
@@ -90,8 +85,7 @@ public class DataLoader
                                 new Date(),
                                 "leather_bag.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/leather_bag.jpg")
-                        ),
+                                loadImage.apply("images/leather_bag.jpg")),
                         new Product(
                                 0,
                                 "Whoop Fitness Band",
@@ -104,8 +98,7 @@ public class DataLoader
                                 new Date(),
                                 "whoop_band.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/whoop_band.jpg")
-                        ),
+                                loadImage.apply("images/whoop_band.jpg")),
                         new Product(
                                 0,
                                 "Atomic Habits Book",
@@ -118,8 +111,7 @@ public class DataLoader
                                 new Date(),
                                 "atomic_habit_book.webp",
                                 "image/webp",
-                                loadImage.apply("images/atomic_habit_book.webp")
-                        ),
+                                loadImage.apply("images/atomic_habit_book.webp")),
                         new Product(
                                 0,
                                 "CMF Buds Pro 2",
@@ -132,8 +124,7 @@ public class DataLoader
                                 new Date(),
                                 "cmf_buds.webp",
                                 "image/webp",
-                                loadImage.apply("images/cmf_buds.webp")
-                        ),
+                                loadImage.apply("images/cmf_buds.webp")),
                         new Product(
                                 0,
                                 "Samsung Smart TV",
@@ -146,8 +137,7 @@ public class DataLoader
                                 new Date(),
                                 "samsung_tv.avif",
                                 "image/avif",
-                                loadImage.apply("images/samsung_tv.avif")
-                        ),
+                                loadImage.apply("images/samsung_tv.avif")),
                         new Product(
                                 0,
                                 "Puma Running Shoes",
@@ -160,17 +150,30 @@ public class DataLoader
                                 new Date(),
                                 "puma_shoes.jpg",
                                 "image/jpeg",
-                                loadImage.apply("images/puma_shoes.jpg")
-                        )
-                );
+                                loadImage.apply("images/puma_shoes.jpg")));
 
                 productRepository.saveAll(demoProducts);
                 System.out.println("✅ Demo products loaded.");
-            }
-            else
-            {
+            } else {
                 System.out.println("ℹ️ Products already exist. Skipping demo load.");
             }
         };
     }
 }
+
+// --------------------------------------------------------------------------------------
+// DataLoader: Configuration class for loading demo product data at startup.
+//
+// Key details:
+// - Annotated with @Configuration; defines a CommandLineRunner bean to run
+// after application startup.
+// - Loads demo products into the database if the product table is empty.
+// - Includes logic to load image files from classpath resources and attach them
+// to Product entities.
+// - Useful for development and testing; not intended for production data
+// seeding.
+// - Relies on ProductRepository and Product entity for persistence and
+// structure.
+//
+// Helps ensure the application has sample data for immediate use after
+// deployment in dev/test environments.

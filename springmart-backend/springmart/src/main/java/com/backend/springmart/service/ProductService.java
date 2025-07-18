@@ -12,101 +12,88 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
-public class ProductService
-{
+public class ProductService {
     @Autowired
     ProductRepository repo;
 
-    public List<Product> getAllProducts()
-    {
+    public List<Product> getAllProducts() {
         return repo.findAll();
     }
 
-    public Page<Product> getAllProducts(Pageable pageable)
-    {
+    public Page<Product> getAllProducts(Pageable pageable) {
         return repo.findAll(pageable);
     }
 
-    public Product getProductById(int productId)
-    {
+    public Product getProductById(int productId) {
         return repo.findById(productId).orElse(null);
     }
 
-    public List<Product> searchProducts(String keyword)
-    {
-        if (keyword == null || keyword.isEmpty())
-        {
+    public List<Product> searchProducts(String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
             return getAllProducts();
         }
         return repo.searchProducts(keyword);
     }
 
-
-
-    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
-    {
+    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile) {
         Product existing = (product.getId() != 0) ? repo.findById(product.getId()).orElse(null) : null;
-        if (product.getId() != 0 && existing == null)
-        {
+        if (product.getId() != 0 && existing == null) {
             throw new RuntimeException("Product not found");
         }
 
-        try
-        {
+        try {
             updateImageFields(product, imageFile, existing);
-            if (existing != null)
-            {
+            if (existing != null) {
                 updateMissingFields(product, existing);
             }
             return repo.save(product);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException("Failed to process product: " + e.getMessage(), e);
         }
     }
 
-    private void updateImageFields(Product product, MultipartFile imageFile, Product existing) throws Exception
-    {
-        if (imageFile != null && !imageFile.isEmpty())
-        {
-            product.setImageData(imageFile.getBytes());
-            product.setImageType(imageFile.getContentType());
+    public void deleteProduct(int productId) {
+        repo.deleteById(productId);
+    }
+
+    private void updateImageFields(Product product, MultipartFile imageFile, Product existing) throws Exception {
+        if (imageFile != null && !imageFile.isEmpty()) {
             product.setImageName(imageFile.getOriginalFilename());
-        }
-        else if (existing != null)
-        {
-            product.setImageData(existing.getImageData());
-            product.setImageType(existing.getImageType());
+            product.setImageType(imageFile.getContentType());
+            product.setImageData(imageFile.getBytes());
+        } else if (existing != null) {
             product.setImageName(existing.getImageName());
+            product.setImageType(existing.getImageType());
+            product.setImageData(existing.getImageData());
         }
     }
 
-    private void updateMissingFields(Product product, Product existing)
-    {
-        if (isBlank(product.getName())) product.setName(existing.getName());
-        if (product.getDescription() == null) product.setDescription(existing.getDescription());
-        if (isBlank(product.getCategory())) product.setCategory(existing.getCategory());
-        if (isBlank(product.getBrand())) product.setBrand(existing.getBrand());
-        if (product.getPrice() == null) product.setPrice(existing.getPrice());
-        if (product.getQuantity() == 0) product.setQuantity(existing.getQuantity());
-        if (product.getReleaseDate() == null) product.setReleaseDate(existing.getReleaseDate());
-        // inStock is always set from incoming product
-    }
-
-    private boolean isBlank(String str)
-    {
-        return str == null || str.isBlank();
-    }
-
-
-
-    public void deleteProduct(int id)
-    {
-        Product product = getProductById(id);
-        if (product != null)
-        {
-            repo.delete(product);
-        }
+    private void updateMissingFields(Product product, Product existing) {
+        if (product.getName() == null)
+            product.setName(existing.getName());
+        if (product.getPrice() == null)
+            product.setPrice(existing.getPrice());
+        if (product.getDescription() == null)
+            product.setDescription(existing.getDescription());
+        if (product.getCategory() == null)
+            product.setCategory(existing.getCategory());
+        if (product.getBrand() == null)
+            product.setBrand(existing.getBrand());
+        if (product.getReleaseDate() == null)
+            product.setReleaseDate(existing.getReleaseDate());
     }
 }
+// --------------------------------------------------------------------------------------
+// ProductService: Service layer for business logic related to products.
+//
+// Key details:
+// - Annotated with @Service; acts as an intermediary between controllers and
+// the repository.
+// - Handles product retrieval, search, creation, update, and deletion.
+// - Manages image file processing and field validation before persistence.
+// - Encapsulates business rules and error handling, keeping controllers thin.
+// - Relies on ProductRepository for data access and Product for the domain
+// model.
+//
+// Centralizes product-related logic, making it easier to maintain and extend
+// business rules.
