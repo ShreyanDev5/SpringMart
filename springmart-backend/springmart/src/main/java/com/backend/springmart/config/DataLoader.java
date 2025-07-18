@@ -21,7 +21,7 @@ public class DataLoader
             if (productRepository.count() == 0)
             {
                 // Helper method to load image bytes from classpath resources
-                java.util.function.Function<String, byte[]> loadImage = (resourcePath) -> {
+                java.util.function.Function<String, byte[]> loadImage = resourcePath -> {
                     try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
                         if (is != null) {
                             return is.readAllBytes();
