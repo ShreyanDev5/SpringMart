@@ -35,19 +35,24 @@ public class ProductService {
         return repo.searchProducts(keyword);
     }
 
-    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile) {
+    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
+    {
         Product existing = (product.getId() != 0) ? repo.findById(product.getId()).orElse(null) : null;
-        if (product.getId() != 0 && existing == null) {
+        if (product.getId() != 0 && existing == null)
+        {
             throw new RuntimeException("Product not found");
         }
 
-        try {
+        try
+        {
             updateImageFields(product, imageFile, existing);
-            if (existing != null) {
+            if (existing != null)
+            {
                 updateMissingFields(product, existing);
             }
             return repo.save(product);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             throw new RuntimeException("Failed to process product: " + e.getMessage(), e);
         }
     }
