@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import SkeletonCard from "../components/SkeletonCard";
-import { LoadingState, EmptyState, ErrorState } from "../components/UIStates";
+import { EmptyState, ErrorState } from "../components/UIStates";
 import styles from "../styles/components/ProductList.module.scss";
 
 function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FiUpload, FiCheck, FiX, FiInfo } from "react-icons/fi";
+import { FiCheck, FiInfo } from "react-icons/fi";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
 

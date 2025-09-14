@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart, FiTrendingUp, FiAward } from "react-icons/fi";
-import Branding from "../../components/Branding";
 import styles from "../../styles/components/home/Hero.module.scss";
 
 const Hero = ({ onSearch }) => {

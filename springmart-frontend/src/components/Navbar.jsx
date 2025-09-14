@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
-import Branding from "./Branding";
 import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {
