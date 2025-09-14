@@ -15,11 +15,11 @@
     text-align: center;
     
     h2 {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 800;
       margin-bottom: $spacing-sm;
       color: $dark;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.03em;
       line-height: 1.2;
       position: relative;
       
@@ -37,10 +37,10 @@
     }
     
     p {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       color: $dark-gray;
-      max-width: 600px;
-      margin: $spacing-md auto 0;
+      max-width: 650px;
+      margin: $spacing-lg auto 0;
       line-height: 1.6;
       font-weight: 400;
     }
@@ -50,7 +50,7 @@
 .productGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-lg;
+  gap: $spacing-xl;
   margin: 0 auto;
   max-width: $container-width;
   padding: 0 $spacing-xl;
@@ -62,7 +62,7 @@
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  margin-top: $spacing-xl;
+  margin-top: $spacing-2xl;
 }
 
 .viewAllLink {
@@ -72,17 +72,18 @@
   color: $primary;
   font-weight: 600;
   text-decoration: none;
-  transition: $transition;
-  padding: $spacing-sm $spacing-xl;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: $spacing-md $spacing-xl;
   margin: 0;
   border-radius: $radius-full;
   background: rgba($primary, 0.1);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 1rem;
+  font-size: 1.1rem;
   border: 2px solid rgba($primary, 0.2);
   z-index: 1;
+  box-shadow: $shadow-sm;
   
   &::before {
     content: '';
@@ -111,7 +112,7 @@
     background: rgba($primary, 0.15);
     color: darken($primary, 10%);
     box-shadow: $shadow-md;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
     
     &::before {
       transform: translateX(100%);
@@ -124,52 +125,83 @@
   
   &:active {
     transform: translateY(0);
+    box-shadow: $shadow-sm;
+    transition-duration: 0.1s;
+  }
+  
+  @media (hover: none) and (pointer: coarse) {
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: $shadow;
+    }
   }
 }
 
 .errorState,
 .emptyState {
   text-align: center;
-  padding: $spacing-2xl;
-  background: $white;
-  border-radius: $radius-xl;
+  padding: $spacing-3xl $spacing-lg;
+  background: linear-gradient(135deg, rgba($white, 0.95) 0%, rgba($light, 0.9) 100%);
+  border-radius: $radius-2xl;
   box-shadow: $shadow-lg;
-  margin: $spacing-2xl auto;
+  margin: $spacing-3xl auto;
   max-width: 600px;
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $primary-gradient;
+  }
   
   p {
     margin: 0;
     color: $dark;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     position: relative;
     z-index: 1;
     line-height: 1.6;
+    font-weight: 500;
   }
 }
 
 .emptyStateSubtext {
   margin-top: $spacing-sm !important;
   color: $gray !important;
-  font-size: 0.95rem !important;
+  font-size: 1rem !important;
   opacity: 0.8;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
-  border: 3px solid rgba($primary, 0.1);
+  width: 60px;
+  height: 60px;
+  border: 5px solid rgba($primary, 0.1);
   border-radius: 50%;
   border-top-color: $primary;
-  margin: 0 auto $spacing-md;
+  margin: 0 auto $spacing-lg;
   animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@include respond-to(xl) {
+  .productGrid {
+    gap: $spacing-lg;
+  }
+  
+  .viewAllLink {
+    padding: $spacing-sm $spacing-xl;
   }
 }
 
@@ -180,6 +212,37 @@
   
   :global(.section-header) {
     margin-bottom: $spacing-xl;
+    padding: 0 $spacing-md;
+    
+    h2 {
+      font-size: 2.5rem;
+    }
+    
+    p {
+      font-size: 1.15rem;
+      max-width: 550px;
+    }
+  }
+  
+  .productGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg;
+    padding: 0 $spacing-lg;
+  }
+  
+  .viewAllLink {
+    padding: $spacing-sm $spacing-lg;
+    font-size: 1rem;
+  }
+}
+
+@include respond-to(md) {
+  .productsSection {
+    padding: $spacing-xl 0;
+  }
+  
+  :global(.section-header) {
+    margin-bottom: $spacing-lg;
     padding: 0 $spacing-md;
     
     h2 {
@@ -195,36 +258,21 @@
   .productGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-md;
-    padding: 0 $spacing-lg;
-  }
-}
-
-@include respond-to(md) {
-  .productsSection {
-    padding: $spacing-xl 0;
-  }
-  
-  :global(.section-header) {
-    margin-bottom: $spacing-lg;
-    padding: 0 $spacing-md;
-    
-    h2 {
-      font-size: 2rem;
-    }
-    
-    p {
-      font-size: 1rem;
-      max-width: 450px;
-    }
-  }
-  
-  .productGrid {
-    grid-template-columns: repeat(2, 1fr);
     padding: 0 $spacing-md;
   }
   
   .viewAllLink {
     padding: $spacing-sm $spacing-lg;
+  }
+  
+  .errorState,
+  .emptyState {
+    padding: $spacing-2xl $spacing-md;
+    margin: $spacing-2xl auto;
+    
+    p {
+      font-size: 1.1rem;
+    }
   }
 }
 
@@ -238,27 +286,42 @@
     margin-bottom: $spacing-lg;
     
     h2 {
-      font-size: 1.75rem;
+      font-size: 2rem;
     }
     
     p {
       font-size: 1rem;
+      margin-top: $spacing-sm;
     }
   }
   
   .productGrid {
     grid-template-columns: 1fr;
     padding: 0 $spacing-sm;
-    gap: $spacing-md;
+    gap: $spacing-lg;
   }
   
   .viewAllContainer {
-    margin-top: $spacing-lg;
+    margin-top: $spacing-xl;
   }
   
   .viewAllLink {
     padding: $spacing-sm $spacing-lg;
-    font-size: 0.95rem;
+    font-size: 1rem;
+  }
+  
+  .errorState,
+  .emptyState {
+    padding: $spacing-xl $spacing-sm;
+    margin: $spacing-xl auto;
+    
+    p {
+      font-size: 1rem;
+    }
+  }
+  
+  .emptyStateSubtext {
+    font-size: 0.95rem !important;
   }
 }
 
@@ -272,12 +335,12 @@
     padding: 0 $spacing-xs;
     
     h2 {
-      font-size: 1.6rem;
+      font-size: 1.75rem;
       line-height: 1.2;
     }
     
     p {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       line-height: 1.4;
       margin-top: $spacing-xs;
     }
@@ -285,16 +348,32 @@
   
   .productGrid {
     grid-template-columns: 1fr;
-    gap: $spacing-sm;
+    gap: $spacing-md;
     padding: 0 $spacing-xs;
   }
   
   .viewAllContainer {
-    margin-top: $spacing-md;
+    margin-top: $spacing-lg;
   }
   
   .viewAllLink {
     padding: $spacing-xs $spacing-md;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+  }
+  
+  .errorState,
+  .emptyState {
+    padding: $spacing-lg $spacing-xs;
+    margin: $spacing-lg auto;
+    
+    p {
+      font-size: 0.95rem;
+    }
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border-width: 4px;
   }
 }

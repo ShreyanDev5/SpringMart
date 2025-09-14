@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import Branding from "./Branding";
 import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {
@@ -53,10 +54,16 @@ function Navbar({ onSearch }) {
         <nav className="navbar">
             <div className="navbar-content">
                 <div className="navbar-left">
-                    <div className="logo">
-                        <img src="/SpringMart_Logo_2.1.png" alt="SpringMart Logo" className="logo-img" />
-                        <span className="brand">SpringMart</span>
-                    </div>
+                    <Link to="/" className="logo" onClick={(e) => { 
+                        if (location.pathname === "/") {
+                            if (window.scrollY > 100) {
+                                window.scrollTo({ top: 0, behavior: "smooth" });
+                            }
+                            e.preventDefault();
+                        }
+                    }}>
+                        <Branding variant="logo" size="medium" />
+                    </Link>
                 </div>
 
                 <div className="navbar-center">

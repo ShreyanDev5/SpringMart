@@ -86,16 +86,35 @@
   letter-spacing: 0.02em;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
   
   .badgeIcon {
     font-size: 1rem;
     color: $secondary;
   }
   
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: -1;
+  }
+  
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba($secondary, 0.15);
     background: linear-gradient(135deg, rgba($secondary, 0.2) 0%, rgba($secondary, 0.15) 100%);
+    
+    &::before {
+      transform: translateX(100%);
+    }
   }
 }
 
@@ -170,6 +189,7 @@
   overflow: hidden;
   min-height: 44px;
   z-index: 1;
+  box-shadow: $shadow;
   
   .buttonIcon {
     font-size: 1rem;
@@ -196,12 +216,6 @@
   &:hover::before {
     transform: translateX(100%);
   }
-}
-
-.primaryButton {
-  background: $primary-gradient;
-  color: $white;
-  box-shadow: $shadow;
   
   &:hover {
     transform: translateY(-2px);
@@ -210,6 +224,17 @@
   
   &:active {
     transform: translateY(0);
+    box-shadow: $shadow;
+    transition-duration: 0.1s;
+  }
+}
+
+.primaryButton {
+  background: $primary-gradient;
+  color: $white;
+  
+  &:hover {
+    background: linear-gradient(135deg, lighten($primary, 5%) 0%, lighten($primary-dark, 5%) 100%);
   }
 }
 
@@ -220,14 +245,8 @@
   backdrop-filter: blur(10px);
   
   &:hover {
-    transform: translateY(-2px);
     background: $white;
     border-color: rgba($gray, 0.3);
-    box-shadow: $shadow-md;
-  }
-  
-  &:active {
-    transform: translateY(0);
   }
 }
 
@@ -429,6 +448,18 @@
   75% {
     opacity: 0.9;
     transform: scale(1.15) rotate(3deg);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -778,6 +809,7 @@
   border-radius: $radius-lg;
   padding: $spacing-md;
   overflow: hidden;
+  text-align: center;
   
   h3 {
     font-size: 1.3rem;
@@ -792,6 +824,12 @@
     line-height: 1.5;
     opacity: 0.9;
   }
+}
+
+.heroCardLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-sm;
 }
 
 .heroCardLink {
@@ -1617,6 +1655,12 @@
         transition-duration: 0.1s;
       }
     }
+  }
+  
+  .heroCardLogo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-xs;
   }
   
   .heroCardBadge {

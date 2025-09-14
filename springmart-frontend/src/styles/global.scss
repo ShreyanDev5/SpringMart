@@ -17,6 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "kern" 1;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 .home-container {
@@ -26,15 +27,17 @@ body {
   overflow: hidden;
 }
 
-/* Enhanced Button Styles */
+/* Enhanced Button Styles - Refined for premium feel */
 .btn {
   @include button-base;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
   border: none;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  box-shadow: $shadow-sm;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &::before {
     content: '';
@@ -43,7 +46,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transform: translateX(-100%);
     transition: transform 0.6s ease;
     z-index: -1;
@@ -51,7 +54,7 @@ body {
   
   &-icon {
     font-size: 1.1em;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
   }
   
   &:hover .btn-icon {
@@ -62,20 +65,23 @@ body {
     transform: translateX(100%);
   }
   
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-sm;
+    transition-duration: 0.1s;
+  }
+  
   &-primary {
     background: $primary-gradient;
     color: $white;
-    box-shadow: $shadow;
     
     &:hover {
       background: linear-gradient(135deg, lighten($primary, 5%) 0%, lighten($primary-dark, 5%) 100%);
-      transform: translateY(-2px);
-      box-shadow: $shadow-md;
-    }
-    
-    &:active {
-      transform: translateY(0);
-      box-shadow: $shadow;
     }
   }
   
@@ -86,28 +92,17 @@ body {
     
     &:hover {
       background-color: rgba($primary, 0.1);
-      transform: translateY(-2px);
-      box-shadow: $shadow-sm;
-    }
-    
-    &:active {
-      transform: translateY(0);
+      border-color: lighten($primary, 10%);
     }
   }
   
   &-light {
     background-color: $white;
     color: $primary;
-    box-shadow: $shadow;
     
     &:hover {
       background-color: $lighter-gray;
       transform: translateY(-2px);
-      box-shadow: $shadow-md;
-    }
-    
-    &:active {
-      transform: translateY(0);
     }
   }
   
@@ -118,68 +113,49 @@ body {
     
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-      box-shadow: $shadow-sm;
-    }
-    
-    &:active {
-      transform: translateY(0);
+      border-color: rgba(255, 255, 255, 0.8);
     }
   }
   
   &-success {
-    background: linear-gradient(135deg, $success 0%, darken($success, 5%) 100%);
+    background: $secondary-gradient;
     color: $white;
-    box-shadow: $shadow;
     
     &:hover {
-      background: linear-gradient(135deg, lighten($success, 5%) 0%, $success 100%);
-      transform: translateY(-2px);
-      box-shadow: $shadow-md;
-    }
-    
-    &:active {
-      transform: translateY(0);
+      background: linear-gradient(135deg, lighten($secondary, 5%) 0%, $secondary 100%);
     }
   }
   
   &-danger {
-    background: linear-gradient(135deg, $error 0%, darken($error, 5%) 100%);
+    background: linear-gradient(135deg, $error 0%, darken($error, 10%) 100%);
     color: $white;
-    box-shadow: $shadow;
     
     &:hover {
       background: linear-gradient(135deg, lighten($error, 5%) 0%, $error 100%);
-      transform: translateY(-2px);
-      box-shadow: $shadow-md;
-    }
-    
-    &:active {
-      transform: translateY(0);
     }
   }
 }
 
-/* Enhanced Section Headers */
+/* Enhanced Section Headers - Premium styling */
 .section-header {
-  margin-bottom: $spacing-2xl;
+  margin-bottom: $spacing-3xl;
   position: relative;
   
   h2 {
-    font-size: 2.75rem;
+    font-size: 3rem;
     font-weight: 800;
     margin-bottom: $spacing-sm;
     color: $dark;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     line-height: 1.2;
     position: relative;
     
     &::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -12px;
       left: 0;
-      width: 60px;
+      width: 80px;
       height: 4px;
       background: $primary-gradient;
       border-radius: 2px;
@@ -187,12 +163,12 @@ body {
   }
   
   p {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     color: $dark-gray;
-    max-width: 650px;
+    max-width: 700px;
     line-height: 1.7;
     font-weight: 400;
-    margin-top: $spacing-md;
+    margin-top: $spacing-lg;
   }
   
   &.centered {
@@ -204,7 +180,7 @@ body {
     }
     
     p {
-      margin: $spacing-md auto 0;
+      margin: $spacing-lg auto 0;
     }
   }
   
@@ -213,17 +189,19 @@ body {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: $spacing-lg;
+    gap: $spacing-xl;
   }
 }
 
-/* Card Component */
+/* Card Component - Enhanced with premium feel */
 .card {
   @include card-base;
   padding: $spacing-lg;
   background: $white;
   position: relative;
   overflow: hidden;
+  border-radius: $radius-xl;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &::before {
     content: '';
@@ -236,16 +214,27 @@ body {
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
+    border-radius: $radius-xl $radius-xl 0 0;
   }
   
   &:hover::before {
     transform: scaleX(1);
   }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+  
+  &:active {
+    transform: translateY(-1px);
+    transition-duration: 0.1s;
+  }
 }
 
-/* Form Elements */
+/* Form Elements - Refined for better UX */
 .form-group {
-  margin-bottom: $spacing-md;
+  margin-bottom: $spacing-lg;
   
   label {
     display: block;
@@ -253,28 +242,51 @@ body {
     font-weight: 500;
     color: $dark-gray;
     font-size: 0.95rem;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 20px;
+      height: 2px;
+      background: $primary;
+      border-radius: 1px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .form-group:focus-within &::after {
+      opacity: 1;
+    }
   }
   
   .form-control {
     width: 100%;
-    padding: $spacing-sm $spacing-md;
+    padding: 1rem 1.25rem;
     border: 2px solid $light-gray;
-    border-radius: $radius;
+    border-radius: $radius-lg;
     font-size: 1rem;
     background: $white;
-    transition: $transition;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+    
+    &:hover {
+      border-color: $gray;
+    }
     
     &:focus {
       outline: none;
       border-color: $primary;
-      box-shadow: 0 0 0 3px rgba($primary, 0.15);
+      box-shadow: 0 0 0 4px rgba($primary, 0.15);
     }
     
     &.is-invalid {
       border-color: $error;
       
       &:focus {
-        box-shadow: 0 0 0 3px rgba($error, 0.15);
+        box-shadow: 0 0 0 4px rgba($error, 0.15);
       }
     }
   }
@@ -292,10 +304,30 @@ body {
     font-size: 0.85rem;
     color: $error;
     font-weight: 500;
+    position: relative;
+    padding-left: 1.25rem;
+    
+    &::before {
+      content: '!';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      background: $error;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
   }
 }
 
-/* Utility Classes */
+/* Utility Classes - Enhanced with consistent transitions */
 .text-center {
   text-align: center;
 }
@@ -338,6 +370,10 @@ body {
 
 .rounded-lg {
   border-radius: $radius-lg;
+}
+
+.rounded-xl {
+  border-radius: $radius-xl;
 }
 
 .shadow {
@@ -446,11 +482,11 @@ body {
   padding-right: $spacing-lg;
 }
 
-/* Animations */
+/* Animations - Enhanced for smoother transitions */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   to {
     opacity: 1;
@@ -461,7 +497,7 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
@@ -474,7 +510,7 @@ body {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
   }
 }
 
@@ -487,9 +523,11 @@ body {
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.7;
+    transform: scale(1.05);
   }
 }
 
@@ -502,8 +540,63 @@ body {
   }
 }
 
-/* Responsive Design */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid $primary;
+  outline-offset: 2px;
+  border-radius: $radius-sm;
+}
+
+/* Scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $lighter-gray;
+  border-radius: $radius;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray;
+  border-radius: $radius;
+  
+  &:hover {
+    background: $dark-gray;
+  }
+}
+
+/* Responsive Design - Enhanced for premium feel */
 @include respond-to(xl) {
+  .section-header {
+    margin-bottom: $spacing-2xl;
+    
+    h2 {
+      font-size: 2.75rem;
+    }
+    
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+@include respond-to(lg) {
   .section-header {
     margin-bottom: $spacing-xl;
     
@@ -512,78 +605,79 @@ body {
     }
     
     p {
-      font-size: 1.1rem;
-    }
-  }
-}
-
-@include respond-to(lg) {
-  .section-header {
-    margin-bottom: $spacing-lg;
-    
-    h2 {
-      font-size: 2.25rem;
-    }
-    
-    p {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
     }
   }
 }
 
 @include respond-to(md) {
   .section-header {
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-xl;
     
     h2 {
-      font-size: 2rem;
-      letter-spacing: -0.015em;
+      font-size: 2.25rem;
+      letter-spacing: -0.02em;
     }
     
     p {
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 1.05rem;
+      line-height: 1.65;
     }
   }
 }
 
 @include respond-to(sm) {
   .section-header {
-    margin-bottom: $spacing-md;
-    padding: 0 $spacing-xs;
+    margin-bottom: $spacing-lg;
+    padding: 0 $spacing-sm;
     
     h2 {
-      font-size: 1.75rem;
-      letter-spacing: -0.02em;
+      font-size: 2rem;
+      letter-spacing: -0.025em;
       margin-bottom: $spacing-xs;
       line-height: 1.3;
     }
     
     p {
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1rem;
+      line-height: 1.6;
       color: $dark-gray;
     }
     
     &.with-action {
       flex-direction: column;
-      gap: $spacing-md;
+      gap: $spacing-lg;
     }
   }
   
   .card {
     padding: $spacing-md;
+    border-radius: $radius-lg;
+  }
+  
+  .form-group {
+    margin-bottom: $spacing-md;
+    
+    .form-control {
+      padding: 0.85rem 1rem;
+      font-size: 0.95rem;
+    }
   }
 }
 
 @include respond-to(xs) {
   .section-header {
     h2 {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
     }
     
     p {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
+  }
+  
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
   }
 }

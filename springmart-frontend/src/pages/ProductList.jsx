@@ -4,6 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import SkeletonCard from "../components/SkeletonCard";
+import { LoadingState, EmptyState, ErrorState } from "../components/UIStates";
 import styles from "../styles/components/ProductList.module.scss";
 
 function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
@@ -90,11 +91,13 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         }
     }, [refreshTrigger, fetchProducts, searchQuery, API_BASE_URL]);
 
-    // Show skeleton loading for better UX
+    // Show enhanced loading state for better UX
     if (loading) {
         return (
             <div className={styles.productListContainer}>
-                <h1 className={styles.pageTitle}>All Products</h1>
+                <h1 className={styles.pageTitle}>
+                    {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
+                </h1>
                 <div className={styles.productGrid}>
                     {[...Array(6)].map((_, index) => (
                         <SkeletonCard key={index} />
@@ -107,16 +110,14 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     if (error) {
         return (
             <div className={styles.productListContainer}>
-                <h1 className={styles.pageTitle}>All Products</h1>
-                <div className={styles.emptyState}>
-                    <p>Error: {error}</p>
-                    <button 
-                        onClick={() => fetchProducts()} 
-                        className={styles.retryButton}
-                    >
-                        Retry
-                    </button>
-                </div>
+                <h1 className={styles.pageTitle}>
+                    {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
+                </h1>
+                <ErrorState 
+                    title="Failed to Load Products"
+                    description={error}
+                    onRetry={fetchProducts}
+                />
             </div>
         );
     }
@@ -124,20 +125,26 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     if (products.length === 0) {
         return (
             <div className={styles.productListContainer}>
-                <h1 className={styles.pageTitle}>All Products</h1>
-                <div className={styles.emptyState}>
-                    <p>No products found.</p>
-                    <p className={styles.emptyStateSubtext}>
-                        Check back later for new products or try adding some yourself!
-                    </p>
-                </div>
+                <h1 className={styles.pageTitle}>
+                    {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
+                </h1>
+                <EmptyState 
+                    title={searchQuery ? "No Products Found" : "No Products Available"}
+                    description={
+                        searchQuery 
+                            ? "Try adjusting your search query or browse all products." 
+                            : "Check back later for new products or try adding some yourself!"
+                    }
+                />
             </div>
         );
     }
 
     return (
         <div className={styles.productListContainer}>
-            <h1 className={styles.pageTitle}>All Products</h1>
+            <h1 className={styles.pageTitle}>
+                {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
+            </h1>
             <div className={styles.productGrid}>
                 {products.map(product => (
                     <ProductCard 

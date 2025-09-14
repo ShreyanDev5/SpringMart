@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart, FiTrendingUp, FiAward } from "react-icons/fi";
+import Branding from "../../components/Branding";
 import styles from "../../styles/components/home/Hero.module.scss";
 
 const Hero = ({ onSearch }) => {
@@ -11,7 +12,7 @@ const Hero = ({ onSearch }) => {
       // Mobile check is still performed for the parallax logic
       const isMobile = window.innerWidth <= 768;
       return isMobile;
-    };
+    }
     
     const isMobile = checkMobile();
     
@@ -115,6 +116,9 @@ const Hero = ({ onSearch }) => {
             <span>Featured</span>
           </div>
           <div className={styles.heroCardContent}>
+            <div className={styles.heroCardLogo}>
+              <Branding variant="icon" size="large" />
+            </div>
             <h3>Premium Collection</h3>
             <p>Exclusive products for you</p>
             <Link to="/products" className={styles.heroCardLink}>

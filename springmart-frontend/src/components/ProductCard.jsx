@@ -92,18 +92,26 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
                 ref={imgRef}
             />
             <div className={styles.productDetails}>
-                <h3>{name}</h3>
-                <p className={styles.brand}>{brand}</p>
-                <p className={styles.category}>{category}</p>
-                <p className={styles.price}>{price}</p>
-                <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`}>
+                <h3 title={name}>{name}</h3>
+                <p className={styles.brand} title={brand}>{brand}</p>
+                <p className={styles.category} title={category}>{category}</p>
+                <p className={styles.price} title={`₹${price}`}>₹{price}</p>
+                <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
                     {inStock ? "In Stock" : "Out of Stock"}
                 </p>
                 <div className={styles.productActions}>
-                    <button className={`${styles.actionButton} ${styles.editButton}`} onClick={handleEdit}>
+                    <button 
+                        className={`${styles.actionButton} ${styles.editButton}`} 
+                        onClick={handleEdit}
+                        aria-label={`Edit ${name}`}
+                    >
                         <FiEdit /> Edit
                     </button>
-                    <button className={`${styles.actionButton} ${styles.deleteButton}`} onClick={handleDelete}>
+                    <button 
+                        className={`${styles.actionButton} ${styles.deleteButton}`} 
+                        onClick={handleDelete}
+                        aria-label={`Delete ${name}`}
+                    >
                         <FiTrash2 /> Delete
                     </button>
                 </div>

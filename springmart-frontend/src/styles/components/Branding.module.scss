@@ -1,0 +1,144 @@
+/* src/styles/components/Branding.module.scss */
+@use '../index' as *;
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  padding: 0.25rem 0;
+  color: inherit;
+  
+  &.small {
+    .logoIcon {
+      width: 32px;
+      height: 32px;
+      margin-right: 0.5rem;
+    }
+    
+    .logoText {
+      font-size: 1.1rem;
+    }
+  }
+  
+  &.medium {
+    .logoIcon {
+      width: 42px;
+      height: 42px;
+      margin-right: 0.75rem;
+    }
+    
+    .logoText {
+      font-size: 1.5rem;
+    }
+  }
+  
+  &.large {
+    .logoIcon {
+      width: 56px;
+      height: 56px;
+      margin-right: 1rem;
+    }
+    
+    .logoText {
+      font-size: 2rem;
+    }
+  }
+}
+
+.logoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: $radius-sm;
+  background: rgba($primary, 0.1);
+  padding: 0.25rem;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.logoText {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $dark;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $primary-gradient;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+  
+  .logoIcon {
+    transform: scale(1.05);
+    color: $primary-dark;
+    background: rgba($primary, 0.15);
+  }
+  
+  .logoText::after {
+    transform: scaleX(1);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $primary;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: $radius-sm;
+  background: rgba($primary, 0.1);
+  padding: 0.25rem;
+  
+  &.small {
+    width: 32px;
+    height: 32px;
+  }
+  
+  &.medium {
+    width: 42px;
+    height: 42px;
+  }
+  
+  &.large {
+    width: 56px;
+    height: 56px;
+  }
+  
+  svg {
+    width: 100%;
+    height: 100%;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  &:hover {
+    transform: scale(1.1);
+    color: $primary-dark;
+    background: rgba($primary, 0.15);
+  }
+}

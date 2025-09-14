@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FiUpload, FiCheck, FiX } from "react-icons/fi";
+import { FiUpload, FiCheck, FiX, FiInfo } from "react-icons/fi";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
 
@@ -194,8 +194,9 @@ function AddProduct({ onProductUpdate }) {
                         placeholder="Enter product name"
                         required
                         className={`${styles.styledInput} ${errors.name ? styles.invalid : ''}`}
+                        aria-describedby={errors.name ? "name-error" : undefined}
                     />
-                    {errors.name && <span className={styles.validationMessage}>{errors.name}</span>}
+                    {errors.name && <span id="name-error" className={styles.validationMessage}>{errors.name}</span>}
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -211,8 +212,9 @@ function AddProduct({ onProductUpdate }) {
                         min="0"
                         step="0.01"
                         className={`${styles.styledInput} ${errors.price ? styles.invalid : ''}`}
+                        aria-describedby={errors.price ? "price-error" : undefined}
                     />
-                    {errors.price && <span className={styles.validationMessage}>{errors.price}</span>}
+                    {errors.price && <span id="price-error" className={styles.validationMessage}>{errors.price}</span>}
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -225,8 +227,9 @@ function AddProduct({ onProductUpdate }) {
                         placeholder="Enter product description (max 500 chars)"
                         maxLength="500"
                         className={styles.styledTextarea}
+                        aria-describedby="description-info"
                     />
-                    <span className={styles.validationMessage}>
+                    <span id="description-info" className={styles.validationMessage}>
                         {product.description.length}/500 characters
                     </span>
                 </div>
@@ -240,6 +243,7 @@ function AddProduct({ onProductUpdate }) {
                         onChange={handleChange}
                         required
                         className={`${styles.styledSelect} ${errors.category ? styles.invalid : ''}`}
+                        aria-describedby={errors.category ? "category-error" : undefined}
                     >
                         <option value="">Select Category</option>
                         {categories.map((cat) => (
@@ -248,7 +252,7 @@ function AddProduct({ onProductUpdate }) {
                             </option>
                         ))}
                     </select>
-                    {errors.category && <span className={styles.validationMessage}>{errors.category}</span>}
+                    {errors.category && <span id="category-error" className={styles.validationMessage}>{errors.category}</span>}
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -262,8 +266,9 @@ function AddProduct({ onProductUpdate }) {
                         placeholder="Enter quantity"
                         min="0"
                         className={`${styles.styledInput} ${errors.quantity ? styles.invalid : ''}`}
+                        aria-describedby={errors.quantity ? "quantity-error" : undefined}
                     />
-                    {errors.quantity && <span className={styles.validationMessage}>{errors.quantity}</span>}
+                    {errors.quantity && <span id="quantity-error" className={styles.validationMessage}>{errors.quantity}</span>}
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -276,8 +281,9 @@ function AddProduct({ onProductUpdate }) {
                         placeholder="Enter brand name"
                         required
                         className={`${styles.styledInput} ${errors.brand ? styles.invalid : ''}`}
+                        aria-describedby={errors.brand ? "brand-error" : undefined}
                     />
-                    {errors.brand && <span className={styles.validationMessage}>{errors.brand}</span>}
+                    {errors.brand && <span id="brand-error" className={styles.validationMessage}>{errors.brand}</span>}
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -289,10 +295,15 @@ function AddProduct({ onProductUpdate }) {
                                 name="inStock"
                                 checked={product.inStock}
                                 onChange={handleChange}
+                                aria-describedby="inStock-info"
                             />
                             <span>In Stock</span>
                         </div>
                     </label>
+                    <span id="inStock-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
+                        <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                        Uncheck if product is currently unavailable
+                    </span>
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -304,7 +315,12 @@ function AddProduct({ onProductUpdate }) {
                         value={product.releaseDate}
                         onChange={handleChange}
                         className={styles.styledInput}
+                        aria-describedby="releaseDate-info"
                     />
+                    <span id="releaseDate-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
+                        <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                        Optional: When was this product released?
+                    </span>
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -315,8 +331,15 @@ function AddProduct({ onProductUpdate }) {
                         accept="image/*"
                         onChange={handleImageChange}
                         className={`${styles.styledFileUpload} ${errors.image ? styles.invalid : ''}`}
+                        aria-describedby={errors.image ? "image-error" : "image-info"}
                     />
-                    {errors.image && <span className={styles.validationMessage}>{errors.image}</span>}
+                    {errors.image && <span id="image-error" className={styles.validationMessage}>{errors.image}</span>}
+                    {!errors.image && (
+                        <span id="image-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
+                            <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                            JPG, PNG, or GIF (max 5MB)
+                        </span>
+                    )}
                     {imagePreview && (
                         <div style={{ marginTop: '1rem' }}>
                             <img
@@ -338,6 +361,7 @@ function AddProduct({ onProductUpdate }) {
                     type="submit"
                     className={styles.styledButton}
                     disabled={loading}
+                    aria-busy={loading}
                 >
                     {loading ? (
                         <>
