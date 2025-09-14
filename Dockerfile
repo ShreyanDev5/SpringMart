@@ -26,7 +26,7 @@ COPY springmart-backend/src src
 RUN ./mvnw clean package -DskipTests  
   
 # Production stage  
-FROM openjdk:21-jre-slim  
+FROM openjdk:21-jre  
   
 # Set the working directory  
 WORKDIR /app  
