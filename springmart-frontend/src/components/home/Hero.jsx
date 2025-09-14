@@ -116,9 +116,6 @@ const Hero = ({ onSearch }) => {
             <span>Featured</span>
           </div>
           <div className={styles.heroCardContent}>
-            <div className={styles.heroCardLogo}>
-              <Branding variant="icon" size="large" />
-            </div>
             <h3>Premium Collection</h3>
             <p>Exclusive products for you</p>
             <Link to="/products" className={styles.heroCardLink}>
