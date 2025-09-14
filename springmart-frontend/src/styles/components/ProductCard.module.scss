@@ -15,7 +15,29 @@
   margin: 0 auto;
   width: 100%;
   border-radius: $radius-xl;
-  box-shadow: $shadow-md;
+  box-shadow: 
+    $shadow-md, // Outer shadow
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Subtle inner highlight
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02); // Subtle inner shadow
+  
+  // Corner tint for added dimension
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      135deg,
+      rgba($primary, 0.02) 0%,
+      rgba($secondary, 0.02) 100%
+    );
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+  }
   
   &::before {
     content: '';
@@ -29,11 +51,15 @@
     transform-origin: left;
     transition: transform 0.3s ease;
     border-radius: $radius-xl $radius-xl 0 0;
+    z-index: 1; // Ensure it's above the corner tint
   }
   
   &:hover {
     transform: translateY(-6px);
-    box-shadow: $shadow-lg;
+    box-shadow: 
+      $shadow-lg, // Enhanced outer shadow
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Enhanced inner highlight
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.03); // Enhanced inner shadow
     
     &::before {
       transform: scaleX(1);
@@ -52,12 +78,19 @@
   &:active {
     transform: translateY(-2px);
     transition-duration: 0.15s;
+    box-shadow: 
+      $shadow, // Reduced outer shadow
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6), // Reduced inner highlight
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04); // Enhanced inner shadow on press
   }
   
   @media (hover: none) and (pointer: coarse) {
     &:active {
       transform: translateY(-3px);
-      box-shadow: $shadow-lg;
+      box-shadow: 
+        $shadow-lg,
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
       transition-duration: 0.1s;
     }
   }
@@ -112,7 +145,7 @@
     font-size: 1.25rem;
     margin: 0;
     color: $dark;
-    font-weight: 700;
+    font-weight: $font-weight-bold; // Increase to bold for better contrast
     line-height: 1.3;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -144,7 +177,7 @@
   font-size: 0.95rem;
   color: $dark-gray;
   margin: 0;
-  font-weight: 500;
+  font-weight: $font-weight-medium; // Increase from 500 to medium variable
   line-height: 1.4;
   display: flex;
   align-items: center;
@@ -168,7 +201,7 @@
   align-items: center;
   gap: 0.4rem;
   line-height: 1.4;
-  font-weight: 500;
+  font-weight: $font-weight-medium; // Increase from 500 to medium variable
   
   &::before {
     content: '•';
@@ -177,7 +210,7 @@
 }
 
 .price {
-  font-weight: 800;
+  font-weight: $font-weight-black; // Maximum contrast for price
   margin: $spacing-xs 0 0;
   color: $dark;
   font-size: 1.5rem;
@@ -190,7 +223,7 @@
   &::before {
     content: '₹';
     font-size: 0.85em;
-    font-weight: 600;
+    font-weight: $font-weight-bold; // Bold currency symbol
   }
   
   &::after {
@@ -216,7 +249,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-weight: 500;
+  font-weight: $font-weight-medium; // Medium weight for better readability
   
   &::before {
     content: '';

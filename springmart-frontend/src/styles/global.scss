@@ -18,6 +18,7 @@ body {
   font-feature-settings: "kern" 1;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  font-weight: $font-weight-normal; // Explicitly set normal font weight for body
 }
 
 .home-container {
@@ -143,7 +144,7 @@ body {
   
   h2 {
     font-size: 3rem;
-    font-weight: 800;
+    font-weight: $font-weight-black; // Increase to black for maximum contrast
     margin-bottom: $spacing-sm;
     color: $dark;
     letter-spacing: -0.03em;
@@ -167,7 +168,7 @@ body {
     color: $dark-gray;
     max-width: 700px;
     line-height: 1.7;
-    font-weight: 400;
+    font-weight: $font-weight-normal; // Explicitly set normal weight for subtitle
     margin-top: $spacing-lg;
   }
   
@@ -202,6 +203,10 @@ body {
   overflow: hidden;
   border-radius: $radius-xl;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    $shadow-md, // Outer shadow
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Subtle inner highlight
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02); // Subtle inner shadow
   
   &::before {
     content: '';
@@ -223,12 +228,19 @@ body {
   
   &:hover {
     transform: translateY(-4px);
-    box-shadow: $shadow-lg;
+    box-shadow: 
+      $shadow-lg, // Enhanced outer shadow
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Enhanced inner highlight
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.03); // Enhanced inner shadow
   }
   
   &:active {
     transform: translateY(-1px);
     transition-duration: 0.1s;
+    box-shadow: 
+      $shadow, // Reduced outer shadow
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.6), // Reduced inner highlight
+      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04); // Enhanced inner shadow on press
   }
 }
 
@@ -239,7 +251,7 @@ body {
   label {
     display: block;
     margin-bottom: $spacing-xs;
-    font-weight: 500;
+    font-weight: $font-weight-medium; // Increase from 500 to medium variable
     color: $dark-gray;
     font-size: 0.95rem;
     position: relative;
@@ -271,6 +283,7 @@ body {
     background: $white;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: inherit;
+    font-weight: $font-weight-normal; // Explicitly set normal weight
     
     &:hover {
       border-color: $gray;
@@ -296,6 +309,7 @@ body {
     margin-top: $spacing-2xs;
     font-size: 0.85rem;
     color: $gray;
+    font-weight: $font-weight-normal; // Explicitly set normal weight
   }
   
   .invalid-feedback {
@@ -303,7 +317,7 @@ body {
     margin-top: $spacing-2xs;
     font-size: 0.85rem;
     color: $error;
-    font-weight: 500;
+    font-weight: $font-weight-medium; // Increase to medium for better visibility
     position: relative;
     padding-left: 1.25rem;
     
@@ -322,7 +336,7 @@ body {
       align-items: center;
       justify-content: center;
       font-size: 0.7rem;
-      font-weight: 700;
+      font-weight: $font-weight-bold; // Increase to bold for better contrast
     }
   }
 }
