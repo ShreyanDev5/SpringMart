@@ -62,7 +62,8 @@ function Navbar({ onSearch }) {
                             e.preventDefault();
                         }
                     }}>
-                        <Branding variant="logo" size="medium" />
+                        <img src="/SpringMart_Logo_2.1.png" alt="SpringMart Logo" className="logo-img" />
+                        <span className="brand">SpringMart</span>
                     </Link>
                 </div>
 
