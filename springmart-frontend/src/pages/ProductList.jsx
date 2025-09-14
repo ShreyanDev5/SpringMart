@@ -84,7 +84,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             setPage(0);
             fetchProducts(0);
         }
-    }, [searchQuery, API_BASE_URL]);
+    }, [searchQuery, API_BASE_URL, fetchProducts]);
 
     useEffect(() => {
         if (!searchQuery) {
@@ -100,7 +100,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             setPage(0);
             fetchProducts(0);
         }
-    }, [refreshTrigger, searchQuery, API_BASE_URL]);
+    }, [refreshTrigger, searchQuery, fetchProducts]);
 
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
