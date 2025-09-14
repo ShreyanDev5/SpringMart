@@ -56,6 +56,11 @@
   padding: 0 $spacing-xl;
   position: relative;
   z-index: 1;
+  
+  .errorState,
+  .emptyState {
+    grid-column: 1 / -1;
+  }
 }
 
 .viewAllContainer {
@@ -228,6 +233,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-lg;
     padding: 0 $spacing-lg;
+    
+    .errorState,
+    .emptyState {
+      grid-column: 1 / -1;
+    }
   }
   
   .viewAllLink {
@@ -259,6 +269,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-md;
     padding: 0 $spacing-md;
+    
+    .errorState,
+    .emptyState {
+      grid-column: 1 / -1;
+    }
   }
   
   .viewAllLink {
@@ -299,6 +314,11 @@
     grid-template-columns: 1fr;
     padding: 0 $spacing-sm;
     gap: $spacing-lg;
+    
+    .errorState,
+    .emptyState {
+      grid-column: 1 / -1;
+    }
   }
   
   .viewAllContainer {
@@ -350,6 +370,11 @@
     grid-template-columns: 1fr;
     gap: $spacing-md;
     padding: 0 $spacing-xs;
+    
+    .errorState,
+    .emptyState {
+      grid-column: 1 / -1;
+    }
   }
   
   .viewAllContainer {
