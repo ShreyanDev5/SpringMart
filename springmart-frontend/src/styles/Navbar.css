@@ -86,6 +86,7 @@
 .search-container {
     width: 100%;
     max-width: 500px;
+    position: relative;
 }
 
 /* Desktop Navigation - Refined for Material Design */
@@ -105,7 +106,7 @@
     color: #0f172a;
     text-decoration: none;
     padding: 0.65rem 1.25rem;
-    border-radius: $radius-full;
+    border-radius: 9999px;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     position: relative;
@@ -169,7 +170,7 @@
     border: none;
     cursor: pointer;
     z-index: 1000;
-    border-radius: $radius-sm;
+    border-radius: 0.25rem;
     transition: all 0.2s ease;
     position: relative;
     width: 40px;
@@ -183,7 +184,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    border-radius: $radius-sm;
+    border-radius: 0.25rem;
     background: rgba(15, 23, 42, 0.05);
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -261,8 +262,8 @@
     opacity: 0;
     visibility: hidden;
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    border-bottom-left-radius: $radius-xl;
-    border-bottom-right-radius: $radius-xl;
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
 }
 
 .mobile-menu.show {
@@ -286,7 +287,7 @@
     color: #0f172a;
     text-decoration: none;
     padding: 1rem 1.5rem;
-    border-radius: $radius-full;
+    border-radius: 9999px;
     text-align: center;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(15, 23, 42, 0.1);

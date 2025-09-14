@@ -473,32 +473,42 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: $radius-lg;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
     z-index: 0;
     box-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.02),
-      0 4px 8px rgba(0, 0, 0, 0.02),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+      0 4px 12px rgba(0, 0, 0, 0.08),
+      0 2px 4px rgba(0, 0, 0, 0.04),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba($primary, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   &::after {
     content: '';
     position: absolute;
-    inset: -1px;
+    inset: -2px;
     background: linear-gradient(135deg, 
-      rgba($primary, 0.1) 0%,
-      rgba($secondary, 0.1) 100%
+      rgba($primary, 0.2) 0%,
+      rgba($secondary, 0.2) 100%
     );
-    border-radius: calc($radius-lg + 1px);
+    border-radius: calc($radius-lg + 2px);
     z-index: -1;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   &:focus-within::after {
     opacity: 1;
+  }
+  
+  &:hover::before {
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 
+      0 6px 16px rgba(0, 0, 0, 0.12),
+      0 4px 8px rgba(0, 0, 0, 0.06),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.9);
   }
   
   .searchWrapper {
@@ -512,77 +522,134 @@
     position: absolute;
     left: $spacing-md;
     color: $gray;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     pointer-events: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
   }
   
   input {
     width: 100%;
-    height: 42px;
-    padding: 0 $spacing-lg 0 calc($spacing-lg + $spacing-lg);
+    height: 48px;
+    padding: 0 $spacing-xl 0 calc($spacing-lg + $spacing-lg);
     border: none;
     background: transparent;
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: $dark;
     border-radius: $radius-lg;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    letter-spacing: 0.01em;
     
     &::placeholder {
-      color: rgba($gray, 0.8);
-      font-weight: 500;
+      color: rgba($gray, 0.7);
+      font-weight: 400;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     &:focus {
       outline: none;
+      padding-right: calc($spacing-lg + 80px);
+      
+      &::placeholder {
+        color: rgba($gray, 0.5);
+      }
       
       & + .searchIcon {
         color: $primary;
+        transform: scale(1.1);
       }
     }
   }
   
   .searchButton {
     position: absolute;
-    right: $spacing-xs;
+    right: $spacing-sm;
     top: 50%;
     transform: translateY(-50%);
-    padding: 0 $spacing-sm;
+    padding: 0 $spacing-md;
     background: $primary-gradient;
     color: white;
     border: none;
     border-radius: $radius-full;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
     visibility: hidden;
-    box-shadow: 0 2px 4px rgba($primary, 0.2);
-    height: 32px;
-    min-width: 80px;
-    letter-spacing: 0.01em;
+    box-shadow: 
+      0 4px 12px rgba($primary, 0.3),
+      0 2px 4px rgba($primary, 0.2);
+    height: 36px;
+    min-width: 90px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    z-index: 3;
+    
+    .buttonIcon {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      border-radius: inherit;
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+      z-index: -1;
+    }
     
     &:hover {
-      transform: translateY(-50%) translateY(-1px);
-      box-shadow: 0 4px 8px rgba($primary, 0.25);
-      background: linear-gradient(135deg, lighten($primary, 5%) 0%, lighten($primary-dark, 5%) 100%);
+      transform: translateY(-50%) translateY(-2px);
+      box-shadow: 
+        0 6px 16px rgba($primary, 0.4),
+        0 4px 8px rgba($primary, 0.3);
+      background: linear-gradient(135deg, lighten($primary, 8%) 0%, lighten($primary-dark, 8%) 100%);
+      
+      &::before {
+        transform: translateX(100%);
+      }
+      
+      .buttonIcon {
+        transform: translateX(2px);
+      }
     }
     
     &:active {
-      transform: translateY(-50%) translateY(1px);
-      box-shadow: 0 2px 4px rgba($primary, 0.2);
+      transform: translateY(-50%) translateY(0);
+      box-shadow: 
+        0 2px 8px rgba($primary, 0.3),
+        0 1px 4px rgba($primary, 0.2);
+      transition-duration: 0.15s;
+    }
+    
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
     }
   }
   
-  &:focus-within {
+  &:focus-within,
+  &:hover {
     .searchButton {
       opacity: 1;
       visibility: visible;
     }
-    
+  }
+  
+  &:focus-within {
     input {
-      padding-right: calc($spacing-lg + 70px);
+      padding-right: calc($spacing-lg + 90px);
     }
   }
 }
@@ -1128,6 +1195,10 @@
     margin: 0 auto $spacing-lg;
     width: 100%;
     max-width: 500px;
+    
+    input {
+      height: 46px;
+    }
   }
   
   .heroImage {
@@ -1400,6 +1471,8 @@
     .searchButton {
       padding: $spacing-xs $spacing-sm;
       font-size: 0.8rem;
+      height: 32px;
+      min-width: 80px;
     }
   }
 
@@ -1729,6 +1802,48 @@
       background-image: 
         radial-gradient(circle at 20% 80%, rgba($secondary, 0.1) 0%, transparent 40%),
         radial-gradient(circle at 80% 20%, rgba($primary, 0.1) 0%, transparent 40%);
+    }
+  }
+  
+  .searchContainer {
+    margin: 0 auto $spacing-md;
+    max-width: 100%;
+    
+    &::before {
+      border-radius: $radius-md;
+    }
+    
+    &::after {
+      border-radius: calc($radius-md + 2px);
+    }
+    
+    input {
+      height: 42px;
+      font-size: 0.95rem;
+      padding: 0 $spacing-lg 0 calc($spacing-md + $spacing-md);
+    }
+    
+    .searchIcon {
+      left: $spacing-sm;
+      font-size: 1.1rem;
+    }
+    
+    .searchButton {
+      right: $spacing-xs;
+      padding: 0 $spacing-sm;
+      font-size: 0.85rem;
+      height: 30px;
+      min-width: 75px;
+      
+      .buttonIcon {
+        font-size: 0.8rem;
+      }
+    }
+    
+    &:focus-within {
+      input {
+        padding-right: calc($spacing-md + 75px);
+      }
     }
   }
 }

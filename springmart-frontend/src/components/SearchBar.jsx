@@ -24,6 +24,7 @@ function SearchBar({ onSearch }) {
                     aria-label="Search products"
                 />
                 <button type="submit" className={styles.searchButton}>
+                    <FiSearch className={styles.buttonIcon} />
                     Search
                 </button>
             </form>
