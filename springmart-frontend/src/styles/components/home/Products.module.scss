@@ -2,68 +2,11 @@
 @use '../../index' as *;
 
 .productsSection {
-  padding: $spacing-2xl 0;
+  padding: $spacing-3xl 0;
   position: relative;
-  margin: $spacing-lg 0;
-  border-radius: $radius-2xl;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 251, 247, 0.98) 0%,
-    rgba(252, 247, 242, 0.95) 100%
-  );
-  box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.1),
-    0 10px 20px -10px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-  transform: translateY(-2px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 auto;
+  max-width: $container-width;
   
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      0 25px 50px -15px rgba(0, 0, 0, 0.12),
-      0 15px 25px -10px rgba(0, 0, 0, 0.07),
-      0 0 0 1px rgba(255, 255, 255, 0.15) inset;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 153, 0, 0.03) 0%,
-      rgba(255, 153, 0, 0.01) 100%
-    );
-    border-radius: inherit;
-    pointer-events: none;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.2)
-    );
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
   :global(.section-header) {
     position: relative;
     z-index: 2;
@@ -78,24 +21,28 @@
       color: $dark;
       letter-spacing: -0.02em;
       line-height: 1.2;
-      background: linear-gradient(135deg, 
-        rgba(0, 0, 0, 0.95) 0%,
-        rgba(0, 0, 0, 0.85) 100%
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: $primary-gradient;
+        border-radius: 2px;
+      }
     }
     
     p {
       font-size: 1.1rem;
       color: $dark-gray;
       max-width: 600px;
-      margin: 0 auto;
+      margin: $spacing-md auto 0;
       line-height: 1.6;
-      font-weight: 500;
-      opacity: 0.9;
+      font-weight: 400;
     }
   }
 }
@@ -115,25 +62,27 @@
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  margin-top: $spacing-lg;
+  margin-top: $spacing-xl;
 }
 
 .viewAllLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   color: $primary;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: $transition;
   padding: $spacing-sm $spacing-xl;
   margin: 0;
-  border-radius: $radius-md;
-  background: rgba($primary, 0.08);
+  border-radius: $radius-full;
+  background: rgba($primary, 0.1);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
   font-size: 1rem;
+  border: 2px solid rgba($primary, 0.2);
+  z-index: 1;
   
   &::before {
     content: '';
@@ -145,11 +94,12 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.3),
       transparent
     );
     transform: translateX(-100%);
     transition: transform 0.6s ease;
+    z-index: -1;
   }
   
   svg {
@@ -160,8 +110,8 @@
   &:hover {
     background: rgba($primary, 0.15);
     color: darken($primary, 10%);
-    box-shadow: 0 4px 12px rgba($primary, 0.15);
-    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+    transform: translateY(-2px);
     
     &::before {
       transform: translateX(100%);
@@ -177,32 +127,34 @@
   }
 }
 
-.loadingState,
 .errorState,
 .emptyState {
   text-align: center;
   padding: $spacing-2xl;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+  background: $white;
   border-radius: $radius-xl;
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  margin: $spacing-xl auto;
+  box-shadow: $shadow-lg;
+  margin: $spacing-2xl auto;
   max-width: 600px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, $primary, $secondary);
+  p {
+    margin: 0;
+    color: $dark;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+    line-height: 1.6;
   }
+}
+
+.emptyStateSubtext {
+  margin-top: $spacing-sm !important;
+  color: $gray !important;
+  font-size: 0.95rem !important;
+  opacity: 0.8;
 }
 
 .spinner {
@@ -223,8 +175,6 @@
 
 @include respond-to(lg) {
   .productsSection {
-    margin: $spacing-lg 0;
-    border-radius: $radius-xl;
     padding: $spacing-2xl 0;
   }
   
@@ -234,7 +184,6 @@
     
     h2 {
       font-size: 2.25rem;
-      letter-spacing: -0.015em;
     }
     
     p {
@@ -252,8 +201,6 @@
 
 @include respond-to(md) {
   .productsSection {
-    margin: $spacing-md 0;
-    border-radius: $radius-lg;
     padding: $spacing-xl 0;
   }
   
@@ -263,7 +210,6 @@
     
     h2 {
       font-size: 2rem;
-      letter-spacing: -0.02em;
     }
     
     p {
@@ -276,13 +222,15 @@
     grid-template-columns: repeat(2, 1fr);
     padding: 0 $spacing-md;
   }
+  
+  .viewAllLink {
+    padding: $spacing-sm $spacing-lg;
+  }
 }
 
 @include respond-to(sm) {
   .productsSection {
-    margin: $spacing-md 0;
     padding: $spacing-xl 0;
-    border-radius: $radius-lg;
   }
   
   :global(.section-header) {
@@ -304,6 +252,10 @@
     gap: $spacing-md;
   }
   
+  .viewAllContainer {
+    margin-top: $spacing-lg;
+  }
+  
   .viewAllLink {
     padding: $spacing-sm $spacing-lg;
     font-size: 0.95rem;
@@ -312,8 +264,7 @@
 
 @include respond-to(xs) {
   .productsSection {
-    margin: $spacing-xs 0;
-    padding: $spacing-md 0;
+    padding: $spacing-lg 0;
   }
   
   :global(.section-header) {
@@ -322,31 +273,28 @@
     
     h2 {
       font-size: 1.6rem;
-      letter-spacing: -0.01em;
       line-height: 1.2;
     }
     
     p {
       font-size: 0.9rem;
       line-height: 1.4;
-      max-width: 100%;
       margin-top: $spacing-xs;
     }
   }
   
   .productGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-xs;
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
     padding: 0 $spacing-xs;
   }
   
   .viewAllContainer {
-    margin-top: $spacing-sm;
+    margin-top: $spacing-md;
   }
   
   .viewAllLink {
     padding: $spacing-xs $spacing-md;
     font-size: 0.9rem;
-    max-width: 240px;
   }
 }

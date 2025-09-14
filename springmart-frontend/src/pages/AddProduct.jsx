@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { useNavigate } from "react-router-dom";
+import { FiUpload, FiCheck, FiX } from "react-icons/fi";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
 
@@ -198,7 +199,7 @@ function AddProduct({ onProductUpdate }) {
                 </div>
                 
                 <div className={styles.formGroup}>
-                    <label htmlFor="price">Price</label>
+                    <label htmlFor="price">Price (₹)</label>
                     <input
                         id="price"
                         type="number"
@@ -280,16 +281,18 @@ function AddProduct({ onProductUpdate }) {
                 </div>
                 
                 <div className={styles.formGroup}>
-                    <label htmlFor="inStock">In Stock</label>
-                    <div className={styles.styledCheckbox}>
-                        <input
-                            id="inStock"
-                            type="checkbox"
-                            name="inStock"
-                            checked={product.inStock}
-                            onChange={handleChange}
-                        />
-                    </div>
+                    <label>
+                        <div className={styles.styledCheckbox}>
+                            <input
+                                id="inStock"
+                                type="checkbox"
+                                name="inStock"
+                                checked={product.inStock}
+                                onChange={handleChange}
+                            />
+                            <span>In Stock</span>
+                        </div>
+                    </label>
                 </div>
                 
                 <div className={styles.formGroup}>
@@ -320,10 +323,11 @@ function AddProduct({ onProductUpdate }) {
                                 src={imagePreview}
                                 alt="Preview"
                                 style={{
-                                    maxWidth: '200px',
+                                    maxWidth: '100%',
                                     maxHeight: '200px',
                                     objectFit: 'contain',
-                                    borderRadius: '8px'
+                                    borderRadius: '8px',
+                                    border: '1px solid #e5e7eb'
                                 }}
                             />
                         </div>
@@ -335,7 +339,16 @@ function AddProduct({ onProductUpdate }) {
                     className={styles.styledButton}
                     disabled={loading}
                 >
-                    {loading ? 'Adding Product...' : 'Add Product'}
+                    {loading ? (
+                        <>
+                            <span>Adding Product...</span>
+                        </>
+                    ) : (
+                        <>
+                            <FiCheck style={{ marginRight: '0.5rem' }} />
+                            Add Product
+                        </>
+                    )}
                 </button>
             </form>
         </div>

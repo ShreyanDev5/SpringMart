@@ -54,7 +54,7 @@ function Navbar({ onSearch }) {
             <div className="navbar-content">
                 <div className="navbar-left">
                     <div className="logo">
-                        <img src="/SpringMart_Logo_1.1.png" alt="SpringMart Logo" className="logo-img" />
+                        <img src="/SpringMart_Logo_2.1.png" alt="SpringMart Logo" className="logo-img" />
                         <span className="brand">SpringMart</span>
                     </div>
                 </div>

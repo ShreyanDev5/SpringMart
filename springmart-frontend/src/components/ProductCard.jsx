@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteData } from "../services/api";
 import { showSuccessToast, showErrorToast } from "../utils/toast";
 import { toBoolean } from "../utils/booleanUtils";
@@ -93,14 +94,18 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             <div className={styles.productDetails}>
                 <h3>{name}</h3>
                 <p className={styles.brand}>{brand}</p>
-                <p className={styles.category}>Category: {category}</p>
+                <p className={styles.category}>{category}</p>
                 <p className={styles.price}>{price}</p>
                 <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`}>
                     {inStock ? "In Stock" : "Out of Stock"}
                 </p>
                 <div className={styles.productActions}>
-                    <button className={styles.editButton} onClick={handleEdit}>🛠️ Edit</button>
-                    <button className={styles.deleteButton} onClick={handleDelete}>🗑️ Delete</button>
+                    <button className={`${styles.actionButton} ${styles.editButton}`} onClick={handleEdit}>
+                        <FiEdit /> Edit
+                    </button>
+                    <button className={`${styles.actionButton} ${styles.deleteButton}`} onClick={handleDelete}>
+                        <FiTrash2 /> Delete
+                    </button>
                 </div>
             </div>
         </div>

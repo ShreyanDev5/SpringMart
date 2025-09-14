@@ -2,67 +2,19 @@
 @use '../index' as *;
 
 .productListContainer {
-  padding: $spacing-2xl 0;
+  padding: $spacing-3xl 0;
   max-width: $container-width;
-  margin: $spacing-lg auto;
+  margin: 0 auto;
   position: relative;
-  border-radius: $radius-2xl;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 251, 247, 0.98) 0%,
-    rgba(252, 247, 242, 0.95) 100%
-  );
-  box-shadow: 
-    0 20px 40px -15px rgba(0, 0, 0, 0.1),
-    0 10px 20px -10px rgba(0, 0, 0, 0.05),
-    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-  transform: translateY(-2px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      0 25px 50px -15px rgba(0, 0, 0, 0.12),
-      0 15px 25px -10px rgba(0, 0, 0, 0.07),
-      0 0 0 1px rgba(255, 255, 255, 0.15) inset;
+  @include respond-to(md) {
+    padding: $spacing-2xl 0;
+    margin: 0 auto;
   }
   
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 153, 0, 0.03) 0%,
-      rgba(255, 153, 0, 0.01) 100%
-    );
-    border-radius: inherit;
-    pointer-events: none;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.2)
-    );
-    -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+  @include respond-to(sm) {
+    padding: $spacing-xl 0;
+    margin: 0 auto;
   }
 }
 
@@ -74,17 +26,34 @@
   color: $dark;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.85) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   position: relative;
-  z-index: 2;
-  padding: 0 $spacing-lg;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: $primary-gradient;
+    border-radius: 2px;
+  }
+  
+  @include respond-to(md) {
+    font-size: 2.25rem;
+    margin-bottom: $spacing-xl;
+  }
+  
+  @include respond-to(sm) {
+    font-size: 1.75rem;
+    margin-bottom: $spacing-lg;
+    
+    &::after {
+      width: 60px;
+      bottom: -8px;
+    }
+  }
 }
 
 .productGrid {
@@ -94,41 +63,38 @@
   margin: 0 auto;
   max-width: $container-width;
   padding: 0 $spacing-xl;
-  position: relative;
-  z-index: 1;
+  
+  @include respond-to(lg) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+    padding: 0 $spacing-lg;
+  }
+  
+  @include respond-to(md) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+    padding: 0 $spacing-md;
+  }
+  
+  @include respond-to(sm) {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+    padding: 0 $spacing-sm;
+  }
 }
 
-.emptyState {
+.emptyState,
+.loadingState {
   text-align: center;
   padding: $spacing-2xl;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
+  background: $white;
   border-radius: $radius-xl;
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  margin: $spacing-xl auto;
+  box-shadow: $shadow-lg;
+  margin: $spacing-2xl auto;
   max-width: 600px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  z-index: 2;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 153, 0, 0.02) 0%,
-      rgba(255, 153, 0, 0.01) 100%
-    );
-    border-radius: inherit;
-    pointer-events: none;
-  }
+  border: 1px solid rgba(0, 0, 0, 0.05);
   
   p {
     margin: 0;
@@ -136,6 +102,21 @@
     font-size: 1.1rem;
     position: relative;
     z-index: 1;
+    line-height: 1.6;
+  }
+  
+  @include respond-to(md) {
+    padding: $spacing-xl;
+    margin: $spacing-xl auto;
+  }
+  
+  @include respond-to(sm) {
+    padding: $spacing-xl $spacing-lg;
+    margin: $spacing-lg auto;
+    
+    p {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -147,61 +128,49 @@
 }
 
 .retryButton {
-  margin-top: $spacing-md;
-  padding: $spacing-sm $spacing-lg;
-  background: $primary;
+  margin-top: $spacing-lg;
+  padding: $spacing-sm $spacing-xl;
+  background: $primary-gradient;
   color: $white;
   border: none;
-  border-radius: $radius-md;
-  font-weight: 500;
+  border-radius: $radius;
+  font-weight: 600;
   cursor: pointer;
   transition: $transition;
-  
-  &:hover {
-    background: $primary-dark;
-    transform: translateY(-1px);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.loadingState {
-  text-align: center;
-  padding: $spacing-2xl;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(8px);
-  border-radius: $radius-xl;
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  margin: $spacing-xl auto;
-  max-width: 600px;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  z-index: 2;
+  z-index: 1;
+  letter-spacing: 0.01em;
   
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 153, 0, 0.02) 0%,
-      rgba(255, 153, 0, 0.01) 100%
-    );
-    border-radius: inherit;
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: -1;
   }
   
-  p {
-    position: relative;
-    z-index: 1;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    
+    &::before {
+      transform: translateX(100%);
+    }
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  @include respond-to(sm) {
+    margin-top: $spacing-md;
+    padding: $spacing-sm $spacing-lg;
   }
 }
 
@@ -213,6 +182,12 @@
   border-top-color: $primary;
   margin: 0 auto $spacing-md;
   animation: spin 1s linear infinite;
+  
+  @include respond-to(sm) {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
 }
 
 @keyframes spin {
@@ -221,58 +196,62 @@
   }
 }
 
-@include respond-to(md) {
-  .productListContainer {
-    padding: $spacing-xl 0;
-    margin: $spacing-md auto;
-  }
+// Skeleton loading effect
+.skeletonCard {
+  @include card-base;
+  padding: 0;
+  background: $white;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow;
+  height: 100%;
   
-  .productGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
-    padding: 0 $spacing-lg;
-  }
-  
-  .pageTitle {
-    font-size: 2rem;
-    padding: 0 $spacing-md;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $light-gray;
   }
 }
 
-@include respond-to(sm) {
-  .productListContainer {
-    padding: $spacing-lg 0;
-    margin: $spacing-sm auto;
-  }
+.skeletonImage {
+  width: 100%;
+  height: 280px;
+  background: linear-gradient(90deg, $lighter-gray 25%, $light-gray 50%, $lighter-gray 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
   
-  .productGrid {
-    grid-template-columns: 1fr;
-    gap: $spacing-xs;
-    padding: 0 $spacing-md;
+  @include respond-to(sm) {
+    height: 180px;
   }
+}
+
+.skeletonContent {
+  padding: $spacing-md;
+}
+
+.skeletonLine {
+  height: 1rem;
+  background: linear-gradient(90deg, $lighter-gray 25%, $light-gray 50%, $lighter-gray 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: $radius-sm;
+  margin-bottom: $spacing-sm;
   
-  .pageTitle {
-    font-size: 1.8rem;
-    padding: 0 $spacing-sm;
+  &:last-child {
+    margin-bottom: 0;
+    width: 60%;
   }
-  
-  .emptyState {
-    padding: $spacing-xl $spacing-lg;
-    margin: $spacing-lg auto;
-    
-    p {
-      font-size: 1rem;
-    }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
   }
-  
-  .loadingState {
-    padding: $spacing-xl $spacing-lg;
-    margin: $spacing-lg auto;
-    
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border-width: 3px;
-    }
+  100% {
+    background-position: 200% 0;
   }
 }
