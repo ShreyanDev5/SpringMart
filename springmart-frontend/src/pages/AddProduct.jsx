@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "../styles/components/AddProduct.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FiCheck, FiInfo } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
 import { categories } from "../utils/categories";
 import { showSuccessToast, showErrorToast } from '../utils/toast';
 
@@ -229,7 +229,9 @@ function AddProduct({ onProductUpdate }) {
                         className={styles.styledTextarea}
                         aria-describedby="description-info"
                     />
-                    <span id="description-info" className={styles.validationMessage}>
+                    <span
+                        id="description-info"
+                        className={`${styles.charCount} ${product.description.length > 500 ? styles.charCountError : ''}`}>
                         {product.description.length}/500 characters
                     </span>
                 </div>
@@ -300,8 +302,7 @@ function AddProduct({ onProductUpdate }) {
                             <span>In Stock</span>
                         </div>
                     </label>
-                    <span id="inStock-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
-                        <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                    <span id="inStock-info" className={styles.helperText}>
                         Uncheck if product is currently unavailable
                     </span>
                 </div>
@@ -317,8 +318,7 @@ function AddProduct({ onProductUpdate }) {
                         className={styles.styledInput}
                         aria-describedby="releaseDate-info"
                     />
-                    <span id="releaseDate-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
-                        <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                    <span id="releaseDate-info" className={styles.helperText}>
                         Optional: When was this product released?
                     </span>
                 </div>
@@ -335,8 +335,7 @@ function AddProduct({ onProductUpdate }) {
                     />
                     {errors.image && <span id="image-error" className={styles.validationMessage}>{errors.image}</span>}
                     {!errors.image && (
-                        <span id="image-info" className={styles.validationMessage} style={{ marginTop: '0.25rem' }}>
-                            <FiInfo style={{ marginRight: '0.25rem', fontSize: '0.8rem' }} />
+                        <span id="image-info" className={styles.helperText}>
                             JPG, PNG, or GIF (max 5MB)
                         </span>
                     )}

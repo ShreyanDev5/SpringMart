@@ -340,17 +340,7 @@
     border-radius: $radius-sm;
     position: relative;
     
-    &:checked::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 0.75rem;
-      height: 0.75rem;
-      background: $primary;
-      border-radius: $radius-xs;
-    }
+    
   }
   
   span {
@@ -455,26 +445,29 @@
   margin-top: 0.4rem;
   display: block;
   font-weight: 500;
-  position: relative;
-  padding-left: 1.25rem;
-  
-  &::before {
-    content: '!';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
-    background: $error;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    font-weight: 700;
-  }
+}
+
+.helperText {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: $dark-gray;
+}
+
+.charCount {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: block;
+  font-weight: 500;
+  color: $dark-gray;
+  text-align: right;
+}
+
+.charCountError {
+  @extend .charCount;
+  color: $error;
 }
 
 // Responsive adjustments

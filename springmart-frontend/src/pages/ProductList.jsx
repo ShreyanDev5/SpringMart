@@ -11,34 +11,32 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [page, setPage] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
 
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8080`;
 
-    const fetchProducts = useCallback(async () => {
+    const fetchProducts = useCallback(async (currentPage) => {
         setLoading(true);
         setError(null);
         
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/products`);
+            const res = await axios.get(`${API_BASE_URL}/api/products?page=${currentPage}&size=6`);
             
             if (res.status === 200) {
-                // Handle different possible response structures
-                let productsData = [];
-                
+                let newProducts = [];
                 if (Array.isArray(res.data)) {
-                    productsData = res.data;
+                    newProducts = res.data;
                 } else if (res.data.content && Array.isArray(res.data.content)) {
-                    productsData = res.data.content;
-                } else if (res.data.products && Array.isArray(res.data.products)) {
-                    productsData = res.data.products;
-                } else {
-                    console.error('Unexpected data structure:', res.data);
-                    throw new Error("Invalid data format received from server");
+                    newProducts = res.data.content;
                 }
-                
-                setProducts(productsData);
+
+                setProducts(prev => currentPage === 0 ? newProducts : [...prev, ...newProducts]);
+                setHasMore(newProducts.length > 0);
+
             } else if (res.status === 204) {
-                setProducts([]);
+                setProducts(currentPage === 0 ? [] : products);
+                setHasMore(false);
             }
         } catch (err) {
             console.error('Error fetching products:', err);
@@ -50,7 +48,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         } finally {
             setLoading(false);
         }
-    }, [API_BASE_URL]);
+    }, [API_BASE_URL, products]);
 
     useEffect(() => {
         if (searchQuery && searchQuery.trim()) {
@@ -64,8 +62,10 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                     );
                     if (res.status === 200) {
                         setProducts(res.data);
+                        setHasMore(false); // Assuming search does not paginate for now
                     } else if (res.status === 204) {
                         setProducts([]);
+                        setHasMore(false);
                     }
                 } catch (err) {
                     const errorMessage = err.response?.data?.message || 
@@ -80,19 +80,34 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             searchProducts();
         } else {
             // If no search query, fetch all products
-            fetchProducts();
+            setProducts([]);
+            setPage(0);
+            fetchProducts(0);
         }
-    }, [searchQuery, fetchProducts, API_BASE_URL]);
+    }, [searchQuery, API_BASE_URL]);
+
+    useEffect(() => {
+        if (!searchQuery) {
+            fetchProducts(page);
+        }
+    }, [page, searchQuery, fetchProducts]);
+
 
     // Refetch products when refreshTrigger changes (when products are updated)
     useEffect(() => {
         if (refreshTrigger > 0 && !searchQuery) {
-            fetchProducts();
+            setProducts([]);
+            setPage(0);
+            fetchProducts(0);
         }
-    }, [refreshTrigger, fetchProducts, searchQuery, API_BASE_URL]);
+    }, [refreshTrigger, searchQuery, API_BASE_URL]);
+
+    const loadMore = () => {
+        setPage(prevPage => prevPage + 1);
+    }
 
     // Show enhanced loading state for better UX
-    if (loading) {
+    if (loading && page === 0) {
         return (
             <div className={styles.productListContainer}>
                 <h1 className={styles.pageTitle}>
@@ -116,13 +131,13 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 <ErrorState 
                     title="Failed to Load Products"
                     description={error}
-                    onRetry={fetchProducts}
+                    onRetry={() => fetchProducts(0)}
                 />
             </div>
         );
     }
 
-    if (products.length === 0) {
+    if (products.length === 0 && !loading) {
         return (
             <div className={styles.productListContainer}>
                 <h1 className={styles.pageTitle}>
@@ -151,10 +166,28 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                         key={product.id} 
                         product={product}
                         imageVersion={imageVersion}
-                        onProductDelete={fetchProducts}
+                        onProductDelete={() => {
+                            setProducts([]);
+                            setPage(0);
+                            fetchProducts(0);
+                        }}
                     />
                 ))}
             </div>
+            {hasMore && !loading && (
+                <div className={styles.loadMoreContainer}>
+                    <button onClick={loadMore} className={styles.loadMoreButton}>
+                        Load More
+                    </button>
+                </div>
+            )}
+            {loading && page > 0 && (
+                <div className={styles.productGrid}>
+                    {[...Array(3)].map((_, index) => (
+                        <SkeletonCard key={index} />
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

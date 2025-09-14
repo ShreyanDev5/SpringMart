@@ -46,7 +46,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: $primary-gradient;
+    background: $secondary-gradient;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -189,7 +189,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: $primary;
+    background: $accent; // Warm amber color for brands
   }
 }
 
@@ -204,43 +204,25 @@
   font-weight: $font-weight-medium; // Increase from 500 to medium variable
   
   &::before {
-    content: '•';
-    color: $primary;
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $secondary; // Emerald green for categories
   }
 }
 
 .price {
   font-weight: $font-weight-black; // Maximum contrast for price
   margin: $spacing-xs 0 0;
-  color: $dark;
+  color: $secondary; // Emerald green for better scannability
   font-size: 1.5rem;
   display: flex;
   align-items: baseline;
   gap: 0.2rem;
   line-height: 1;
   position: relative;
-  
-  &::before {
-    content: '₹';
-    font-size: 0.85em;
-    font-weight: $font-weight-bold; // Bold currency symbol
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, $primary 0%, $secondary 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .productCard:hover &::after {
-    opacity: 0.3;
-  }
 }
 
 .stock {

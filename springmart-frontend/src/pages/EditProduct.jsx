@@ -189,8 +189,11 @@ function EditProduct({ onProductUpdate }) {
                         placeholder="Enter product description (max 500 chars)"
                         maxLength="500"
                         className={styles.styledTextarea}
+                        aria-describedby="description-info"
                     />
-                    <span className={styles.validationMessage}>
+                    <span
+                        id="description-info"
+                        className={`${styles.charCount} ${product.description.length > 500 ? styles.charCountError : ''}`}>
                         {product.description.length}/500 characters
                     </span>
                 </div>

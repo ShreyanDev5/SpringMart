@@ -2,7 +2,7 @@
 
 /* Base Navbar Styles - Refined for Material Design principles */
 .navbar {
-    background: #f8fafc; /* Premium off-white background */
+    background: #fdfcf9; /* Warmer off-white background with subtle yellow undertone */
     padding: 0.75rem 2rem;
     color: #0f172a;
     position: sticky;
@@ -250,7 +250,7 @@
 .mobile-menu {
     display: none;
     width: 100%;
-    background: #f8fafc;
+    background: #fdfcf9;
     position: absolute;
     left: 0;
     right: 0;

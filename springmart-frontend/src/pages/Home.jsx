@@ -15,7 +15,7 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
 
     const fetchProducts = useCallback(async () => {
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/products`);
+            const res = await axios.get(`${API_BASE_URL}/api/products?page=0&size=3`);
             if (res.status === 200) {
                 setProducts(res.data.content || []);
             } else if (res.status === 204) {
@@ -82,7 +82,7 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
             {/* Products Section */}
             <Products 
                 ref={productsSectionRef}
-                products={products.slice(0, 3)} 
+                products={products} 
                 loading={loading} 
                 error={error} 
                 imageVersion={imageVersion}
