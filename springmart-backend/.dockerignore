@@ -1,0 +1,31 @@
+# Build output directories
+target/
+!target/classes
+!target/generated-sources
+!target/generated-test-sources
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Git files
+.git/
+.gitignore
+
+# Log files
+*.log
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Maven wrapper files (we'll copy these explicitly)
+.mvn/wrapper/maven-wrapper.jar
+
+# Data files
+data/
+
+# Docker files (to avoid including Dockerfile in the image)
+Dockerfile
+.dockerignore
