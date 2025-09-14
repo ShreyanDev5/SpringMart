@@ -26,7 +26,7 @@ COPY springmart-backend/src src
 RUN ./mvnw clean package -DskipTests  
   
 # Production stage  
-FROM openjdk:21-jre  
+FROM eclipse-temurin:21-jre-alpine  
   
 # Set the working directory  
 WORKDIR /app  
