@@ -1,12 +1,13 @@
 // src/App.jsx
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
 import EditProduct from "./pages/EditProduct"; // Placeholder
 import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
+import LoadingDelayModal from "./components/LoadingDelayModal";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Global styles are imported in index.js
@@ -16,6 +17,25 @@ function App() {
     const [searchTarget, setSearchTarget] = useState("home"); // 'home' or 'products'
     const [imageVersion, setImageVersion] = useState(Date.now());
     const [productRefreshTrigger, setProductRefreshTrigger] = useState(0);
+    const [showDelayModal, setShowDelayModal] = useState(false);
+
+    // Check if we should show the delay modal (first visit or after 24 hours)
+    useEffect(() => {
+        const lastModalShown = localStorage.getItem('lastDelayModalShown');
+        const now = new Date().getTime();
+        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        
+        // Show modal if never shown before or if it's been more than 24 hours
+        if (!lastModalShown || (now - parseInt(lastModalShown)) > oneDay) {
+            setShowDelayModal(true);
+        }
+    }, []);
+
+    const handleCloseDelayModal = () => {
+        setShowDelayModal(false);
+        // Store the current time in localStorage
+        localStorage.setItem('lastDelayModalShown', new Date().getTime().toString());
+    };
 
     // We need to use useNavigate, so wrap the Routes in a component with access to hooks
     const AppRoutes = () => {
@@ -67,6 +87,7 @@ function App() {
 
     return (
         <Router>
+            <LoadingDelayModal isOpen={showDelayModal} onClose={handleCloseDelayModal} />
             <AppRoutes />
             <ToastContainer position="bottom-right" />
         </Router>
