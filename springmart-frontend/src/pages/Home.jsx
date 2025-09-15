@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import { Hero, Features, CtaBanner } from "../components/home";
 import Products from "../components/home/Products";
+import LoadingMessage from "../components/LoadingMessage";
 import "../styles/Home.scss";
 
 function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
@@ -80,14 +81,23 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
             <Hero />
 
             {/* Products Section */}
-            <Products 
-                ref={productsSectionRef}
-                products={products} 
-                loading={loading} 
-                error={error} 
-                imageVersion={imageVersion}
-                onProductDelete={fetchProducts}
-            />
+            <section ref={productsSectionRef} className="section">
+                {loading && (
+                    <div className="container">
+                        <LoadingMessage 
+                            message="Loading featured products..." 
+                            onRetry={fetchProducts}
+                        />
+                    </div>
+                )}
+                <Products 
+                    products={products} 
+                    loading={loading} 
+                    error={error} 
+                    imageVersion={imageVersion}
+                    onProductDelete={fetchProducts}
+                />
+            </section>
 
             {/* Features Section */}
             <Features />

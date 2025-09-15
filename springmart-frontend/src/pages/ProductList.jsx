@@ -5,6 +5,7 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import SkeletonCard from "../components/SkeletonCard";
 import { EmptyState, ErrorState } from "../components/UIStates";
+import LoadingMessage from "../components/LoadingMessage";
 import styles from "../styles/components/ProductList.module.scss";
 
 function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
@@ -113,6 +114,10 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 <h1 className={styles.pageTitle}>
                     {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
                 </h1>
+                <LoadingMessage 
+                    message={searchQuery ? `Searching for "${searchQuery}"...` : "Loading products..."} 
+                    onRetry={() => fetchProducts(0)}
+                />
                 <div className={styles.productGrid}>
                     {[...Array(6)].map((_, index) => (
                         <SkeletonCard key={index} />
@@ -160,6 +165,12 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             <h1 className={styles.pageTitle}>
                 {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
             </h1>
+            {loading && page > 0 && (
+                <LoadingMessage 
+                    message="Loading more products..." 
+                    onRetry={() => fetchProducts(page)}
+                />
+            )}
             <div className={styles.productGrid}>
                 {products.map(product => (
                     <ProductCard 

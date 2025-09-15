@@ -1,0 +1,143 @@
+/* src/styles/components/LoadingMessage.module.scss */
+@use '../index' as *;
+
+.loadingMessage {
+  background: $white;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  border: 1px solid rgba($primary, 0.1);
+  margin-bottom: $spacing-md;
+  overflow: hidden;
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  @include respond-to(md) {
+    margin-bottom: $spacing-lg;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loadingContent {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md;
+  gap: $spacing-md;
+  
+  @include respond-to(md) {
+    padding: $spacing-lg;
+  }
+}
+
+.iconContainer {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba($primary, 0.1);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($primary, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba($primary, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($primary, 0);
+  }
+}
+
+.loadingIcon {
+  width: 24px;
+  height: 24px;
+  color: $primary;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.textContainer {
+  flex: 1;
+  min-width: 0;
+}
+
+.message {
+  font-weight: $font-weight-semibold;
+  color: $dark;
+  margin: 0 0 $spacing-2xs 0;
+  font-size: 1rem;
+  
+  @include respond-to(md) {
+    font-size: 1.1rem;
+  }
+}
+
+.timeInfo {
+  font-size: 0.875rem;
+  color: $dark-gray;
+  margin: 0;
+  font-weight: $font-weight-normal;
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+  flex-shrink: 0;
+}
+
+.retryButton,
+.dismissButton {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-full;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: $transition;
+  color: $dark-gray;
+  
+  &:hover {
+    background: rgba($dark-gray, 0.1);
+    color: $dark;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.retryButton {
+  &:hover {
+    background: rgba($primary, 0.1);
+    color: $primary;
+  }
+}
