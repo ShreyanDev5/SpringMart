@@ -141,7 +141,7 @@ function AddProduct({ onProductUpdate }) {
             });
 
             if (res.status === 201) {
-                showSuccessToast("Product added successfully! Redirecting to home page...");
+                showSuccessToast("Product added successfully!");
                 onProductUpdate();
                 
                 // Clean up image preview URL
@@ -163,7 +163,7 @@ function AddProduct({ onProductUpdate }) {
                 setImage(null);
                 setImagePreview(null);
                 setErrors({});
-                setTimeout(() => navigate("/"), 2000);
+                setTimeout(() => navigate("/products"), 2000);
             }
         } catch (err) {
             let errorMsg = err.response?.data?.message || "Failed to add product. Please try again.";

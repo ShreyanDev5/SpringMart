@@ -61,6 +61,13 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
         }
     }, [refreshTrigger, fetchProducts]);
 
+    // Also fetch products when component mounts to ensure we have the latest data
+    useEffect(() => {
+        if (!searchQuery) {
+            fetchProducts();
+        }
+    }, [searchQuery, fetchProducts]);
+
     // Handle search from navbar
     useEffect(() => {
         if (searchQuery) {

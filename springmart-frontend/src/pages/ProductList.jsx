@@ -109,6 +109,13 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         }
     }, [refreshTrigger, searchQuery, fetchProducts]);
 
+    // Also fetch products when component mounts to ensure we have the latest data
+    useEffect(() => {
+        if (!searchQuery) {
+            fetchProducts(0);
+        }
+    }, [searchQuery, fetchProducts]);
+
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
     }
