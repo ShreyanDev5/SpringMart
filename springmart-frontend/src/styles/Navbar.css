@@ -138,11 +138,11 @@
 }
 
 .desktop-nav a:hover {
-    background: linear-gradient(135deg, #66E0B8, #50C878);
-    color: #ffffff;
+    background: linear-gradient(135deg, #a8f0d0, #8fdba8);
+    color: #0f172a;
     transform: translateY(-2px);
-    border-color: rgba(6, 214, 160, 0.3);
-    box-shadow: 0 4px 12px rgba(6, 214, 160, 0.15);
+    border-color: rgba(6, 214, 160, 0.2);
+    box-shadow: 0 4px 12px rgba(6, 214, 160, 0.1);
 }
 
 .desktop-nav a:hover::before {
@@ -313,11 +313,11 @@
 }
 
 .mobile-links a:hover {
-    background: linear-gradient(135deg, #66E0B8, #50C878);
-    color: #ffffff;
-    border-color: rgba(6, 214, 160, 0.3);
+    background: linear-gradient(135deg, #a8f0d0, #8fdba8);
+    color: #0f172a;
+    border-color: rgba(6, 214, 160, 0.2);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(6, 214, 160, 0.15);
+    box-shadow: 0 4px 12px rgba(6, 214, 160, 0.1);
 }
 
 .mobile-links a:hover::before {
