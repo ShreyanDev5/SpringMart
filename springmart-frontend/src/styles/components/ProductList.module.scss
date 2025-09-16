@@ -88,6 +88,10 @@
   }
 }
 
+.loadingContainer {
+  margin-bottom: $spacing-md;
+}
+
 .emptyState,
 .loadingState {
   text-align: center;

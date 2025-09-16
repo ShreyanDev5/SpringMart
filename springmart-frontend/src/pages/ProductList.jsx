@@ -133,10 +133,12 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 <h1 className={styles.pageTitle}>
                     {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
                 </h1>
-                <LoadingMessage 
-                    message={searchQuery ? `Searching for "${searchQuery}"...` : "Waking Up the Store"} 
-                    onRetry={() => fetchProducts(0)}
-                />
+                <div className={styles.loadingContainer}>
+                    <LoadingMessage 
+                        message={searchQuery ? `Searching for "${searchQuery}"...` : "Waking Up the Store"} 
+                        onRetry={() => fetchProducts(0)}
+                    />
+                </div>
                 <div className={styles.productGrid}>
                     {[...Array(12)].map((_, index) => (
                         <SkeletonCard key={index} />
@@ -185,10 +187,12 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
             </h1>
             {loading && page > 0 && (
-                <LoadingMessage 
-                    message="Waking Up the Store" 
-                    onRetry={() => fetchProducts(page)}
-                />
+                <div className={styles.loadingContainer}>
+                    <LoadingMessage 
+                        message="Waking Up the Store" 
+                        onRetry={() => fetchProducts(page)}
+                    />
+                </div>
             )}
             <div className={styles.productGrid}>
                 {products.map(product => (
