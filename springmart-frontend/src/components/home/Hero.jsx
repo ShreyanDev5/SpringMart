@@ -89,22 +89,6 @@ const Hero = ({ onSearch }) => {
             <span>Sell with Us</span>
           </Link>
         </div>
-        
-        {/* Mobile Stats Section */}
-        <div className={`${styles.mobileStats} ${styles.fadeIn}`} style={{animationDelay: '0.6s'}}>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>10K+</span>
-            <span className={styles.statLabel}>Products</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>50K+</span>
-            <span className={styles.statLabel}>Customers</span>
-          </div>
-          <div className={styles.statItem}>
-            <span className={styles.statNumber}>99%</span>
-            <span className={styles.statLabel}>Satisfaction</span>
-          </div>
-        </div>
       </div>
       
       <div className={styles.heroImage}>
