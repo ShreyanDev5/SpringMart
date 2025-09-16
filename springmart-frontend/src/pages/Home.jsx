@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import axios from "axios";
 import { Hero, Features, CtaBanner } from "../components/home";
 import Products from "../components/home/Products";
-import LoadingMessage from "../components/LoadingMessage";
 import "../styles/Home.scss";
 
 function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {

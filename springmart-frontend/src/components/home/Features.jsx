@@ -1,6 +1,6 @@
 // src/components/home/Features.jsx
-import React, { useState, useEffect } from "react";
-import { FiShoppingBag, FiTag, FiShield, FiStar, FiZap, FiHeart } from "react-icons/fi";
+import React, { useState } from "react";
+import { FiShoppingBag, FiTag, FiShield, FiStar, FiZap } from "react-icons/fi";
 import styles from "../../styles/components/home/Features.module.scss";
 
 const Features = () => {
