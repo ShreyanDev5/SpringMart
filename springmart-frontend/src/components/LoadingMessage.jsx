@@ -76,7 +76,6 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
             <FiInfo />
           </div>
           <div className={styles.infoText}>
-            <p><strong>Waking Up the Store</strong></p>
             <p>Our backend service is hosted on Render's free plan. When the site hasn't been visited for a while, the service "sleeps" to save resources.</p>
             <p>When you return, it takes up to a minute to fully "wake up," which may delay loading products on the page.</p>
             <p>👉 Please wait a moment while everything loads. Thank you for your patience!</p>

@@ -43,8 +43,8 @@
 
 .iconContainer {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,8 +66,8 @@
 }
 
 .loadingIcon {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   color: $primary;
   animation: spin 2s linear infinite;
 }
@@ -99,25 +99,25 @@
   font-weight: $font-weight-semibold;
   color: $dark;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   
   @include respond-to(md) {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
   }
 }
 
 .timeInfo {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: $dark-gray;
   margin: 0;
   font-weight: $font-weight-normal;
   white-space: nowrap;
   
   @include respond-to(md) {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
 }
 

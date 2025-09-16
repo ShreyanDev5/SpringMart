@@ -34,7 +34,12 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion, onP
           </>
         ) : error ? (
           <div className={styles.errorState}>
-            <p>{error}</p>
+            <p>Failed to load products. Please try again.</p>
+            {onRetry && (
+              <button className={styles.retryButton} onClick={onRetry}>
+                Retry
+              </button>
+            )}
           </div>
         ) : products.length === 0 ? (
           <div className={styles.emptyState}>
