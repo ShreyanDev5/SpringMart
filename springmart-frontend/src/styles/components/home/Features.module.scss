@@ -79,6 +79,17 @@
     font-size: 0.9rem;
     color: $secondary;
   }
+  
+  @include respond-to(sm) {
+    font-size: 0.7rem;
+    padding: $spacing-3xs $spacing-sm;
+    gap: $spacing-3xs;
+    margin-bottom: $spacing-md;
+    
+    .badgeIcon {
+      font-size: 0.8rem;
+    }
+  }
 }
 
 .sectionTitle {
