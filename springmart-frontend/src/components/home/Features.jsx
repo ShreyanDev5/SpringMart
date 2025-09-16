@@ -62,26 +62,6 @@ const Features = () => {
           </div>
         ))}
       </div>
-      
-      {/* Mobile Stats Section */}
-      <div className={styles.mobileFeatures}>
-        <div className={styles.featuresStats}>
-          <div className={styles.statCard}>
-            <FiHeart className={styles.statIcon} />
-            <div className={styles.statContent}>
-              <span className={styles.statNumber}>50K+</span>
-              <span className={styles.statLabel}>Happy Customers</span>
-            </div>
-          </div>
-          <div className={styles.statCard}>
-            <FiStar className={styles.statIcon} />
-            <div className={styles.statContent}>
-              <span className={styles.statNumber}>4.9★</span>
-              <span className={styles.statLabel}>Average Rating</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
