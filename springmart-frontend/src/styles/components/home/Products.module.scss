@@ -63,6 +63,58 @@
       font-weight: $font-weight-normal; // Consistent with body text
     }
   }
+  
+  .sectionHeader {
+    position: relative;
+    z-index: 2;
+    margin-bottom: $spacing-2xl;
+    padding: 0 $spacing-lg;
+    text-align: center;
+    
+    h2 {
+      font-size: 2.75rem;
+      font-weight: $font-weight-black; // Maximum contrast
+      margin-bottom: $spacing-sm;
+      color: $dark;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: $primary-gradient;
+        border-radius: 2px;
+      }
+    }
+    
+    p {
+      font-size: 1.1rem; // Reduced from 1.25rem for better typographic consistency
+      color: $dark-gray;
+      max-width: 650px;
+      margin: $spacing-lg auto 0;
+      line-height: 1.6;
+      font-weight: $font-weight-normal; // Consistent with body text
+    }
+  }
+  
+  .centered {
+    text-align: center;
+    
+    h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    p {
+      margin: $spacing-lg auto 0;
+    }
+  }
 }
 
 .productGrid {
@@ -269,6 +321,20 @@
     }
   }
   
+  .sectionHeader {
+    margin-bottom: $spacing-xl;
+    padding: 0 $spacing-md;
+    
+    h2 {
+      font-size: 2.5rem;
+    }
+    
+    p {
+      font-size: 1.15rem;
+      max-width: 550px;
+    }
+  }
+  
   .productGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-lg;
@@ -292,6 +358,20 @@
   }
   
   :global(.section-header) {
+    margin-bottom: $spacing-lg;
+    padding: 0 $spacing-md;
+    
+    h2 {
+      font-size: 2.25rem;
+    }
+    
+    p {
+      font-size: 1.05rem;
+      max-width: 500px;
+    }
+  }
+  
+  .sectionHeader {
     margin-bottom: $spacing-lg;
     padding: 0 $spacing-md;
     
@@ -341,11 +421,25 @@
     margin-bottom: $spacing-lg;
     
     h2 {
-      font-size: 2rem;
+      font-size: 1.75rem; // Reduced from 2rem
     }
     
     p {
-      font-size: 0.95rem;
+      font-size: 0.9rem; // Reduced from 0.95rem
+      margin-top: $spacing-sm;
+    }
+  }
+  
+  .sectionHeader {
+    padding: 0 $spacing-sm;
+    margin-bottom: $spacing-lg;
+    
+    h2 {
+      font-size: 1.75rem; // Reduced from 2rem
+    }
+    
+    p {
+      font-size: 0.9rem; // Reduced from 0.95rem
       margin-top: $spacing-sm;
     }
   }
@@ -395,12 +489,28 @@
     padding: 0 $spacing-xs;
     
     h2 {
-      font-size: 1.75rem;
+      font-size: 1.5rem; // Reduced from 1.75rem
       line-height: 1.2;
     }
     
     p {
-      font-size: 0.9rem;
+      font-size: 0.85rem; // Reduced from 0.9rem
+      line-height: 1.4;
+      margin-top: $spacing-xs;
+    }
+  }
+  
+  .sectionHeader {
+    margin-bottom: $spacing-md;
+    padding: 0 $spacing-xs;
+    
+    h2 {
+      font-size: 1.5rem; // Reduced from 1.75rem
+      line-height: 1.2;
+    }
+    
+    p {
+      font-size: 0.85rem; // Reduced from 0.9rem
       line-height: 1.4;
       margin-top: $spacing-xs;
     }

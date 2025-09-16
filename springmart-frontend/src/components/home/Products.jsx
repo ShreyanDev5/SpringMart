@@ -9,7 +9,7 @@ import styles from "../../styles/components/home/Products.module.scss";
 const Products = React.forwardRef(({ products, loading, error, imageVersion, onProductDelete }, ref) => {
   return (
     <section ref={ref} className={styles.productsSection}>
-      <div className="section-header centered">
+      <div className={`${styles.sectionHeader} ${styles.centered}`}>
         <h2>Featured Products</h2>
         <p>Discover our handpicked selection of premium products</p>
       </div>
