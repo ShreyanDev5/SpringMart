@@ -641,7 +641,7 @@
   }
   
   .sectionSubtitle {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   
   .featureCard {
@@ -870,5 +870,11 @@
     height: 200px;
     opacity: 1;
     transition-duration: 0.2s;
+  }
+}
+
+@include respond-to(xs) {
+  .sectionSubtitle {
+    font-size: 0.9rem;
   }
 }

@@ -171,7 +171,7 @@
     }
     
     p {
-      font-size: 1.1rem;
+      font-size: 1rem;
       margin-bottom: $spacing-lg;
       padding: 0 $spacing-md;
     }
@@ -219,7 +219,7 @@
     }
     
     p {
-      font-size: 1rem;
+      font-size: 0.95rem;
       margin-bottom: $spacing-md;
       padding: 0 $spacing-xs;
       line-height: 1.5;
@@ -241,6 +241,15 @@
       &:active {
         transform: translateY(0);
       }
+    }
+  }
+}
+
+@include respond-to(xs) {
+  .ctaContent {
+    p {
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
   }
 }
