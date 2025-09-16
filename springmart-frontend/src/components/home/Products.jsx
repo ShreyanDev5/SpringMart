@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 import ProductCard from "../ProductCard";
 import SkeletonCard from "../SkeletonCard";
+import LoadingMessage from "../LoadingMessage";
 import styles from "../../styles/components/home/Products.module.scss";
 
-const Products = React.forwardRef(({ products, loading, error, imageVersion, onProductDelete }, ref) => {
+const Products = React.forwardRef(({ products, loading, error, imageVersion, onProductDelete, onRetry }, ref) => {
   return (
     <section ref={ref} className={styles.productsSection}>
       <div className={`${styles.sectionHeader} ${styles.centered}`}>
@@ -16,6 +17,12 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion, onP
       <div className={styles.productGrid}>
         {loading ? (
           <>
+            <div className={styles.loadingContainer}>
+              <LoadingMessage 
+                message="Loading featured products..." 
+                onRetry={onRetry}
+              />
+            </div>
             {[...Array(3)].map((_, index) => (
               <SkeletonCard key={index} />
             ))}

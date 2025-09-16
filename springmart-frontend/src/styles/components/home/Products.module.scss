@@ -128,8 +128,13 @@
   z-index: 1;
   
   .errorState,
-  .emptyState {
+  .emptyState,
+  .loadingContainer {
     grid-column: 1 / -1;
+  }
+  
+  .loadingContainer {
+    margin-bottom: $spacing-md;
   }
 }
 
@@ -341,7 +346,8 @@
     padding: 0 $spacing-lg;
     
     .errorState,
-    .emptyState {
+    .emptyState,
+    .loadingContainer {
       grid-column: 1 / -1;
     }
   }
@@ -391,7 +397,8 @@
     padding: 0 $spacing-md;
     
     .errorState,
-    .emptyState {
+    .emptyState,
+    .loadingContainer {
       grid-column: 1 / -1;
     }
   }
@@ -450,7 +457,8 @@
     gap: $spacing-lg;
     
     .errorState,
-    .emptyState {
+    .emptyState,
+    .loadingContainer {
       grid-column: 1 / -1;
     }
   }
@@ -522,7 +530,8 @@
     padding: 0 $spacing-xs;
     
     .errorState,
-    .emptyState {
+    .emptyState,
+    .loadingContainer {
       grid-column: 1 / -1;
     }
   }

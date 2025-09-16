@@ -82,20 +82,13 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
 
             {/* Products Section */}
             <section ref={productsSectionRef} className="section">
-                {loading && (
-                    <div className="container">
-                        <LoadingMessage 
-                            message="Loading featured products..." 
-                            onRetry={fetchProducts}
-                        />
-                    </div>
-                )}
                 <Products 
                     products={products} 
                     loading={loading} 
                     error={error} 
                     imageVersion={imageVersion}
                     onProductDelete={fetchProducts}
+                    onRetry={fetchProducts}
                 />
             </section>
 

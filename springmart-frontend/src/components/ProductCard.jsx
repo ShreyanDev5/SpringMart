@@ -1,6 +1,6 @@
 // src/components/ProductCard.jsx
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2, FiTag, FiShoppingBag } from "react-icons/fi";
@@ -27,6 +27,13 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     const navigate = useNavigate();
     
     const imgRef = useRef(null);
+    const cardRef = useRef(null);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    // Check if device supports touch
+    useEffect(() => {
+        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    }, []);
 
     // Intersection Observer for lazy loading
     useEffect(() => {
@@ -53,6 +60,29 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             }
         };
     }, [imageUrl]);
+
+    // Handle touch events for mobile hover effect
+    const handleTouchStart = () => {
+        if (isTouchDevice && cardRef.current) {
+            // Add touch hover class
+            cardRef.current.classList.add(styles.touchHover);
+            
+            // Remove the class after a delay to simulate hover effect
+            setTimeout(() => {
+                if (cardRef.current) {
+                    cardRef.current.classList.remove(styles.touchHover);
+                }
+            }, 3000); // Remove after 3 seconds
+        }
+    };
+
+    // Handle mouse events for desktop
+    const handleMouseEnter = () => {
+        if (!isTouchDevice && cardRef.current) {
+            // Ensure touch hover class is removed for desktop
+            cardRef.current.classList.remove(styles.touchHover);
+        }
+    };
 
     const handleEdit = () => {
         navigate(`/edit/${id}`);
@@ -82,7 +112,12 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     };
 
     return (
-        <div className={styles.productCard}>
+        <div 
+            className={styles.productCard}
+            ref={cardRef}
+            onTouchStart={handleTouchStart}
+            onMouseEnter={handleMouseEnter}
+        >
             <img
                 src={imageUrl}
                 alt={name}

@@ -28,7 +28,7 @@
 
 .loadingContent {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: $spacing-md;
   gap: $spacing-md;
   
@@ -96,8 +96,42 @@
 .timeInfo {
   font-size: 0.875rem;
   color: $dark-gray;
-  margin: 0;
+  margin: 0 0 $spacing-sm 0;
   font-weight: $font-weight-normal;
+}
+
+.renderInfo {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-sm;
+  padding: $spacing-sm;
+  background: rgba($accent, 0.05);
+  border-radius: $radius;
+  border-left: 3px solid $accent;
+}
+
+.infoIcon {
+  flex-shrink: 0;
+  color: $accent;
+  margin-top: $spacing-3xs;
+}
+
+.infoText {
+  p {
+    margin: 0 0 $spacing-2xs 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: $dark-gray;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    &:first-child {
+      font-weight: $font-weight-bold;
+      color: $dark;
+    }
+  }
 }
 
 .actions {

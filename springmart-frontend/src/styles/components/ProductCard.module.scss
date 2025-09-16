@@ -54,6 +54,7 @@
     z-index: 1; // Ensure it's above the corner tint
   }
   
+  // Default hover state for devices with hover capability
   &:hover {
     transform: translateY(-6px);
     box-shadow: 
@@ -75,6 +76,7 @@
     }
   }
   
+  // Active state for all devices
   &:active {
     transform: translateY(-2px);
     transition-duration: 0.15s;
@@ -84,7 +86,15 @@
       inset 0 -1px 0 0 rgba(0, 0, 0, 0.04); // Enhanced inner shadow on press
   }
   
+  // Enhanced styles for touch devices (including mobile)
   @media (hover: none) and (pointer: coarse) {
+    // Show actions by default on touch devices
+    .productActions {
+      opacity: 1;
+      transform: none;
+    }
+    
+    // Active state for touch devices
     &:active {
       transform: translateY(-3px);
       box-shadow: 
@@ -92,6 +102,31 @@
         inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
         inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
       transition-duration: 0.1s;
+      
+      &::before {
+        transform: scaleX(1);
+      }
+      
+      .productImage {
+        transform: scale(1.01);
+      }
+    }
+    
+    // Simulate hover effect on touch - show when card has focus (from JS)
+    &.touchHover {
+      transform: translateY(-6px);
+      box-shadow: 
+        $shadow-lg,
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
+      
+      &::before {
+        transform: scaleX(1);
+      }
+      
+      .productImage {
+        transform: scale(1.02);
+      }
     }
   }
 }
