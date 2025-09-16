@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../styles/components/ProductCard.module.scss";
 import { useNavigate } from "react-router-dom";
-import { FiEdit, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2, FiTag, FiShoppingBag } from "react-icons/fi";
 import { deleteData } from "../services/api";
 import { showSuccessToast, showErrorToast } from "../utils/toast";
 import { toBoolean } from "../utils/booleanUtils";
@@ -94,8 +94,14 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             <div className={styles.productDetails}>
                 <h3 title={name}>{name}</h3>
                 <div className={styles.metaInfo}>
-                    <span className={styles.brand} title={brand}>{brand}</span>
-                    <span className={styles.category} title={category}>{category}</span>
+                    <span className={styles.brand} title={brand}>
+                        <FiTag className={styles.metaIcon} />
+                        {brand}
+                    </span>
+                    <span className={styles.category} title={category}>
+                        <FiShoppingBag className={styles.metaIcon} />
+                        {category}
+                    </span>
                 </div>
                 <p className={styles.price} title={`₹${price}`}>₹{price}</p>
                 <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
