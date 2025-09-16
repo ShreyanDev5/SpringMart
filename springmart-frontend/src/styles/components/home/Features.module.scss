@@ -182,6 +182,8 @@
     z-index: 1; // Ensure it's above the depth layer
   }
   
+  // Touch states for mobile devices
+  &.touch-hover,
   &:hover {
     transform: translateY(-6px);
     box-shadow: 
@@ -209,7 +211,8 @@
     }
   }
   
-  &:active {
+  &:active,
+  &.touch-active {
     transform: translateY(-2px);
     transition-duration: 0.1s;
     box-shadow: 
@@ -403,76 +406,63 @@
 
 @include respond-to(sm) {
   .features {
-    padding: $spacing-xl 0;
+    padding: $spacing-lg $spacing-sm;
     margin: $spacing-lg 0;
-    border-radius: $radius-lg;
+    background: $white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     
     &::before {
-      background-size: 140% 140%, 140% 140%, 30px 30px;
+      display: none;
     }
-
-    :global(.section-header) {
-      margin-bottom: $spacing-lg;
-      padding: 0 $spacing-sm;
-      
-      h2 {
-        font-size: 2.1rem;
-        letter-spacing: -0.02em;
-        margin-bottom: $spacing-xs;
-        line-height: 1.3;
-      }
-      
-      p {
-        font-size: 1.05rem;
-        line-height: 1.5;
-        color: $dark-gray;
-        opacity: 0.95;
-      }
+  }
+  
+  .sectionHeader {
+    margin-bottom: $spacing-lg;
+    padding: 0 $spacing-sm;
+  }
+  
+  .headerBadge {
+    font-size: 0.8rem;
+    padding: $spacing-xs $spacing-md;
+    margin-bottom: $spacing-md;
+    
+    .badgeIcon {
+      font-size: 0.9rem;
     }
+  }
+  
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .sectionSubtitle {
+    font-size: 1rem;
+    max-width: 100%;
   }
   
   .featuresGrid {
     grid-template-columns: 1fr;
-    gap: $spacing-sm;
-    padding: 0 $spacing-sm;
+    gap: $spacing-md;
+    padding: 0;
+    margin: $spacing-md 0;
   }
   
   .featureCard {
     padding: $spacing-lg;
-    background: rgba($white, 0.9);
-    border-radius: $radius-xl;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba($gray, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     min-height: auto;
     text-align: center;
     transform: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.2s ease;
     
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at center, rgba($primary, 0.05) 0%, transparent 70%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      pointer-events: none;
-    }
-    
+    // Touch states for mobile
+    &.touch-hover,
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       
       &::before {
-        opacity: 1;
+        transform: scaleX(1);
       }
       
       .featureIconWrapper {
@@ -483,17 +473,15 @@
           transform: scale(1.1);
         }
       }
+      
+      .cardBackground .cardGradient {
+        opacity: 0.6;
+      }
     }
     
+    &.touch-active,
     &:active {
-      transform: translateY(0) scale(0.96);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      transition-duration: 0.1s;
-      
-      &::before {
-        opacity: 0.8;
-        background: radial-gradient(circle at center, rgba($primary, 0.1) 0%, transparent 60%);
-      }
+      transform: translateY(0);
       
       .featureIconWrapper {
         transform: scale(0.95);
@@ -503,34 +491,21 @@
         }
       }
     }
-    
-    &:focus {
-      outline: none;
-      box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.05),
-        0 0 0 3px rgba($primary, 0.15);
-    }
-    
-    &:focus:not(:focus-visible) {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
   }
   
   .featureIconWrapper {
     width: 56px;
     height: 56px;
     margin: 0 auto $spacing-md;
-    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     
     .featureIcon {
       font-size: 1.3rem;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
-    .iconGlow {
-      inset: -6px;
-      filter: blur(3px);
-    }
+  }
+  
+  .featureContent {
+    gap: $spacing-xs;
+    margin-bottom: $spacing-sm;
   }
   
   .featureTitle {
@@ -553,34 +528,6 @@
     text-align: center;
     color: $dark-gray;
     opacity: 0.9;
-  }
-  
-  .mobileFeatures {
-    margin-top: $spacing-lg;
-    padding: 0 $spacing-sm;
-  }
-  
-  .featuresStats {
-    flex-direction: column;
-    gap: $spacing-md;
-  }
-  
-  .statCard {
-    padding: $spacing-md;
-    
-    .statIcon {
-      font-size: 1.3rem;
-    }
-    
-    .statContent {
-      .statNumber {
-        font-size: 1.1rem;
-      }
-      
-      .statLabel {
-        font-size: 0.75rem;
-      }
-    }
   }
 }
 
@@ -634,6 +581,49 @@
   .sectionTitle {
     font-size: 2.5rem;
   }
+  
+  .featureCard {
+    // Touch states for larger tablets/laptops
+    &.touch-hover,
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1), // Enhanced outer shadow
+        0 10px 20px rgba(0, 0, 0, 0.06), // Enhanced secondary shadow
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.95), // Enhanced inner highlight
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03), // Enhanced inner shadow
+        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
+      
+      &::before {
+        transform: scaleX(1);
+      }
+      
+      .featureIconWrapper {
+        transform: scale(1.1);
+        
+        .iconGlow {
+          opacity: 0.8;
+          transform: scale(1.2);
+        }
+      }
+      
+      .cardBackground .cardGradient {
+        opacity: 0.6;
+      }
+    }
+    
+    &.touch-active,
+    &:active {
+      transform: translateY(-2px);
+      transition-duration: 0.1s;
+      box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.08), // Reduced outer shadow
+        0 4px 8px rgba(0, 0, 0, 0.05), // Reduced secondary shadow
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Reduced inner highlight
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.04), // Enhanced inner shadow on press
+        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+    }
+  }
 }
 
 @include respond-to(md) {
@@ -652,6 +642,82 @@
   
   .sectionSubtitle {
     font-size: 1.1rem;
+  }
+  
+  .featureCard {
+    padding: $spacing-lg;
+    background: rgba($white, 0.9);
+    border-radius: $radius-xl;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($gray, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    
+    // Touch states for tablets
+    &.touch-hover,
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      
+      &::before {
+        transform: scaleX(1);
+      }
+      
+      .featureIconWrapper {
+        transform: scale(1.05);
+        
+        .iconGlow {
+          opacity: 0.6;
+          transform: scale(1.1);
+        }
+      }
+      
+      .cardBackground .cardGradient {
+        opacity: 0.6;
+      }
+    }
+    
+    &.touch-active,
+    &:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition-duration: 0.1s;
+      
+      .featureIconWrapper {
+        transform: scale(0.95);
+        
+        .featureIcon {
+          transform: scale(0.9);
+        }
+      }
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.05),
+        0 0 0 3px rgba($primary, 0.1);
+    }
+  }
+  
+  .featureIcon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .featureTitle {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+  
+  .featureDescription {
+    font-size: 0.95rem;
+    text-align: center;
   }
 }
 
@@ -706,13 +772,41 @@
     transform: none;
     transition: all 0.2s ease;
     
+    // Touch states for mobile
+    &.touch-hover,
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      
+      &::before {
+        transform: scaleX(1);
+      }
+      
+      .featureIconWrapper {
+        transform: scale(1.05);
+        
+        .iconGlow {
+          opacity: 0.6;
+          transform: scale(1.1);
+        }
+      }
+      
+      .cardBackground .cardGradient {
+        opacity: 0.6;
+      }
     }
     
+    &.touch-active,
     &:active {
       transform: translateY(0);
+      
+      .featureIconWrapper {
+        transform: scale(0.95);
+        
+        .featureIcon {
+          transform: scale(0.9);
+        }
+      }
     }
   }
   
