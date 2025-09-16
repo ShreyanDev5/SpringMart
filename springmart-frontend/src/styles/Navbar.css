@@ -138,10 +138,11 @@
 }
 
 .desktop-nav a:hover {
-    color: #06d6a0; /* Emerald green for hover state */
+    background: linear-gradient(135deg, #66E0B8, #50C878);
+    color: #ffffff;
     transform: translateY(-2px);
     border-color: rgba(6, 214, 160, 0.3);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+    box-shadow: 0 4px 12px rgba(6, 214, 160, 0.15);
 }
 
 .desktop-nav a:hover::before {
@@ -154,11 +155,11 @@
 }
 
 .desktop-nav a.active {
-    background: rgba(6, 214, 160, 0.1);
+    background: linear-gradient(135deg, #66E0B8, #50C878);
     border-color: rgba(6, 214, 160, 0.3);
-    color: #06d6a0;
+    color: #ffffff;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(6, 214, 160, 0.15);
+    box-shadow: 0 2px 8px rgba(6, 214, 160, 0.2);
     transform: translateY(-1px);
 }
 
@@ -312,8 +313,8 @@
 }
 
 .mobile-links a:hover {
-    background: rgba(6, 214, 160, 0.1);
-    color: #06d6a0;
+    background: linear-gradient(135deg, #66E0B8, #50C878);
+    color: #ffffff;
     border-color: rgba(6, 214, 160, 0.3);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(6, 214, 160, 0.15);
@@ -329,9 +330,9 @@
 }
 
 .mobile-links a.active {
-    background: rgba(6, 214, 160, 0.15);
+    background: linear-gradient(135deg, #66E0B8, #50C878);
     border-color: rgba(6, 214, 160, 0.4);
-    color: #06d6a0;
+    color: #ffffff;
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(6, 214, 160, 0.2);
 }

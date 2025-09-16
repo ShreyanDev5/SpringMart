@@ -5,6 +5,8 @@ import com.backend.springmart.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -17,19 +19,17 @@ public class DataLoader {
         return args -> {
             // Load demo products only if table is empty
             if (productRepository.count() == 0) {
-                // Helper method to load image bytes from classpath resources
+                // Helper method to load image bytes from classpath resources using Spring's ClassPathResource
                 java.util.function.Function<String, byte[]> loadImage = resourcePath -> {
-                    try (InputStream is = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
+                    Resource res = new ClassPathResource(resourcePath);
+                    try (InputStream is = res.getInputStream()) {
                         if (is != null) {
                             return is.readAllBytes();
-                        } else {
-                            System.out.println("Image not found: " + resourcePath);
-                            return null;
                         }
                     } catch (IOException e) {
-                        System.out.println("Error loading image: " + resourcePath);
-                        return null;
+                        System.out.println("Image not found: " + resourcePath);
                     }
+                    return null;
                 };
 
                 // List of demo products to seed the database
