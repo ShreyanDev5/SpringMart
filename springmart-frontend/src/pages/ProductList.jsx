@@ -22,18 +22,24 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         setError(null);
         
         try {
-            const res = await axios.get(`${API_BASE_URL}/api/products?page=${currentPage}&size=6`);
+            const res = await axios.get(`${API_BASE_URL}/api/products?page=${currentPage}&size=12`);
             
             if (res.status === 200) {
                 let newProducts = [];
+                
                 if (Array.isArray(res.data)) {
                     newProducts = res.data;
+                    // For array responses, we assume there are no more if we get less than 12 items
+                    setHasMore(newProducts.length === 12);
                 } else if (res.data.content && Array.isArray(res.data.content)) {
                     newProducts = res.data.content;
+                    // const totalElements = res.data.totalElements || 0;
+                    const totalPages = res.data.totalPages || 0;
+                    // For paginated responses, check if we've reached the last page
+                    setHasMore(currentPage < totalPages - 1);
                 }
 
                 setProducts(prev => currentPage === 0 ? newProducts : [...prev, ...newProducts]);
-                setHasMore(newProducts.length > 0);
 
             } else if (res.status === 204) {
                 setProducts([]);
@@ -125,7 +131,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                     onRetry={() => fetchProducts(0)}
                 />
                 <div className={styles.productGrid}>
-                    {[...Array(6)].map((_, index) => (
+                    {[...Array(12)].map((_, index) => (
                         <SkeletonCard key={index} />
                     ))}
                 </div>
@@ -196,7 +202,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             )}
             {loading && page > 0 && (
                 <div className={styles.productGrid}>
-                    {[...Array(3)].map((_, index) => (
+                    {[...Array(6)].map((_, index) => (
                         <SkeletonCard key={index} />
                     ))}
                 </div>
