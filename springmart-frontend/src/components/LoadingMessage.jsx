@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FiX, FiRefreshCw, FiClock, FiInfo } from "react-icons/fi";
 import styles from "../styles/components/LoadingMessage.module.scss";
 
-const LoadingMessage = ({ onDismiss, onRetry, message = "Loading products..." }) => {
+const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [showRenderInfo, setShowRenderInfo] = useState(false);
@@ -13,10 +13,10 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Loading products..." })
       setTimeElapsed(prev => prev + 1);
     }, 1000);
 
-    // Show Render info after 10 seconds
+    // Show Render info after 5 seconds
     const renderInfoTimer = setTimeout(() => {
       setShowRenderInfo(true);
-    }, 10000);
+    }, 5000);
 
     return () => {
       clearInterval(timer);
@@ -48,18 +48,6 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Loading products..." })
           <p className={styles.timeInfo}>
             {timeElapsed > 0 ? `Loading for ${formatTime(timeElapsed)}` : "Initializing..."}
           </p>
-          {showRenderInfo && (
-            <div className={styles.renderInfo}>
-              <div className={styles.infoIcon}>
-                <FiInfo />
-              </div>
-              <div className={styles.infoText}>
-                <p><strong>Spinning down on idle</strong></p>
-                <p>Render spins down a free web service that goes 15 minutes without receiving inbound traffic. Render spins the service back up whenever it next receives a request to process.</p>
-                <p>Spinning up a service takes up to a minute, which causes a noticeable delay for incoming requests until the service is back up and running. For example, a browser page load will hang temporarily.</p>
-              </div>
-            </div>
-          )}
         </div>
         <div className={styles.actions}>
           {onRetry && (
@@ -82,6 +70,19 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Loading products..." })
           )}
         </div>
       </div>
+      {showRenderInfo && (
+        <div className={styles.renderInfo}>
+          <div className={styles.infoIcon}>
+            <FiInfo />
+          </div>
+          <div className={styles.infoText}>
+            <p><strong>Waking Up the Store</strong></p>
+            <p>Our backend service is hosted on Render's free plan. When the site hasn't been visited for a while, the service "sleeps" to save resources.</p>
+            <p>When you return, it takes up to a minute to fully "wake up," which may delay loading products on the page.</p>
+            <p>👉 Please wait a moment while everything loads. Thank you for your patience!</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

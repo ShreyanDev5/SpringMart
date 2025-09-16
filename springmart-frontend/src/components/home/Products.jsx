@@ -19,7 +19,7 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion, onP
           <>
             <div className={styles.loadingContainer}>
               <LoadingMessage 
-                message="Loading featured products..." 
+                message="Waking Up the Store" 
                 onRetry={onRetry}
               />
             </div>

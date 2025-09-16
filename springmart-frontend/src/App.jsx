@@ -9,6 +9,7 @@ import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './styles/components/Toast.module.scss'; // Custom toast styles
 // Global styles are imported in index.js
 
 function App() {
@@ -68,7 +69,18 @@ function App() {
     return (
         <Router>
             <AppRoutes />
-            <ToastContainer position="bottom-right" />
+            <ToastContainer 
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Router>
     );
 }

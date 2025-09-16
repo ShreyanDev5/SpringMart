@@ -4,21 +4,24 @@
 .loadingMessage {
   background: $white;
   border-radius: $radius-lg;
-  box-shadow: $shadow-lg;
-  border: 1px solid rgba($primary, 0.1);
-  margin-bottom: $spacing-md;
+  box-shadow: $shadow-md;
+  border: 1px solid rgba($primary, 0.05);
+  margin-bottom: $spacing-sm;
   overflow: hidden;
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
   
   @include respond-to(md) {
-    margin-bottom: $spacing-lg;
+    margin-bottom: $spacing-md;
   }
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
   to {
     opacity: 1;
@@ -28,33 +31,34 @@
 
 .loadingContent {
   display: flex;
-  align-items: flex-start;
-  padding: $spacing-md;
-  gap: $spacing-md;
+  align-items: center;
+  padding: $spacing-xs $spacing-sm;
+  gap: $spacing-xs;
   
   @include respond-to(md) {
-    padding: $spacing-lg;
+    padding: $spacing-sm $spacing-md;
+    gap: $spacing-sm;
   }
 }
 
 .iconContainer {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba($primary, 0.1);
   border-radius: 50%;
-  animation: pulse 1.5s infinite;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba($primary, 0.2);
+    box-shadow: 0 0 0 0 rgba($primary, 0.15);
   }
   70% {
-    box-shadow: 0 0 0 8px rgba($primary, 0);
+    box-shadow: 0 0 0 5px rgba($primary, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba($primary, 0);
@@ -62,10 +66,10 @@
 }
 
 .loadingIcon {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   color: $primary;
-  animation: spin 1.5s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
@@ -80,46 +84,81 @@
 .textContainer {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+  
+  @include respond-to(sm) {
+    flex-wrap: nowrap;
+  }
 }
 
 .message {
   font-weight: $font-weight-semibold;
   color: $dark;
-  margin: 0 0 $spacing-2xs 0;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   
   @include respond-to(md) {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
   }
 }
 
 .timeInfo {
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   color: $dark-gray;
-  margin: 0 0 $spacing-sm 0;
+  margin: 0;
   font-weight: $font-weight-normal;
+  white-space: nowrap;
+  
+  @include respond-to(md) {
+    font-size: 0.75rem;
+  }
 }
 
 .renderInfo {
   display: flex;
   gap: $spacing-sm;
-  margin-top: $spacing-sm;
+  margin: 0 $spacing-sm $spacing-sm;
   padding: $spacing-sm;
-  background: rgba($accent, 0.05);
+  background: rgba($accent, 0.03);
   border-radius: $radius;
-  border-left: 3px solid $accent;
+  border-left: 2px solid $accent;
+  width: calc(100% - #{$spacing-md});
+  
+  @include respond-to(md) {
+    margin: 0 $spacing-md $spacing-md;
+    width: calc(100% - #{$spacing-lg});
+  }
 }
 
 .infoIcon {
   flex-shrink: 0;
   color: $accent;
   margin-top: $spacing-3xs;
+  
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  @include respond-to(md) {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
 }
 
 .infoText {
   p {
-    margin: 0 0 $spacing-2xs 0;
-    font-size: 0.8rem;
+    margin: 0 0 $spacing-3xs 0;
+    font-size: 0.7rem;
     line-height: 1.4;
     color: $dark-gray;
     
@@ -132,18 +171,25 @@
       color: $dark;
     }
   }
+  
+  @include respond-to(md) {
+    p {
+      font-size: 0.75rem;
+    }
+  }
 }
 
 .actions {
   display: flex;
-  gap: $spacing-sm;
+  gap: $spacing-2xs;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .retryButton,
 .dismissButton {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -160,12 +206,22 @@
   }
   
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
   }
   
   svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
+  }
+  
+  @include respond-to(md) {
+    width: 30px;
+    height: 30px;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 }
 

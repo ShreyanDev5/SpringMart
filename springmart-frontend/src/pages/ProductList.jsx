@@ -127,7 +127,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                     {searchQuery ? `Search Results for "${searchQuery}"` : "All Products"}
                 </h1>
                 <LoadingMessage 
-                    message={searchQuery ? `Searching for "${searchQuery}"...` : "Loading products..."} 
+                    message={searchQuery ? `Searching for "${searchQuery}"...` : "Waking Up the Store"} 
                     onRetry={() => fetchProducts(0)}
                 />
                 <div className={styles.productGrid}>
@@ -179,7 +179,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
             </h1>
             {loading && page > 0 && (
                 <LoadingMessage 
-                    message="Loading more products..." 
+                    message="Waking Up the Store" 
                     onRetry={() => fetchProducts(page)}
                 />
             )}
