@@ -173,23 +173,30 @@
   }
 }
 
+.metaInfo {
+  display: flex;
+  gap: $spacing-sm;
+  margin: $spacing-2xs 0;
+  flex-wrap: wrap;
+}
+
 .brand {
   font-size: 0.95rem;
   color: $dark-gray;
   margin: 0;
-  font-weight: $font-weight-medium; // Increase from 500 to medium variable
+  font-weight: $font-weight-medium;
   line-height: 1.4;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  position: relative;
+  padding-left: 1rem;
   
   &::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: $accent; // Warm amber color for brands
+    content: 'by';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: $font-weight-semibold;
+    color: $accent;
+    font-size: 0.8rem;
   }
 }
 
@@ -197,26 +204,26 @@
   font-size: 0.9rem;
   color: $gray;
   margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
   line-height: 1.4;
-  font-weight: $font-weight-medium; // Increase from 500 to medium variable
+  font-weight: $font-weight-medium;
+  position: relative;
+  padding-left: 1rem;
   
   &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: $secondary; // Emerald green for categories
+    content: 'in';
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: $font-weight-semibold;
+    color: $primary;
+    font-size: 0.8rem;
   }
 }
 
 .price {
   font-weight: $font-weight-black; // Maximum contrast for price
   margin: $spacing-xs 0 0;
-  color: $secondary; // Emerald green for better scannability
+  color: #e63946; // Refined reddish color for better emphasis
   font-size: 1.5rem;
   display: flex;
   align-items: baseline;
@@ -384,6 +391,18 @@
     font-size: 1.2rem;
   }
   
+  .metaInfo {
+    gap: $spacing-xs;
+  }
+  
+  .brand {
+    font-size: 0.9rem;
+  }
+  
+  .category {
+    font-size: 0.85rem;
+  }
+  
   .price {
     font-size: 1.4rem;
   }
@@ -401,6 +420,10 @@
   
   h3 {
     font-size: 1.15rem;
+  }
+  
+  .metaInfo {
+    gap: $spacing-xs;
   }
   
   .brand {
@@ -466,6 +489,10 @@
   h3 {
     font-size: 1.05rem;
     line-height: 1.4;
+  }
+  
+  .metaInfo {
+    gap: $spacing-xs;
   }
   
   .brand {
@@ -535,6 +562,10 @@
   
   h3 {
     font-size: 1rem;
+  }
+  
+  .metaInfo {
+    gap: $spacing-2xs;
   }
   
   .brand,

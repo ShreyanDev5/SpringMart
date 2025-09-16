@@ -93,8 +93,10 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             />
             <div className={styles.productDetails}>
                 <h3 title={name}>{name}</h3>
-                <p className={styles.brand} title={brand}>{brand}</p>
-                <p className={styles.category} title={category}>{category}</p>
+                <div className={styles.metaInfo}>
+                    <span className={styles.brand} title={brand}>{brand}</span>
+                    <span className={styles.category} title={category}>{category}</span>
+                </div>
                 <p className={styles.price} title={`₹${price}`}>₹{price}</p>
                 <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
                     {inStock ? "In Stock" : "Out of Stock"}
