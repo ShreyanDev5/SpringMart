@@ -65,7 +65,7 @@ const Hero = ({ onSearch }) => {
         {/* Modern Mobile-First Badge */}
         <div className={styles.heroBadge}>
           <FiAward className={styles.badgeIcon} />
-          <span>Premium Shopping Experience</span>
+          <span>Shopping Experience</span>
         </div>
         
         {/* Enhanced Mobile Typography */}

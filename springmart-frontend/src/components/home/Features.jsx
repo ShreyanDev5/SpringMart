@@ -78,7 +78,7 @@ const Features = () => {
         </div>
         <h2 className={styles.sectionTitle}>Experience Shopping Reimagined</h2>
         <p className={styles.sectionSubtitle}>
-          Discover the difference with our premium shopping experience
+          Discover the difference with our shopping experience
         </p>
       </div>
       

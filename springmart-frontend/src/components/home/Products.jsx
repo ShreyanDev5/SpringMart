@@ -12,7 +12,7 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion, onP
     <section ref={ref} className={styles.productsSection}>
       <div className={`${styles.sectionHeader} ${styles.centered}`}>
         <h2>Featured Products</h2>
-        <p>Discover our handpicked selection of premium products</p>
+        <p>Discover our handpicked selection of products</p>
       </div>
       <div className={styles.productGrid}>
         {loading ? (
