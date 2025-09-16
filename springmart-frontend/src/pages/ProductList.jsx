@@ -36,7 +36,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 setHasMore(newProducts.length > 0);
 
             } else if (res.status === 204) {
-                setProducts(currentPage === 0 ? [] : products);
+                setProducts([]);
                 setHasMore(false);
             }
         } catch (err) {
@@ -49,7 +49,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
         } finally {
             setLoading(false);
         }
-    }, [API_BASE_URL, products]);
+    }, [API_BASE_URL]);
 
     useEffect(() => {
         if (searchQuery && searchQuery.trim()) {
@@ -106,6 +106,12 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     const loadMore = () => {
         setPage(prevPage => prevPage + 1);
     }
+
+    const handleProductDelete = useCallback(() => {
+        setProducts([]);
+        setPage(0);
+        fetchProducts(0);
+    }, [fetchProducts]);
 
     // Show enhanced loading state for better UX
     if (loading && page === 0) {
@@ -177,11 +183,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                         key={product.id} 
                         product={product}
                         imageVersion={imageVersion}
-                        onProductDelete={() => {
-                            setProducts([]);
-                            setPage(0);
-                            fetchProducts(0);
-                        }}
+                        onProductDelete={handleProductDelete}
                     />
                 ))}
             </div>

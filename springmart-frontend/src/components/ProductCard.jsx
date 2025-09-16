@@ -38,6 +38,13 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     // Intersection Observer for lazy loading
     useEffect(() => {
         const currentImgRef = imgRef.current;
+        if (!currentImgRef) return;
+
+        // If image is already loaded, don't observe
+        if (currentImgRef.src && currentImgRef.complete) {
+            return;
+        }
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach(entry => {
@@ -50,14 +57,10 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             { rootMargin: '50px' } // Start loading 50px before the image comes into view
         );
 
-        if (currentImgRef) {
-            observer.observe(currentImgRef);
-        }
+        observer.observe(currentImgRef);
 
         return () => {
-            if (currentImgRef) {
-                observer.unobserve(currentImgRef);
-            }
+            observer.disconnect();
         };
     }, [imageUrl]);
 
