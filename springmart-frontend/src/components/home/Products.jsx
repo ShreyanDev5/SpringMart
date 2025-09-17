@@ -17,11 +17,13 @@ const Products = React.forwardRef(({ products, loading, error, imageVersion, onP
       <div className={styles.productGrid}>
         {loading ? (
           <>
-            <div className={styles.loadingContainer}>
-              <LoadingMessage 
-                message="Waking Up the Store" 
-                onRetry={onRetry}
-              />
+            <div className={styles.loadingWrapper}>
+              <div className={styles.loadingContainer}>
+                <LoadingMessage 
+                  message="Waking Up the Store" 
+                  onRetry={onRetry}
+                />
+              </div>
             </div>
             {[...Array(3)].map((_, index) => (
               <SkeletonCard key={index} />

@@ -145,6 +145,12 @@
   }
 }
 
+// Wrapper for centering loading message
+.loadingWrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
 .viewAllContainer {
   grid-column: 1 / -1;
   display: flex;
