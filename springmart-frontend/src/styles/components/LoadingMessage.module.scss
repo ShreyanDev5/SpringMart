@@ -16,6 +16,18 @@
   @include respond-to(md) {
     margin-bottom: $spacing-md;
   }
+  
+  // More compact on mobile
+  @include respond-to(sm) {
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  // Even more compact on extra small screens
+  @include respond-to(xs) {
+    max-width: 95%;
+  }
 }
 
 @keyframes slideIn {
@@ -39,6 +51,12 @@
     padding: $spacing-sm $spacing-md;
     gap: $spacing-sm;
   }
+  
+  // More compact on mobile
+  @include respond-to(sm) {
+    padding: $spacing-2xs $spacing-xs;
+    gap: $spacing-2xs;
+  }
 }
 
 .iconContainer {
@@ -51,6 +69,12 @@
   background: rgba($primary, 0.1);
   border-radius: 50%;
   animation: pulse 2s infinite;
+  
+  // Smaller on mobile
+  @include respond-to(sm) {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 @keyframes pulse {
@@ -70,6 +94,12 @@
   height: 20px;
   color: $primary;
   animation: spin 2s linear infinite;
+  
+  // Smaller on mobile
+  @include respond-to(sm) {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 @keyframes spin {
@@ -93,6 +123,18 @@
   @include respond-to(sm) {
     flex-wrap: nowrap;
   }
+  
+  // More compact on mobile
+  @include respond-to(xs) {
+    gap: $spacing-2xs;
+  }
+  
+  // Ensure text doesn't overflow on extra small screens
+  @media (max-width: 360px) {
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .message {
@@ -107,6 +149,22 @@
   @include respond-to(md) {
     font-size: 1.2rem;
   }
+  
+  // Smaller on mobile for compact appearance
+  @include respond-to(sm) {
+    font-size: 1rem;
+  }
+  
+  @include respond-to(xs) {
+    font-size: 0.9rem;
+  }
+  
+  // Even smaller on very small screens
+  @media (max-width: 360px) {
+    font-size: 0.8rem;
+    white-space: normal;
+    line-height: 1.2;
+  }
 }
 
 .timeInfo {
@@ -118,6 +176,20 @@
   
   @include respond-to(md) {
     font-size: 0.85rem;
+  }
+  
+  // Smaller on mobile for compact appearance
+  @include respond-to(sm) {
+    font-size: 0.75rem;
+  }
+  
+  @include respond-to(xs) {
+    font-size: 0.7rem;
+  }
+  
+  // Even smaller on very small screens
+  @media (max-width: 360px) {
+    font-size: 0.65rem;
   }
 }
 
@@ -135,6 +207,21 @@
     margin: 0 $spacing-md $spacing-md;
     width: calc(100% - #{$spacing-lg});
   }
+  
+  // More compact on mobile
+  @include respond-to(sm) {
+    gap: $spacing-xs;
+    margin: 0 $spacing-xs $spacing-xs;
+    padding: $spacing-xs;
+    width: calc(100% - #{$spacing-sm});
+  }
+  
+  @include respond-to(xs) {
+    gap: $spacing-2xs;
+    margin: 0 $spacing-2xs $spacing-2xs;
+    padding: $spacing-2xs;
+    width: calc(100% - #{$spacing-xs});
+  }
 }
 
 .infoIcon {
@@ -151,6 +238,16 @@
     svg {
       width: 16px;
       height: 16px;
+    }
+  }
+  
+  // Smaller on mobile
+  @include respond-to(sm) {
+    margin-top: 0;
+    
+    svg {
+      width: 12px;
+      height: 12px;
     }
   }
 }
@@ -177,6 +274,23 @@
       font-size: 0.75rem;
     }
   }
+  
+  // More compact on mobile
+  @include respond-to(sm) {
+    p {
+      font-size: 0.65rem;
+      line-height: 1.3;
+      margin-bottom: $spacing-3xs;
+    }
+  }
+  
+  @include respond-to(xs) {
+    p {
+      font-size: 0.6rem;
+      line-height: 1.2;
+      margin-bottom: $spacing-3xs;
+    }
+  }
 }
 
 .actions {
@@ -184,6 +298,11 @@
   gap: $spacing-2xs;
   flex-shrink: 0;
   align-items: center;
+  
+  // More compact on mobile
+  @include respond-to(sm) {
+    gap: $spacing-3xs;
+  }
 }
 
 .retryButton,
@@ -221,6 +340,27 @@
     svg {
       width: 16px;
       height: 16px;
+    }
+  }
+  
+  // Smaller on mobile
+  @include respond-to(sm) {
+    width: 24px;
+    height: 24px;
+    
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+  
+  @include respond-to(xs) {
+    width: 20px;
+    height: 20px;
+    
+    svg {
+      width: 10px;
+      height: 10px;
     }
   }
 }

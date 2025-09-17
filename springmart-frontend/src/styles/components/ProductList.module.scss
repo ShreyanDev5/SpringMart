@@ -90,6 +90,13 @@
 
 .loadingContainer {
   margin-bottom: $spacing-md;
+  
+  // Center loading message on mobile
+  @include respond-to(sm) {
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-sm;
+  }
 }
 
 .emptyState,
