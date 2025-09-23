@@ -1,164 +1,331 @@
-# 🛒 SpringMart
+# 🛒 SpringMart - Full-Stack E-Commerce Platform
 
-A modern, full-stack e-commerce platform built with **Spring Boot (Java)** and **React**. SpringMart demonstrates robust backend development, RESTful API design, and seamless UI integration. This project is intended for learning and demonstration purposes only.
+[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=java&logoColor=white)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.5-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
----
-
-## 🚀 Overview
-
-SpringMart is a **prototype, full-stack showcase project** for learning and demonstration. It features:
-
-- **Backend:** Spring Boot (Java) with H2 file-based database (JPA-compatible)
-- **Frontend:** React for a modern, minimal UI
-- **RESTful APIs:** For all data operations
-- **Demo Data:** Preloaded on first run
+> A modern, full-stack e-commerce platform showcasing robust backend development with Spring Boot and a sleek frontend with React. This project serves as a key artifact in my portfolio, demonstrating my journey toward becoming a world-class software developer.
 
 ---
 
-## 🌐 Deployment Information
+## 🎯 Project Purpose
 
-- **Frontend:** Hosted on Netlify
-- **Backend:** Hosted on Render
-- **Live Application:** [https://springmart.netlify.app/](https://springmart.netlify.app/)
+SpringMart is not just another e-commerce platform—it's a comprehensive showcase of my full-stack development skills, architectural decisions, and commitment to building production-ready applications. This project represents my growth as a developer and demonstrates my ability to create scalable, maintainable, and well-documented software.
 
 ---
 
-## 🗄️ Database Choice: H2 File-Based
+## 🚀 Key Features
 
-This project uses an **H2 file-based database** (rather than PostgreSQL or MySQL). The primary reason for this choice is to effectively showcase my skills through a simple, portable setup. This application is functional but not intended for real-world, continuous use; I anticipate that users or recruiters will likely access it only once to verify its functionality. The H2 file-based approach ensures easy demo access and resets.
+- **Backend**: RESTful API built with Spring Boot (Java 21) and PostgreSQL
+- **Frontend**: Modern UI with React 19, TailwindCSS, and Framer Motion
+- **Database**: PostgreSQL for production with H2 for development
+- **Containerization**: Docker support for consistent deployment
+- **Deployment**: Backend on Render, Frontend on Netlify
+- **Responsive Design**: Mobile-first approach with TailwindCSS
+- **Image Management**: Binary image storage and retrieval
+- **Search Functionality**: Product search across multiple fields
+- **Validation**: Comprehensive input validation with Spring Validation
+
+---
+
+## 🏗️ Architecture Overview
+
+### Backend (Spring Boot)
+- **Framework**: Spring Boot 3.4.5
+- **Language**: Java 21
+- **Database**: PostgreSQL (Production), H2 (Development)
+- **Build Tool**: Maven
+- **Key Components**:
+  - RESTful API with proper HTTP status codes
+  - JPA/Hibernate for data persistence
+  - Lombok for boilerplate reduction
+  - Validation with Bean Validation
+  - CORS configuration for frontend integration
+
+### Frontend (React)
+- **Framework**: React 19 with functional components and hooks
+- **Styling**: TailwindCSS 4.0 for utility-first styling
+- **Routing**: React Router v7
+- **State Management**: Built-in React state with potential for Redux integration
+- **Animations**: Framer Motion for smooth transitions
+- **Notifications**: React Toastify for user feedback
+- **Modals**: React Modal for overlay components
+- **Icons**: React Icons library
 
 ---
 
 ## 🛠️ Tech Stack
 
-![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=java&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.4.5-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![React](https://img.shields.io/badge/React-18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![H2](https://img.shields.io/badge/H2_Database-File--Based-1E90FF?style=for-the-badge&logo=database&logoColor=white)
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Backend** | Java 21 | Primary programming language |
+| | Spring Boot 3.4.5 | Framework for building RESTful APIs |
+| | PostgreSQL | Production database |
+| | H2 Database | Development database |
+| | Maven | Build automation tool |
+| | Lombok | Reduces boilerplate code |
+| **Frontend** | React 19 | JavaScript library for UI |
+| | TailwindCSS 4.0 | Utility-first CSS framework |
+| | Axios | HTTP client for API requests |
+| | React Router v7 | Declarative routing |
+| | Framer Motion | Animation library |
+| **DevOps** | Docker | Containerization |
+| | Render | Backend deployment |
+| | Netlify | Frontend deployment |
+| | GitHub Actions | CI/CD (planned) |
 
 ---
 
-## ✨ App Screenshots
+## 📁 Project Structure
 
-> _Sample UI screens from SpringMart in action._
-
-<p align="center">
-  <img src="assets/home_page.png" alt="Home Page" width="420" />
-  <br/><sub><b>Home Page</b></sub>
-</p>
-
-<p align="center">
-  <img src="assets/featured_products.png" alt="Featured Products" width="420" />
-  <br/><sub><b>Featured Products</b></sub>
-</p>
-
-<p align="center">
-  <img src="assets/all_products.png" alt="All Products List" width="420" />
-  <br/><sub><b>All Products List</b></sub>
-</p>
-
-<p align="center">
-  <img src="assets/single_product_card.png" alt="Product Card" width="420" />
-  <br/><sub><b>Product Card</b></sub>
-</p>
-
-<p align="center">
-  <img src="assets/add_product_form.png" alt="Add Product Form" width="420" />
-  <br/><sub><b>Add Product Form</b></sub>
-</p>
-
----
-
-## 🎨 Design & UX Principles
-
-- **Aesthetic:** Clean, minimal, and premium; inspires trust and modern polish
-- **User Experience:** Smooth, intuitive navigation; clear product presentation; frictionless interaction
-- **Integration:** Fully synced with backend APIs; handles errors gracefully
+```bash
+springmart/
+├── springmart-backend/     # Spring Boot application
+│   ├── src/main/java/     # Java source files
+│   │   └── com/backend/springmart/
+│   │       ├── controller/ # REST controllers
+│   │       ├── model/      # Entity models
+│   │       ├── repository/ # JPA repositories
+│   │       ├── service/    # Business logic
+│   │       └── SpringMartApplication.java
+│   ├── src/main/resources/ # Configuration files
+│   └── pom.xml            # Maven configuration
+├── springmart-frontend/   # React application
+│   ├── public/            # Static assets
+│   ├── src/               # React components
+│   │   ├── components/    # Reusable UI components
+│   │   ├── pages/         # Page components
+│   │   ├── services/      # API service layer
+│   │   ├── App.js         # Main application component
+│   │   └── index.js       # Entry point
+│   ├── package.json       # Frontend dependencies
+│   └── tailwind.config.js # Tailwind configuration
+├── docker-compose.yml     # Multi-container setup
+├── Dockerfile             # Backend containerization
+├── render.yaml            # Render deployment config
+├── netlify.toml           # Netlify deployment config
+└── README.md              # Project documentation
+```
 
 ---
 
-## ⚙️ Backend Specifications
+## 🚀 Getting Started
 
-- **Spring Boot** `v3.4.5`, **Java** `21`
-- **H2 database** (JPA-compatible, can be swapped)
-- **RESTful API** structure
-- **Main components:**
-  - `Product` entity
-  - `ProductController` – handles HTTP requests
-  - `ProductService` – business logic (CRUD & search)
-  - `ProductRepo` – DB layer (JPA repository)
+### Prerequisites
+- Java 21
+- Node.js >= 20.0.0
+- PostgreSQL (for production)
+- Docker (optional, for containerization)
 
----
+### Backend Setup
 
-## 🔌 API Overview
+1. Navigate to the backend directory:
+   ```bash
+   cd springmart-backend
+   ```
 
-**Base URL:** `/api`
+2. Configure database in `application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/springmart
+   spring.datasource.username=your_username
+   spring.datasource.password=your_password
+   ```
 
-| Endpoint               | Method | Description            | Params / Responses                            |
-| ---------------------- | ------ | ---------------------- | --------------------------------------------- |
-| `/`                    | GET    | Welcome message        | `200 OK`                                      |
-| `/products`            | GET    | Paginated product list | `page`, `size`; `200 OK` / `204 No Content`   |
-| `/products/{id}`       | GET    | Get product by ID      | `id`; `200 OK` / `404 Not Found`              |
-| `/products/image/{id}` | GET    | Retrieve product image | `id`; returns image binary / `404`            |
-| `/products/search`     | GET    | Search by keyword      | `keyword`; `200 OK` / `204 No Content`        |
-| `/products`            | POST   | Add a new product      | Multipart JSON + image; `201` / `400` / `500` |
-| `/products/{id}`       | PUT    | Update product by ID   | `id` + updated data; `200 OK` / `404`         |
-| `/products/{id}`       | DELETE | Remove product by ID   | `id`; `204 No Content` / `404 Not Found`      |
+3. Build and run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
-> _All endpoints are public for demonstration. **No authentication is implemented.**_
+### Frontend Setup
 
----
+1. Navigate to the frontend directory:
+   ```bash
+   cd springmart-frontend
+   ```
 
-## 🧩 Product Entity Structure
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-| Field       | Type    | Required | Description                        |
-| ----------- | ------- | -------- | ---------------------------------- |
-| id          | int     | Auto     | Unique identifier (auto-generated) |
-| name        | String  | Yes      | Product name                       |
-| price       | Integer | Yes      | Must be ≥ 0                        |
-| category    | String  | Yes      | Product category                   |
-| brand       | String  | Yes      | Product brand                      |
-| description | String  | No       | Max 500 characters                 |
-| quantity    | int     | No       | Must be ≥ 0                        |
-| inStock     | boolean | No       | Availability                       |
-| releaseDate | Date    | No       | Product release date               |
-| imageName   | String  | No       | File name of image                 |
-| imageType   | String  | No       | MIME type (e.g., image/jpeg)       |
-| imageData   | byte[]  | No       | Binary image data                  |
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
----
+### Using Docker
 
-## 🧠 Business Logic Summary
-
-- Full CRUD support
-- Image upload/download
-- Search across name, description, category, brand
-- Validation via Javax annotations (`@NotBlank`, `@Min`, etc.)
-- Error responses: `400 Bad Request` for invalid inputs
-- **CORS Policy:** Configured via `@CrossOrigin` to allow `localhost:3000` (React) to access `localhost:8080` (Spring Boot)
+1. Build and start all services:
+   ```bash
+   docker-compose up --build
+   ```
 
 ---
 
-## 📝 Development Notes
+## 🌐 API Endpoints
 
-- **Backend:** Use IntelliJ IDEA or your preferred Java IDE.
-- **Frontend:** Use VS Code or your preferred JS editor.
-- **Demo Data:** The backend loads demo products and images on first run if the DB is empty.
-- **CORS:** Pre-configured for local development.
+All endpoints are prefixed with `/api`:
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/` | Welcome message |
+| GET | `/products` | Get all products (paginated) |
+| GET | `/products/{id}` | Get product by ID |
+| GET | `/products/image/{id}` | Get product image |
+| GET | `/products/search` | Search products by keyword |
+| POST | `/products` | Create new product |
+| PUT | `/products/{id}` | Update product |
+| DELETE | `/products/{id}` | Delete product |
 
 ---
 
-## ✅ Final Checklist
+## 🎨 Frontend Features
 
-- [x] All API interactions follow REST best practices
-- [x] UI is minimal, polished, and professional
-- [x] User experience is smooth from frontend to backend
-- [x] CORS is functioning correctly for cross-origin access
+- **Responsive Design**: Works on mobile, tablet, and desktop
+- **Product Gallery**: Displays products with images and details
+- **Search Functionality**: Find products by name, category, or brand
+- **Product Management**: Add, update, and delete products
+- **Image Upload**: Attach images to products
+- **Toast Notifications**: User feedback for actions
+- **Modal Dialogs**: Confirmation for destructive actions
+- **Smooth Animations**: Enhanced user experience with Framer Motion
 
 ---
 
-## 👤 Author's Note
+## 📊 Data Model
 
-I developed SpringMart as a full-stack application, with a primary focus on robust backend development using Spring Boot and H2. On the frontend, I leveraged AI-powered tools such as Cursor and Widsurf to significantly accelerate the design and implementation of the React user interface. This integrated approach allowed for the delivery of a polished, professional-grade application featuring strong backend functionality and an intuitive user experience.
+### Product Entity
 
-📌 _Refer to the codebase for implementation specifics if needed during development._
+| Field | Type | Constraints |
+|-------|------|-------------|
+| id | Long | Auto-generated |
+| name | String | @NotBlank, max 100 chars |
+| price | Integer | @Min(0) |
+| category | String | @NotBlank |
+| brand | String | @NotBlank |
+| description | String | Optional, max 500 chars |
+| quantity | Integer | Optional, @Min(0) |
+| inStock | Boolean | Optional |
+| releaseDate | LocalDate | Optional |
+| imageName | String | Optional |
+| imageType | String | Optional |
+| imageData | byte[] | Optional |
+
+---
+
+## 🚀 Deployment
+
+### Backend (Render)
+The backend is configured for deployment on Render using Docker:
+- Docker image built from `Dockerfile`
+- PostgreSQL database connection via environment variables
+- Automatic deployment with `render.yaml`
+
+### Frontend (Netlify)
+The frontend is configured for deployment on Netlify:
+- Build command: `npm run build`
+- Publish directory: `build/`
+- Environment: Node 20
+
+---
+
+## 🧪 Testing
+
+### Backend Testing
+- Unit tests with JUnit 5
+- Integration tests with Spring Boot Test
+- Repository tests for data layer
+
+Run tests with:
+```bash
+./mvnw test
+```
+
+### Frontend Testing
+- Component tests with React Testing Library
+- Unit tests with Jest
+
+Run tests with:
+```bash
+npm test
+```
+
+---
+
+## 🛡️ Security Considerations
+
+While this is a demonstration project, security best practices have been considered:
+- Input validation on both frontend and backend
+- Proper HTTP status codes for error handling
+- CORS configuration for controlled access
+- No sensitive data stored in repository
+
+For production use, additional security measures would be implemented:
+- Authentication and authorization (JWT/OAuth)
+- HTTPS enforcement
+- Input sanitization
+- Rate limiting
+- Database connection pooling
+
+---
+
+## 📈 Future Enhancements
+
+As part of my continuous learning journey, I plan to implement:
+- User authentication and authorization
+- Shopping cart functionality
+- Order management system
+- Payment integration (Stripe/PayPal)
+- Advanced search with filters
+- Product reviews and ratings
+- Admin dashboard
+- CI/CD pipeline with GitHub Actions
+- Caching with Redis
+- API documentation with Swagger
+
+---
+
+## 📚 Learning Outcomes
+
+This project has been instrumental in my development journey, teaching me:
+- Full-stack application architecture
+- RESTful API design principles
+- Database modeling and relationships
+- Containerization with Docker
+- Cloud deployment strategies
+- Modern frontend development with React
+- Project documentation and maintenance
+- Git workflow and version control
+
+---
+
+## 🤝 Contributing
+
+As this is a portfolio project, contributions are not actively sought. However, I welcome feedback and suggestions for improvement as part of my learning process.
+
+---
+
+## 👤 Author
+
+**Shreyas Chaliyath** - *Full Stack Developer*
+
+This project represents my commitment to becoming a world-class software developer through continuous learning, practical application, and attention to detail.
+
+- **Backend Development**: Independently developed the complete Spring Boot backend with RESTful APIs, database integration, and business logic
+- **Frontend Development**: Built with assistance from AI tools including Cursor, Windsurf, Gemini CLI, and Qwen CLI to accelerate design and implementation
+
+---
+
+## 📝 License
+
+This project is for educational and portfolio purposes only. It is not licensed for commercial use.
+
+---
+
+## 🙏 Acknowledgments
+
+- Spring Boot documentation and community
+- React documentation and community
+- All developers who contributed to the open-source libraries used in this project
