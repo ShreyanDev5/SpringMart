@@ -309,7 +309,7 @@ As this is a portfolio project, contributions are not actively sought. However, 
 
 ## 👤 Author
 
-**Shreyas Chaliyath** - *Full Stack Developer*
+**Shreyan Sardar** - *Java Developer*
 
 This project represents my commitment to becoming a world-class software developer through continuous learning, practical application, and attention to detail.
 
