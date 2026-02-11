@@ -44,9 +44,9 @@ public class DataLoader {
                                 "LogiTech",
                                 true,
                                 new Date(),
-                                "mouse.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/mouse.jpg")),
+                                "mouse.webp",
+                                "image/webp",
+                                loadImage.apply("images/mouse.webp")),
                         new Product(
                                 0,
                                 "Mechanical Keyboard",
@@ -57,9 +57,9 @@ public class DataLoader {
                                 "KeyChron",
                                 true,
                                 new Date(),
-                                "keyboard.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/keyboard.jpg")),
+                                "keyboard.png",
+                                "image/png",
+                                loadImage.apply("images/keyboard.png")),
                         new Product(
                                 0,
                                 "Gaming Headset",
@@ -70,9 +70,9 @@ public class DataLoader {
                                 "Razer",
                                 true,
                                 new Date(),
-                                "headset.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/headset.jpg")),
+                                "headset.webp",
+                                "image/webp",
+                                loadImage.apply("images/headset.webp")),
                         new Product(
                                 0,
                                 "Leather Bag for Women",
@@ -83,9 +83,9 @@ public class DataLoader {
                                 "Fossil",
                                 true,
                                 new Date(),
-                                "leather_bag.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/leather_bag.jpg")),
+                                "bag.png",
+                                "image/png",
+                                loadImage.apply("images/bag.png")),
                         new Product(
                                 0,
                                 "Whoop Fitness Band",
@@ -96,9 +96,9 @@ public class DataLoader {
                                 "Whoop",
                                 true,
                                 new Date(),
-                                "whoop_band.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/whoop_band.jpg")),
+                                "whoop_band.png",
+                                "image/png",
+                                loadImage.apply("images/whoop_band.png")),
                         new Product(
                                 0,
                                 "Atomic Habits Book",
@@ -109,9 +109,9 @@ public class DataLoader {
                                 "Penguin",
                                 true,
                                 new Date(),
-                                "atomic_habit_book.webp",
-                                "image/webp",
-                                loadImage.apply("images/atomic_habit_book.webp")),
+                                "book.jpg",
+                                "image/jpeg",
+                                loadImage.apply("images/book.jpg")),
                         new Product(
                                 0,
                                 "CMF Buds Pro 2",
@@ -148,9 +148,9 @@ public class DataLoader {
                                 "Puma",
                                 true,
                                 new Date(),
-                                "puma_shoes.jpg",
-                                "image/jpeg",
-                                loadImage.apply("images/puma_shoes.jpg")));
+                                "shoe.png",
+                                "image/png",
+                                loadImage.apply("images/shoe.png")));
 
                 productRepository.saveAll(demoProducts);
                 System.out.println("✅ Demo products loaded.");
