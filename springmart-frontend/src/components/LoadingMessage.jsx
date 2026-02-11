@@ -51,8 +51,8 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
         </div>
         <div className={styles.actions}>
           {onRetry && (
-            <button 
-              className={styles.retryButton} 
+            <button
+              className={styles.retryButton}
               onClick={onRetry}
               aria-label="Retry loading"
             >
@@ -60,8 +60,8 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
             </button>
           )}
           {onDismiss && (
-            <button 
-              className={styles.dismissButton} 
+            <button
+              className={styles.dismissButton}
               onClick={handleDismiss}
               aria-label="Dismiss loading message"
             >
@@ -76,9 +76,7 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
             <FiInfo />
           </div>
           <div className={styles.infoText}>
-            <p>Our backend service is hosted on Render's free plan. When the site hasn't been visited for a while, the service "sleeps" to save resources.</p>
-            <p>When you return, it takes up to a minute to fully "wake up," which may delay loading products on the page.</p>
-            <p>👉 Please wait a moment while everything loads. Thank you for your patience!</p>
+            <p>Backend hosted on Render free tier — first request after inactivity may take 30–50 seconds to wake up. Thank you for your patience.</p>
           </div>
         </div>
       )}

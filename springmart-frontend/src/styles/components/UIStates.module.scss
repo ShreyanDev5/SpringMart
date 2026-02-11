@@ -8,31 +8,17 @@
   justify-content: center;
   padding: $spacing-3xl $spacing-lg;
   text-align: center;
-  background: linear-gradient(135deg, rgba($white, 0.95) 0%, rgba($light, 0.9) 100%);
+  background: $white;
   border-radius: $radius-2xl;
-  box-shadow: $shadow-lg;
+  box-shadow: $shadow;
   margin: $spacing-2xl auto;
   max-width: 500px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $primary-gradient;
-  }
-  
+
   @include respond-to(md) {
     padding: $spacing-2xl $spacing-md;
     margin: $spacing-xl auto;
   }
-  
+
   @include respond-to(sm) {
     padding: $spacing-xl $spacing-sm;
     margin: $spacing-lg auto;
@@ -40,43 +26,42 @@
 }
 
 .spinner {
-  width: 60px;
-  height: 60px;
-  border: 5px solid rgba($primary, 0.1);
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba($primary, 0.12);
   border-radius: 50%;
   border-top-color: $primary;
   margin: 0 auto $spacing-lg;
   animation: spin 1s linear infinite;
-  
+
   @include respond-to(sm) {
-    width: 50px;
-    height: 50px;
-    border-width: 4px;
+    width: 40px;
+    height: 40px;
   }
 }
 
 .iconWrapper {
-  width: 80px;
-  height: 80px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba($primary, 0.1);
+  background: rgba($primary, 0.08);
   border-radius: 50%;
   margin-bottom: $spacing-lg;
-  
+
   @include respond-to(sm) {
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
   }
 }
 
 .icon {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: $primary;
-  
+
   @include respond-to(sm) {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 }
 
@@ -86,7 +71,7 @@
   color: $dark;
   margin-bottom: $spacing-sm;
   letter-spacing: -0.02em;
-  
+
   @include respond-to(sm) {
     font-size: 1.25rem;
   }
@@ -98,7 +83,7 @@
   margin-bottom: $spacing-lg;
   line-height: 1.6;
   max-width: 400px;
-  
+
   @include respond-to(sm) {
     font-size: 0.95rem;
   }
@@ -109,55 +94,35 @@
   align-items: center;
   gap: $spacing-xs;
   padding: $spacing-sm $spacing-lg;
-  background: $primary-gradient;
+  background: $primary;
   color: $white;
   border: none;
   border-radius: $radius-lg;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  box-shadow: $shadow;
-  
+  transition: $transition;
+  box-shadow: $shadow-sm;
+
   .buttonIcon {
     font-size: 1rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
+
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
-    
+    background: $primary-dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow;
+
     .buttonIcon {
       transform: translateX(2px);
     }
-    
-    &::before {
-      transform: translateX(100%);
-    }
   }
-  
+
   &:active {
     transform: translateY(0);
-    box-shadow: $shadow;
-    transition-duration: 0.1s;
+    box-shadow: $shadow-sm;
   }
-  
+
   @include respond-to(sm) {
     padding: $spacing-sm $spacing-md;
     font-size: 0.95rem;

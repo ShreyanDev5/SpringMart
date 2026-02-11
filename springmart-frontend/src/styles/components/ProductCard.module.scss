@@ -4,7 +4,7 @@
 .productCard {
   @include card-base;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: $transition;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -15,622 +15,207 @@
   margin: 0 auto;
   width: 100%;
   border-radius: $radius-xl;
-  box-shadow: 
-    $shadow-md, // Outer shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Subtle inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02); // Subtle inner shadow
-  
-  // Corner tint for added dimension
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      135deg,
-      rgba($primary, 0.02) 0%,
-      rgba($secondary, 0.02) 100%
-    );
-    opacity: 0.5;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $secondary-gradient;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    border-radius: $radius-xl $radius-xl 0 0;
-    z-index: 1; // Ensure it's above the corner tint
-  }
-  
-  // Default hover state for devices with hover capability
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 
-      $shadow-lg, // Enhanced outer shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Enhanced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.03); // Enhanced inner shadow
-    
-    &::before {
-      transform: scaleX(1);
-    }
-    
-    .productImage {
-      transform: scale(1.02);
-    }
-    
-    .productActions {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  // Active state for all devices
-  &:active {
-    transform: translateY(-2px);
-    transition-duration: 0.15s;
-    box-shadow: 
-      $shadow, // Reduced outer shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.6), // Reduced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04); // Enhanced inner shadow on press
-  }
-  
-  // Enhanced styles for touch devices (including mobile)
-  @media (hover: none) and (pointer: coarse) {
-    // Show actions by default on touch devices
-    .productActions {
-      opacity: 1;
-      transform: none;
-    }
-    
-    // Active state for touch devices
-    &:active {
-      transform: translateY(-3px);
-      box-shadow: 
-        $shadow-lg,
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
-      transition-duration: 0.1s;
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .productImage {
-        transform: scale(1.01);
-      }
-    }
-    
-    // Simulate hover effect on touch - show when card has focus (from JS)
-    &.touchHover {
-      transform: translateY(-6px);
-      box-shadow: 
-        $shadow-lg,
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.9),
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .productImage {
-        transform: scale(1.02);
-      }
-    }
+  box-shadow: $shadow;
+
+  &:hover,
+  &.touchHover {
+    transform: translateY(-3px);
+    box-shadow: $shadow-md;
   }
 }
 
+/* Product Image */
 .productImage {
   width: 100%;
-  height: 280px;
-  object-fit: contain;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: linear-gradient(135deg, $lighter-gray 0%, $light 100%);
-  padding: $spacing-md;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba($primary, 0.03) 0%, rgba($secondary, 0.03) 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  background: $lighter-gray;
+  transition: transform 0.3s ease;
+
+  .productCard:hover &,
+  .productCard.touchHover & {
+    transform: scale(1.03);
   }
-  
-  .productCard:hover &::before {
-    opacity: 1;
+
+  @include respond-to(md) {
+    height: 200px;
   }
-  
-  @media (hover: none) and (pointer: coarse) {
-    .productCard:active & {
-      transform: scale(1.01);
-    }
+
+  @include respond-to(sm) {
+    height: 180px;
   }
 }
 
+/* Product Details */
 .productDetails {
   padding: $spacing-md;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: $spacing-xs;
-  position: relative;
-  background: $white;
-  
+  flex: 1;
+
   h3 {
-    font-size: 1.25rem;
-    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
     color: $dark;
-    font-weight: $font-weight-bold; // Increase to bold for better contrast
+    margin-bottom: $spacing-xs;
     line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    letter-spacing: -0.02em;
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: $primary-gradient;
-      border-radius: 2px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .productCard:hover &::after {
-      opacity: 1;
-    }
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
+/* Meta Info */
 .metaInfo {
   display: flex;
-  gap: $spacing-sm;
-  margin: $spacing-2xs 0;
-  flex-wrap: wrap;
-}
-
-.brand {
-  font-size: 0.95rem;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xs;
+  font-size: 0.8rem;
   color: $dark-gray;
-  margin: 0;
-  font-weight: $font-weight-medium;
-  line-height: 1.4;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  
-  .metaIcon {
-    color: $accent;
-  }
 }
 
+.brand,
 .category {
-  font-size: 0.9rem;
-  color: $gray;
-  margin: 0;
-  line-height: 1.4;
-  font-weight: $font-weight-medium;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  
-  .metaIcon {
-    color: $primary;
-  }
+  gap: $spacing-3xs;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .metaIcon {
-  font-size: 0.9rem;
-  min-width: 16px;
-  min-height: 16px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: $gray;
 }
 
+/* Price */
 .price {
-  font-weight: $font-weight-black; // Maximum contrast for price
-  margin: $spacing-xs 0 0;
-  color: #e63946; // Refined reddish color for better emphasis
-  font-size: 1.5rem;
-  display: flex;
-  align-items: baseline;
-  gap: 0.2rem;
-  line-height: 1;
-  position: relative;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: $primary-dark;
+  margin-bottom: $spacing-xs;
+  letter-spacing: -0.01em;
 }
 
+/* Stock Status */
 .stock {
-  font-size: 0.85rem;
-  margin: $spacing-xs 0 0;
-  display: flex;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: $spacing-md;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  font-weight: $font-weight-medium; // Medium weight for better readability
-  
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-  
+  gap: $spacing-2xs;
+  padding: $spacing-3xs $spacing-xs;
+  border-radius: $radius-sm;
+  width: fit-content;
+
   &.in {
     color: $success;
-    
-    &::before {
-      background-color: $success;
-      box-shadow: 0 0 0 2px rgba($success, 0.2);
-    }
+    background: rgba($success, 0.08);
   }
-  
+
   &.out {
     color: $error;
-    
-    &::before {
-      background-color: $error;
-      box-shadow: 0 0 0 2px rgba($error, 0.2);
-    }
+    background: rgba($error, 0.08);
   }
 }
 
+/* Action Buttons */
 .productActions {
   display: flex;
-  gap: $spacing-sm;
-  margin-top: $spacing-md;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  
-  @include respond-to(sm) {
-    opacity: 1;
-    transform: none;
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    opacity: 1;
-    transform: none;
-  }
+  gap: $spacing-xs;
+  margin-top: auto;
 }
 
 .actionButton {
   flex: 1;
-  padding: $spacing-sm;
-  border: none;
-  border-radius: $radius-md;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  box-shadow: $shadow-sm;
-  min-height: 44px; // Touch-friendly size
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
-  &:hover::before {
-    transform: translateX(100%);
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow;
-  }
-  
+  gap: $spacing-2xs;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-md;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: $transition;
+
   &:active {
-    transform: translateY(0);
-    box-shadow: $shadow-sm;
-    transition-duration: 0.1s;
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    &:active {
-      transform: scale(0.98);
-      box-shadow: $shadow;
-      transition-duration: 0.1s;
-    }
+    transform: scale(0.97);
   }
 }
 
 .editButton {
-  background: linear-gradient(135deg, rgba($primary, 0.1) 0%, rgba($primary-dark, 0.05) 100%);
+  background: rgba($primary, 0.08);
   color: $primary;
-  border: 1px solid rgba($primary, 0.2);
-  
+
   &:hover {
-    background: linear-gradient(135deg, rgba($primary, 0.15) 0%, rgba($primary-dark, 0.1) 100%);
-    color: darken($primary, 10%);
-    border-color: rgba($primary, 0.3);
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    &:active {
-      background: linear-gradient(135deg, rgba($primary, 0.2) 0%, rgba($primary-dark, 0.15) 100%);
-    }
+    background: rgba($primary, 0.14);
   }
 }
 
 .deleteButton {
-  background: linear-gradient(135deg, rgba($error, 0.1) 0%, rgba(darken($error, 10%), 0.05) 100%);
+  background: rgba($error, 0.08);
   color: $error;
-  border: 1px solid rgba($error, 0.2);
-  
+
   &:hover {
-    background: linear-gradient(135deg, rgba($error, 0.15) 0%, rgba(darken($error, 10%), 0.1) 100%);
-    color: darken($error, 10%);
-    border-color: rgba($error, 0.3);
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    &:active {
-      background: linear-gradient(135deg, rgba($error, 0.2) 0%, rgba(darken($error, 10%), 0.15) 100%);
-    }
+    background: rgba($error, 0.14);
   }
 }
 
-@include respond-to(lg) {
-  .productImage {
-    height: 260px;
-  }
-  
-  .productDetails {
-    padding: $spacing-sm $spacing-md;
-  }
-  
-  h3 {
-    font-size: 1.2rem;
-  }
-  
-  .metaInfo {
-    gap: $spacing-xs;
-  }
-  
-  .brand {
-    font-size: 0.9rem;
-  }
-  
-  .category {
-    font-size: 0.85rem;
-  }
-  
-  .metaIcon {
-    font-size: 0.85rem;
-  }
-  
-  .price {
-    font-size: 1.4rem;
-  }
-}
-
+/* Responsive */
 @include respond-to(md) {
-  .productImage {
-    height: 240px;
-  }
-  
   .productDetails {
     padding: $spacing-sm;
-    gap: $spacing-2xs;
+
+    h3 {
+      font-size: 1rem;
+    }
   }
-  
-  h3 {
-    font-size: 1.15rem;
-  }
-  
-  .metaInfo {
-    gap: $spacing-xs;
-  }
-  
-  .brand {
-    font-size: 0.9rem;
-  }
-  
-  .category {
-    font-size: 0.85rem;
-  }
-  
-  .metaIcon {
-    font-size: 0.8rem;
-  }
-  
+
   .price {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .actionButton {
+    font-size: 0.75rem;
+    padding: $spacing-2xs $spacing-xs;
   }
 }
 
 @include respond-to(sm) {
   .productCard {
-    box-shadow: $shadow;
     border-radius: $radius-lg;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-    &::before {
-      display: block;
-      transform: scaleX(1);
-      height: 3px;
-    }
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: $shadow-lg;
-    }
-    
-    @media (hover: none) and (pointer: coarse) {
-      &:active {
-        transform: translateY(-4px) scale(0.98);
-        box-shadow: $shadow-lg;
-        transition-duration: 0.1s;
-      }
-    }
-  }
-  
-  .productImage {
-    height: 180px;
-    padding: $spacing-sm;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    @media (hover: none) and (pointer: coarse) {
-      .productCard:active & {
-        transform: scale(1.01);
-      }
-    }
   }
 
-  .productCard:hover .productImage {
-    transform: scale(1.01);
-  }
-  
   .productDetails {
     padding: $spacing-sm;
-    gap: $spacing-2xs;
-  }
-  
-  h3 {
-    font-size: 1.05rem;
-    line-height: 1.4;
-  }
-  
-  .metaInfo {
-    gap: $spacing-xs;
-  }
-  
-  .brand {
-    font-size: 0.85rem;
-  }
-  
-  .category {
-    font-size: 0.8rem;
-  }
-  
-  .metaIcon {
-    font-size: 0.75rem;
-  }
-  
-  .price {
-    font-size: 1.2rem;
-    margin: $spacing-2xs 0 0;
-  }
-  
-  .stock {
-    font-size: 0.8rem;
-    margin: $spacing-2xs 0 0;
-  }
-  
-  .productActions {
-    margin-top: $spacing-sm;
-    opacity: 1;
-    transform: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $spacing-xs;
-  }
-  
-  .actionButton {
-    padding: 0.65rem 0.4rem;
-    font-size: 0.8rem;
-    gap: 0.3rem;
-    min-height: 40px;
-    border-radius: $radius;
-    
-    &:hover {
-      transform: translateY(-1px);
-      box-shadow: $shadow-sm;
-    }
-    
-    &:active {
-      transform: scale(0.98);
-    }
-    
-    @media (hover: none) and (pointer: coarse) {
-      &:active {
-        transform: scale(0.96);
-        transition-duration: 0.1s;
-      }
-    }
-  }
-}
 
-@include respond-to(xs) {
-  .productCard {
-    border-radius: $radius-md;
+    h3 {
+      font-size: 0.95rem;
+    }
   }
-  
-  .productImage {
-    height: 160px;
-  }
-  
-  .productDetails {
-    padding: $spacing-xs;
-  }
-  
-  h3 {
-    font-size: 1rem;
-  }
-  
+
   .metaInfo {
-    gap: $spacing-2xs;
-  }
-  
-  .brand,
-  .category {
     font-size: 0.75rem;
+    gap: $spacing-sm;
   }
-  
-  .metaIcon {
-    font-size: 0.7rem;
-  }
-  
+
   .price {
     font-size: 1.1rem;
   }
-  
+
   .stock {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
-  
-  .actionButton {
-    padding: 0.55rem 0.3rem;
-    font-size: 0.75rem;
-    min-height: 36px;
+
+  .productActions {
+    gap: $spacing-2xs;
   }
 }

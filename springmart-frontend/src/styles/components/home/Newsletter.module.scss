@@ -8,17 +8,6 @@
   margin-bottom: $spacing-3xl;
   position: relative;
   overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
-    z-index: 0;
-  }
 }
 
 .newsletterContent {
@@ -27,14 +16,14 @@
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  
+
   h2 {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: $spacing-sm;
     color: $dark;
   }
-  
+
   p {
     font-size: 1.1rem;
     color: $gray;
@@ -46,7 +35,7 @@
   display: flex;
   gap: $spacing-md;
   margin-top: $spacing-lg;
-  
+
   input {
     flex: 1;
     padding: 0.875rem 1.25rem;
@@ -54,7 +43,7 @@
     border: 2px solid $light-gray;
     font-size: 1rem;
     transition: $transition-fast;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-light;
@@ -68,21 +57,21 @@
     padding: $spacing-2xl $spacing-lg;
     margin: $spacing-2xl 0;
   }
-  
+
   .newsletterContent {
     h2 {
       font-size: 2rem;
     }
-    
+
     p {
       font-size: 1rem;
       padding: 0 $spacing-md;
     }
   }
-  
+
   .newsletterForm {
     padding: 0 $spacing-md;
-    
+
     input {
       height: 48px;
       font-size: 0.95rem;
@@ -96,31 +85,31 @@
     margin: $spacing-xl 0;
     border-radius: $radius-lg;
   }
-  
+
   .newsletterContent {
     h2 {
       font-size: 1.75rem;
       margin-bottom: $spacing-xs;
     }
-    
+
     p {
       font-size: 0.95rem;
       margin-bottom: $spacing-md;
       padding: 0;
     }
   }
-  
+
   .newsletterForm {
     flex-direction: column;
     gap: $spacing-sm;
     padding: 0;
-    
+
     input {
       height: 44px;
       font-size: 0.9rem;
       width: 100%;
     }
-    
+
     button {
       width: 100%;
       height: 44px;

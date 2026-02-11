@@ -6,482 +6,160 @@
   position: relative;
   margin: 0 auto;
   max-width: $container-width;
-  
-  // Add subtle background for depth
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-      180deg,
-      rgba($primary, 0.01) 0%,
-      rgba($secondary, 0.01) 100%
-    );
-    opacity: 0.3;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  :global(.section-header) {
+}
+
+/* Section header */
+.sectionHeader {
+  margin-bottom: $spacing-2xl;
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: $font-weight-black;
+    color: $dark;
+    letter-spacing: -0.02em;
+    margin-bottom: $spacing-sm;
     position: relative;
-    z-index: 2;
-    margin-bottom: $spacing-2xl;
-    padding: 0 $spacing-lg;
-    text-align: center;
-    
-    h2 {
-      font-size: 2.75rem;
-      font-weight: $font-weight-black; // Maximum contrast
-      margin-bottom: $spacing-sm;
-      color: $dark;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      position: relative;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: $primary-gradient;
-        border-radius: 2px;
-      }
-    }
-    
-    p {
-      font-size: 1.1rem; // Reduced from 1.25rem for better typographic consistency
-      color: $dark-gray;
-      max-width: 650px;
-      margin: $spacing-lg auto 0;
-      line-height: 1.6;
-      font-weight: $font-weight-normal; // Consistent with body text
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 48px;
+      height: 3px;
+      background: $primary;
+      border-radius: 2px;
     }
   }
-  
-  .sectionHeader {
-    position: relative;
-    z-index: 2;
-    margin-bottom: $spacing-2xl;
-    padding: 0 $spacing-lg;
-    text-align: center;
-    
-    h2 {
-      font-size: 2.75rem;
-      font-weight: $font-weight-black; // Maximum contrast
-      margin-bottom: $spacing-sm;
-      color: $dark;
-      letter-spacing: -0.03em;
-      line-height: 1.2;
-      position: relative;
-      
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background: $primary-gradient;
-        border-radius: 2px;
-      }
-    }
-    
-    p {
-      font-size: 1.1rem; // Reduced from 1.25rem for better typographic consistency
-      color: $dark-gray;
-      max-width: 650px;
-      margin: $spacing-lg auto 0;
-      line-height: 1.6;
-      font-weight: $font-weight-normal; // Consistent with body text
-    }
+
+  p {
+    font-size: 1.1rem;
+    color: $dark-gray;
+    line-height: 1.6;
+    margin-top: $spacing-md;
   }
-  
-  .centered {
+
+  &.centered {
     text-align: center;
-    
+
     h2::after {
       left: 50%;
       transform: translateX(-50%);
     }
-    
-    p {
-      margin: $spacing-lg auto 0;
-    }
   }
 }
 
+/* Product Grid */
 .productGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-xl;
-  margin: 0 auto;
-  max-width: $container-width;
-  padding: 0 $spacing-xl;
-  position: relative;
-  z-index: 1;
-  
-  .errorState,
-  .emptyState,
-  .loadingContainer {
-    grid-column: 1 / -1;
-  }
-  
-  .loadingContainer {
-    margin-bottom: $spacing-md;
-    
-    // Center loading message on mobile
-    @include respond-to(sm) {
-      display: flex;
-      justify-content: center;
-      margin-bottom: $spacing-sm;
-    }
-  }
+  gap: $spacing-lg;
+  padding: 0 $spacing-md;
 }
 
-// Wrapper for centering loading message
+/* Loading */
 .loadingWrapper {
-  width: 100%;
-  margin: 0 auto;
+  grid-column: 1 / -1;
+}
+
+.loadingContainer {
   display: flex;
   justify-content: center;
+  margin-bottom: $spacing-lg;
 }
 
+/* View All */
 .viewAllContainer {
   grid-column: 1 / -1;
   display: flex;
   justify-content: center;
-  margin-top: $spacing-2xl;
+  padding-top: $spacing-xl;
 }
 
 .viewAllLink {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: $primary;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-xl;
+  background: rgba($emerald, 0.06);
+  color: $emerald;
   font-weight: 600;
+  font-size: 0.95rem;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: $spacing-md $spacing-xl;
-  margin: 0;
   border-radius: $radius-full;
-  background: rgba($primary, 0.1);
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: 1.1rem;
-  border: 2px solid rgba($primary, 0.2);
-  z-index: 1;
-  box-shadow: 
-    $shadow-sm, // Outer shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.3), // Inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02); // Inner shadow
-  
-  // Additional depth layer
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      135deg,
-      rgba($primary, 0.05) 0%,
-      rgba($secondary, 0.05) 100%
-    );
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -2; // Below the depth layer
-  }
-  
-  svg {
-    transition: transform 0.3s ease;
-    font-size: 1.1em;
-  }
-  
+  transition: $transition;
+
   &:hover {
-    background: rgba($primary, 0.15);
-    color: darken($primary, 10%);
-    box-shadow: $shadow-md;
-    transform: translateY(-3px);
-    
-    &::before {
-      transform: translateX(100%);
-    }
-    
-    svg {
-      transform: translateX(3px);
-    }
+    background: rgba($emerald, 0.12);
+    transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(0);
-    box-shadow: $shadow-sm;
-    transition-duration: 0.1s;
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    &:active {
-      transform: translateY(-1px);
-      box-shadow: $shadow;
-    }
   }
 }
 
+/* Error & Empty States */
 .errorState,
 .emptyState {
+  grid-column: 1 / -1;
   text-align: center;
   padding: $spacing-3xl $spacing-lg;
-  background: linear-gradient(135deg, rgba($white, 0.95) 0%, rgba($light, 0.9) 100%);
-  border-radius: $radius-2xl;
-  box-shadow: $shadow-lg;
-  margin: $spacing-3xl auto;
-  max-width: 600px;
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $primary-gradient;
-  }
-  
+  background: $white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow;
+
   p {
-    margin: 0;
-    color: $dark;
-    font-size: 1.25rem;
-    position: relative;
-    z-index: 1;
-    line-height: 1.6;
-    font-weight: 500;
+    font-size: 1.1rem;
+    color: $dark-gray;
+    margin-bottom: $spacing-lg;
   }
 }
 
 .retryButton {
-  margin-top: $spacing-xl;
-  padding: $spacing-md $spacing-xl;
-  background: $primary-gradient;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-lg;
+  background: $primary;
   color: $white;
   border: none;
   border-radius: $radius-lg;
   font-weight: 600;
   cursor: pointer;
   transition: $transition;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  letter-spacing: 0.01em;
-  font-size: 1rem;
-  box-shadow: $shadow;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
+
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: $shadow-lg;
-    
-    &::before {
-      transform: translateX(100%);
-    }
+    background: $primary-dark;
+    transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(0);
-    box-shadow: $shadow;
-    transition-duration: 0.1s;
-  }
-  
-  @include respond-to(sm) {
-    margin-top: $spacing-lg;
-    padding: $spacing-sm $spacing-lg;
-    font-size: 0.95rem;
   }
 }
 
-.emptyStateSubtext {
-  margin-top: $spacing-sm !important;
-  color: $gray !important;
-  font-size: 1rem !important;
-  opacity: 0.8;
-}
-
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 5px solid rgba($primary, 0.1);
-  border-radius: 50%;
-  border-top-color: $primary;
-  margin: 0 auto $spacing-lg;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@include respond-to(xl) {
-  .productGrid {
-    gap: $spacing-lg;
-  }
-  
-  .viewAllLink {
-    padding: $spacing-sm $spacing-xl;
-  }
-}
-
+/* Responsive */
 @include respond-to(lg) {
-  .productsSection {
-    padding: $spacing-2xl 0;
-  }
-  
-  :global(.section-header) {
-    margin-bottom: $spacing-xl;
-    padding: 0 $spacing-md;
-    
-    h2 {
-      font-size: 2.5rem;
-    }
-    
-    p {
-      font-size: 1.15rem;
-      max-width: 550px;
-    }
-  }
-  
-  .sectionHeader {
-    margin-bottom: $spacing-xl;
-    padding: 0 $spacing-md;
-    
-    h2 {
-      font-size: 2.5rem;
-    }
-    
-    p {
-      font-size: 1.15rem;
-      max-width: 550px;
-    }
-  }
-  
   .productGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-lg;
-    padding: 0 $spacing-lg;
-    
-    .errorState,
-    .emptyState,
-    .loadingContainer {
-      grid-column: 1 / -1;
-    }
-  }
-  
-  .viewAllLink {
-    padding: $spacing-sm $spacing-lg;
-    font-size: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-md;
   }
 }
 
 @include respond-to(md) {
   .productsSection {
-    padding: $spacing-xl 0;
+    padding: $spacing-2xl 0;
   }
-  
-  :global(.section-header) {
-    margin-bottom: $spacing-lg;
-    padding: 0 $spacing-md;
-    
-    h2 {
-      font-size: 2.25rem;
-    }
-    
-    p {
-      font-size: 1.05rem;
-      max-width: 500px;
-    }
+
+  .sectionHeader h2 {
+    font-size: 2rem;
   }
-  
-  .sectionHeader {
-    margin-bottom: $spacing-lg;
-    padding: 0 $spacing-md;
-    
-    h2 {
-      font-size: 2.25rem;
-    }
-    
-    p {
-      font-size: 1.05rem;
-      max-width: 500px;
-    }
-  }
-  
+
   .productGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: $spacing-md;
-    padding: 0 $spacing-md;
-    
-    .errorState,
-    .emptyState,
-    .loadingContainer {
-      grid-column: 1 / -1;
-    }
-  }
-  
-  .viewAllLink {
-    padding: $spacing-sm $spacing-lg;
-  }
-  
-  .errorState,
-  .emptyState {
-    padding: $spacing-2xl $spacing-md;
-    margin: $spacing-2xl auto;
-    
-    p {
-      font-size: 1.1rem;
-    }
+    padding: 0 $spacing-sm;
   }
 }
 
@@ -489,142 +167,38 @@
   .productsSection {
     padding: $spacing-xl 0;
   }
-  
-  :global(.section-header) {
-    padding: 0 $spacing-sm;
-    margin-bottom: $spacing-lg;
-    
-    h2 {
-      font-size: 1.75rem; // Reduced from 2rem
-    }
-    
-    p {
-      font-size: 0.9rem; // Reduced from 0.95rem
-      margin-top: $spacing-sm;
-    }
-  }
-  
-  .sectionHeader {
-    padding: 0 $spacing-sm;
-    margin-bottom: $spacing-lg;
-    
-    h2 {
-      font-size: 1.75rem; // Reduced from 2rem
-    }
-    
-    p {
-      font-size: 0.9rem; // Reduced from 0.95rem
-      margin-top: $spacing-sm;
-    }
-  }
-  
-  .productGrid {
-    grid-template-columns: 1fr;
-    padding: 0 $spacing-sm;
-    gap: $spacing-lg;
-    
-    .errorState,
-    .emptyState,
-    .loadingContainer {
-      grid-column: 1 / -1;
-    }
-  }
-  
-  .viewAllContainer {
-    margin-top: $spacing-xl;
-  }
-  
-  .viewAllLink {
-    padding: $spacing-sm $spacing-lg;
-    font-size: 1rem;
-  }
-  
-  .errorState,
-  .emptyState {
-    padding: $spacing-xl $spacing-sm;
-    margin: $spacing-xl auto;
-    
-    p {
-      font-size: 1rem;
-    }
-  }
-  
-  .emptyStateSubtext {
-    font-size: 0.95rem !important;
-  }
-}
 
-@include respond-to(xs) {
-  .productsSection {
-    padding: $spacing-lg 0;
-  }
-  
-  :global(.section-header) {
-    margin-bottom: $spacing-md;
-    padding: 0 $spacing-xs;
-    
-    h2 {
-      font-size: 1.5rem; // Reduced from 1.75rem
-      line-height: 1.2;
-    }
-    
-    p {
-      font-size: 0.85rem; // Reduced from 0.9rem
-      line-height: 1.4;
-      margin-top: $spacing-xs;
-    }
-  }
-  
   .sectionHeader {
-    margin-bottom: $spacing-md;
-    padding: 0 $spacing-xs;
-    
+    padding: 0 $spacing-sm;
+
     h2 {
-      font-size: 1.5rem; // Reduced from 1.75rem
-      line-height: 1.2;
+      font-size: 1.75rem;
     }
-    
-    p {
-      font-size: 0.85rem; // Reduced from 0.9rem
-      line-height: 1.4;
-      margin-top: $spacing-xs;
-    }
-  }
-  
-  .productGrid {
-    grid-template-columns: 1fr;
-    gap: $spacing-md;
-    padding: 0 $spacing-xs;
-    
-    .errorState,
-    .emptyState,
-    .loadingContainer {
-      grid-column: 1 / -1;
-    }
-  }
-  
-  .viewAllContainer {
-    margin-top: $spacing-lg;
-  }
-  
-  .viewAllLink {
-    padding: $spacing-xs $spacing-md;
-    font-size: 0.95rem;
-  }
-  
-  .errorState,
-  .emptyState {
-    padding: $spacing-lg $spacing-xs;
-    margin: $spacing-lg auto;
-    
+
     p {
       font-size: 0.95rem;
     }
   }
-  
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border-width: 4px;
+
+  .productGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-sm;
+    padding: 0 $spacing-xs;
+  }
+
+  .viewAllLink {
+    font-size: 0.9rem;
+    padding: $spacing-sm $spacing-lg;
+  }
+}
+
+@include respond-to(xs) {
+  .sectionHeader h2 {
+    font-size: 1.5rem;
+  }
+
+  .productGrid {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
   }
 }

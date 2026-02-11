@@ -3,889 +3,233 @@
 
 .features {
   position: relative;
-  padding: $spacing-2xl $spacing-lg;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.9) 100%
-  );
+  padding: $spacing-3xl $spacing-lg;
+  background: $white;
   overflow: hidden;
   max-width: 1600px;
-  margin: 0 auto;
+  margin: $spacing-xl auto;
   border-radius: $radius-2xl;
-  margin: $spacing-xl 0;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.08), // Outer shadow
-    0 8px 16px rgba(0, 0, 0, 0.04), // Secondary shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02), // Inner shadow
-    inset 0 0 0 1px rgba(255, 255, 255, 0.7); // Subtle border
-  backdrop-filter: blur(15px);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 20% 20%, rgba($primary, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba($secondary, 0.08) 0%, transparent 50%),
-      linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.6) 0%,
-        rgba(255, 255, 255, 0.3) 100%
-      );
-    z-index: 0;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $primary-gradient;
-  }
+  box-shadow: $shadow;
 }
 
+/* Section header */
 .sectionHeader {
-  position: relative;
-  z-index: 2;
   text-align: center;
-  margin-bottom: $spacing-2xl;
-  padding: 0 $spacing-lg;
+  margin-bottom: $spacing-3xl;
 }
 
 .headerBadge {
   display: inline-flex;
   align-items: center;
   gap: $spacing-xs;
-  background: linear-gradient(135deg, rgba($secondary, 0.15) 0%, rgba($secondary, 0.1) 100%);
-  color: $secondary-dark;
-  font-size: 0.8rem;
+  background: rgba($primary, 0.08);
+  color: $primary;
+  font-size: 0.85rem;
   font-weight: 600;
   padding: $spacing-xs $spacing-md;
   border-radius: $radius-full;
-  margin-bottom: $spacing-lg;
-  box-shadow: 0 4px 12px rgba($secondary, 0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba($secondary, 0.15);
-  width: fit-content;
-  margin: 0 auto $spacing-lg;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  
+  margin-bottom: $spacing-md;
+
   .badgeIcon {
-    font-size: 0.9rem;
-    color: $secondary;
-  }
-  
-  @include respond-to(sm) {
-    font-size: 0.7rem;
-    padding: $spacing-3xs $spacing-sm;
-    gap: $spacing-3xs;
-    margin-bottom: $spacing-md;
-    
-    .badgeIcon {
-      font-size: 0.8rem;
-    }
+    font-size: 1rem;
   }
 }
 
 .sectionTitle {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: $font-weight-black;
-  margin-bottom: $spacing-md;
   color: $dark;
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: $primary-gradient;
-    border-radius: 2px;
-  }
+  margin-bottom: $spacing-sm;
 }
 
 .sectionSubtitle {
-  font-size: 1.1rem; // Reduced from 1.25rem for better typographic consistency
+  font-size: 1.1rem;
   color: $dark-gray;
-  max-width: 600px;
-  margin: $spacing-md auto 0;
+  max-width: 500px;
+  margin: 0 auto;
   line-height: 1.6;
-  font-weight: $font-weight-normal;
 }
 
+/* Features grid */
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: $spacing-xl;
-  margin: $spacing-lg 0;
-  position: relative;
-  z-index: 1;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 $spacing-md;
+  gap: $spacing-lg;
 }
 
 .featureCard {
-  padding: $spacing-xl;
+  background: $white;
   border-radius: $radius-xl;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 
-    0 12px 24px rgba(0, 0, 0, 0.06), // Outer shadow
-    0 6px 12px rgba(0, 0, 0, 0.04), // Secondary shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02), // Inner shadow
-    inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  min-height: 240px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  backdrop-filter: blur(12px);
+  padding: $spacing-xl $spacing-lg;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  
-  // Additional depth layer
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      135deg,
-      rgba($primary, 0.02) 0%,
-      rgba($secondary, 0.02) 100%
-    );
-    opacity: 0.5;
-    z-index: 0;
-    pointer-events: none;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, $primary, $secondary);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    border-radius: $radius-xl $radius-xl 0 0;
-    z-index: 1; // Ensure it's above the depth layer
-  }
-  
-  // Touch states for mobile devices
-  &.touch-hover,
+  transition: $transition;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: $shadow-sm;
+
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.1), // Enhanced outer shadow
-      0 10px 20px rgba(0, 0, 0, 0.06), // Enhanced secondary shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.95), // Enhanced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.03), // Enhanced inner shadow
-      inset 0 0 0 1px rgba(255, 255, 255, 0.95);
-    
-    &::before {
-      transform: scaleX(1);
-    }
-    
-    .featureIconWrapper {
-      transform: scale(1.1);
-      
-      .iconGlow {
-        opacity: 0.8;
-        transform: scale(1.2);
-      }
-    }
-    
-    .cardBackground .cardGradient {
-      opacity: 0.6;
-    }
-  }
-  
-  &:active,
-  &.touch-active {
     transform: translateY(-2px);
-    transition-duration: 0.1s;
-    box-shadow: 
-      0 8px 16px rgba(0, 0, 0, 0.08), // Reduced outer shadow
-      0 4px 8px rgba(0, 0, 0, 0.05), // Reduced secondary shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Reduced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04), // Enhanced inner shadow on press
-      inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+    box-shadow: $shadow-md;
   }
 }
 
 .cardBackground {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
   pointer-events: none;
-  
-  .cardGradient {
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba($primary, 0.08) 0%, transparent 70%);
-    opacity: 0.3;
-    transition: opacity 0.3s ease;
-  }
+  z-index: 0;
+}
+
+.cardGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba($primary, 0.03) 0%, transparent 70%);
+  opacity: 0.5;
 }
 
 .featureIconWrapper {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  margin-bottom: $spacing-lg;
-  transition: transform 0.3s ease;
+  margin-bottom: $spacing-md;
+  z-index: 1;
 }
 
 .featureIcon {
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: $primary-gradient;
+  background: rgba($primary, 0.08);
   border-radius: $radius-lg;
-  color: $white;
-  font-size: 1.5rem;
-  position: relative;
-  z-index: 2;
-  transition: all 0.3s ease;
+  color: $primary;
+  font-size: 1.4rem;
+
+  .featureCard:nth-child(2n) & {
+    background: rgba($emerald, 0.08);
+    color: $emerald;
+  }
 }
 
 .iconGlow {
-  position: absolute;
-  inset: -8px;
-  background: radial-gradient(circle, rgba($primary, 0.3) 0%, transparent 70%);
-  border-radius: $radius-xl;
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 1;
-  filter: blur(4px);
+  display: none; // Removed decorative glow
 }
 
 .featureContent {
   position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-sm;
-  width: 100%;
+  z-index: 1;
 }
 
 .featureTitle {
-  font-size: 1.25rem;
-  font-weight: $font-weight-bold;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: $dark;
-  margin: 0;
-  line-height: 1.3;
-  text-align: center;
+  margin-bottom: $spacing-2xs;
 }
 
 .featureHighlight {
-  background: linear-gradient(135deg, $secondary 0%, darken($secondary, 10%) 100%);
-  color: $white;
   font-size: 0.7rem;
   font-weight: 700;
-  padding: $spacing-xs $spacing-sm;
-  border-radius: $radius-full;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 2px 8px rgba($secondary, 0.3);
+  letter-spacing: 0.08em;
+  color: $primary;
+  background: rgba($primary, 0.08);
+  padding: 0.1rem $spacing-xs;
+  border-radius: $radius-sm;
   display: inline-block;
-  margin: 0;
+  margin-bottom: $spacing-xs;
 }
 
 .featureDescription {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: $dark-gray;
   line-height: 1.6;
-  margin: 0;
-  opacity: 0.9;
-  text-align: center;
-  max-width: 100%;
-  font-weight: $font-weight-normal;
 }
 
-@include respond-to(md) {
-  .features {
-    padding: $spacing-2xl 0;
-    margin: $spacing-xl 0;
-    
-    &::before {
-      background-size: 120% 120%, 120% 120%, 40px 40px;
-    }
-
-    :global(.section-header) {
-      margin-bottom: $spacing-xl;
-      padding: 0 $spacing-md;
-      
-      h2 {
-        font-size: 2.4rem;
-        letter-spacing: -0.015em;
-      }
-      
-      p {
-        font-size: 1.15rem;
-        max-width: 500px;
-      }
-    }
-  }
-  
-  .featuresGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
-    padding: 0 $spacing-md;
-  }
-  
-  .featureCard {
-    padding: $spacing-lg;
-    background: rgba($white, 0.9);
-    border-radius: $radius-xl;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba($gray, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-    }
-    
-    &:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition-duration: 0.1s;
-    }
-    
-    &:focus {
-      outline: none;
-      box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.05),
-        0 0 0 3px rgba($primary, 0.1);
-    }
-  }
-  
-  .featureIcon {
-    width: 56px;
-    height: 56px;
-    font-size: 1.5rem;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .featureTitle {
-    font-size: 1.25rem;
-    text-align: center;
-  }
-  
-  .featureDescription {
-    font-size: 0.95rem;
-    text-align: center;
-  }
-}
-
-@include respond-to(sm) {
-  .features {
-    padding: $spacing-lg $spacing-sm;
-    margin: $spacing-lg 0;
-    background: $white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    
-    &::before {
-      display: none;
-    }
-  }
-  
-  .sectionHeader {
-    margin-bottom: $spacing-lg;
-    padding: 0 $spacing-sm;
-  }
-  
-  .headerBadge {
-    font-size: 0.8rem;
-    padding: $spacing-xs $spacing-md;
-    margin-bottom: $spacing-md;
-    
-    .badgeIcon {
-      font-size: 0.9rem;
-    }
-  }
-  
-  .sectionTitle {
-    font-size: 2rem;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .sectionSubtitle {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-  
-  .featuresGrid {
-    grid-template-columns: 1fr;
-    gap: $spacing-md;
-    padding: 0;
-    margin: $spacing-md 0;
-  }
-  
-  .featureCard {
-    padding: $spacing-lg;
-    min-height: auto;
-    text-align: center;
-    transform: none;
-    transition: all 0.2s ease;
-    
-    // Touch states for mobile
-    &.touch-hover,
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .featureIconWrapper {
-        transform: scale(1.05);
-        
-        .iconGlow {
-          opacity: 0.6;
-          transform: scale(1.1);
-        }
-      }
-      
-      .cardBackground .cardGradient {
-        opacity: 0.6;
-      }
-    }
-    
-    &.touch-active,
-    &:active {
-      transform: translateY(0);
-      
-      .featureIconWrapper {
-        transform: scale(0.95);
-        
-        .featureIcon {
-          transform: scale(0.9);
-        }
-      }
-    }
-  }
-  
-  .featureIconWrapper {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto $spacing-md;
-    
-    .featureIcon {
-      font-size: 1.3rem;
-    }
-  }
-  
-  .featureContent {
-    gap: $spacing-xs;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .featureTitle {
-    font-size: 1.4rem;
-    margin-bottom: $spacing-xs;
-    text-align: center;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-  
-  .featureHighlight {
-    font-size: 0.65rem;
-    padding: $spacing-xs $spacing-sm;
-    align-self: center;
-  }
-  
-  .featureDescription {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    text-align: center;
-    color: $dark-gray;
-    opacity: 0.9;
-  }
-}
-
-@keyframes subtlePattern {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 0 0, 0 0, 60px 60px;
-  }
-}
-
-@keyframes floatingShapes {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-}
-
-@include respond-to(sm) {
-  .features {
-    &::before {
-      animation: subtlePattern 30s linear infinite;
-      background-size: 160% 160%, 160% 160%, 40px 40px;
-    }
-    
-    &::after {
-      animation: floatingShapes 40s ease-in-out infinite;
-    }
-  }
-  
-  @keyframes floatingShapes {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-5px) rotate(0.5deg);
-    }
-  }
-}
-
-// Mobile Responsive Styles
+/* Responsive */
 @include respond-to(lg) {
   .featuresGrid {
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-lg;
+    gap: $spacing-md;
   }
-  
+
   .sectionTitle {
-    font-size: 2.5rem;
-  }
-  
-  .featureCard {
-    // Touch states for larger tablets/laptops
-    &.touch-hover,
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.1), // Enhanced outer shadow
-        0 10px 20px rgba(0, 0, 0, 0.06), // Enhanced secondary shadow
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.95), // Enhanced inner highlight
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.03), // Enhanced inner shadow
-        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .featureIconWrapper {
-        transform: scale(1.1);
-        
-        .iconGlow {
-          opacity: 0.8;
-          transform: scale(1.2);
-        }
-      }
-      
-      .cardBackground .cardGradient {
-        opacity: 0.6;
-      }
-    }
-    
-    &.touch-active,
-    &:active {
-      transform: translateY(-2px);
-      transition-duration: 0.1s;
-      box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.08), // Reduced outer shadow
-        0 4px 8px rgba(0, 0, 0, 0.05), // Reduced secondary shadow
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Reduced inner highlight
-        inset 0 -1px 0 0 rgba(0, 0, 0, 0.04), // Enhanced inner shadow on press
-        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-    }
+    font-size: 2.25rem;
   }
 }
 
 @include respond-to(md) {
   .features {
-    padding: $spacing-xl $spacing-md;
+    padding: $spacing-2xl $spacing-md;
+    margin: $spacing-lg auto;
   }
-  
-  .featuresGrid {
-    gap: $spacing-md;
-    padding: 0 $spacing-sm;
-  }
-  
+
   .sectionTitle {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
-  
+
   .sectionSubtitle {
     font-size: 1rem;
   }
-  
+
   .featureCard {
-    padding: $spacing-lg;
-    background: rgba($white, 0.9);
-    border-radius: $radius-xl;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba($gray, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    
-    // Touch states for tablets
-    &.touch-hover,
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .featureIconWrapper {
-        transform: scale(1.05);
-        
-        .iconGlow {
-          opacity: 0.6;
-          transform: scale(1.1);
-        }
-      }
-      
-      .cardBackground .cardGradient {
-        opacity: 0.6;
-      }
-    }
-    
-    &.touch-active,
-    &:active {
-      transform: translateY(0) scale(0.98);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition-duration: 0.1s;
-      
-      .featureIconWrapper {
-        transform: scale(0.95);
-        
-        .featureIcon {
-          transform: scale(0.9);
-        }
-      }
-    }
-    
-    &:focus {
-      outline: none;
-      box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.05),
-        0 0 0 3px rgba($primary, 0.1);
-    }
-  }
-  
-  .featureIcon {
-    width: 56px;
-    height: 56px;
-    font-size: 1.5rem;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .featureTitle {
-    font-size: 1.25rem;
-    text-align: center;
-  }
-  
-  .featureDescription {
-    font-size: 0.95rem;
-    text-align: center;
+    padding: $spacing-lg $spacing-md;
   }
 }
 
 @include respond-to(sm) {
   .features {
-    padding: $spacing-lg $spacing-sm;
-    margin: $spacing-lg 0;
-    background: $white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    
-    &::before {
-      display: none;
-    }
+    padding: $spacing-xl $spacing-sm;
+    margin: $spacing-md auto;
+    border-radius: $radius-xl;
   }
-  
-  .sectionHeader {
-    margin-bottom: $spacing-lg;
-    padding: 0 $spacing-sm;
-  }
-  
-  .headerBadge {
-    font-size: 0.8rem;
-    padding: $spacing-xs $spacing-md;
-    margin-bottom: $spacing-md;
-    
-    .badgeIcon {
-      font-size: 0.9rem;
-    }
-  }
-  
-  .sectionTitle {
-    font-size: 2rem;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .sectionSubtitle {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-  
+
   .featuresGrid {
     grid-template-columns: 1fr;
-    gap: $spacing-md;
-    padding: 0;
-    margin: $spacing-md 0;
+    gap: $spacing-sm;
   }
-  
-  .featureCard {
-    padding: $spacing-lg;
-    min-height: auto;
-    text-align: center;
-    transform: none;
-    transition: all 0.2s ease;
-    
-    // Touch states for mobile
-    &.touch-hover,
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      
-      &::before {
-        transform: scaleX(1);
-      }
-      
-      .featureIconWrapper {
-        transform: scale(1.05);
-        
-        .iconGlow {
-          opacity: 0.6;
-          transform: scale(1.1);
-        }
-      }
-      
-      .cardBackground .cardGradient {
-        opacity: 0.6;
-      }
-    }
-    
-    &.touch-active,
-    &:active {
-      transform: translateY(0);
-      
-      .featureIconWrapper {
-        transform: scale(0.95);
-        
-        .featureIcon {
-          transform: scale(0.9);
-        }
-      }
-    }
-  }
-  
-  .featureIconWrapper {
-    width: 56px;
-    height: 56px;
-    margin: 0 auto $spacing-md;
-    
-    .featureIcon {
-      font-size: 1.3rem;
-    }
-  }
-  
-  .featureContent {
-    gap: $spacing-xs;
-    margin-bottom: $spacing-sm;
-  }
-  
-  .featureTitle {
-    font-size: 1.4rem;
-    margin-bottom: $spacing-xs;
-    text-align: center;
-    font-weight: 700;
-    line-height: 1.3;
-  }
-  
-  .featureHighlight {
-    font-size: 0.65rem;
-    padding: $spacing-xs $spacing-sm;
-    align-self: center;
-  }
-  
-  .featureDescription {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    text-align: center;
-    color: $dark-gray;
-    opacity: 0.9;
-  }
-}
 
-// Add ripple effect for better touch feedback
-.featureCard {
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba($primary, 0.2) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
+  .featureCard {
+    padding: $spacing-md;
+    display: flex;
+    gap: $spacing-md;
+    align-items: flex-start;
   }
-  
-  &:active::after {
-    width: 200px;
-    height: 200px;
-    opacity: 1;
-    transition-duration: 0.2s;
+
+  .featureIconWrapper {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .featureIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+  }
+
+  .sectionSubtitle {
+    font-size: 0.9rem;
   }
 }
 
 @include respond-to(xs) {
-  .sectionSubtitle {
-    font-size: 0.9rem;
+  .features {
+    padding: $spacing-lg $spacing-xs;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .featureTitle {
+    font-size: 1rem;
+  }
+
+  .featureDescription {
+    font-size: 0.85rem;
   }
 }

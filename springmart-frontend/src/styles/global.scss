@@ -29,141 +29,121 @@ body {
   padding-top: $spacing-xl; // Add top padding for breathing room
 }
 
-/* Enhanced Button Styles - Refined for premium feel */
+/* Button Styles */
 .btn {
   @include button-base;
   font-weight: 600;
   letter-spacing: 0.01em;
   border: none;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
   box-shadow: $shadow-sm;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
+  transition: $transition;
+
   &-icon {
     font-size: 1.1em;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
-  
+
   &:hover .btn-icon {
-    transform: translateX(3px);
+    transform: translateX(2px);
   }
-  
-  &:hover::before {
-    transform: translateX(100%);
-  }
-  
+
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+    box-shadow: $shadow;
   }
-  
+
   &:active {
     transform: translateY(0);
     box-shadow: $shadow-sm;
     transition-duration: 0.1s;
   }
-  
+
   &-primary {
     background: $primary-gradient;
     color: $white;
-    
+
     &:hover {
       background: linear-gradient(135deg, lighten($primary, 5%) 0%, lighten($primary-dark, 5%) 100%);
     }
   }
-  
+
   &-outline {
     background-color: transparent;
     border: 2px solid $primary;
     color: $primary;
-    
+
     &:hover {
       background-color: rgba($primary, 0.1);
       border-color: lighten($primary, 10%);
     }
   }
-  
+
   &-light {
     background-color: $white;
     color: $primary;
-    
+
     &:hover {
       background-color: $lighter-gray;
       transform: translateY(-2px);
     }
   }
-  
+
   &-outline-light {
     background-color: transparent;
     border: 2px solid $white;
     color: $white;
-    
+
     &:hover {
       background-color: rgba(255, 255, 255, 0.15);
       border-color: rgba(255, 255, 255, 0.8);
     }
   }
-  
+
   &-success {
     background: $secondary-gradient;
     color: $white;
-    
+
     &:hover {
       background: linear-gradient(135deg, lighten($secondary, 5%) 0%, $secondary 100%);
     }
   }
-  
+
   &-danger {
     background: linear-gradient(135deg, $error 0%, darken($error, 10%) 100%);
     color: $white;
-    
+
     &:hover {
       background: linear-gradient(135deg, lighten($error, 5%) 0%, $error 100%);
     }
   }
 }
 
-/* Enhanced Section Headers - Premium styling */
+/* Section Headers */
 .section-header {
   margin-bottom: $spacing-3xl;
   position: relative;
-  
+
   h2 {
     font-size: 3rem;
-    font-weight: $font-weight-black; // Increase to black for maximum contrast
+    font-weight: $font-weight-black;
     margin-bottom: $spacing-sm;
     color: $dark;
     letter-spacing: -0.03em;
     line-height: 1.2;
     position: relative;
-    
+
     &::after {
       content: '';
       position: absolute;
-      bottom: -12px;
+      bottom: -10px;
       left: 0;
-      width: 80px;
-      height: 4px;
-      background: $primary-gradient;
+      width: 48px;
+      height: 3px;
+      background: $primary;
       border-radius: 2px;
     }
   }
-  
+
   p {
     font-size: 1.25rem;
     color: $dark-gray;
@@ -172,20 +152,20 @@ body {
     font-weight: $font-weight-normal; // Explicitly set normal weight for subtitle
     margin-top: $spacing-lg;
   }
-  
+
   &.centered {
     text-align: center;
-    
+
     h2::after {
       left: 50%;
       transform: translateX(-50%);
     }
-    
+
     p {
       margin: $spacing-lg auto 0;
     }
   }
-  
+
   &.with-action {
     display: flex;
     justify-content: space-between;
@@ -195,86 +175,39 @@ body {
   }
 }
 
-/* Card Component - Enhanced with premium feel */
+/* Card Component */
 .card {
   @include card-base;
   padding: $spacing-lg;
   background: $white;
-  position: relative;
-  overflow: hidden;
   border-radius: $radius-xl;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    $shadow-md, // Outer shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.8), // Subtle inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.02); // Subtle inner shadow
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $primary-gradient;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-    border-radius: $radius-xl $radius-xl 0 0;
-  }
-  
-  &:hover::before {
-    transform: scaleX(1);
-  }
-  
+  transition: $transition;
+  box-shadow: $shadow;
+
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 
-      $shadow-lg, // Enhanced outer shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Enhanced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.03); // Enhanced inner shadow
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
   }
-  
+
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(0);
     transition-duration: 0.1s;
-    box-shadow: 
-      $shadow, // Reduced outer shadow
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.6), // Reduced inner highlight
-      inset 0 -1px 0 0 rgba(0, 0, 0, 0.04); // Enhanced inner shadow on press
+    box-shadow: $shadow-sm;
   }
 }
 
-/* Form Elements - Refined for better UX */
+/* Form Elements */
 .form-group {
   margin-bottom: $spacing-lg;
-  
+
   label {
     display: block;
     margin-bottom: $spacing-xs;
-    font-weight: $font-weight-medium; // Increase from 500 to medium variable
+    font-weight: $font-weight-medium;
     color: $dark-gray;
     font-size: 0.95rem;
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 20px;
-      height: 2px;
-      background: $primary;
-      border-radius: 1px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .form-group:focus-within &::after {
-      opacity: 1;
-    }
   }
-  
+
   .form-control {
     width: 100%;
     padding: 1rem 1.25rem;
@@ -285,26 +218,26 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: inherit;
     font-weight: $font-weight-normal; // Explicitly set normal weight
-    
+
     &:hover {
       border-color: $gray;
     }
-    
+
     &:focus {
       outline: none;
       border-color: $primary;
       box-shadow: 0 0 0 4px rgba($primary, 0.15);
     }
-    
+
     &.is-invalid {
       border-color: $error;
-      
+
       &:focus {
         box-shadow: 0 0 0 4px rgba($error, 0.15);
       }
     }
   }
-  
+
   .help-text {
     display: block;
     margin-top: $spacing-2xs;
@@ -312,7 +245,7 @@ body {
     color: $gray;
     font-weight: $font-weight-normal; // Explicitly set normal weight
   }
-  
+
   .invalid-feedback {
     display: block;
     margin-top: $spacing-2xs;
@@ -321,7 +254,7 @@ body {
     font-weight: $font-weight-medium; // Increase to medium for better visibility
     position: relative;
     padding-left: 1.25rem;
-    
+
     &::before {
       content: '!';
       position: absolute;
@@ -503,6 +436,7 @@ body {
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -514,6 +448,7 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -521,9 +456,12 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-12px);
   }
@@ -536,10 +474,13 @@ body {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.7;
     transform: scale(1.05);
@@ -550,6 +491,7 @@ body {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -560,9 +502,11 @@ body {
     opacity: 0;
     transform: scale(0.8);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -590,7 +534,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: $gray;
   border-radius: $radius;
-  
+
   &:hover {
     background: $dark-gray;
   }
@@ -600,11 +544,11 @@ body {
 @include respond-to(xl) {
   .section-header {
     margin-bottom: $spacing-2xl;
-    
+
     h2 {
       font-size: 2.75rem;
     }
-    
+
     p {
       font-size: 1.2rem;
     }
@@ -614,11 +558,11 @@ body {
 @include respond-to(lg) {
   .section-header {
     margin-bottom: $spacing-xl;
-    
+
     h2 {
       font-size: 2.5rem;
     }
-    
+
     p {
       font-size: 1.15rem;
     }
@@ -628,12 +572,12 @@ body {
 @include respond-to(md) {
   .section-header {
     margin-bottom: $spacing-xl;
-    
+
     h2 {
       font-size: 2.25rem;
       letter-spacing: -0.02em;
     }
-    
+
     p {
       font-size: 1.05rem;
       line-height: 1.65;
@@ -645,34 +589,34 @@ body {
   .section-header {
     margin-bottom: $spacing-lg;
     padding: 0 $spacing-sm;
-    
+
     h2 {
       font-size: 1.75rem; // Reduced from 2rem
       letter-spacing: -0.025em;
       margin-bottom: $spacing-xs;
       line-height: 1.3;
     }
-    
+
     p {
       font-size: 0.95rem; // Reduced from 1rem
       line-height: 1.6;
       color: $dark-gray;
     }
-    
+
     &.with-action {
       flex-direction: column;
       gap: $spacing-lg;
     }
   }
-  
+
   .card {
     padding: $spacing-md;
     border-radius: $radius-lg;
   }
-  
+
   .form-group {
     margin-bottom: $spacing-md;
-    
+
     .form-control {
       padding: 0.85rem 1rem;
       font-size: 0.95rem;
@@ -685,12 +629,12 @@ body {
     h2 {
       font-size: 1.5rem; // Reduced from 1.75rem
     }
-    
+
     p {
       font-size: 0.85rem; // Reduced from 0.95rem
     }
   }
-  
+
   .btn {
     padding: 0.75rem 1.25rem;
     font-size: 0.9rem;

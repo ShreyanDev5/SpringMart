@@ -12,893 +12,226 @@
   background: $white;
   border-radius: $radius-2xl;
   overflow: hidden;
-  box-shadow: 
-    $shadow-lg, // Outer shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.03); // Inner shadow
-  margin: $spacing-3xl auto; // Increased from $spacing-xl to $spacing-3xl
-  max-width: $container-width;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at top right, rgba($primary, 0.08) 0%, transparent 65%),
-      radial-gradient(circle at bottom left, rgba($secondary, 0.08) 0%, transparent 65%),
-      linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.95) 0%,
-        rgba(255, 255, 255, 0.9) 100%
-      );
-    z-index: 0;
-    animation: gradientShift 15s ease infinite;
-  }
-  
-  // Top accent border
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: $primary-gradient;
-  }
+  box-shadow: $shadow;
 }
 
+/* Left content */
 .heroContent {
   flex: 1;
+  min-width: 0;
   max-width: 600px;
-  position: relative;
-  z-index: 1;
-  padding-right: $spacing-xl;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 400px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba($primary, 0.04) 0%, transparent 70%);
-    border-radius: 50%;
-    z-index: -1;
-    animation: float 8s ease-in-out infinite;
-  }
+  gap: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .heroBadge {
   display: inline-flex;
   align-items: center;
   gap: $spacing-xs;
-  background: linear-gradient(135deg, rgba($secondary, 0.15) 0%, rgba($secondary, 0.1) 100%);
-  color: $secondary-dark;
-  font-size: 0.8rem;
+  background: rgba($primary, 0.08);
+  color: $primary;
+  font-size: 0.85rem;
   font-weight: 600;
   padding: $spacing-xs $spacing-md;
   border-radius: $radius-full;
   margin-bottom: $spacing-lg;
-  box-shadow: 0 4px 12px rgba($secondary, 0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba($secondary, 0.15);
   width: fit-content;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  
+
   .badgeIcon {
-    font-size: 0.9rem;
-    color: $secondary;
-  }
-  
-  @include respond-to(sm) {
-    font-size: 0.7rem;
-    padding: $spacing-3xs $spacing-sm;
-    gap: $spacing-3xs;
-    margin-bottom: $spacing-md;
-    
-    .badgeIcon {
-      font-size: 0.8rem;
-    }
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba($secondary, 0.15);
-    background: linear-gradient(135deg, rgba($secondary, 0.2) 0%, rgba($secondary, 0.15) 100%);
-    
-    &::before {
-      transform: translateX(100%);
-    }
+    font-size: 1rem;
   }
 }
 
 .heroTitle {
-  font-size: 4rem;
-  font-weight: $font-weight-black; // Maximum contrast with body text
+  font-size: 3.5rem;
+  font-weight: $font-weight-black;
   line-height: 1.1;
-  margin-bottom: $spacing-lg;
   color: $dark;
   letter-spacing: -0.03em;
-  position: relative;
-  z-index: 1;
-  max-width: 90%;
-  
+  margin-bottom: $spacing-md;
+
   .highlight {
-    position: relative;
-    display: inline-block;
-    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%);
+    background: $primary-gradient;
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
-    padding: 0 0.1em;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0.1em;
-      left: 0;
-      width: 100%;
-      height: 0.2em;
-      background: linear-gradient(135deg, rgba($primary, 0.2) 0%, rgba($primary-dark, 0.2) 100%);
-      border-radius: $radius-sm;
-      z-index: -1;
-      transform: scaleX(0.95);
-      transition: transform 0.3s ease;
-    }
-  }
-  
-  &:hover .highlight::after {
-    transform: scaleX(1);
+    -webkit-text-fill-color: transparent;
   }
 }
+
+
 
 .heroSubtitle {
-  font-size: 1.1rem; // Reduced from 1.25rem for better typographic consistency
+  font-size: 1.15rem;
   color: $dark-gray;
+  line-height: 1.7;
   margin-bottom: $spacing-xl;
-  line-height: 1.6;
-  font-weight: $font-weight-normal; // Consistent with body text
-  max-width: 90%;
-  opacity: 0.9;
+  max-width: 500px;
 }
 
+/* CTA Buttons */
 .ctaButtons {
   display: flex;
   gap: $spacing-md;
-  margin-bottom: $spacing-lg;
   flex-wrap: wrap;
 }
 
 .ctaButton {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-sm;
-  padding: $spacing-sm $spacing-lg;
+  gap: $spacing-xs;
+  padding: 0.875rem 1.75rem;
   border-radius: $radius-lg;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   text-decoration: none;
   transition: $transition;
-  position: relative;
-  overflow: hidden;
-  min-height: 44px;
-  z-index: 1;
-  box-shadow: $shadow;
-  
+  cursor: pointer;
+
   .buttonIcon {
-    font-size: 1rem;
-    transition: transform 0.3s ease;
-  }
-  
-  &:hover .buttonIcon {
-    transform: translateX(2px);
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-    z-index: -1;
-  }
-  
-  &:hover::before {
-    transform: translateX(100%);
-  }
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
-  }
-  
-  &:active {
-    transform: translateY(0);
-    box-shadow: $shadow;
-    transition-duration: 0.1s;
+    font-size: 1.15rem;
   }
 }
 
 .primaryButton {
-  background: $primary-gradient;
+  background: $primary;
   color: $white;
-  
+  box-shadow: $shadow-sm;
+
   &:hover {
-    background: linear-gradient(135deg, lighten($primary, 5%) 0%, lighten($primary-dark, 5%) 100%);
+    background: $primary-dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-sm;
   }
 }
 
 .secondaryButton {
-  background: rgba($white, 0.9);
-  color: $dark;
-  border: 2px solid rgba($gray, 0.2);
-  backdrop-filter: blur(10px);
-  
+  background: transparent;
+  color: $emerald;
+  border: 2px solid rgba($emerald, 0.2);
+
   &:hover {
-    background: $white;
-    border-color: rgba($gray, 0.3);
+    background: rgba($emerald, 0.06);
+    border-color: rgba($emerald, 0.3);
+    transform: translateY(-1px);
   }
-}
 
-.fadeIn {
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
+  &:active {
     transform: translateY(0);
   }
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-}
-
-.seasonalTagline {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: $secondary;
-  margin-bottom: $spacing-md;
-  background: linear-gradient(135deg, $secondary 0%, $secondary-light 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  display: inline-block;
-  padding: 0.25rem 0;
-}
-
-.productCounter {
-  font-size: 0.9rem;
-  color: $gray;
-  margin-bottom: $spacing-md;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background-color: $secondary;
-    border-radius: 50%;
-  }
-}
-
-.highlight {
-  position: relative;
-  display: inline-block;
-  background: linear-gradient(135deg, #0066cc 0%, #4d94ff 50%, #66a3ff 100%); /* Blue gradient */
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 2px 5px rgba(0, 102, 204, 0.2);
-}
-
-.underlined {
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 6px;
-    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,3 C15,0 35,6 50,3 C65,0 85,6 100,3 L100,6 L0,6 Z' fill='%230066cc' stroke-width='0'/%3E%3C/svg%3E");
-    background-size: 100px 100%;
-    background-repeat: repeat-x;
-    animation: moveUnderline 8s linear infinite;
-  }
-}
-
-@keyframes moveUnderline {
-  from { background-position-x: 0; }
-  to { background-position-x: 200px; }
-}
-
-@keyframes badgeGlow {
-  0%, 100% {
-    box-shadow: 
-      0 3px 8px rgba(255, 107, 53, 0.3),
-      0 1px 3px rgba(255, 107, 53, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  }
-  50% {
-    box-shadow: 
-      0 4px 12px rgba(255, 107, 53, 0.4),
-      0 2px 6px rgba(255, 107, 53, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  }
-}
-
-@keyframes badgeGlowHover {
-  0%, 100% {
-    box-shadow: 
-      0 4px 12px rgba(255, 107, 53, 0.4),
-      0 2px 6px rgba(255, 107, 53, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  }
-  50% {
-    box-shadow: 
-      0 6px 16px rgba(255, 107, 53, 0.5),
-      0 3px 8px rgba(255, 107, 53, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  }
-}
-
-@keyframes starTwinkle {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
-}
-
-@keyframes starTwinkleHover {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
-  25% {
-    opacity: 0.9;
-    transform: scale(1.1) rotate(5deg);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05) rotate(-3deg);
-  }
-  75% {
-    opacity: 0.9;
-    transform: scale(1.15) rotate(3deg);
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.searchContainer {
-  margin: 1.5rem 0;
-  max-width: 500px;
-  width: 100%;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: $radius-lg;
-    backdrop-filter: blur(12px);
-    z-index: 0;
-    box-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.08),
-      0 2px 4px rgba(0, 0, 0, 0.04),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba($primary, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(135deg, 
-      rgba($primary, 0.2) 0%,
-      rgba($secondary, 0.2) 100%
-    );
-    border-radius: calc($radius-lg + 2px);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  &:focus-within::after {
-    opacity: 1;
-  }
-  
-  &:hover::before {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 
-      0 6px 16px rgba(0, 0, 0, 0.12),
-      0 4px 8px rgba(0, 0, 0, 0.06),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-  }
-  
-  .searchWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    z-index: 1;
-  }
-  
-  .searchIcon {
-    position: absolute;
-    left: $spacing-md;
-    color: $gray;
-    font-size: 1.2rem;
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
-  }
-  
-  input {
-    width: 100%;
-    height: 48px;
-    padding: 0 $spacing-xl 0 calc($spacing-lg + $spacing-lg);
-    border: none;
-    background: transparent;
-    font-size: 1rem;
-    color: $dark;
-    border-radius: $radius-lg;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    
-    &::placeholder {
-      color: rgba($gray, 0.7);
-      font-weight: 400;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    &:focus {
-      outline: none;
-      padding-right: calc($spacing-lg + 80px);
-      
-      &::placeholder {
-        color: rgba($gray, 0.5);
-      }
-      
-      & + .searchIcon {
-        color: $primary;
-        transform: scale(1.1);
-      }
-    }
-  }
-  
-  .searchButton {
-    position: absolute;
-    right: $spacing-sm;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0 $spacing-md;
-    background: $primary-gradient;
-    color: white;
-    border: none;
-    border-radius: $radius-full;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    visibility: hidden;
-    box-shadow: 
-      0 4px 12px rgba($primary, 0.3),
-      0 2px 4px rgba($primary, 0.2);
-    height: 36px;
-    min-width: 90px;
-    letter-spacing: 0.02em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    z-index: 3;
-    
-    .buttonIcon {
-      font-size: 0.9rem;
-      transition: transform 0.3s ease;
-    }
-    
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      border-radius: inherit;
-      transform: translateX(-100%);
-      transition: transform 0.6s ease;
-      z-index: -1;
-    }
-    
-    &:hover {
-      transform: translateY(-50%) translateY(-2px);
-      box-shadow: 
-        0 6px 16px rgba($primary, 0.4),
-        0 4px 8px rgba($primary, 0.3);
-      background: linear-gradient(135deg, lighten($primary, 8%) 0%, lighten($primary-dark, 8%) 100%);
-      
-      &::before {
-        transform: translateX(100%);
-      }
-      
-      .buttonIcon {
-        transform: translateX(2px);
-      }
-    }
-    
-    &:active {
-      transform: translateY(-50%) translateY(0);
-      box-shadow: 
-        0 2px 8px rgba($primary, 0.3),
-        0 1px 4px rgba($primary, 0.2);
-      transition-duration: 0.15s;
-    }
-    
-    &:focus-visible {
-      outline: 2px solid $primary;
-      outline-offset: 2px;
-    }
-  }
-  
-  &:focus-within,
-  &:hover {
-    .searchButton {
-      opacity: 1;
-      visibility: visible;
-    }
-  }
-  
-  &:focus-within {
-    input {
-      padding-right: calc($spacing-lg + 90px);
-    }
-  }
-}
-
+/* Right side — hero image area */
 .heroImage {
   flex: 1;
-  position: relative;
-  min-height: 500px;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-  background: linear-gradient(135deg,
-    rgba(0, 102, 204, 0.05) 0%,
-    rgba(16, 185, 129, 0.05) 100%
-  );
-  border-radius: $radius-xl;
-  padding: $spacing-xl;
+  position: relative;
 }
 
+/* Hero Card */
 .heroCard {
   position: relative;
-  width: 280px;
-  padding: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.95) 0%,
-    rgba(255, 255, 255, 0.9) 100%
-  );
-  border-radius: $radius-lg;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1), // Outer shadow
-    0 8px 16px rgba(0, 0, 0, 0.06), // Secondary shadow
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.9), // Inner highlight
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.03), // Inner shadow
-    inset 0 0 0 1px rgba(255, 255, 255, 0.8); // Subtle border
-  backdrop-filter: blur(15px);
-  transform: rotate(-2deg) translateY(-20px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: visible;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  min-height: 44px;
-  
-  // Additional depth layer
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    background: linear-gradient(
-      135deg,
-      rgba($primary, 0.03) 0%,
-      rgba($secondary, 0.03) 50%,
-      rgba($primary, 0.03) 100%
-    );
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 0;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba($primary, 0.05) 0%,
-      rgba($secondary, 0.05) 50%,
-      rgba($primary, 0.05) 100%
-    );
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-    border-radius: inherit;
-  }
-  
+  width: 300px;
+  background: $white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+  transform: rotate(-2deg);
+  transition: $transition;
+  z-index: 5;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+
   &:hover {
-    transform: rotate(0deg) translateY(-26px);
-    box-shadow: 
-      0 15px 30px rgba(0, 0, 0, 0.12),
-      0 8px 16px rgba(0, 0, 0, 0.08);
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    .cardBackground {
-      .cardGradient {
-        opacity: 0.8;
-      }
-      
-      .cardPattern {
-        opacity: 0.3;
-      }
-    }
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: $shadow-lg;
   }
-  
+
   &:active {
-    transform: rotate(0deg) translateY(-22px);
-    transition-duration: 0.1s;
-    box-shadow: 
-      0 8px 16px rgba(0, 0, 0, 0.15),
-      0 4px 8px rgba(0, 0, 0, 0.1);
-    
-    &::before {
-      opacity: 0.9;
-    }
-  }
-  
-  @media (hover: none) and (pointer: coarse) {
-    &:active {
-      transform: rotate(0deg) translateY(-18px) scale(0.98);
-      transition-duration: 0.15s;
-      box-shadow: 
-        0 6px 12px rgba(0, 0, 0, 0.2),
-        0 3px 6px rgba(0, 0, 0, 0.15);
-      
-      &::before {
-        opacity: 1;
-      }
-      
-      .cardBackground {
-        .cardGradient {
-          opacity: 0.9;
-        }
-        
-        .cardPattern {
-          opacity: 0.4;
-        }
-      }
-      
-      .heroCardBadge {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 
-          0 5px 15px rgba(255, 107, 53, 0.5),
-          0 3px 8px rgba(255, 107, 53, 0.4),
-          inset 0 1px 0 rgba(255, 255, 255, 0.5);
-      }
-    }
+    transform: rotate(0deg) translateY(-1px);
+    box-shadow: $shadow;
   }
 }
 
+/* Card decorative background — kept minimal */
 .cardBackground {
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
-  border-radius: inherit;
   pointer-events: none;
-  
-  .cardGradient {
-    position: absolute;
-    top: -25%;
-    right: -25%;
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(circle, rgba($primary, 0.1) 0%, transparent 70%);
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
-  }
-  
-  .cardPattern {
-    position: absolute;
-    inset: 0;
-    background-image: 
-      radial-gradient(circle at 20% 80%, rgba($secondary, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba($primary, 0.1) 0%, transparent 50%);
-    opacity: 0.2;
-    transition: opacity 0.3s ease;
-  }
+}
+
+.cardGradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba($primary, 0.06) 0%, transparent 70%);
+  opacity: 0.5;
+}
+
+.cardPattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba($secondary, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba($primary, 0.05) 0%, transparent 50%);
+  opacity: 0.3;
 }
 
 .heroCardBadge {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: $spacing-sm;
+  right: $spacing-sm;
   display: flex;
   align-items: center;
-  gap: $spacing-xs;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
+  gap: $spacing-3xs;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
   color: $white;
   font-size: 0.6rem;
   font-weight: 700;
   padding: 0.2rem $spacing-xs;
   border-radius: $radius-full;
-  box-shadow: 
-    0 3px 8px rgba(255, 107, 53, 0.3),
-    0 1px 3px rgba(255, 107, 53, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  transform: translateY(0);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(255, 107, 53, 0.25);
   z-index: 10;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  animation: badgeGlow 3s ease-in-out infinite;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  
+
+  .badgeStarIcon {
+    font-size: 0.65rem;
+  }
+
   @include respond-to(sm) {
     font-size: 0.5rem;
     padding: 0.15rem $spacing-xs;
-    gap: $spacing-3xs;
-  }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.2) 0%, 
-      transparent 50%, 
-      rgba(255, 255, 255, 0.1) 100%
-    );
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .badgeStarIcon {
-    font-size: 0.65rem;
-    color: #fff;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
-    animation: starTwinkle 2s ease-in-out infinite;
-  }
-  
-  .heroCard:hover & {
-    transform: translateY(-1px);
-    box-shadow: 
-      0 4px 12px rgba(255, 107, 53, 0.4),
-      0 2px 6px rgba(255, 107, 53, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    background: linear-gradient(135deg, #ff5722 0%, #ff7043 50%, #ff8a65 100%);
-    animation: badgeGlowHover 1.5s ease-in-out infinite;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    .badgeStarIcon {
-      animation: starTwinkleHover 1s ease-in-out infinite;
-    }
   }
 }
 
 .heroCardContent {
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: $radius-lg;
   padding: $spacing-lg $spacing-md;
-  overflow: hidden;
   text-align: center;
-  
+
   h3 {
     font-size: 1.4rem;
     margin-bottom: $spacing-xs;
     line-height: 1.3;
     font-weight: 700;
-    letter-spacing: -0.01em;
     color: $dark;
   }
-  
+
   p {
     font-size: 0.95rem;
     color: $dark-gray;
     margin-bottom: $spacing-lg;
     line-height: 1.5;
-    opacity: 0.85;
   }
 }
 
@@ -917,48 +250,26 @@
   font-size: 0.9rem;
   text-decoration: none;
   padding: $spacing-xs $spacing-md;
-  background: rgba($primary, 0.05);
+  background: rgba($primary, 0.06);
   border-radius: $radius-full;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  
+  transition: $transition;
+
   .linkIcon {
     font-size: 0.9rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
   }
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
-  }
-  
+
   &:hover {
-    background: rgba($primary, 0.1);
-    color: darken($primary, 10%);
-    transform: translateY(-1px);
-    
+    background: rgba($primary, 0.12);
+    color: $primary-dark;
+
     .linkIcon {
-      transform: translateX(3px);
+      transform: translateX(2px);
     }
-    
-    &::before {
-      transform: translateX(100%);
-    }
-  }
-  
-  &:active {
-    transform: translateY(0);
   }
 }
 
+/* Floating icons */
 .floatingShapes {
   position: absolute;
   width: 100%;
@@ -981,71 +292,43 @@
   position: absolute;
   width: 40px;
   height: 40px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $primary;
   font-size: 1.1rem;
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.08),
-    0 1px 3px rgba(0, 0, 0, 0.04);
-  cursor: pointer;
+  box-shadow: $shadow;
   pointer-events: auto;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
+  transition: $transition;
   z-index: 4;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle at center,
-      rgba($primary, 0.15) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
-  
+
   &:hover {
     transform: scale(1.1);
-    color: $primary;
-    
-    &::before {
-      opacity: 1;
-    }
-    
-    box-shadow: 
-      0 6px 16px rgba($primary, 0.1),
-      0 2px 4px rgba($primary, 0.05);
+    box-shadow: $shadow-md;
   }
-  
+
   &.icon1 {
     top: 25%;
     left: 12%;
     animation: float 6s ease-in-out infinite;
   }
-  
+
   &.icon2 {
     top: 65%;
     left: 15%;
     animation: float 7s ease-in-out infinite;
     animation-delay: 1s;
   }
-  
+
   &.icon3 {
     top: 20%;
     right: 15%;
     animation: float 6s ease-in-out infinite;
     animation-delay: 2s;
   }
-  
+
   &.icon4 {
     top: 45%;
     right: 18%;
@@ -1054,78 +337,88 @@
   }
 }
 
+/* Floating blurred shapes */
 .shape {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.4;
+  opacity: 0.3;
   filter: blur(80px);
   animation: float 8s ease-in-out infinite;
-  
+
   &.shape1 {
-    width: 400px;
-    height: 400px;
+    width: 350px;
+    height: 350px;
     top: -10%;
     right: -10%;
-    background: linear-gradient(135deg, rgba($secondary, 0.2), rgba($primary, 0.2));
-    animation-delay: 0s;
+    background: rgba($secondary, 0.15);
   }
-  
+
   &.shape2 {
-    width: 300px;
-    height: 300px;
-    bottom: -5%;
-    right: 15%;
-    background: linear-gradient(135deg, rgba($primary, 0.15), rgba($secondary, 0.15));
-    animation-delay: 1s;
-  }
-  
-  &.shape3 {
     width: 250px;
     height: 250px;
+    bottom: -5%;
+    right: 15%;
+    background: rgba($primary, 0.12);
+    animation-delay: 1s;
+  }
+
+  &.shape3 {
+    width: 200px;
+    height: 200px;
     top: 30%;
     right: 35%;
-    background: linear-gradient(135deg, rgba($secondary, 0.1), rgba($primary, 0.1));
+    background: rgba($secondary, 0.08);
     animation-delay: 2s;
   }
 }
 
-.heroContent::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba($primary, 0.03) 0%, transparent 20px),
-    radial-gradient(circle at 80% 70%, rgba($secondary, 0.03) 0%, transparent 20px);
-  z-index: -1;
-  pointer-events: none;
+/* Fade in animation */
+.fadeIn {
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
 }
 
-@keyframes floatContent {
-  0%, 100% {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
   }
 }
 
-.heroContent {
-  animation: floatContent 6s ease-in-out infinite;
+/* Stats section (hidden on desktop, shown on mobile) */
+.mobileStats {
+  display: none;
 }
 
-/* Responsive Design */
+
+
+/* Responsive */
 @include respond-to(xl) {
   .hero {
     gap: $spacing-md;
   }
-  
+
   .heroTitle {
     font-size: 3.25rem;
   }
-  
+
   .heroCard {
     width: 280px;
   }
@@ -1138,25 +431,10 @@
     padding: $spacing-2xl $spacing-lg;
     min-height: auto;
     gap: $spacing-xl;
-    
-    &::before {
-      animation-duration: 12s;
-      background: 
-        radial-gradient(circle at top right, rgba(0, 102, 204, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.4) 0%,
-          rgba(255, 255, 255, 0.15) 100%
-        );
-    }
   }
 
   .heroContent {
-    padding-right: 0;
-    margin-bottom: $spacing-xl;
     max-width: 100%;
-    min-height: auto;
     align-items: center;
   }
 
@@ -1168,21 +446,11 @@
     font-size: 3.25rem;
     text-align: center;
     margin: 0 auto $spacing-lg;
-    
-    .highlight::after {
-      left: 50%;
-      transform: translateX(-50%) scaleX(0.95);
-    }
   }
 
   .heroSubtitle {
     text-align: center;
     margin: 0 auto $spacing-xl;
-    padding-left: 0;
-    
-    &::before {
-      display: none;
-    }
   }
 
   .ctaButtons {
@@ -1190,101 +458,95 @@
     width: 100%;
     max-width: 400px;
     margin: $spacing-lg auto 0;
-    
-    .btn {
+
+    .ctaButton {
       flex: 1;
     }
   }
 
-  .productCounter {
-    justify-content: center;
-  }
-  
-  .searchContainer {
-    margin: 0 auto $spacing-lg;
-    width: 100%;
-    max-width: 500px;
-    
-    input {
-      height: 46px;
-    }
-  }
-  
   .heroImage {
     min-height: 450px;
     width: 100%;
-    background: linear-gradient(135deg,
-      rgba(0, 102, 204, 0.08) 0%,
-      rgba(16, 185, 129, 0.08) 100%
-    );
   }
-  
+
   .heroCard {
     transform: rotate(-1deg);
     width: 260px;
-    padding: 0;
-    
-    &::before {
-      background-size: 150% 150%;
-      animation-duration: 5s;  // Slightly faster on larger tablets
-    }
-    
-    &:hover {
-      transform: rotate(0deg) translateY(-8px);
-      
-      &::before {
-        animation-duration: 3.5s;  // Faster hover animation
-      }
-    }
   }
-  
+
   .heroCardContent {
     padding: $spacing-sm;
-    
+
     h3 {
       font-size: 1.2rem;
     }
-    
+
     p {
       font-size: 0.9rem;
       margin-bottom: $spacing-sm;
     }
   }
-  
+
   .floatingIcon {
     width: 36px;
     height: 36px;
     font-size: 1rem;
-    
-    &.icon1 { left: 8%; top: 25%; }
-    &.icon2 { left: 12%; top: 65%; }
-    &.icon3 { right: 12%; top: 20%; }
-    &.icon4 { right: 15%; top: 55%; }
+
+    &.icon1 {
+      left: 8%;
+      top: 25%;
+    }
+
+    &.icon2 {
+      left: 12%;
+      top: 65%;
+    }
+
+    &.icon3 {
+      right: 12%;
+      top: 20%;
+    }
+
+    &.icon4 {
+      right: 15%;
+      top: 55%;
+    }
   }
 
   .mobileStats {
-    max-width: 450px;
+    display: flex;
+    gap: $spacing-md;
     padding: $spacing-lg $spacing-md;
+    max-width: 450px;
+    margin: $spacing-lg auto 0;
+    background: rgba($primary, 0.03);
+    border-radius: $radius-lg;
+    justify-content: center;
+
+    .statItem {
+      text-align: center;
+    }
+
+    .statNumber {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $primary;
+    }
+
+    .statLabel {
+      font-size: 0.7rem;
+      color: $dark-gray;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
   }
 }
 
 @include respond-to(md) {
   .hero {
     padding: $spacing-xl $spacing-md;
-    
-    &::before {
-      animation-duration: 10s;
-      background: 
-        radial-gradient(circle at top right, rgba(0, 102, 204, 0.1) 0%, transparent 55%),
-        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1) 0%, transparent 55%),
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.35) 0%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-    }
   }
-  
+
   .heroTitle {
     font-size: 2.75rem;
   }
@@ -1292,219 +554,72 @@
   .heroSubtitle {
     font-size: 1rem;
     max-width: 90%;
-    line-height: 1.75;
-    padding: $spacing-xs 0 $spacing-xs $spacing-md;
   }
-  
+
   .heroBadge {
     font-size: 0.8rem;
   }
-  
+
   .heroImage {
     min-height: 400px;
   }
-  
+
   .heroCard {
     width: 240px;
-    padding: 0;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(248, 250, 252, 0.95) 50%,
-      rgba(255, 255, 255, 0.98) 100%
-    );
-    box-shadow: 
-      0 12px 24px rgba(0, 0, 0, 0.15),
-      0 6px 12px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.05),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 102, 204, 0.08);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    
-    &::before {
-      background-size: 120% 120%;
-      animation-duration: 4s;
-      opacity: 0.9;
-      background: linear-gradient(
-        135deg,
-        rgba(0, 102, 204, 0.05) 0%,
-        rgba(16, 185, 129, 0.05) 50%,
-        rgba(0, 102, 204, 0.05) 100%
-      );
-    }
-    
-    &:hover {
-      transform: translateY(-6px);
-      box-shadow: 
-        0 16px 32px rgba(0, 0, 0, 0.18),
-        0 8px 16px rgba(0, 0, 0, 0.12),
-        0 4px 8px rgba(0, 0, 0, 0.08),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.95);
-      border-color: rgba(0, 102, 204, 0.15);
-      
-      &::before {
-        animation-duration: 3s;
-        opacity: 1;
-      }
-    }
-    
-    &:active {
-      transform: translateY(-2px);
-      transition-duration: 0.1s;
-      box-shadow: 
-        0 8px 16px rgba(0, 0, 0, 0.2),
-        0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    @media (hover: none) and (pointer: coarse) {
-      &:active {
-        transform: translateY(-4px) scale(0.98);
-        transition-duration: 0.15s;
-        box-shadow: 
-          0 10px 20px rgba(0, 0, 0, 0.25),
-          0 5px 10px rgba(0, 0, 0, 0.2);
-        
-        &::before {
-          opacity: 1;
-        }
-        
-        .cardBackground {
-          .cardGradient {
-            opacity: 0.9;
-          }
-          
-          .cardPattern {
-            opacity: 0.4;
-          }
-        }
-        
-        .heroCardBadge {
-          transform: translateY(-1px) scale(1.05);
-        }
-      }
-    }
   }
-  
+
   .heroCardContent {
-    padding: $spacing-sm;
-    
     h3 {
       font-size: 1.1rem;
-      margin-bottom: $spacing-xs;
     }
-    
+
     p {
       font-size: 0.85rem;
       margin-bottom: $spacing-sm;
-      line-height: 1.5;
-    }
-    
-    .btn {
-      padding: $spacing-xs $spacing-sm;
-      font-size: 0.85rem;
-      min-height: 34px;
-      min-width: 90px;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      
-      &:active {
-        transform: scale(0.98);
-      }
     }
   }
-  
-  .heroCardBadge {
-    top: -3px;
-    right: -3px;
-    font-size: 0.6rem;
-    padding: 0.15rem $spacing-xs;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
-    box-shadow: 
-      0 2px 6px rgba(255, 107, 53, 0.3),
-      0 1px 3px rgba(255, 107, 53, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
-    .heroCard:hover & {
-      box-shadow: 
-        0 3px 8px rgba(255, 107, 53, 0.4),
-        0 2px 4px rgba(255, 107, 53, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-      background: linear-gradient(135deg, #ff5722 0%, #ff7043 50%, #ff8a65 100%);
-    }
-  }
-  
+
   .ctaButtons {
     flex-direction: column;
     gap: $spacing-sm;
     margin-bottom: $spacing-lg;
-    
+
     .ctaButton {
       width: 100%;
       min-height: 48px;
-      font-size: 0.95rem;
-      padding: $spacing-sm $spacing-lg;
       justify-content: center;
-      
-      .buttonIcon {
-        font-size: 1.1rem;
-      }
     }
   }
-  
-  .heroContent::after {
-    width: 200px;
-    height: 200px;
-    top: -10%;
-    right: -5%;
-  }
-  
+
   .floatingIcon {
     width: 32px;
     height: 32px;
     font-size: 0.9rem;
-    
-    &.icon1 { left: 6%; top: 25%; }
-    &.icon2 { left: 10%; top: 65%; }
-    &.icon3 { right: 10%; top: 20%; }
-    &.icon4 { right: 12%; top: 55%; }
-  }
-  
-  .searchContainer {
-    input {
-      height: 44px;
-      font-size: 0.9rem;
+
+    &.icon1 {
+      left: 6%;
+      top: 25%;
     }
-    
-    .searchButton {
-      padding: $spacing-xs $spacing-sm;
-      font-size: 0.8rem;
-      height: 32px;
-      min-width: 80px;
+
+    &.icon2 {
+      left: 10%;
+      top: 65%;
+    }
+
+    &.icon3 {
+      right: 10%;
+      top: 20%;
+    }
+
+    &.icon4 {
+      right: 12%;
+      top: 55%;
     }
   }
 
   .mobileStats {
     max-width: 400px;
     padding: $spacing-md $spacing-sm;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-  }
-
-  .cardBackground {
-    .cardGradient {
-      opacity: 0.6;
-      background: radial-gradient(circle, rgba($primary, 0.15) 0%, transparent 65%);
-    }
-    
-    .cardPattern {
-      opacity: 0.3;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba($secondary, 0.12) 0%, transparent 45%),
-        radial-gradient(circle at 80% 20%, rgba($primary, 0.12) 0%, transparent 45%);
-    }
   }
 }
 
@@ -1515,268 +630,125 @@
     margin: $spacing-md auto;
     min-height: auto;
     gap: $spacing-lg;
-    
-    &::before {
-      animation: none;
-      background: 
-        radial-gradient(circle at top right, rgba(0, 102, 204, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-        linear-gradient(
-          135deg,
-          rgba(255, 255, 255, 0.4) 0%,
-          rgba(255, 255, 255, 0.1) 100%
-        );
-    }
   }
-  
+
   .heroContent {
-    padding-right: 0;
     text-align: center;
-    min-height: auto;
-    
-    &::after {
-      display: none;
-    }
   }
-  
+
   .heroBadge {
     margin: 0 auto $spacing-lg;
     font-size: 0.8rem;
     padding: $spacing-xs $spacing-md;
-    
-    .badgeIcon {
-      font-size: 0.9rem;
-    }
   }
-  
+
   .heroTitle {
     font-size: 2.5rem;
     margin-bottom: $spacing-md;
     max-width: 100%;
   }
-  
+
   .heroSubtitle {
     font-size: 0.95rem;
     max-width: 100%;
     line-height: 1.6;
     margin-bottom: $spacing-lg;
-    padding: 0;
   }
-  
+
   .ctaButtons {
     flex-direction: column;
     gap: $spacing-sm;
     margin-bottom: $spacing-lg;
-    
+
     .ctaButton {
       width: 100%;
       min-height: 48px;
       font-size: 0.95rem;
       padding: $spacing-sm $spacing-lg;
       justify-content: center;
-      
-      .buttonIcon {
-        font-size: 1.1rem;
-      }
     }
   }
-  
+
   .mobileStats {
     flex-direction: row;
     gap: $spacing-sm;
     padding: $spacing-md $spacing-sm;
-    margin-top: $spacing-md;
     max-width: 100%;
-    margin-left: $spacing-sm;
-    margin-right: $spacing-sm;
     justify-content: center;
-    padding-left: $spacing-md;
-    padding-right: $spacing-md;
-    
+
     .statItem {
-      text-align: center;
       flex: 1;
-      
-      .statNumber {
-        font-size: 1.1rem;
-      }
-      
-      .statLabel {
-        font-size: 0.65rem;
-      }
+      text-align: center;
+    }
+
+    .statNumber {
+      font-size: 1.1rem;
+    }
+
+    .statLabel {
+      font-size: 0.65rem;
     }
   }
-  
+
   .heroImage {
     min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
-  
+
   .heroCard {
     width: 280px;
-    padding: 0;
-    border-radius: $radius-lg;
     transform: rotate(-2deg);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.98) 0%,
-      rgba(248, 250, 252, 0.96) 30%,
-      rgba(241, 245, 249, 0.94) 70%,
-      rgba(255, 255, 255, 0.98) 100%
-    );
-    box-shadow: 
-      0 8px 16px rgba(0, 0, 0, 0.12),
-      0 4px 8px rgba(0, 0, 0, 0.08),
-      0 2px 4px rgba(0, 0, 0, 0.04),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.9),
-      inset 0 1px 0 rgba(0, 102, 204, 0.05);
-    border: 1px solid rgba(0, 102, 204, 0.1);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-    min-height: 44px;
-    
-    &::before {
-      background: linear-gradient(
-        135deg,
-        rgba(0, 102, 204, 0.05) 0%,
-        rgba(16, 185, 129, 0.05) 50%,
-        rgba(0, 102, 204, 0.05) 100%
-      );
-      opacity: 0.7;
-    }
-    
+
     &:hover {
-      transform: rotate(0deg) translateY(-6px);
-      box-shadow: 
-        0 12px 24px rgba(0, 0, 0, 0.16),
-        0 6px 12px rgba(0, 0, 0, 0.1),
-        0 3px 6px rgba(0, 0, 0, 0.06),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.95),
-        inset 0 1px 0 rgba(0, 102, 204, 0.08);
-      border-color: rgba(0, 102, 204, 0.15);
-      
-      &::before {
-        opacity: 0.9;
-      }
+      transform: rotate(0deg) translateY(-4px);
     }
-    
+
     &:active {
-      transform: rotate(0deg) translateY(-2px);
-      transition-duration: 0.1s;
-      box-shadow: 
-        0 6px 12px rgba(0, 0, 0, 0.2),
-        0 3px 6px rgba(0, 0, 0, 0.15);
-    }
-    
-    @media (hover: none) and (pointer: coarse) {
-      &:active {
-        transform: rotate(0deg) translateY(-4px) scale(0.97);
-        transition-duration: 0.15s;
-        box-shadow: 
-          0 8px 16px rgba(0, 0, 0, 0.25),
-          0 4px 8px rgba(0, 0, 0, 0.2);
-        
-        &::before {
-          opacity: 1;
-        }
-        
-        .cardBackground {
-          .cardGradient {
-            opacity: 0.9;
-          }
-          
-          .cardPattern {
-            opacity: 0.4;
-          }
-        }
-        
-        .heroCardBadge {
-          transform: translateY(-1px) scale(1.05);
-          box-shadow: 
-            0 4px 12px rgba(255, 107, 53, 0.5),
-            0 2px 6px rgba(255, 107, 53, 0.4),
-            inset 0 1px 0 rgba(255, 255, 255, 0.5);
-        }
-      }
+      transform: rotate(0deg) translateY(-1px);
     }
   }
-  
+
   .heroCardContent {
     padding: $spacing-sm;
     text-align: center;
-    
+
     h3 {
       font-size: 1.3rem;
-      margin-bottom: 0;
-      line-height: 1.3;
     }
-    
+
     p {
       font-size: 0.9rem;
       margin-bottom: $spacing-lg;
-      line-height: 1.5;
-    }
-    
-    .heroCardLink {
-      padding: $spacing-sm $spacing-lg;
-      font-size: 0.9rem;
-      min-height: 44px;
-      justify-content: center;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      
-      .linkIcon {
-        font-size: 1rem;
-      }
-      
-      &:active {
-        transform: scale(0.98);
-        transition-duration: 0.1s;
-      }
     }
   }
-  
-  .heroCardLogo {
-    display: flex;
-    justify-content: center;
-    margin-bottom: $spacing-xs;
-  }
-  
-  .heroCardBadge {
-    top: -3px;
-    right: -3px;
-    font-size: 0.6rem;
-    padding: 0.15rem $spacing-xs;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
-    box-shadow: 
-      0 2px 6px rgba(255, 107, 53, 0.3),
-      0 1px 3px rgba(255, 107, 53, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    
-    .heroCard:hover & {
-      box-shadow: 
-        0 3px 8px rgba(255, 107, 53, 0.4),
-        0 2px 4px rgba(255, 107, 53, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-      background: linear-gradient(135deg, #ff5722 0%, #ff7043 50%, #ff8a65 100%);
-    }
-  }
-  
+
   .floatingIcon {
     width: 32px;
     height: 32px;
     font-size: 0.9rem;
-    
-    &.icon1 { left: 5%; top: 10%; }
-    &.icon2 { left: 8%; top: 60%; }
-    &.icon3 { right: 8%; top: 20%; }
-    &.icon4 { right: 5%; top: 70%; }
+
+    &.icon1 {
+      left: 5%;
+      top: 10%;
+    }
+
+    &.icon2 {
+      left: 8%;
+      top: 60%;
+    }
+
+    &.icon3 {
+      right: 8%;
+      top: 20%;
+    }
+
+    &.icon4 {
+      right: 5%;
+      top: 70%;
+    }
   }
-  
+
   .shape {
     &.shape1 {
       width: 200px;
@@ -1784,75 +756,19 @@
       top: 10%;
       right: -50px;
     }
-    
+
     &.shape2 {
       width: 150px;
       height: 150px;
       bottom: 20%;
       left: -30px;
     }
-    
+
     &.shape3 {
       width: 100px;
       height: 100px;
       top: 60%;
       right: 10%;
-    }
-  }
-
-  .cardBackground {
-    .cardGradient {
-      opacity: 0.5;
-      background: radial-gradient(circle, rgba($primary, 0.12) 0%, transparent 60%);
-    }
-    
-    .cardPattern {
-      opacity: 0.25;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba($secondary, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 80% 20%, rgba($primary, 0.1) 0%, transparent 40%);
-    }
-  }
-  
-  .searchContainer {
-    margin: 0 auto $spacing-md;
-    max-width: 100%;
-    
-    &::before {
-      border-radius: $radius-md;
-    }
-    
-    &::after {
-      border-radius: calc($radius-md + 2px);
-    }
-    
-    input {
-      height: 42px;
-      font-size: 0.95rem;
-      padding: 0 $spacing-lg 0 calc($spacing-md + $spacing-md);
-    }
-    
-    .searchIcon {
-      left: $spacing-sm;
-      font-size: 1.1rem;
-    }
-    
-    .searchButton {
-      right: $spacing-xs;
-      padding: 0 $spacing-sm;
-      font-size: 0.85rem;
-      height: 30px;
-      min-width: 75px;
-      
-      .buttonIcon {
-        font-size: 0.8rem;
-      }
-    }
-    
-    &:focus-within {
-      input {
-        padding-right: calc($spacing-md + 75px);
-      }
     }
   }
 }

@@ -13,19 +13,25 @@
 
 // Media query mixins
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == sm {
+  @if $breakpoint ==sm {
     @media (max-width: $breakpoint-sm) {
       @content;
     }
-  } @else if $breakpoint == md {
+  }
+
+  @else if $breakpoint ==md {
     @media (max-width: $breakpoint-md) {
       @content;
     }
-  } @else if $breakpoint == lg {
+  }
+
+  @else if $breakpoint ==lg {
     @media (max-width: $breakpoint-lg) {
       @content;
     }
-  } @else if $breakpoint == xl {
+  }
+
+  @else if $breakpoint ==xl {
     @media (max-width: $breakpoint-xl) {
       @content;
     }
@@ -57,9 +63,8 @@
 @mixin card-base {
   background: $white;
   border-radius: $radius-lg;
-  box-shadow: $shadow-md;
+  box-shadow: $shadow;
   transition: $transition;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 // Glassmorphism effect
@@ -67,5 +72,4 @@
   background: $bg-color;
   backdrop-filter: blur($blur);
   -webkit-backdrop-filter: blur($blur);
-  border: 1px solid rgba(255, 255, 255, 0.3);
 }
