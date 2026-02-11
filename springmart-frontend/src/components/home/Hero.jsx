@@ -94,10 +94,6 @@ const Hero = ({ onSearch }) => {
       <div className={styles.heroImage}>
         {/* Modernized Hero Card */}
         <div className={styles.heroCard}>
-          <div className={styles.heroCardBadge}>
-            <FiStar className={styles.badgeStarIcon} />
-            <span>Featured</span>
-          </div>
           <div className={styles.heroCardContent}>
             <h3>Premium Collection</h3>
             <p>Exclusive products for you</p>
