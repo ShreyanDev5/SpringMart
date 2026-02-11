@@ -5,30 +5,18 @@ import styles from "../styles/components/LoadingMessage.module.scss";
 
 const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [timeElapsed, setTimeElapsed] = useState(0);
   const [showRenderInfo, setShowRenderInfo] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeElapsed(prev => prev + 1);
-    }, 1000);
-
     // Show Render info after 5 seconds
     const renderInfoTimer = setTimeout(() => {
       setShowRenderInfo(true);
     }, 5000);
 
     return () => {
-      clearInterval(timer);
       clearTimeout(renderInfoTimer);
     };
   }, []);
-
-  const formatTime = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
-  };
 
   const handleDismiss = () => {
     setIsVisible(false);
@@ -46,7 +34,7 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
         <div className={styles.textContainer}>
           <p className={styles.message}>{message}</p>
           <p className={styles.timeInfo}>
-            {timeElapsed > 0 ? `Loading for ${formatTime(timeElapsed)}` : "Initializing..."}
+            This may take a moment (2–5 min.)
           </p>
         </div>
         <div className={styles.actions}>
@@ -76,7 +64,7 @@ const LoadingMessage = ({ onDismiss, onRetry, message = "Waking Up the Store" })
             <FiInfo />
           </div>
           <div className={styles.infoText}>
-            <p>Backend hosted on Render free tier — first request after inactivity may take 30–50 seconds to wake up. Thank you for your patience.</p>
+            <p>Backend hosted on Render free tier — first request after inactivity may take 2–5 minutes to wake up. Thank you for your patience.</p>
           </div>
         </div>
       )}

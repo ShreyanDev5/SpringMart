@@ -1,16 +1,18 @@
 // src/App.jsx
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import AddProduct from "./pages/AddProduct";
 import Home from "./pages/Home";
-import EditProduct from "./pages/EditProduct"; // Placeholder
-import ProductList from "./pages/ProductList";
 import Navbar from "./components/Navbar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/components/Toast.module.scss'; // Custom toast styles
 // Global styles are imported in index.js
+
+// Lazy-loaded routes for code-splitting (reduces initial bundle)
+const AddProduct = lazy(() => import("./pages/AddProduct"));
+const EditProduct = lazy(() => import("./pages/EditProduct"));
+const ProductList = lazy(() => import("./pages/ProductList"));
 
 function App() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -56,12 +58,14 @@ function App() {
         return (
             <>
                 <Navbar onSearch={handleSearch} />
-                <Routes>
-                    <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
-                    <Route path="/add" element={<AddProduct onProductUpdate={refreshProducts} />} />
-                    <Route path="/edit/:id" element={<EditProduct onProductUpdate={refreshProducts} />} />
-                    <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
-                </Routes>
+                <Suspense fallback={null}>
+                    <Routes>
+                        <Route path="/" element={<Home searchQuery={searchTarget === "home" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
+                        <Route path="/add" element={<AddProduct onProductUpdate={refreshProducts} />} />
+                        <Route path="/edit/:id" element={<EditProduct onProductUpdate={refreshProducts} />} />
+                        <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
+                    </Routes>
+                </Suspense>
             </>
         );
     };
@@ -69,7 +73,7 @@ function App() {
     return (
         <Router>
             <AppRoutes />
-            <ToastContainer 
+            <ToastContainer
                 position="bottom-right"
                 autoClose={3000}
                 hideProgressBar={false}
