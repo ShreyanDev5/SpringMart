@@ -11,7 +11,7 @@
   position: relative;
   background: $white;
   border-radius: $radius-2xl;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: $shadow;
 }
 
@@ -149,7 +149,7 @@
   transform: rotate(-2deg);
   transition: $transition;
   z-index: 5;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.1);
 
   &:hover {
     transform: rotate(0deg) translateY(-4px);
@@ -259,7 +259,7 @@
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 3;
+  z-index: 6;
 }
 
 .floatingIcon {
@@ -276,7 +276,7 @@
   box-shadow: $shadow;
   pointer-events: auto;
   transition: $transition;
-  z-index: 4;
+  z-index: 7;
 
   &:hover {
     transform: scale(1.1);
@@ -665,7 +665,8 @@
   }
 
   .heroImage {
-    min-height: 300px;
+    min-height: 320px;
+    padding-bottom: $spacing-md;
   }
 
   .heroCard {
@@ -703,23 +704,23 @@
     font-size: 0.9rem;
 
     &.icon1 {
-      left: 5%;
-      top: 10%;
+      left: 2%;
+      top: 8%;
     }
 
     &.icon2 {
-      left: 8%;
-      top: 60%;
+      left: 3%;
+      top: 75%;
     }
 
     &.icon3 {
-      right: 8%;
-      top: 20%;
+      right: 3%;
+      top: 8%;
     }
 
     &.icon4 {
-      right: 5%;
-      top: 70%;
+      right: 2%;
+      top: 75%;
     }
   }
 
