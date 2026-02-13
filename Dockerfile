@@ -1,7 +1,7 @@
 # Multi-stage build for Spring Boot application  
   
 # Build stage  
-FROM openjdk:21-jdk-slim AS build  
+FROM eclipse-temurin:21-jdk-jammy AS build  
   
 # Set the working directory  
 WORKDIR /app  
