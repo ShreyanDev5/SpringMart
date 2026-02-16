@@ -7,6 +7,7 @@ import { FiEdit, FiTrash2, FiTag, FiShoppingBag } from "react-icons/fi";
 import { deleteData } from "../services/api";
 import { showSuccessToast, showErrorToast } from "../utils/toast";
 import { toBoolean } from "../utils/booleanUtils";
+import ConfirmationModal from "./ConfirmationModal";
 
 function ProductCard({ product, imageVersion, onProductDelete }) {
     const {
@@ -25,10 +26,11 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
     const imageUrl = `${API_BASE_URL}/api/products/image/${id}?v=${imageVersion}`;
     const navigate = useNavigate();
-    
+
     const imgRef = useRef(null);
     const cardRef = useRef(null);
-    const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     // Check if device supports touch
     useEffect(() => {
@@ -69,7 +71,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         if (isTouchDevice && cardRef.current) {
             // Add touch hover class
             cardRef.current.classList.add(styles.touchHover);
-            
+
             // Remove the class after a delay to simulate hover effect
             setTimeout(() => {
                 if (cardRef.current) {
@@ -83,7 +85,6 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     const handleMouseEnter = () => {
         if (!isTouchDevice && cardRef.current) {
             // Ensure touch hover class is removed for desktop
-            cardRef.current.classList.remove(styles.touchHover);
         }
     };
 
@@ -96,9 +97,12 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         e.target.src = '/no_image.jpg';
     };
 
-    const handleDelete = async () => {
-        const confirmed = window.confirm(`Are you sure you want to delete the product "${name}"? This action cannot be undone.`);
-        if (!confirmed) return;
+    const handleDeleteClick = () => {
+        setShowDeleteModal(true);
+    };
+
+    const confirmDelete = async () => {
+        setIsDeleting(true);
         try {
             const status = await deleteData(`/products/${id}`);
             if (status === 204) {
@@ -111,58 +115,75 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             }
         } catch (err) {
             showErrorToast("Failed to delete product. Please try again.");
+        } finally {
+            setIsDeleting(false);
+            setShowDeleteModal(false);
         }
     };
 
     return (
-        <div 
-            className={styles.productCard}
-            ref={cardRef}
-            onTouchStart={handleTouchStart}
-            onMouseEnter={handleMouseEnter}
-        >
-            <img
-                src={imageUrl}
-                alt={name}
-                className={styles.productImage}
-                onError={handleImageError}
-                loading="lazy"
-                ref={imgRef}
-            />
-            <div className={styles.productDetails}>
-                <h3 title={name}>{name}</h3>
-                <div className={styles.metaInfo}>
-                    <span className={styles.brand} title={brand}>
-                        <FiTag className={styles.metaIcon} />
-                        {brand}
-                    </span>
-                    <span className={styles.category} title={category}>
-                        <FiShoppingBag className={styles.metaIcon} />
-                        {category}
-                    </span>
-                </div>
-                <p className={styles.price} title={`₹${price}`}>₹{price}</p>
-                <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
-                    {inStock ? "In Stock" : "Out of Stock"}
-                </p>
-                <div className={styles.productActions}>
-                    <button 
-                        className={`${styles.actionButton} ${styles.editButton}`} 
-                        onClick={handleEdit}
-                        aria-label={`Edit ${name}`}
-                    >
-                        <FiEdit /> Edit
-                    </button>
-                    <button 
-                        className={`${styles.actionButton} ${styles.deleteButton}`} 
-                        onClick={handleDelete}
-                        aria-label={`Delete ${name}`}
-                    >
-                        <FiTrash2 /> Delete
-                    </button>
+        <>
+            <div
+                className={styles.productCard}
+                ref={cardRef}
+                onTouchStart={handleTouchStart}
+                onMouseEnter={handleMouseEnter}
+            >
+                <img
+                    src={imageUrl}
+                    alt={name}
+                    className={styles.productImage}
+                    onError={handleImageError}
+                    loading="lazy"
+                    ref={imgRef}
+                />
+                <div className={styles.productDetails}>
+                    <h3 title={name}>{name}</h3>
+                    <div className={styles.metaInfo}>
+                        <span className={styles.brand} title={brand}>
+                            <FiTag className={styles.metaIcon} />
+                            {brand}
+                        </span>
+                        <span className={styles.category} title={category}>
+                            <FiShoppingBag className={styles.metaIcon} />
+                            {category}
+                        </span>
+                    </div>
+                    <p className={styles.price} title={`₹${price}`}>₹{price}</p>
+                    <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
+                        {inStock ? "In Stock" : "Out of Stock"}
+                    </p>
+                    <div className={styles.productActions}>
+                        <button
+                            className={`${styles.actionButton} ${styles.editButton}`}
+                            onClick={handleEdit}
+                            aria-label={`Edit ${name}`}
+                        >
+                            <FiEdit /> Edit
+                        </button>
+                        <button
+                            className={`${styles.actionButton} ${styles.deleteButton}`}
+                            onClick={handleDeleteClick}
+                            aria-label={`Delete ${name}`}
+                        >
+                            <FiTrash2 /> Delete
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <ConfirmationModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                onConfirm={confirmDelete}
+                title="Delete Product?"
+                message={`Are you sure you want to delete "${name}"? This action cannot be undone.`}
+                confirmText="Delete"
+                cancelText="Cancel"
+                type="danger"
+                loading={isDeleting}
+            />
+        </>
     );
 }
 

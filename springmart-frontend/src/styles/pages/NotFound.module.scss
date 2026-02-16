@@ -1,0 +1,111 @@
+/* src/styles/pages/NotFound.module.scss */
+@use '../index' as *;
+
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; // Ensure it takes up most of the screen
+    padding: $spacing-xl;
+    text-align: center;
+
+    @include respond-to(sm) {
+        padding: $spacing-md;
+        min-height: 70vh;
+    }
+}
+
+.content {
+    max-width: 600px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.errorCode {
+    font-size: 8rem;
+    font-weight: $font-weight-black;
+    color: $primary;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 4px 4px 0 rgba($primary, 0.1);
+
+    @include respond-to(md) {
+        font-size: 6rem;
+    }
+
+    @include respond-to(sm) {
+        font-size: 5rem;
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: $font-weight-bold;
+    color: $dark;
+    margin: $spacing-md 0 $spacing-sm;
+
+    @include respond-to(sm) {
+        font-size: 1.75rem;
+    }
+}
+
+.message {
+    font-size: 1.1rem;
+    color: $dark-gray;
+    margin: 0 0 $spacing-xl;
+    line-height: 1.6;
+
+    @include respond-to(sm) {
+        font-size: 1rem;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+.homeButton {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-2xl;
+    background: $primary;
+    color: $white;
+    text-decoration: none;
+    border-radius: $radius-full;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: $transition;
+    box-shadow: $shadow-md;
+
+    &:hover {
+        background: darken($primary, 5%);
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    @include respond-to(sm) {
+        padding: $spacing-sm $spacing-xl;
+        width: 100%; // Full width button on mobile
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

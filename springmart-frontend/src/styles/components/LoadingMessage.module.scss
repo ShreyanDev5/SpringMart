@@ -12,18 +12,18 @@
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  
+
   @include respond-to(md) {
     margin-bottom: $spacing-md;
   }
-  
+
   // More compact on mobile
   @include respond-to(sm) {
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   // Even more compact on extra small screens
   @include respond-to(xs) {
     max-width: 95%;
@@ -35,6 +35,7 @@
     opacity: 0;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -46,12 +47,12 @@
   align-items: center;
   padding: $spacing-xs $spacing-sm;
   gap: $spacing-xs;
-  
+
   @include respond-to(md) {
     padding: $spacing-sm $spacing-md;
     gap: $spacing-sm;
   }
-  
+
   // More compact on mobile
   @include respond-to(sm) {
     padding: $spacing-2xs $spacing-xs;
@@ -69,7 +70,7 @@
   background: rgba($primary, 0.1);
   border-radius: 50%;
   animation: pulse 2s infinite;
-  
+
   // Smaller on mobile
   @include respond-to(sm) {
     width: 32px;
@@ -81,9 +82,11 @@
   0% {
     box-shadow: 0 0 0 0 rgba($primary, 0.15);
   }
+
   70% {
     box-shadow: 0 0 0 5px rgba($primary, 0);
   }
+
   100% {
     box-shadow: 0 0 0 0 rgba($primary, 0);
   }
@@ -94,7 +97,7 @@
   height: 20px;
   color: $primary;
   animation: spin 2s linear infinite;
-  
+
   // Smaller on mobile
   @include respond-to(sm) {
     width: 16px;
@@ -106,6 +109,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -119,21 +123,16 @@
   align-items: center;
   gap: $spacing-xs;
   flex-wrap: wrap;
-  
+
+  // Stack vertically on small screens for full readability
   @include respond-to(sm) {
-    flex-wrap: nowrap;
-  }
-  
-  // More compact on mobile
-  @include respond-to(xs) {
-    gap: $spacing-2xs;
-  }
-  
-  // Ensure text doesn't overflow on extra small screens
-  @media (max-width: 360px) {
-    min-width: 0;
     flex-direction: column;
     align-items: flex-start;
+    gap: $spacing-2xs;
+  }
+
+  @include respond-to(xs) {
+    gap: $spacing-2xs;
   }
 }
 
@@ -142,28 +141,20 @@
   color: $dark;
   margin: 0;
   font-size: 1.1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
+  word-break: break-word;
+
   @include respond-to(md) {
     font-size: 1.2rem;
   }
-  
-  // Smaller on mobile for compact appearance
+
   @include respond-to(sm) {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.3;
   }
-  
+
   @include respond-to(xs) {
-    font-size: 0.9rem;
-  }
-  
-  // Even smaller on very small screens
-  @media (max-width: 360px) {
-    font-size: 0.8rem;
-    white-space: normal;
-    line-height: 1.2;
+    font-size: 0.85rem;
+    line-height: 1.3;
   }
 }
 
@@ -172,24 +163,20 @@
   color: $dark-gray;
   margin: 0;
   font-weight: $font-weight-normal;
-  white-space: nowrap;
-  
+  word-break: break-word;
+
   @include respond-to(md) {
     font-size: 0.85rem;
   }
-  
-  // Smaller on mobile for compact appearance
+
   @include respond-to(sm) {
     font-size: 0.75rem;
+    line-height: 1.3;
   }
-  
+
   @include respond-to(xs) {
     font-size: 0.7rem;
-  }
-  
-  // Even smaller on very small screens
-  @media (max-width: 360px) {
-    font-size: 0.65rem;
+    line-height: 1.3;
   }
 }
 
@@ -202,12 +189,12 @@
   border-radius: $radius;
   border-left: 2px solid $accent;
   width: calc(100% - #{$spacing-md});
-  
+
   @include respond-to(md) {
     margin: 0 $spacing-md $spacing-md;
     width: calc(100% - #{$spacing-lg});
   }
-  
+
   // More compact on mobile
   @include respond-to(sm) {
     gap: $spacing-xs;
@@ -215,7 +202,7 @@
     padding: $spacing-xs;
     width: calc(100% - #{$spacing-sm});
   }
-  
+
   @include respond-to(xs) {
     gap: $spacing-2xs;
     margin: 0 $spacing-2xs $spacing-2xs;
@@ -228,23 +215,23 @@
   flex-shrink: 0;
   color: $accent;
   margin-top: $spacing-3xs;
-  
+
   svg {
     width: 14px;
     height: 14px;
   }
-  
+
   @include respond-to(md) {
     svg {
       width: 16px;
       height: 16px;
     }
   }
-  
+
   // Smaller on mobile
   @include respond-to(sm) {
     margin-top: 0;
-    
+
     svg {
       width: 12px;
       height: 12px;
@@ -253,41 +240,43 @@
 }
 
 .infoText {
+  min-width: 0;
+  word-break: break-word;
+
   p {
     margin: 0 0 $spacing-3xs 0;
     font-size: 0.7rem;
     line-height: 1.4;
     color: $dark-gray;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
-    
+
     &:first-child {
       font-weight: $font-weight-bold;
       color: $dark;
     }
   }
-  
+
   @include respond-to(md) {
     p {
       font-size: 0.75rem;
     }
   }
-  
-  // More compact on mobile
+
   @include respond-to(sm) {
     p {
       font-size: 0.65rem;
-      line-height: 1.3;
+      line-height: 1.4;
       margin-bottom: $spacing-3xs;
     }
   }
-  
+
   @include respond-to(xs) {
     p {
       font-size: 0.6rem;
-      line-height: 1.2;
+      line-height: 1.4;
       margin-bottom: $spacing-3xs;
     }
   }
@@ -298,7 +287,7 @@
   gap: $spacing-2xs;
   flex-shrink: 0;
   align-items: center;
-  
+
   // More compact on mobile
   @include respond-to(sm) {
     gap: $spacing-3xs;
@@ -318,46 +307,46 @@
   cursor: pointer;
   transition: $transition;
   color: $dark-gray;
-  
+
   &:hover {
     background: rgba($dark-gray, 0.1);
     color: $dark;
   }
-  
+
   &:active {
     transform: scale(0.92);
   }
-  
+
   svg {
     width: 14px;
     height: 14px;
   }
-  
+
   @include respond-to(md) {
     width: 30px;
     height: 30px;
-    
+
     svg {
       width: 16px;
       height: 16px;
     }
   }
-  
+
   // Smaller on mobile
   @include respond-to(sm) {
     width: 24px;
     height: 24px;
-    
+
     svg {
       width: 12px;
       height: 12px;
     }
   }
-  
+
   @include respond-to(xs) {
     width: 20px;
     height: 20px;
-    
+
     svg {
       width: 10px;
       height: 10px;

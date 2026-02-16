@@ -13,6 +13,7 @@ import './styles/components/Toast.module.scss'; // Custom toast styles
 const AddProduct = lazy(() => import("./pages/AddProduct"));
 const EditProduct = lazy(() => import("./pages/EditProduct"));
 const ProductList = lazy(() => import("./pages/ProductList"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 function App() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -64,6 +65,7 @@ function App() {
                         <Route path="/add" element={<AddProduct onProductUpdate={refreshProducts} />} />
                         <Route path="/edit/:id" element={<EditProduct onProductUpdate={refreshProducts} />} />
                         <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>
             </>

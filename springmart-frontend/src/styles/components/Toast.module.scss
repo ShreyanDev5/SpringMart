@@ -6,12 +6,16 @@
   z-index: 9999;
   position: fixed;
   padding: 0;
-  width: 320px;
+  width: 380px;
+  max-width: 95vw; // Ensure it doesn't overflow on small screens
   box-sizing: border-box;
   color: $dark;
-  
+
   @include respond-to(sm) {
-    width: 90vw;
+    width: 100%;
+    padding: $spacing-xs;
+    left: 0;
+    margin: 0;
   }
 }
 
@@ -23,24 +27,21 @@
   padding: 0;
   border-radius: $radius-lg;
   box-shadow: $shadow-lg;
-  display: flex;
+  display: flex !important; // Override toastify default
   justify-content: space-between;
-  overflow: hidden;
+  overflow: visible; // Allow content to be seen if slight overflow
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background: $white;
   border: 1px solid rgba($dark, 0.05);
   backdrop-filter: blur(10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-xl;
-  }
+  cursor: default;
+
+  // Custom animation override if needed, but Toastify handles this well.
 }
 
 :global(.Toastify__toast--success) {
   border-left: 4px solid $success;
-  
+
   :global(.Toastify__progress-bar) {
     background: $success;
   }
@@ -48,9 +49,17 @@
 
 :global(.Toastify__toast--error) {
   border-left: 4px solid $error;
-  
+
   :global(.Toastify__progress-bar) {
     background: $error;
+  }
+}
+
+:global(.Toastify__toast--info) {
+  border-left: 4px solid $primary;
+
+  :global(.Toastify__progress-bar) {
+    background: $primary;
   }
 }
 
@@ -58,6 +67,8 @@
   margin: 0;
   padding: 0;
   flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 :global(.Toastify__progress-bar) {
@@ -66,29 +77,28 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background: $primary;
   opacity: 0.8;
-  transition: width 0.3s linear;
 }
 
 // Custom toast content styling
 .toastContent {
   display: flex;
   align-items: flex-start;
-  padding: $spacing-sm $spacing-md;
+  padding: $spacing-sm;
   gap: $spacing-sm;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .toastIcon {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: $spacing-3xs;
-  
+  margin-top: 2px; // Align with first line of text
+
   svg {
     width: 100%;
     height: 100%;
@@ -99,9 +109,13 @@
   flex: 1;
   font-size: 0.9rem;
   font-weight: $font-weight-medium;
-  line-height: 1.5;
-  padding-top: $spacing-3xs;
+  line-height: 1.4;
   color: $dark;
+  word-break: break-word; // Ensure words wrap
+
+  @include respond-to(sm) {
+    font-size: 0.85rem;
+  }
 }
 
 .toastCloseButton {
@@ -109,57 +123,39 @@
   border: none;
   cursor: pointer;
   padding: $spacing-xs;
-  margin: $spacing-2xs;
+  margin: -4px -4px 0 0; // Negative margin to align with top right
   border-radius: $radius-full;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $dark-gray;
-  transition: all 0.2s ease;
-  width: 28px;
-  height: 28px;
+  transition: $transition;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  
+
   &:hover {
     background: rgba($dark-gray, 0.1);
     color: $dark;
   }
-  
+
   svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 
-// Positioning classes
-:global(.Toastify__toast-container--top-left) {
-  top: 1em;
-  left: 1em;
-}
+// Media query overrides for Toastify's connection to viewport
+@include respond-to(sm) {
+  :global(.Toastify__toast-container) {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+  }
 
-:global(.Toastify__toast-container--top-center) {
-  top: 1em;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-:global(.Toastify__toast-container--top-right) {
-  top: 1em;
-  right: 1em;
-}
-
-:global(.Toastify__toast-container--bottom-left) {
-  bottom: 1em;
-  left: 1em;
-}
-
-:global(.Toastify__toast-container--bottom-center) {
-  bottom: 1em;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-:global(.Toastify__toast-container--bottom-right) {
-  bottom: 1em;
-  right: 1em;
+  :global(.Toastify__toast) {
+    margin-bottom: $spacing-sm;
+    border-radius: $radius; // Slightly smaller radius on mobile
+  }
 }
