@@ -17,7 +17,6 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         price,
         inStock: rawInStock,
         category
-        // imageName is not currently used
     } = product;
 
     // Ensure inStock is always a boolean
@@ -82,12 +81,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         }
     };
 
-    // Handle mouse events for desktop
-    const handleMouseEnter = () => {
-        if (!isTouchDevice && cardRef.current) {
-            // Ensure touch hover class is removed for desktop
-        }
-    };
+
 
     const handleEdit = () => {
         navigate(`/edit/${id}`);
@@ -107,7 +101,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
         try {
             const status = await deleteData(`/products/${id}`);
             if (status === 204) {
-                showSuccessToast("Product deleted successfully.");
+                showSuccessToast("Product deleted");
                 if (onProductDelete) onProductDelete();
             } else if (status === 404) {
                 showErrorToast("Product not found. It may have already been deleted.");
@@ -128,7 +122,6 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
                 className={styles.productCard}
                 ref={cardRef}
                 onTouchStart={handleTouchStart}
-                onMouseEnter={handleMouseEnter}
             >
                 <img
                     src={imageUrl}

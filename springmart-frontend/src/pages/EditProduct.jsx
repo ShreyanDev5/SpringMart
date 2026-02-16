@@ -51,12 +51,10 @@ function EditProduct({ onProductUpdate }) {
                     inStock: toBoolean(data.inStock),
                     releaseDate: releaseDate,
                 });
-                console.log('Loaded product data - inStock:', data.inStock, 'converted to:', toBoolean(data.inStock));
                 if (data.imageName) {
                     setImagePreview(`${API_BASE_URL}/api/products/image/${id}`);
                 }
             } catch (err) {
-                console.log('Failed to load product data error', err);
                 showErrorToast("Failed to load product data. Please try again later.");
             } finally {
                 setLoading(false);
@@ -78,9 +76,6 @@ function EditProduct({ onProductUpdate }) {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        if (name === 'inStock') {
-            console.log('Checkbox changed - name:', name, 'checked:', checked, 'type:', type);
-        }
         setProduct((prev) => ({
             ...prev,
             [name]:
@@ -99,12 +94,10 @@ function EditProduct({ onProductUpdate }) {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 5 * 1024 * 1024) {
-                console.log('Image size error');
                 showErrorToast("Image size should be less than 5MB");
                 return;
             }
             if (!file.type.startsWith('image/')) {
-                console.log('Image type error');
                 showErrorToast("Please upload a valid image file (JPG, PNG, etc.)");
                 return;
             }
@@ -116,13 +109,10 @@ function EditProduct({ onProductUpdate }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            console.log('Form validation error');
             showErrorToast("Please fix the errors in the form before submitting.");
             return;
         }
         setLoading(true);
-        console.log('Submitting product with inStock:', product.inStock, 'type:', typeof product.inStock);
-        console.log('Complete product object:', product);
         const formData = new FormData();
         formData.append("product", new Blob([JSON.stringify(product)], { type: "application/json" }));
         if (image) {
@@ -135,11 +125,10 @@ function EditProduct({ onProductUpdate }) {
                 body: formData
             });
             if (!res.ok) throw new Error("Failed to update product");
-            showSuccessToast("Product updated successfully! Redirecting to home page...");
+            showSuccessToast("Product updated");
             onProductUpdate();
             setTimeout(() => navigate("/"), 1500);
         } catch (err) {
-            console.log('API/network error', err);
             showErrorToast("Failed to update product. Please try again.");
         } finally {
             setLoading(false);

@@ -1,161 +1,118 @@
 /* src/styles/components/Toast.module.scss */
 @use '../index' as *;
 
-// Custom toast container styling
+// Override default Toastify styles for a custom, premium look
 :global(.Toastify__toast-container) {
-  z-index: 9999;
-  position: fixed;
-  padding: 0;
-  width: 380px;
-  max-width: 95vw; // Ensure it doesn't overflow on small screens
-  box-sizing: border-box;
-  color: $dark;
+  padding: $spacing-md;
+  width: auto;
+  min-width: 320px;
+  max-width: 420px; // Slightly wider for better readability
 
   @include respond-to(sm) {
     width: 100%;
-    padding: $spacing-xs;
+    min-width: 0;
+    max-width: 100%;
+    padding: $spacing-sm;
     left: 0;
-    margin: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
   }
 }
 
 :global(.Toastify__toast) {
-  position: relative;
-  min-height: 60px;
-  box-sizing: border-box;
-  margin-bottom: 1rem;
+  border-radius: $radius-xl; // More rounded corners
   padding: 0;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-lg;
-  display: flex !important; // Override toastify default
-  justify-content: space-between;
-  overflow: visible; // Allow content to be seen if slight overflow
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: $white;
-  border: 1px solid rgba($dark, 0.05);
-  backdrop-filter: blur(10px);
-  cursor: default;
+  min-height: auto;
+  box-shadow: $shadow-xl; // Deeper shadow for elevation
+  border: 1px solid rgba($white, 0.5); // Subtle border
+  backdrop-filter: blur(12px); // Glassmorphism
+  background: rgba($white, 0.95);
+  font-family: inherit;
+  margin-bottom: $spacing-sm;
+  overflow: hidden; // Keep content inside border radius
 
-  // Custom animation override if needed, but Toastify handles this well.
-}
-
-:global(.Toastify__toast--success) {
-  border-left: 4px solid $success;
-
-  :global(.Toastify__progress-bar) {
-    background: $success;
-  }
-}
-
-:global(.Toastify__toast--error) {
-  border-left: 4px solid $error;
-
-  :global(.Toastify__progress-bar) {
-    background: $error;
-  }
-}
-
-:global(.Toastify__toast--info) {
-  border-left: 4px solid $primary;
-
-  :global(.Toastify__progress-bar) {
-    background: $primary;
+  @include respond-to(sm) {
+    margin-bottom: $spacing-xs;
+    border-radius: $radius-lg;
   }
 }
 
 :global(.Toastify__toast-body) {
-  margin: 0;
   padding: 0;
-  flex: 1;
+  margin: 0;
   display: flex;
   align-items: center;
 }
 
+// Hide default progress bar for a cleaner look
 :global(.Toastify__progress-bar) {
   height: 3px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  background: $primary-gradient;
   opacity: 0.8;
 }
 
-// Custom toast content styling
+:global(.Toastify__close-button) {
+  color: $dark-gray;
+  opacity: 0.6;
+  margin: $spacing-xs;
+  transition: $transition;
+
+  &:hover {
+    opacity: 1;
+    color: $dark;
+  }
+}
+
+/* Custom Content Styles */
 .toastContent {
   display: flex;
-  align-items: flex-start;
-  padding: $spacing-sm;
-  gap: $spacing-sm;
+  align-items: center; // Vertically center everything
+  padding: $spacing-md; // More breathing room
+  gap: $spacing-md;
   width: 100%;
   box-sizing: border-box;
 }
 
 .toastIcon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2px; // Align with first line of text
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+
+  &.success {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+
+  &.error {
+    background: rgba($error, 0.1);
+    color: $error;
+  }
+
+  &.info {
+    background: rgba($primary, 0.1);
+    color: $primary;
+  }
 
   svg {
-    width: 100%;
-    height: 100%;
+    width: 20px;
+    height: 20px;
   }
 }
 
 .toastMessage {
   flex: 1;
-  font-size: 0.9rem;
+  font-size: 0.95rem; // Slightly larger text
   font-weight: $font-weight-medium;
   line-height: 1.4;
   color: $dark;
-  word-break: break-word; // Ensure words wrap
+  word-break: break-word;
 
   @include respond-to(sm) {
-    font-size: 0.85rem;
-  }
-}
-
-.toastCloseButton {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: $spacing-xs;
-  margin: -4px -4px 0 0; // Negative margin to align with top right
-  border-radius: $radius-full;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $dark-gray;
-  transition: $transition;
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-
-  &:hover {
-    background: rgba($dark-gray, 0.1);
-    color: $dark;
-  }
-
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-// Media query overrides for Toastify's connection to viewport
-@include respond-to(sm) {
-  :global(.Toastify__toast-container) {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-  }
-
-  :global(.Toastify__toast) {
-    margin-bottom: $spacing-sm;
-    border-radius: $radius; // Slightly smaller radius on mobile
+    font-size: 0.9rem;
   }
 }
