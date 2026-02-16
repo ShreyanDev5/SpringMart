@@ -29,6 +29,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
 
     const imgRef = useRef(null);
     const cardRef = useRef(null);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
