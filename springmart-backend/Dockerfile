@@ -1,41 +1,25 @@
-# Multi-stage build for Spring Boot application  
+# Multi-stage build keeps the final image smaller by compiling in one stage and running in another.
 
-# Build stage  
-FROM eclipse-temurin:21-jdk-jammy AS build  
+# Build the jar with the full JDK and Maven wrapper.
+FROM eclipse-temurin:21-jdk-jammy AS build
+WORKDIR /app
 
-# Set the working directory  
-WORKDIR /app  
+# Copy build metadata first so dependency download can be cached.
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
 
-# Copy Maven wrapper and configuration files  
-COPY mvnw .  
-COPY .mvn .mvn  
+RUN chmod +x ./mvnw
+RUN ./mvnw dependency:go-offline -B
 
-# Copy the main pom.xml file  
-COPY pom.xml .  
+COPY src src
+RUN ./mvnw clean package -DskipTests
 
-# Make the Maven wrapper executable  
-RUN chmod +x ./mvnw  
+# Run the prebuilt jar on a lighter JRE image.
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
 
-# Download dependencies first (to leverage Docker layer caching)  
-RUN ./mvnw dependency:go-offline -B  
+COPY --from=build /app/target/springmart-0.0.1-SNAPSHOT.jar app.jar
 
-# Copy the source code  
-COPY src src  
-
-# Build the application  
-RUN ./mvnw clean package -DskipTests  
-
-# Production stage  
-FROM eclipse-temurin:21-jre-alpine  
-
-# Set the working directory  
-WORKDIR /app  
-
-# Copy the jar file from the build stage  
-COPY --from=build /app/target/springmart-0.0.1-SNAPSHOT.jar app.jar  
-
-# Expose the port the app runs on  
-EXPOSE 8080  
-
-# Run the application  
-ENTRYPOINT ["java", "-jar", "app.jar"] 
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]

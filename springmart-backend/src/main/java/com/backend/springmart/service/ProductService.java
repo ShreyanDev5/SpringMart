@@ -12,14 +12,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
+// Holds product business logic so the controller only deals with HTTP concerns.
 public class ProductService {
     @Autowired
+    // Repository is the database access layer for Product entities.
     ProductRepository repo;
 
     public List<Product> getAllProducts() {
         return repo.findAll();
     }
 
+    // Pageable lets the controller request just one page of products at a time.
     public Page<Product> getAllProducts(Pageable pageable) {
         return repo.findAll(pageable);
     }
@@ -35,24 +38,21 @@ public class ProductService {
         return repo.searchProducts(keyword);
     }
 
-    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
-    {
+    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile) {
+        // If an ID is present, treat the request as an update and load the current row
+        // first.
         Product existing = (product.getId() != 0) ? repo.findById(product.getId()).orElse(null) : null;
-        if (product.getId() != 0 && existing == null)
-        {
+        if (product.getId() != 0 && existing == null) {
             throw new RuntimeException("Product not found");
         }
 
-        try
-        {
+        try {
             updateImageFields(product, imageFile, existing);
-            if (existing != null)
-            {
+            if (existing != null) {
                 updateMissingFields(product, existing);
             }
             return repo.save(product);
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException("Failed to process product: " + e.getMessage(), e);
         }
     }
@@ -67,6 +67,7 @@ public class ProductService {
             product.setImageType(imageFile.getContentType());
             product.setImageData(imageFile.getBytes());
         } else if (existing != null) {
+            // Keep the old image when an update changes text fields only.
             product.setImageName(existing.getImageName());
             product.setImageType(existing.getImageType());
             product.setImageData(existing.getImageData());
@@ -74,6 +75,8 @@ public class ProductService {
     }
 
     private void updateMissingFields(Product product, Product existing) {
+        // Supports partial updates by falling back to the stored value when a field is
+        // omitted.
         if (product.getName() == null)
             product.setName(existing.getName());
         if (product.getPrice() == null)
@@ -88,17 +91,3 @@ public class ProductService {
             product.setReleaseDate(existing.getReleaseDate());
     }
 }
-// --------------------------------------------------------------------------------------
-// ProductService: Service layer for business logic related to products.
-//
-// Key details:
-// - Annotated with @Service; acts as an intermediary between controllers and
-// the repository.
-// - Handles product retrieval, search, creation, update, and deletion.
-// - Manages image file processing and field validation before persistence.
-// - Encapsulates business rules and error handling, keeping controllers thin.
-// - Relies on ProductRepository for data access and Product for the domain
-// model.
-//
-// Centralizes product-related logic, making it easier to maintain and extend
-// business rules.
