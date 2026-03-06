@@ -1,18 +1,19 @@
 // src/App.jsx
 
-import React, { useState, useCallback, Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import React, { Suspense, lazy, useCallback, useState } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import './styles/components/Toast.module.scss'; // Custom toast styles
+import NotFound from "./pages/NotFound";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles/components/Toast.module.scss";
 // Global styles are imported in index.js
 
 // Lazy-loaded routes for code-splitting (reduces initial bundle)
-const AddProduct = lazy(() => import("./pages/AddProduct"));
-const EditProduct = lazy(() => import("./pages/EditProduct"));
-const ProductList = lazy(() => import("./pages/ProductList"));
+const AddProduct = lazy(() => import("./features/products/pages/AddProduct"));
+const EditProduct = lazy(() => import("./features/products/pages/EditProduct"));
+const ProductList = lazy(() => import("./features/products/pages/ProductList"));
 
 function App() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -64,6 +65,7 @@ function App() {
                         <Route path="/add" element={<AddProduct onProductUpdate={refreshProducts} />} />
                         <Route path="/edit/:id" element={<EditProduct onProductUpdate={refreshProducts} />} />
                         <Route path="/products" element={<ProductList searchQuery={searchTarget === "products" ? searchQuery : ""} imageVersion={imageVersion} refreshTrigger={productRefreshTrigger} />} />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Suspense>
             </>

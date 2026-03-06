@@ -2,9 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
-import ProductCard from "../ProductCard";
-import SkeletonCard from "../SkeletonCard";
-import LoadingMessage from "../LoadingMessage";
+import ProductCard from "../../features/products/components/ProductCard";
+import SkeletonCard from "../../features/products/components/SkeletonCard";
+import LoadingMessage from "../../shared/components/LoadingMessage";
 import styles from "../../styles/components/home/Products.module.scss";
 
 const Products = React.forwardRef(({ products, loading, error, imageVersion, onProductDelete, onRetry }, ref) => {

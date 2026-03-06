@@ -1,29 +1,15 @@
-// src/components/ProductCard.jsx
-
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../styles/components/ProductCard.module.scss";
+import { FiEdit, FiShoppingBag, FiTag, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { FiEdit, FiTrash2, FiTag, FiShoppingBag } from "react-icons/fi";
-import { deleteData } from "../services/api";
-import { showSuccessToast, showErrorToast } from "../utils/toast";
-import { toBoolean } from "../utils/booleanUtils";
-import ConfirmationModal from "./ConfirmationModal";
+import styles from "../../../styles/components/ProductCard.module.scss";
+import ConfirmationModal from "../../../shared/components/ConfirmationModal";
+import { showErrorToast, showSuccessToast } from "../../../shared/toast";
+import { deleteProduct, getProductImageUrl } from "../api";
+import { toBoolean } from "../form-utils";
 
 function ProductCard({ product, imageVersion, onProductDelete }) {
-    const {
-        id,
-        name,
-        brand,
-        price,
-        inStock: rawInStock,
-        category
-    } = product;
-
-    // Ensure inStock is always a boolean
+    const { id, name, brand, price, inStock: rawInStock, category } = product;
     const inStock = toBoolean(rawInStock);
-
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "";
-    const imageUrl = `${API_BASE_URL}/api/products/image/${id}?v=${imageVersion}`;
     const navigate = useNavigate();
 
     const imgRef = useRef(null);
@@ -32,97 +18,80 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
 
-    // Check if device supports touch
+    const imageUrl = getProductImageUrl(id, imageVersion);
+
     useEffect(() => {
-        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+        setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
     }, []);
 
-    // Intersection Observer for lazy loading
     useEffect(() => {
         const currentImgRef = imgRef.current;
-        if (!currentImgRef) return;
 
-        // If image is already loaded, don't observe
-        if (currentImgRef.src && currentImgRef.complete) {
-            return;
+        if (!currentImgRef || (currentImgRef.src && currentImgRef.complete)) {
+            return undefined;
         }
 
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach(entry => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting && currentImgRef) {
                         currentImgRef.src = imageUrl;
                         observer.unobserve(entry.target);
                     }
                 });
             },
-            { rootMargin: '50px' } // Start loading 50px before the image comes into view
+            { rootMargin: "50px" }
         );
 
         observer.observe(currentImgRef);
 
-        return () => {
-            observer.disconnect();
-        };
+        return () => observer.disconnect();
     }, [imageUrl]);
 
-    // Handle touch events for mobile hover effect
-    const handleTouchStart = () => {
-        if (isTouchDevice && cardRef.current) {
-            // Add touch hover class
-            cardRef.current.classList.add(styles.touchHover);
-
-            // Remove the class after a delay to simulate hover effect
-            setTimeout(() => {
-                if (cardRef.current) {
-                    cardRef.current.classList.remove(styles.touchHover);
-                }
-            }, 3000); // Remove after 3 seconds
+    function handleTouchStart() {
+        if (!isTouchDevice || !cardRef.current) {
+            return;
         }
-    };
 
+        cardRef.current.classList.add(styles.touchHover);
 
+        setTimeout(() => {
+            if (cardRef.current) {
+                cardRef.current.classList.remove(styles.touchHover);
+            }
+        }, 3000);
+    }
 
-    const handleEdit = () => {
-        navigate(`/edit/${id}`);
-    };
+    function handleImageError(event) {
+        event.target.onerror = null;
+        event.target.src = "/no_image.jpg";
+    }
 
-    const handleImageError = (e) => {
-        e.target.onerror = null;
-        e.target.src = '/no_image.jpg';
-    };
-
-    const handleDeleteClick = () => {
-        setShowDeleteModal(true);
-    };
-
-    const confirmDelete = async () => {
+    async function handleConfirmDelete() {
         setIsDeleting(true);
+
         try {
-            const status = await deleteData(`/products/${id}`);
+            const status = await deleteProduct(id);
+
             if (status === 204) {
                 showSuccessToast("Product deleted");
-                if (onProductDelete) onProductDelete();
+                onProductDelete?.();
             } else if (status === 404) {
                 showErrorToast("Product not found. It may have already been deleted.");
             } else {
                 showErrorToast("Unexpected response from server.");
             }
-        } catch (err) {
+        } catch {
             showErrorToast("Failed to delete product. Please try again.");
         } finally {
             setIsDeleting(false);
             setShowDeleteModal(false);
         }
-    };
+    }
 
     return (
         <>
-            <div
-                className={styles.productCard}
-                ref={cardRef}
-                onTouchStart={handleTouchStart}
-            >
+            <div className={styles.productCard} ref={cardRef} onTouchStart={handleTouchStart}>
                 <img
                     src={imageUrl}
                     alt={name}
@@ -150,14 +119,14 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
                     <div className={styles.productActions}>
                         <button
                             className={`${styles.actionButton} ${styles.editButton}`}
-                            onClick={handleEdit}
+                            onClick={() => navigate(`/edit/${id}`)}
                             aria-label={`Edit ${name}`}
                         >
                             <FiEdit /> Edit
                         </button>
                         <button
                             className={`${styles.actionButton} ${styles.deleteButton}`}
-                            onClick={handleDeleteClick}
+                            onClick={() => setShowDeleteModal(true)}
                             aria-label={`Delete ${name}`}
                         >
                             <FiTrash2 /> Delete
@@ -169,7 +138,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
             <ConfirmationModal
                 isOpen={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}
-                onConfirm={confirmDelete}
+                onConfirm={handleConfirmDelete}
                 title="Delete Product?"
                 message={`Are you sure you want to delete "${name}"? This action cannot be undone.`}
                 confirmText="Delete"

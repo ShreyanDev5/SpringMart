@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import SearchBar from "./SearchBar";
+import SearchBar from "../shared/components/SearchBar";
 import "../styles/Navbar.css";
 
 function Navbar({ onSearch }) {

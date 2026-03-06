@@ -1,25 +1,23 @@
-// src/components/SearchBar.jsx
-
 import React, { useState } from "react";
 import { FiSearch } from "react-icons/fi";
-import styles from "../styles/components/SearchBar.module.scss";
+import styles from "../../styles/components/SearchBar.module.scss";
 
 function SearchBar({ onSearch }) {
     const [query, setQuery] = useState("");
 
-    const handleSearch = (e) => {
-        e.preventDefault();
+    function handleSubmit(event) {
+        event.preventDefault();
         onSearch(query);
-    };
+    }
 
     return (
-        <form className={styles.searchBar} onSubmit={handleSearch}>
+        <form className={styles.searchBar} onSubmit={handleSubmit}>
             <FiSearch className={styles.searchIcon} />
             <input
                 type="text"
                 placeholder="Search products..."
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(event) => setQuery(event.target.value)}
                 aria-label="Search products"
                 className={styles.searchInput}
             />
