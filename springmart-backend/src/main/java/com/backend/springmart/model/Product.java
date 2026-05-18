@@ -11,11 +11,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-// JPA entity: each Product object maps to one row in the product table.
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // The database generates this primary key when a new product is inserted.
     private int id;
 
     @NotBlank(message = "Name is required")
@@ -40,7 +38,6 @@ public class Product {
     private boolean inStock;
     private Date releaseDate;
 
-    // These fields let the API store the uploaded image and serve it back later.
     private String imageName;
     private String imageType;
     @Lob

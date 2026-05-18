@@ -18,11 +18,8 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-// Handles HTTP requests and delegates the real work to ProductService.
 public class ProductController {
 
-    // The controller stays thin by calling the service layer instead of touching
-    // the repository directly.
     private final ProductService service;
 
     public ProductController(ProductService service) {
@@ -35,7 +32,6 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    // Returns products as a Page so the frontend can request small chunks of data.
     public ResponseEntity<Page<Product>> getProducts(@RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Page<Product> products = service.getAllProducts(PageRequest.of(page, size));
@@ -55,8 +51,6 @@ public class ProductController {
     }
 
     @GetMapping("/products/image/{id}")
-    // Sends only the stored image bytes, which keeps image loading separate from
-    // product list loading.
     public ResponseEntity<byte[]> getProductImage(@PathVariable int id) {
         Product product = service.getProductById(id);
         if (product == null || product.getImageData() == null) {
@@ -77,8 +71,6 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    // Expects multipart/form-data: one part for JSON product fields and one
-    // optional image file.
     public ResponseEntity<Product> addProduct(@Valid @RequestPart ProductRequest product,
             @RequestPart(required = false) MultipartFile imageFile) {
         try {
@@ -93,8 +85,6 @@ public class ProductController {
     }
 
     @PutMapping("/products/{id}")
-    // Reuses the same service method as create, but forces the path ID onto the
-    // incoming product.
     public ResponseEntity<Object> updateProduct(@PathVariable int id, @RequestPart ProductRequest product,
             @RequestPart(required = false) MultipartFile imageFile) {
         try {

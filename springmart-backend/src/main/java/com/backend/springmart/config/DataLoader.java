@@ -13,17 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 @Configuration
-// Seeds demo data on startup so a fresh database has products to display
-// immediately.
 public class DataLoader {
     @Bean
-    // CommandLineRunner executes once after Spring finishes creating all beans.
     CommandLineRunner loadDemoData(ProductRepository productRepository) {
         return args -> {
-            // Only seed data when the table is empty, so restarts do not duplicate rows.
             if (productRepository.count() == 0) {
-                // Reads an image from src/main/resources and returns its raw bytes for the
-                // Product entity.
                 java.util.function.Function<String, byte[]> loadImage = resourcePath -> {
                     Resource res = new ClassPathResource(resourcePath);
                     try (InputStream is = res.getInputStream()) {
@@ -36,7 +30,6 @@ public class DataLoader {
                     return null;
                 };
 
-                // These records act as starter catalog data for local/demo environments.
                 List<Product> demoProducts = List.of(
                         new Product(
                                 0,

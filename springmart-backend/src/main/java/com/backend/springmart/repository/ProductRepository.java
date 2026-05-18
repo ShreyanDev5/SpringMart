@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-// Spring Data JPA gives this interface CRUD methods automatically.
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    // JPQL uses entity field names, so this search works across several text fields
-    // in Product.
     @Query("SELECT p FROM Product p WHERE " +
             "LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
