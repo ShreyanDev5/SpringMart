@@ -1,9 +1,8 @@
 package com.backend.springmart.controller;
 
+import com.backend.springmart.dto.ProductRequest;
 import com.backend.springmart.model.Product;
 import com.backend.springmart.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 
 import jakarta.validation.Valid;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,10 +21,13 @@ import java.util.List;
 // Handles HTTP requests and delegates the real work to ProductService.
 public class ProductController {
 
-    @Autowired
     // The controller stays thin by calling the service layer instead of touching
     // the repository directly.
-    private ProductService service;
+    private final ProductService service;
+
+    public ProductController(ProductService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public ResponseEntity<String> hello() {
@@ -76,13 +79,12 @@ public class ProductController {
     @PostMapping("/products")
     // Expects multipart/form-data: one part for JSON product fields and one
     // optional image file.
-    public ResponseEntity<Product> addProduct(@Valid @RequestPart Product product,
+    public ResponseEntity<Product> addProduct(@Valid @RequestPart ProductRequest product,
             @RequestPart(required = false) MultipartFile imageFile) {
         try {
-            Product createdProduct = service.addOrUpdateProduct(product, imageFile);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Location", "/api/products/" + createdProduct.getId());
-            return new ResponseEntity<>(createdProduct, headers, HttpStatus.CREATED);
+            Product createdProduct = service.addOrUpdateProduct(toProduct(product), imageFile);
+            return ResponseEntity.created(URI.create("/api/products/" + createdProduct.getId()))
+                    .body(createdProduct);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (Exception e) {
@@ -93,15 +95,14 @@ public class ProductController {
     @PutMapping("/products/{id}")
     // Reuses the same service method as create, but forces the path ID onto the
     // incoming product.
-    public ResponseEntity<?> updateProduct(@PathVariable int id, @Valid @RequestPart Product product,
+    public ResponseEntity<Object> updateProduct(@PathVariable int id, @RequestPart ProductRequest product,
             @RequestPart(required = false) MultipartFile imageFile) {
         try {
             Product existingProduct = service.getProductById(id);
             if (existingProduct == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
             }
-            product.setId(id);
-            Product updatedProduct = service.addOrUpdateProduct(product, imageFile);
+            Product updatedProduct = service.addOrUpdateProduct(mergeProduct(existingProduct, product, id), imageFile);
             return ResponseEntity.ok(updatedProduct);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
@@ -118,5 +119,51 @@ public class ProductController {
         }
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private Product toProduct(ProductRequest request) {
+        Product product = new Product();
+        product.setName(request.getName());
+        product.setPrice(request.getPrice());
+        product.setDescription(request.getDescription());
+        product.setCategory(request.getCategory());
+        if (request.getQuantity() != null) {
+            product.setQuantity(request.getQuantity());
+        }
+        product.setBrand(request.getBrand());
+        if (request.getInStock() != null) {
+            product.setInStock(request.getInStock());
+        }
+        product.setReleaseDate(request.getReleaseDate());
+        return product;
+    }
+
+    private Product mergeProduct(Product existingProduct, ProductRequest request, int id) {
+        existingProduct.setId(id);
+        if (request.getName() != null) {
+            existingProduct.setName(request.getName());
+        }
+        if (request.getPrice() != null) {
+            existingProduct.setPrice(request.getPrice());
+        }
+        if (request.getDescription() != null) {
+            existingProduct.setDescription(request.getDescription());
+        }
+        if (request.getCategory() != null) {
+            existingProduct.setCategory(request.getCategory());
+        }
+        if (request.getQuantity() != null) {
+            existingProduct.setQuantity(request.getQuantity());
+        }
+        if (request.getBrand() != null) {
+            existingProduct.setBrand(request.getBrand());
+        }
+        if (request.getInStock() != null) {
+            existingProduct.setInStock(request.getInStock());
+        }
+        if (request.getReleaseDate() != null) {
+            existingProduct.setReleaseDate(request.getReleaseDate());
+        }
+        return existingProduct;
     }
 }
