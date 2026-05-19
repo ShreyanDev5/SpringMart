@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.6</version>
+        <version>3.4.5</version>
         <relativePath/> </parent>
     <groupId>com.backend</groupId>
     <artifactId>springmart</artifactId>
@@ -13,10 +13,8 @@
     <name>springmart</name>
     <description>SpringMart project for Spring Boot</description>
     <properties>
-        <java.version>25</java.version>
+        <java.version>21</java.version>
         <lombok.version>1.18.38</lombok.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
@@ -38,14 +36,6 @@
             <scope>runtime</scope>
         </dependency>
         
-        <!-- PostgreSQL is available if you later move production away from H2. -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.7.11</version>
-            <scope>runtime</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -98,18 +88,24 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <executable>true</executable>
                     <mainClass>com.backend.springmart.SpringMartApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
-                        <!-- build-info adds metadata; repackage creates the executable Spring Boot jar. -->
+                        <!-- build-info adds metadata; the Spring Boot parent already repackages the jar. -->
                         <goals>
                             <goal>build-info</goal>
-                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Mockito runs as an agent to avoid dynamic self-attach warnings on newer JDKs. -->
+                    <argLine>-Xshare:off -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

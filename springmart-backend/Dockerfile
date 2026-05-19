@@ -1,7 +1,7 @@
 # Multi-stage build keeps the final image smaller by compiling in one stage and running in another.
 
 # Build the jar with the full JDK and Maven wrapper.
-FROM eclipse-temurin:25-jdk-jammy AS build
+FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
 
 # Copy build metadata first so dependency download can be cached.
@@ -16,7 +16,7 @@ COPY src src
 RUN ./mvnw clean package -DskipTests
 
 # Run the prebuilt jar on a lighter JRE image.
-FROM eclipse-temurin:25-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 COPY --from=build /app/target/springmart-0.0.1-SNAPSHOT.jar app.jar
