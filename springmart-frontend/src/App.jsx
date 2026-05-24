@@ -8,7 +8,6 @@ import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./styles/components/Toast.module.scss";
-// Global styles are imported in index.js
 
 // Lazy-loaded routes for code-splitting (reduces initial bundle)
 const AddProduct = lazy(() => import("./features/products/pages/AddProduct"));
@@ -78,9 +77,9 @@ function App() {
             <ToastContainer
                 position="bottom-right"
                 autoClose={3000}
-                hideProgressBar={false}
+                hideProgressBar={true}
                 newestOnTop={false}
-                closeOnClick={false}
+                closeOnClick={true}
                 rtl={false}
                 pauseOnFocusLoss
                 draggable

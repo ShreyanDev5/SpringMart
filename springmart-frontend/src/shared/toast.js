@@ -4,7 +4,7 @@ import { FiX } from "react-icons/fi";
 import { toast } from "react-toastify";
 import styles from "../styles/components/Toast.module.scss";
 
-function ToastContent({ type, message }) {
+function ToastContent({ type, message, closeToast }) {
     function getIcon() {
         switch (type) {
             case "success":
@@ -24,7 +24,11 @@ function ToastContent({ type, message }) {
                 className={styles.toastCloseButton}
                 onClick={(event) => {
                     event.stopPropagation();
-                    toast.dismiss();
+                    if (closeToast) {
+                        closeToast();
+                    } else {
+                        toast.dismiss();
+                    }
                 }}
                 aria-label="Close notification"
             >
@@ -39,6 +43,7 @@ export function showSuccessToast(message) {
         icon: false,
         closeButton: false,
         autoClose: 3000,
+        hideProgressBar: true,
     });
 }
 
@@ -46,7 +51,8 @@ export function showErrorToast(message) {
     toast.error(<ToastContent type="error" message={message} />, {
         icon: false,
         closeButton: false,
-        autoClose: 5000,
+        autoClose: 4000,
+        hideProgressBar: true,
     });
 }
 
@@ -54,6 +60,7 @@ export function showInfoToast(message) {
     toast.info(<ToastContent type="info" message={message} />, {
         icon: false,
         closeButton: false,
-        autoClose: 4000,
+        autoClose: 3000,
+        hideProgressBar: true,
     });
 }

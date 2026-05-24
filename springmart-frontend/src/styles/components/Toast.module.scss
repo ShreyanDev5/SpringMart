@@ -41,10 +41,7 @@
   align-items: center;
 }
 
-// Hide default progress bar for a cleaner look
-:global(.Toastify__progress-bar) {
-  display: none !important; /* Completely hide progress bar for ultimate minimalism */
-}
+
 
 /* Custom Content Styles */
 .toastContent {
