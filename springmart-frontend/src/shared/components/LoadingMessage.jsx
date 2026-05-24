@@ -35,7 +35,7 @@ function LoadingMessage({ onDismiss, onRetry, message = "Waking Up the Store" })
 
                 <div className={styles.textContainer}>
                     <h4 className={styles.message}>{message}</h4>
-                    <p className={styles.timeInfo}>This may take a moment (2–5 min.)</p>
+                    <p className={styles.timeInfo}>This may take a moment (~2 min.)</p>
                 </div>
 
                 <div className={styles.actions}>
@@ -56,7 +56,7 @@ function LoadingMessage({ onDismiss, onRetry, message = "Waking Up the Store" })
                     <FiInfo />
                 </div>
                 <div className={styles.infoText}>
-                    <p>Backend hosted on Render’s free tier. The first request after inactivity may take 2–5 minutes to wake up.</p>
+                    <p>Backend hosted on Render’s free tier. The first request after inactivity may take ~2 minutes to wake up.</p>
                 </div>
             </div>
         </div>
