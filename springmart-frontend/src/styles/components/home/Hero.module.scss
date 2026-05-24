@@ -288,7 +288,7 @@
 
 /* Minimal modern blinking final full stop */
 .blinkingDot {
-  color: $primary;
+  color: inherit;
   display: inline-block;
   animation: blink 1.6s infinite ease-in-out;
 }

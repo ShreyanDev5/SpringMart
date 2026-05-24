@@ -8,17 +8,17 @@ function ToastContent({ type, message }) {
     function getIcon() {
         switch (type) {
             case "success":
-                return <FaCheckCircle style={{ color: "#10b981" }} />;
+                return <FaCheckCircle />;
             case "error":
-                return <FaTimesCircle style={{ color: "#ef4444" }} />;
+                return <FaTimesCircle />;
             default:
-                return <FaInfoCircle style={{ color: "#3b82f6" }} />;
+                return <FaInfoCircle />;
         }
     }
 
     return (
         <div className={styles.toastContent}>
-            <div className={styles.toastIcon}>{getIcon()}</div>
+            <div className={`${styles.toastIcon} ${styles[type]}`}>{getIcon()}</div>
             <div className={styles.toastMessage}>{message}</div>
             <button
                 className={styles.toastCloseButton}
