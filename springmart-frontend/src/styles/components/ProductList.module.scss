@@ -2,17 +2,17 @@
 @use '../index' as *;
 
 .productListContainer {
-  padding: $spacing-xl $spacing-lg;
+  padding: 2.25rem 2rem; /* visually consistent internal breathing room */
   max-width: $container-width;
-  margin: $spacing-xl auto;
+  margin: 2rem auto; /* Tightened unified spacing */
   background: #fafafc; /* Beautiful soft layered surface to unify layout with homepage */
   border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+  border: 1px solid rgba(0, 0, 0, 0.045); /* Defined bounds for contrast */
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.04), 0 3px 16px rgba(0, 0, 0, 0.02); /* Layered premium soft shadow */
 
   @include respond-to(md) {
-    padding: $spacing-lg $spacing-sm;
-    margin: $spacing-md $spacing-sm;
+    padding: 1.5rem $spacing-sm;
+    margin: 1.5rem auto;
     border-radius: 16px;
   }
 }
@@ -20,14 +20,15 @@
 .pageTitle {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: $spacing-xl;
+  margin-top: 0; /* Remove excessive top spacing above heading */
+  margin-bottom: 1.5rem; /* Tightened visually aligned spacing below heading */
   text-align: center;
   color: $dark;
   letter-spacing: -0.025em;
 
   @include respond-to(md) {
     font-size: 1.65rem;
-    margin-bottom: $spacing-lg;
+    margin-bottom: 1.25rem;
   }
 }
 
@@ -85,5 +86,101 @@
 
   &:active {
     transform: scale(0.98);
+  }
+}
+
+/* Skeleton Card Loader - Matches premium ProductCard layout & shadows */
+.skeletonCard {
+  background: $white;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.skeletonDetails {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.75rem;
+}
+
+.skeletonBrand {
+  width: 40%;
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+}
+
+.skeletonTitle {
+  width: 85%;
+  height: 18px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+  margin-bottom: 0.25rem;
+}
+
+.skeletonPrice {
+  width: 35%;
+  height: 22px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonStock {
+  width: 25%;
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+  margin-bottom: 1rem;
+}
+
+.skeletonActions {
+  display: flex;
+  gap: $spacing-xs;
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  padding-top: 0.75rem;
+}
+
+.skeletonButton {
+  flex: 1;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #f5f5f7 25%, #e8e8ed 50%, #f5f5f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }

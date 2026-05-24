@@ -1,5 +1,5 @@
-import React from "react";
-import { FiCheck } from "react-icons/fi";
+import React, { useState, useEffect, useRef } from "react";
+import { FiCheck, FiChevronDown } from "react-icons/fi";
 import styles from "../../../styles/components/AddProduct.module.scss";
 import { PRODUCT_CATEGORIES } from "../form-utils";
 
@@ -16,6 +16,19 @@ function ProductForm({
     onImageChange,
     onSubmit,
 }) {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
     return (
         <div className={`${styles.addProductContainer} ${loading ? styles.loading : ""}`}>
             <h2>{title}</h2>
@@ -46,7 +59,7 @@ function ProductForm({
                         placeholder="Enter price"
                         required
                         min="0"
-                        step="0.01"
+                        step="1"
                         className={`${styles.styledInput} ${errors.price ? styles.invalid : ""}`}
                         aria-describedby={errors.price ? "price-error" : undefined}
                     />
@@ -75,22 +88,47 @@ function ProductForm({
 
                 <div className={styles.formGroup}>
                     <label htmlFor="category">Category</label>
-                    <select
-                        id="category"
-                        name="category"
-                        value={product.category}
-                        onChange={onChange}
-                        required
-                        className={`${styles.styledSelect} ${errors.category ? styles.invalid : ""}`}
-                        aria-describedby={errors.category ? "category-error" : undefined}
-                    >
-                        <option value="">Select Category</option>
-                        {PRODUCT_CATEGORIES.map((category) => (
-                            <option key={category} value={category}>
-                                {category}
-                            </option>
-                        ))}
-                    </select>
+                    <div className={styles.customSelectWrapper} ref={dropdownRef}>
+                        <button
+                            type="button"
+                            className={`${styles.customSelectTrigger} ${isDropdownOpen ? styles.open : ""} ${errors.category ? styles.invalid : ""}`}
+                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            aria-haspopup="listbox"
+                            aria-expanded={isDropdownOpen}
+                        >
+                            <span>{product.category || "Select Category"}</span>
+                            <FiChevronDown className={styles.arrowIcon} />
+                        </button>
+                        {isDropdownOpen && (
+                            <ul className={styles.customSelectOptions} role="listbox">
+                                <li
+                                    className={`${styles.customSelectOption} ${product.category === "" ? styles.selected : ""}`}
+                                    role="option"
+                                    aria-selected={product.category === ""}
+                                    onClick={() => {
+                                        onChange({ target: { name: "category", value: "" } });
+                                        setIsDropdownOpen(false);
+                                    }}
+                                >
+                                    Select Category
+                                </li>
+                                {PRODUCT_CATEGORIES.map((category) => (
+                                    <li
+                                        key={category}
+                                        className={`${styles.customSelectOption} ${product.category === category ? styles.selected : ""}`}
+                                        role="option"
+                                        aria-selected={product.category === category}
+                                        onClick={() => {
+                                            onChange({ target: { name: "category", value: category } });
+                                            setIsDropdownOpen(false);
+                                        }}
+                                    >
+                                        {category}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
                     {errors.category && <span id="category-error" className={styles.validationMessage}>{errors.category}</span>}
                 </div>
 

@@ -11,6 +11,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     const { id, name, brand, price, inStock: rawInStock, category } = product;
     const inStock = toBoolean(rawInStock);
     const navigate = useNavigate();
+    const formattedPrice = new Intl.NumberFormat("en-IN").format(Number(price) || 0);
 
     const imgRef = useRef(null);
     const cardRef = useRef(null);
@@ -113,7 +114,7 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
                             {category}
                         </span>
                     </div>
-                    <p className={styles.price} title={`₹${price}`}>₹{price}</p>
+                    <p className={styles.price} title={`₹${formattedPrice}`}>₹{formattedPrice}</p>
                     <p className={`${styles.stock} ${inStock ? styles.in : styles.out}`} title={inStock ? "In Stock" : "Out of Stock"}>
                         {inStock ? "In Stock" : "Out of Stock"}
                     </p>

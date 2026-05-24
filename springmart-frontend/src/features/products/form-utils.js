@@ -9,6 +9,12 @@ export const PRODUCT_CATEGORIES = [
     "Sports",
     "Automotive",
     "Health",
+    "Smart Home",
+    "Audio & Accessories",
+    "Office Supplies",
+    "Fitness & Outdoors",
+    "Pet Supplies",
+    "Garden & Outdoor",
 ];
 
 export function createEmptyProduct() {
