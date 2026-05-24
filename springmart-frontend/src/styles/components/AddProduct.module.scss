@@ -4,11 +4,11 @@
 .addProductContainer {
   max-width: 480px; /* Highly refined compact width */
   margin: 2rem auto; /* Tightened unified spacing */
-  padding: 2.25rem 2rem; /* Visually consistent internal breathing room */
+  padding: 1.5rem 2rem 2.25rem 2rem; /* Moved heading upward by reducing top padding */
   border-radius: 12px;
   background-color: $white;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.045); /* Consistent crisp border */
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04), 0 3px 12px rgba(0, 0, 0, 0.02); /* Consistent premium layered card shadow */
   position: relative;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 

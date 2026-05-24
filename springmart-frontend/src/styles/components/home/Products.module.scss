@@ -2,7 +2,7 @@
 @use '../../index' as *;
 
 .productsSection {
-  padding: 2.25rem 2rem; /* visually consistent internal breathing room */
+  padding: 1.5rem 2rem 2.25rem 2rem; /* Moved heading upward by reducing top padding */
   position: relative;
   margin: 2rem auto; /* Tightened unified spacing */
   max-width: $container-width;
@@ -29,7 +29,7 @@
     color: $dark;
     letter-spacing: -0.02em;
     margin-top: 0; /* Remove excessive top spacing above heading */
-    margin-bottom: 4px;
+    margin-bottom: 2px; /* Very slightly reduced spacing between heading & subheading */
   }
 
   p {

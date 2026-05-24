@@ -11,7 +11,7 @@ const Hero = () => {
         {/* Extremely bold, crisp typography */}
         <h1 className={styles.heroTitle}>
           Designed for simplicity.<br />
-          Built for scale.
+          Built for scale<span className={styles.blinkingDot}>.</span>
         </h1>
         
         {/* Airiness and sophisticated secondary text */}
@@ -47,7 +47,7 @@ const Hero = () => {
               <h3>Curated Collections</h3>
               <p>Handpicked products designed to amaze.</p>
               <div className={styles.cardFooter}>
-                <span className={styles.price}>$129.00</span>
+                <span className={styles.price}>₹129.00</span>
                 <span className={styles.status}>In Stock</span>
               </div>
             </div>

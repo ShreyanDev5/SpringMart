@@ -2,7 +2,7 @@
 @use '../index' as *;
 
 .productListContainer {
-  padding: 2.25rem 2rem; /* visually consistent internal breathing room */
+  padding: 1.5rem 2rem 2.25rem 2rem; /* Moved heading upward by reducing top padding */
   max-width: $container-width;
   margin: 2rem auto; /* Tightened unified spacing */
   background: #fafafc; /* Beautiful soft layered surface to unify layout with homepage */

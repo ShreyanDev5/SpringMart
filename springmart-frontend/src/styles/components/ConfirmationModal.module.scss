@@ -7,9 +7,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.35); /* Smooth minimal tint */
+  backdrop-filter: blur(10px); /* Deeper luxurious iOS-style blur */
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,42 +20,46 @@
 
 .modalContent {
   background: $white;
-  border-radius: 16px;
-  padding: $spacing-lg;
+  border-radius: 20px; /* Elegant squircle rounded corners */
+  padding: 1.75rem;
   width: 100%;
-  max-width: 320px; /* Elegant compact dialog width */
-  box-shadow: $shadow-xl;
+  max-width: 320px; /* Compact premium dialog width */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04); /* Soft double-shadow stack */
   animation: scaleIn 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   border: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  gap: $spacing-md;
+  gap: 1.25rem;
   position: relative;
   overflow: hidden;
 }
 
 .iconWrapper {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  border: 1px solid transparent;
 
   &.danger {
-    background: rgba(255, 59, 48, 0.08);
+    background: rgba(255, 59, 48, 0.04);
     color: $error;
+    border-color: rgba(255, 59, 48, 0.08);
   }
 
   &.warning {
-    background: rgba(255, 159, 10, 0.08);
+    background: rgba(255, 159, 10, 0.04);
     color: $warning;
+    border-color: rgba(255, 159, 10, 0.08);
   }
 
   &.info {
-    background: rgba(0, 102, 204, 0.08);
+    background: rgba(0, 102, 204, 0.04);
     color: $primary;
+    border-color: rgba(0, 102, 204, 0.08);
   }
 
   svg {
@@ -69,31 +73,32 @@
 }
 
 .title {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: $dark;
   margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
 }
 
 .message {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: $dark-gray;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .actions {
   display: flex;
-  gap: $spacing-xs;
+  gap: 10px;
   justify-content: center;
-  margin-top: $spacing-2xs;
+  margin-top: 0.25rem;
 }
 
 .button {
-  padding: 0.5rem $spacing-md;
-  border-radius: 6px;
+  padding: 0.55rem $spacing-md;
+  border-radius: 8px; /* Smooth squircled buttons */
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: $transition-fast;
   border: 1px solid transparent;
@@ -109,12 +114,14 @@
 }
 
 .cancelButton {
-  background: $lighter-gray;
-  color: $dark;
-  border-color: rgba(0, 0, 0, 0.02);
+  background: transparent;
+  color: $secondary-dark;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 
   &:hover {
-    background: darken($lighter-gray, 3%);
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: $dark;
   }
 
   &:active {
@@ -127,17 +134,21 @@
 
   &.danger {
     background: $error;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.18);
 
     &:hover {
-      background: darken($error, 5%);
+      background: darken($error, 4%);
+      box-shadow: 0 6px 16px rgba(255, 59, 48, 0.25);
     }
   }
 
   &.primary {
     background: $primary;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.18);
 
     &:hover {
       background: $primary-dark;
+      box-shadow: 0 6px 16px rgba(0, 102, 204, 0.25);
     }
   }
 
@@ -154,7 +165,7 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.96) translateY(5px);
+    transform: scale(0.96) translateY(6px);
   }
   to {
     opacity: 1;

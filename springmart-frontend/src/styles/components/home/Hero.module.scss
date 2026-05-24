@@ -285,3 +285,19 @@
     transform: translateY(0);
   }
 }
+
+/* Minimal modern blinking final full stop */
+.blinkingDot {
+  color: $primary;
+  display: inline-block;
+  animation: blink 1.6s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 1;
+  }
+}
