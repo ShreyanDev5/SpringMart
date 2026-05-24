@@ -2,203 +2,162 @@
 @use '../index' as *;
 
 .modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba($dark, 0.5);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    animation: fadeIn 0.2s ease-out;
-    padding: $spacing-md;
-
-    @include respond-to(sm) {
-        padding: $spacing-sm;
-        align-items: flex-end; // Bottom sheet style on mobile? Or just center? Center is safer for confirmation.
-        align-items: center;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10050;
+  animation: fadeIn 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  padding: $spacing-md;
 }
 
 .modalContent {
-    background: $white;
-    border-radius: $radius-xl;
-    padding: $spacing-xl;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: $shadow-2xl;
-    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba($white, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-lg;
-    position: relative;
-    overflow: hidden;
-
-    @include respond-to(sm) {
-        padding: $spacing-lg;
-        max-width: 90vw;
-        gap: $spacing-md;
-    }
+  background: $white;
+  border-radius: 16px;
+  padding: $spacing-lg;
+  width: 100%;
+  max-width: 320px; /* Elegant compact dialog width */
+  box-shadow: $shadow-xl;
+  animation: scaleIn 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  position: relative;
+  overflow: hidden;
 }
 
 .iconWrapper {
-    width: 48px;
-    height: 48px;
-    border-radius: $radius-full;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 
-    &.danger {
-        background: rgba($error, 0.1);
-        color: $error;
-    }
+  &.danger {
+    background: rgba(255, 59, 48, 0.08);
+    color: $error;
+  }
 
-    &.warning {
-        background: rgba($warning, 0.1);
-        color: $warning;
-    }
+  &.warning {
+    background: rgba(255, 159, 10, 0.08);
+    color: $warning;
+  }
 
-    &.info {
-        background: rgba($primary, 0.1);
-        color: $primary;
-    }
+  &.info {
+    background: rgba(0, 102, 204, 0.08);
+    color: $primary;
+  }
 
-    svg {
-        width: 24px;
-        height: 24px;
-    }
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .textContainer {
-    text-align: center;
+  text-align: center;
 }
 
 .title {
-    font-size: 1.25rem;
-    font-weight: $font-weight-bold;
-    color: $dark;
-    margin: 0 0 $spacing-xs 0;
-
-    @include respond-to(sm) {
-        font-size: 1.1rem;
-    }
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $dark;
+  margin: 0 0 6px 0;
 }
 
 .message {
-    font-size: 0.95rem;
-    color: $dark-gray;
-    margin: 0;
-    line-height: 1.5;
-
-    @include respond-to(sm) {
-        font-size: 0.9rem;
-    }
+  font-size: 0.85rem;
+  color: $dark-gray;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .actions {
-    display: flex;
-    gap: $spacing-md;
-    justify-content: center;
-
-    @include respond-to(sm) {
-        gap: $spacing-sm;
-        flex-direction: column-reverse; // Stack buttons on mobile, cancel at bottom usually better for reachability? 
-        // Actually side-by-side or standard stack is fine. Let's do Full width buttons.
-        flex-direction: row;
-    }
-
-    @include respond-to(xs) {
-        flex-direction: column; // Stack on very small screens
-    }
+  display: flex;
+  gap: $spacing-xs;
+  justify-content: center;
+  margin-top: $spacing-2xs;
 }
 
 .button {
-    padding: $spacing-sm $spacing-xl;
-    border-radius: $radius-lg;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: $transition;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1; // Equal width
+  padding: 0.5rem $spacing-md;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: $transition-fast;
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 
-    &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-    }
-
-    @include respond-to(sm) {
-        padding: $spacing-sm $spacing-md;
-        font-size: 0.9rem;
-    }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .cancelButton {
-    background: $light-gray;
-    color: $dark;
+  background: $lighter-gray;
+  color: $dark;
+  border-color: rgba(0, 0, 0, 0.02);
 
-    &:hover {
-        background: darken($light-gray, 5%);
-    }
+  &:hover {
+    background: darken($lighter-gray, 3%);
+  }
 
-    &:active {
-        transform: scale(0.98);
-    }
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 .confirmButton {
-    color: $white;
+  color: $white;
 
-    &.danger {
-        background: $error;
+  &.danger {
+    background: $error;
 
-        &:hover {
-            background: darken($error, 5%);
-            box-shadow: 0 4px 12px rgba($error, 0.3);
-        }
+    &:hover {
+      background: darken($error, 5%);
     }
+  }
 
-    &.primary {
-        background: $primary;
+  &.primary {
+    background: $primary;
 
-        &:hover {
-            background: darken($primary, 5%);
-            box-shadow: 0 4px 12px rgba($primary, 0.3);
-        }
+    &:hover {
+      background: $primary-dark;
     }
+  }
 
-    &:active {
-        transform: scale(0.98);
-    }
+  &:active {
+    transform: scale(0.97);
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }

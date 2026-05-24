@@ -140,7 +140,7 @@ function ProductForm({
                         </div>
                     </label>
                     <span id="inStock-info" className={styles.helperText}>
-                        Uncheck if product is currently unavailable
+                        Display the product as available for purchase.
                     </span>
                 </div>
 
@@ -156,7 +156,7 @@ function ProductForm({
                         aria-describedby="releaseDate-info"
                     />
                     <span id="releaseDate-info" className={styles.helperText}>
-                        Optional: When was this product released?
+                        Release date of the product item (optional).
                     </span>
                 </div>
 

@@ -1,83 +1,78 @@
 /* src/styles/variables.scss */
-// This file will be forwarded by _index.scss
-// Primary Colors - Refined indigo palette for premium feel
-$primary: #4361ee;
-$primary-dark: #3a56d4;
-$primary-light: #7289ff;
-$primary-gradient: linear-gradient(135deg, $primary, $primary-dark);
-$primary-gradient-subtle: linear-gradient(135deg, rgba($primary, 0.1), rgba($primary-dark, 0.05));
+// Apple-inspired minimalist design system variables
 
-// Secondary Colors - Enhanced teal palette
-$secondary: #06d6a0;
-$secondary-dark: #05b88b;
-$secondary-light: #33e0b8;
-$secondary-gradient: linear-gradient(135deg, $secondary, $secondary-dark);
+// Primary Colors - Apple's signature blue and monochrome palette
+$primary: #0066cc; // Classic Apple Link Blue
+$primary-dark: #0044aa;
+$primary-light: #47a3ff;
+$primary-gradient: linear-gradient(180deg, #0077ff 0%, #0055cc 100%);
+$primary-gradient-subtle: linear-gradient(180deg, rgba(0, 102, 204, 0.03) 0%, rgba(0, 102, 204, 0.01) 100%);
 
-// Accent Colors - Refined warm palette
-$accent: #ff9e00;
-$accent-dark: #e68e00;
-$accent-light: #ffaf33;
+// Secondary & Accent Colors - Very reserved and premium
+$secondary: #86868b; // Apple secondary gray
+$secondary-dark: #6e6e73;
+$secondary-light: #a1a1a6;
+$secondary-gradient: linear-gradient(180deg, #86868b 0%, #6e6e73 100%);
 
-// Neutral Colors - Enhanced for better contrast and accessibility
-$dark: #0f172a; // Darker for better contrast
-$dark-gray: #64748b;
-$gray: #94a3b8;
-$light-gray: #e2e8f0;
-$lighter-gray: #f1f5f9;
-$light: #f8fafc;
+$accent: #0066cc;
+$accent-dark: #0044aa;
+$accent-light: #47a3ff;
+
+// Neutral Colors - Apple's exact typography and surface colors
+$dark: #1d1d1f;       // Apple primary text (dark charcoal)
+$dark-gray: #515154;  // Apple secondary text
+$gray: #86868b;       // Apple system gray / tertiary text
+$light-gray: #d2d2d7; // Apple separator gray
+$lighter-gray: #f5f5f7; // Apple table/card background (very soft off-white)
+$light: #ffffff;      // Apple page background is pure white
 $white: #ffffff;
 
-// Status Colors - More vibrant and accessible
-$success: #10b981;
-$warning: #f59e0b;
-$error: #ef4444;
-$info: #3b82f6;
+// Status Colors - Clean, subtle and accessible
+$success: #24b24b;
+$warning: #ff9f0a;
+$error: #ff3b30; // Apple red
+$info: #007aff;  // Apple system blue
 
-// Emerald Accent - For subtle personality
-$emerald: #10B981;
-$emerald-dark: #059669;
+// Shadows - Apple style: extremely soft, almost imperceptible depth, relies on borders/negative space
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.03);
+$shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+$shadow-md: 0 8px 30px rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.08);
+$shadow-xl: 0 24px 50px rgba(0, 0, 0, 0.12);
+$shadow-inset: inset 0 1px 2px rgba(0, 0, 0, 0.05);
 
-// Shadows - Clean, minimal depth
-$shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
-$shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
-$shadow-md: 0 4px 16px rgba(15, 23, 42, 0.10);
-$shadow-lg: 0 8px 24px rgba(15, 23, 42, 0.12);
-$shadow-xl: 0 12px 32px rgba(15, 23, 42, 0.14);
-$shadow-2xl: 0 20px 40px rgba(15, 23, 42, 0.16);
-$shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+// Transitions - Apple style: buttery smooth, slightly longer duration, custom bezier
+$transition-fast: all 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+$transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+$transition-slow: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+$transition-bounce: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-// Transitions - Clean and snappy
-$transition-fast: all 0.15s ease;
-$transition: all 0.2s ease;
-$transition-slow: all 0.3s ease;
-$transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-// Border Radius - Refined, tighter scale
-$radius-xs: 0.125rem;
-$radius-sm: 0.25rem;
-$radius: 0.375rem;
-$radius-md: 0.5rem;
-$radius-lg: 0.75rem;
-$radius-xl: 1rem;
-$radius-2xl: 1.25rem;
-$radius-3xl: 1.5rem;
+// Border Radius - Apple's signature squircle/rounded corners
+$radius-xs: 4px;
+$radius-sm: 8px;
+$radius: 10px;
+$radius-md: 12px;
+$radius-lg: 16px;
+$radius-xl: 20px;
+$radius-2xl: 24px;
+$radius-3xl: 30px;
 $radius-full: 9999px;
 
-// Spacing - Enhanced scale for better visual rhythm
-$spacing-3xs: 0.125rem;
-$spacing-2xs: 0.25rem;
-$spacing-xs: 0.5rem;
-$spacing-sm: 0.75rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-$spacing-xl: 2rem;
-$spacing-2xl: 2.5rem;
-$spacing-3xl: 3.5rem;
-$spacing-4xl: 5rem;
-$spacing-5xl: 7rem;
+// Spacing - Clean mathematical visual rhythm
+$spacing-3xs: 0.25rem;
+$spacing-2xs: 0.5rem;
+$spacing-xs: 0.75rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-2xl: 4rem;
+$spacing-3xl: 5rem;
+$spacing-4xl: 6.5rem;
+$spacing-5xl: 9rem;
 
-// Container Width
-$container-width: 1400px;
+// Container Width - Compact and extremely readable
+$container-width: 1120px; // Standard Apple content width
 
 // Breakpoints
 $breakpoint-xs: 320px;
@@ -87,14 +82,13 @@ $breakpoint-lg: 1024px;
 $breakpoint-xl: 1280px;
 $breakpoint-2xl: 1536px;
 
-// Typography - Premium font weights and sizes
+// Typography - System font stack identical to Apple's website
 $font-weight-light: 300;
 $font-weight-normal: 400;
 $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 $font-weight-extrabold: 800;
-$font-weight-black: 900;
 
 // Z-index scale
 $z-index-dropdown: 1000;

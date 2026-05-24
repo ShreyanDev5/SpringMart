@@ -1,6 +1,6 @@
 // src/pages/Home.jsx
 import React, { useEffect, useRef, useState } from "react";
-import { Hero, Features, CtaBanner } from "../components/home";
+import { Hero } from "../components/home";
 import Products from "../components/home/Products";
 import { getFeaturedProducts, searchProducts } from "../features/products/api";
 
@@ -14,7 +14,7 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
     useEffect(() => {
         let isMounted = true;
 
-        async function loadProducts() {
+        async function loadProducts(retryCount = 0) {
             setLoading(true);
             setError("");
 
@@ -25,15 +25,22 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
 
                 if (isMounted) {
                     setProducts(nextProducts);
-                }
-            } catch {
-                if (isMounted) {
-                    setError("Failed to load products.");
-                    setProducts([]);
-                }
-            } finally {
-                if (isMounted) {
                     setLoading(false);
+                }
+            } catch (err) {
+                if (isMounted) {
+                    // Retry on network errors or 5xx server boot errors
+                    if (!err.status || err.status >= 500) {
+                        setTimeout(() => {
+                            if (isMounted) {
+                                loadProducts(retryCount + 1);
+                            }
+                        }, 8000);
+                    } else {
+                        setError("Failed to load products.");
+                        setProducts([]);
+                        setLoading(false);
+                    }
                 }
             }
         }
@@ -74,8 +81,6 @@ function Home({ searchQuery, imageVersion, refreshTrigger = 0 }) {
                     onRetry={handleReload}
                 />
             </section>
-            <Features />
-            <CtaBanner />
         </div>
     );
 }

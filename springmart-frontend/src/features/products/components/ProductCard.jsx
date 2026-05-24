@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FiEdit, FiShoppingBag, FiTag, FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import styles from "../../../styles/components/ProductCard.module.scss";
 import ConfirmationModal from "../../../shared/components/ConfirmationModal";
@@ -92,23 +92,24 @@ function ProductCard({ product, imageVersion, onProductDelete }) {
     return (
         <>
             <div className={styles.productCard} ref={cardRef} onTouchStart={handleTouchStart}>
-                <img
-                    src={imageUrl}
-                    alt={name}
-                    className={styles.productImage}
-                    onError={handleImageError}
-                    loading="lazy"
-                    ref={imgRef}
-                />
+                <div className={styles.imageContainer}>
+                    <img
+                        src={imageUrl}
+                        alt={name}
+                        className={styles.productImage}
+                        onError={handleImageError}
+                        loading="lazy"
+                        ref={imgRef}
+                    />
+                </div>
                 <div className={styles.productDetails}>
                     <h3 title={name}>{name}</h3>
                     <div className={styles.metaInfo}>
                         <span className={styles.brand} title={brand}>
-                            <FiTag className={styles.metaIcon} />
                             {brand}
                         </span>
+                        <span className={styles.separator}>•</span>
                         <span className={styles.category} title={category}>
-                            <FiShoppingBag className={styles.metaIcon} />
                             {category}
                         </span>
                     </div>

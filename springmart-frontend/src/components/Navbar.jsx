@@ -50,75 +50,79 @@ function Navbar({ onSearch }) {
     };
 
     return (
-        <nav className="navbar">
-            <div className="navbar-content">
-                <div className="navbar-left">
-                    <Link to="/" className="logo" onClick={(e) => { 
-                        if (location.pathname === "/") {
-                            if (window.scrollY > 100) {
-                                window.scrollTo({ top: 0, behavior: "smooth" });
+        <>
+            <nav className={`navbar ${isOpen ? 'is-open' : ''}`}>
+                <div className="navbar-content">
+                    <div className="navbar-left">
+                        <Link to="/" className="logo" onClick={(e) => { 
+                            if (location.pathname === "/") {
+                                if (window.scrollY > 100) {
+                                    window.scrollTo({ top: 0, behavior: "smooth" });
+                                }
+                                e.preventDefault();
                             }
-                            e.preventDefault();
-                        }
-                    }}>
-                        <img src="/SpringMart_Logo_2.1.png" alt="SpringMart Logo" className="logo-img" />
-                        <span className="brand">SpringMart</span>
-                    </Link>
-                </div>
-
-                <div className="navbar-center">
-                    {/* Search bar only visible in header on desktop, not on mobile */}
-                    {!isMobile && (
-                        <div className="search-container">
-                            <SearchBar onSearch={onSearch} />
-                        </div>
-                    )}
-                </div>
-
-                <div className="navbar-right">
-                    {/* Hamburger menu button (mobile only) - moved here to the right */}
-                    <button 
-                        className={`hamburger ${isOpen ? 'is-active' : ''}`} 
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                        aria-expanded={isOpen}
-                    >
-                        <span className="hamburger-box">
-                            <span className="hamburger-inner"></span>
-                        </span>
-                    </button>
-                    <div className="desktop-nav">
-                        <Link 
-                            to="/" 
-                            className={location.pathname === "/" ? "active" : ""}
-                            onClick={handleHomeClick}
-                        >
-                            Home
-                        </Link>
-                        <Link 
-                            to="/add" 
-                            className={location.pathname === "/add" ? "active" : ""}
-                        >
-                            Add Product
-                        </Link>
-                        <Link 
-                            to="/products" 
-                            className={location.pathname === "/products" ? "active" : ""}
-                        >
-                            View Products
+                        }}>
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2.2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="logo-svg" style={{ marginRight: '4px', color: '#1d1d1f' }}>
+                                <circle cx="9" cy="20" r="1" fill="currentColor" />
+                                <circle cx="18" cy="20" r="1" fill="currentColor" />
+                                <path d="M3 3h2.5l2 11h12l2.5-8H6.5" />
+                            </svg>
+                            <span className="brand">SpringMart</span>
                         </Link>
                     </div>
+
+                    <div className="navbar-center">
+                        {/* Search bar only visible in header on desktop, not on mobile */}
+                        {!isMobile && (
+                            <div className="search-container">
+                                <SearchBar onSearch={onSearch} />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="navbar-right">
+                        {/* Hamburger menu button (mobile only) - moved here to the right */}
+                        <button 
+                            className={`hamburger ${isOpen ? 'is-active' : ''}`} 
+                            onClick={toggleMenu}
+                            aria-label="Toggle menu"
+                            aria-expanded={isOpen}
+                        >
+                            <span className="hamburger-box">
+                                <span className="hamburger-inner"></span>
+                            </span>
+                        </button>
+                        <div className="desktop-nav">
+                            <Link 
+                                to="/" 
+                                className={location.pathname === "/" ? "active" : ""}
+                                onClick={handleHomeClick}
+                            >
+                                Home
+                            </Link>
+                            <Link 
+                                to="/add" 
+                                className={location.pathname === "/add" ? "active" : ""}
+                            >
+                                Add Product
+                            </Link>
+                            <Link 
+                                to="/products" 
+                                className={location.pathname === "/products" ? "active" : ""}
+                            >
+                                View Products
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </nav>
 
             {/* Mobile search and navigation (only visible on mobile) */}
             {isMobile && (
                 <div className={`mobile-menu ${isOpen ? 'show' : ''}`}>
-                    {isOpen && (
-                        <div className="mobile-search">
-                            <SearchBar onSearch={onSearch} />
-                        </div>
-                    )}
+                    <div className="mobile-search">
+                        <SearchBar onSearch={onSearch} />
+                    </div>
                     <div className="mobile-links">
                         <Link 
                             to="/" 
@@ -144,7 +148,7 @@ function Navbar({ onSearch }) {
                     </div>
                 </div>
             )}
-        </nav>
+        </>
     );
 }
 

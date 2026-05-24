@@ -1,151 +1,57 @@
 // src/components/home/Hero.jsx
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { FiShoppingBag, FiTag, FiStar, FiArrowRight, FiShoppingCart, FiTrendingUp, FiAward } from "react-icons/fi";
+import { FiChevronRight } from "react-icons/fi";
 import styles from "../../styles/components/home/Hero.module.scss";
 
-const Hero = ({ onSearch }) => {
-  // Handle parallax effect for floating elements
-  useEffect(() => {
-    const checkMobile = () => {
-      // Mobile check is still performed for the parallax logic
-      const isMobile = window.innerWidth <= 768;
-      return isMobile;
-    }
-    
-    const isMobile = checkMobile();
-    
-    // Disable parallax for small screens to improve mobile performance
-    if (isMobile) {
-      return;
-    }
-
-    const handleMouseMove = (e) => {
-      const icons = document.querySelectorAll(`.${styles.floatingIcon}`);
-      const shapes = document.querySelectorAll(`.${styles.shape}`);
-      const card = document.querySelector(`.${styles.heroCard}`);
-      
-      // Calculate mouse position relative to the center of the screen
-      const mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
-      const mouseY = (e.clientY / window.innerHeight - 0.5) * 10;
-      
-      // Apply subtle parallax to floating icons
-      icons.forEach(icon => {
-        const depth = parseFloat(icon.getAttribute('data-depth') || 0.5);
-        icon.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
-      });
-      
-      // Apply subtle parallax to shapes
-      shapes.forEach(shape => {
-        const depth = parseFloat(shape.getAttribute('data-depth') || 0.2);
-        shape.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
-      });
-      
-      // Apply subtle rotation to card only if not being hovered
-      if (card && !card.matches(':hover')) {
-        const rotation = -2 + mouseX * 0.05;  // Start from -2deg (initial tilt)
-        const translation = mouseY * 0.1;
-        card.style.transform = `rotate(${rotation}deg) translateY(${translation}px)`;
-      } else if (card && card.matches(':hover')) {
-        // Clear inline styles when hovering to allow CSS hover effect to work
-        card.style.transform = '';
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
+const Hero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.heroContent}>
-        {/* Modern Mobile-First Badge */}
-        <div className={styles.heroBadge}>
-          <FiAward className={styles.badgeIcon} />
-          <span>Shopping Experience</span>
-        </div>
-        
-        {/* Enhanced Mobile Typography */}
-        <h1 className={`${styles.heroTitle} ${styles.fadeIn}`}>
-          Welcome to <span className={`${styles.highlight} ${styles.underlined}`}>SpringMart</span>
+        {/* Extremely bold, crisp typography */}
+        <h1 className={styles.heroTitle}>
+          Designed for simplicity.<br />
+          Built for scale.
         </h1>
         
-        {/* Modern Subtitle with Better Mobile Readability */}
-        <p className={`${styles.heroSubtitle} ${styles.fadeIn}`} style={{animationDelay: '0.2s'}}>
-          Discover amazing products at unbeatable prices with our curated collection
+        {/* Airiness and sophisticated secondary text */}
+        <p className={styles.heroSubtitle}>
+          A refined <span className={styles.highlight}>e-commerce</span> experience featuring instant search, smooth interactions, and a minimalist design.
         </p>
         
-        {/* Enhanced CTA Buttons for Mobile */}
-        <div className={`${styles.ctaButtons} ${styles.fadeIn}`} style={{animationDelay: '0.4s'}}>
-          <Link to="/products" className={`${styles.ctaButton} ${styles.primaryButton}`}>
-            <FiShoppingCart className={styles.buttonIcon} />
-            <span>Shop Now</span>
+        {/* Apple's classic chevron text links instead of heavy bulky buttons */}
+        <div className={styles.ctaButtons}>
+          <Link to="/products" className={styles.textLink}>
+            <span>Browse Products</span>
+            <FiChevronRight className={styles.chevron} />
           </Link>
-          <Link to="/add" className={`${styles.ctaButton} ${styles.secondaryButton}`}>
-            <FiTrendingUp className={styles.buttonIcon} />
-            <span>Sell with Us</span>
+          <Link to="/add" className={styles.textLinkSecondary}>
+            <span>Add Product</span>
+            <FiChevronRight className={styles.chevron} />
           </Link>
         </div>
       </div>
-      
-      <div className={styles.heroImage}>
-        {/* Modernized Hero Card */}
-        <div className={styles.heroCard}>
-          <div className={styles.heroCardContent}>
-            <h3>Premium Collection</h3>
-            <p>Exclusive products for you</p>
-            <Link to="/products" className={styles.heroCardLink}>
-              <span>Explore</span>
-              <FiArrowRight className={styles.linkIcon} />
-            </Link>
+
+      {/* Modern, glassmorphic presentation graphic that showcases high-quality UI */}
+      <div className={styles.heroGraphic}>
+        <div className={styles.mockupContainer}>
+          <div className={styles.windowHeader}>
+            <span className={styles.dotRed}></span>
+            <span className={styles.dotYellow}></span>
+            <span className={styles.dotGreen}></span>
           </div>
-          {/* Modern Card Background Elements */}
-          <div className={styles.cardBackground}>
-            <div className={styles.cardGradient}></div>
-            <div className={styles.cardPattern}></div>
+          <div className={styles.mockupContent}>
+            <div className={styles.previewCard}>
+              <div className={styles.badge}>Featured</div>
+              <div className={styles.glowEffect}></div>
+              <h3>Curated Collections</h3>
+              <p>Handpicked products designed to amaze.</p>
+              <div className={styles.cardFooter}>
+                <span className={styles.price}>$129.00</span>
+                <span className={styles.status}>In Stock</span>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        {/* Optimized Floating Icons for Mobile */}
-        <div className={styles.floatingIcons}>
-          <div 
-            className={`${styles.floatingIcon} ${styles.icon1}`}
-            data-depth="0.6"
-            aria-label="Shopping Bag"
-          >
-            <FiShoppingBag />
-          </div>
-          <div 
-            className={`${styles.floatingIcon} ${styles.icon2}`}
-            data-depth="0.4"
-            aria-label="Price Tag"
-          >
-            <FiTag />
-          </div>
-          <div 
-            className={`${styles.floatingIcon} ${styles.icon3}`}
-            data-depth="0.8"
-            aria-label="Star Rating"
-          >
-            <FiStar />
-          </div>
-          <div 
-            className={`${styles.floatingIcon} ${styles.icon4}`}
-            data-depth="0.5"
-            aria-label="Shopping Cart"
-          >
-            <FiShoppingCart />
-          </div>
-        </div>
-        
-        {/* Modern Floating Shapes */}
-        <div className={styles.floatingShapes}>
-          <div className={`${styles.shape} ${styles.shape1}`} data-depth="0.2"></div>
-          <div className={`${styles.shape} ${styles.shape2}`} data-depth="0.3"></div>
-          <div className={`${styles.shape} ${styles.shape3}`} data-depth="0.1"></div>
         </div>
       </div>
     </section>

@@ -5,745 +5,283 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: $spacing-2xl;
-  padding: $spacing-xl $spacing-2xl;
-  min-height: 60vh;
+  gap: $spacing-xl;
+  padding: 3.5rem 0 1.5rem 0; /* Tightened gap to featured products */
+  min-height: 460px;
   position: relative;
   background: $white;
-  border-radius: $radius-2xl;
-  overflow: visible;
-  box-shadow: $shadow;
+  max-width: 1024px;
+  margin: 0 auto;
+  
+  @include respond-to(lg) {
+    flex-direction: column;
+    text-align: center;
+    padding: $spacing-xl $spacing-md;
+    gap: $spacing-xl;
+  }
 }
 
-/* Left content */
+/* Left Content Column */
 .heroContent {
-  flex: 1;
+  flex: 1.15;
   min-width: 0;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
-  gap: 0;
-  position: relative;
-  z-index: 2;
+  align-items: flex-start;
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+
+  @include respond-to(lg) {
+    align-items: center;
+  }
 }
 
-.heroBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
-  background: rgba($primary, 0.08);
-  color: $primary;
-  font-size: 0.85rem;
+.heroLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-weight: 600;
-  padding: $spacing-xs $spacing-md;
-  border-radius: $radius-full;
-  margin-bottom: $spacing-lg;
-  width: fit-content;
-
-  .badgeIcon {
-    font-size: 1rem;
-  }
+  color: $primary;
+  margin-bottom: $spacing-2xs;
 }
 
 .heroTitle {
   font-size: 3.5rem;
-  font-weight: $font-weight-black;
+  font-weight: 700;
   line-height: 1.1;
   color: $dark;
   letter-spacing: -0.03em;
-  margin-bottom: $spacing-md;
+  margin-bottom: $spacing-xs;
 
-  .highlight {
-    background: $primary-gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  @include respond-to(md) {
+    font-size: 2.75rem;
+  }
+
+  @include respond-to(sm) {
+    font-size: 2.15rem; /* Sized perfectly for mobile screens */
   }
 }
 
-
+.highlight {
+  color: $primary;
+  font-weight: 500;
+}
 
 .heroSubtitle {
   font-size: 1.15rem;
   color: $dark-gray;
-  line-height: 1.7;
-  margin-bottom: $spacing-xl;
-  max-width: 500px;
+  line-height: 1.45;
+  margin-bottom: $spacing-lg;
+  max-width: 480px;
+  font-weight: 400;
+
+  @include respond-to(lg) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @include respond-to(md) {
+    font-size: 1rem;
+  }
 }
 
-/* CTA Buttons */
+/* CTA buttons as Apple-style text links */
 .ctaButtons {
   display: flex;
-  gap: $spacing-md;
-  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+
+  @include respond-to(lg) {
+    justify-content: center;
+  }
 }
 
-.ctaButton {
+.textLink,
+.textLinkSecondary {
   display: inline-flex;
   align-items: center;
-  gap: $spacing-xs;
-  padding: 0.875rem 1.75rem;
-  border-radius: $radius-lg;
-  font-weight: 600;
+  gap: 0.2rem;
   font-size: 0.95rem;
+  font-weight: 450;
   text-decoration: none;
   transition: $transition;
-  cursor: pointer;
-
-  .buttonIcon {
-    font-size: 1.15rem;
-  }
-}
-
-.primaryButton {
-  background: $primary;
-  color: $white;
-  box-shadow: $shadow-sm;
-
-  &:hover {
-    background: $primary-dark;
-    transform: translateY(-1px);
-    box-shadow: $shadow;
-  }
-
-  &:active {
-    transform: translateY(0);
-    box-shadow: $shadow-sm;
-  }
-}
-
-.secondaryButton {
-  background: transparent;
-  color: $emerald;
-  border: 2px solid rgba($emerald, 0.2);
-
-  &:hover {
-    background: rgba($emerald, 0.06);
-    border-color: rgba($emerald, 0.3);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-/* Right side — hero image area */
-.heroImage {
-  flex: 1;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-/* Hero Card */
-.heroCard {
-  position: relative;
-  width: 300px;
-  background: $white;
-  border-radius: $radius-xl;
-  box-shadow: $shadow-md;
-  overflow: hidden;
-  transform: rotate(-2deg);
-  transition: $transition;
-  z-index: 5;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-
-  &:hover {
-    transform: rotate(0deg) translateY(-4px);
-    box-shadow: $shadow-lg;
-  }
-
-  &:active {
-    transform: rotate(0deg) translateY(-1px);
-    box-shadow: $shadow;
-  }
-}
-
-/* Card decorative background — kept minimal */
-.cardBackground {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.cardGradient {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba($primary, 0.06) 0%, transparent 70%);
-  opacity: 0.5;
-}
-
-.cardPattern {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 80%, rgba($secondary, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba($primary, 0.05) 0%, transparent 50%);
-  opacity: 0.3;
-}
-
-.heroCardContent {
-  position: relative;
-  z-index: 1;
-  padding: $spacing-lg $spacing-md;
-  text-align: center;
-
-  h3 {
-    font-size: 1.4rem;
-    margin-bottom: $spacing-xs;
-    line-height: 1.3;
-    font-weight: 700;
-    color: $dark;
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: $dark-gray;
-    margin-bottom: $spacing-lg;
-    line-height: 1.5;
-  }
-}
-
-.heroCardLogo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: $spacing-sm;
-}
-
-.heroCardLink {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-xs;
   color: $primary;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  padding: $spacing-xs $spacing-md;
-  background: rgba($primary, 0.06);
-  border-radius: $radius-full;
-  transition: $transition;
 
-  .linkIcon {
+  .chevron {
     font-size: 0.9rem;
-    transition: transform 0.2s ease;
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   &:hover {
-    background: rgba($primary, 0.12);
     color: $primary-dark;
+    text-decoration: underline;
 
-    .linkIcon {
-      transform: translateX(2px);
+    .chevron {
+      transform: translateX(3px);
     }
   }
 }
 
-/* Floating icons */
-.floatingShapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.floatingIcons {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 6;
-}
-
-.floatingIcon {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $primary;
-  font-size: 1.1rem;
-  box-shadow: $shadow;
-  pointer-events: auto;
-  transition: $transition;
-  z-index: 7;
+.textLinkSecondary {
+  color: $success;
 
   &:hover {
-    transform: scale(1.1);
-    box-shadow: $shadow-md;
-  }
-
-  &.icon1 {
-    top: 25%;
-    left: 12%;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  &.icon2 {
-    top: 65%;
-    left: 15%;
-    animation: float 7s ease-in-out infinite;
-    animation-delay: 1s;
-  }
-
-  &.icon3 {
-    top: 20%;
-    right: 15%;
-    animation: float 6s ease-in-out infinite;
-    animation-delay: 2s;
-  }
-
-  &.icon4 {
-    top: 45%;
-    right: 18%;
-    animation: float 5.5s ease-in-out infinite;
-    animation-delay: 0.5s;
+    color: darken(#27c93f, 15%);
+    text-decoration: underline;
   }
 }
 
-/* Floating blurred shapes — vibrant */
-.shape {
-  position: absolute;
+/* Right Side - Apple-style Frosted Glass Window Mockup */
+.heroGraphic {
+  flex: 0.85;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  animation: fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  
+  @include respond-to(lg) {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+.mockupContainer {
+  background: rgba(245, 245, 247, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.windowHeader {
+  height: 30px;
+  background: rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 6px;
+}
+
+.dotRed, .dotYellow, .dotGreen {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  opacity: 0.55;
-  filter: blur(60px);
-  animation: float 8s ease-in-out infinite;
+}
 
-  &.shape1 {
-    width: 350px;
-    height: 350px;
-    top: -10%;
-    right: -10%;
-    background: rgba($emerald, 0.25);
+.dotRed { background: #ff5f56; }
+.dotYellow { background: #ffbd2e; }
+.dotGreen { background: #27c93f; }
+
+.mockupContent {
+  padding: $spacing-md;
+}
+
+/* Apple-style Featured curated collection card with advanced hover effects */
+.previewCard {
+  background: $white;
+  border-radius: 12px;
+  padding: $spacing-md;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+
+  .badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 102, 204, 0.08);
+    color: $primary;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
   }
 
-  &.shape2 {
-    width: 250px;
-    height: 250px;
-    bottom: -5%;
-    right: 15%;
-    background: rgba($primary, 0.22);
-    animation-delay: 1s;
+  h3 {
+    font-size: 1.15rem;
+    color: $dark;
+    font-weight: 600;
+    margin-top: $spacing-xs;
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
   }
 
-  &.shape3 {
-    width: 200px;
-    height: 200px;
-    top: 30%;
-    right: 35%;
-    background: rgba($emerald, 0.15);
-    animation-delay: 2s;
+  p {
+    font-size: 0.8rem;
+    color: $dark-gray;
+    line-height: 1.4;
+    margin-bottom: $spacing-md;
+  }
+
+  /* Polished lift & vibrant glow scale on hover */
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 102, 204, 0.08);
+    border-color: rgba(0, 102, 204, 0.15);
+
+    h3 {
+      color: $primary;
+    }
+
+    .glowEffect {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
   }
 }
 
-/* Fade in animation */
-.fadeIn {
-  animation: fadeIn 0.6s ease forwards;
-  opacity: 0;
+.glowEffect {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 102, 204, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-@keyframes fadeIn {
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  padding-top: $spacing-xs;
+  font-size: 0.72rem;
+
+  .price {
+    font-weight: 600;
+    color: $dark;
+  }
+
+  .status {
+    color: $success;
+    font-weight: 500;
+  }
+}
+
+/* Apple-style smooth slide up animation */
+@keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(12px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Stats section (hidden on desktop, shown on mobile) */
-.mobileStats {
-  display: none;
-}
-
-
-
-/* Responsive */
-@include respond-to(xl) {
-  .hero {
-    gap: $spacing-md;
-  }
-
-  .heroTitle {
-    font-size: 3.25rem;
-  }
-
-  .heroCard {
-    width: 280px;
-  }
-}
-
-@include respond-to(lg) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: $spacing-2xl $spacing-lg;
-    min-height: auto;
-    gap: $spacing-xl;
-  }
-
-  .heroContent {
-    max-width: 100%;
-    align-items: center;
-  }
-
-  .heroBadge {
-    margin: 0 auto $spacing-lg;
-  }
-
-  .heroTitle {
-    font-size: 3.25rem;
-    text-align: center;
-    margin: 0 auto $spacing-lg;
-  }
-
-  .heroSubtitle {
-    text-align: center;
-    margin: 0 auto $spacing-xl;
-  }
-
-  .ctaButtons {
-    justify-content: center;
-    width: 100%;
-    max-width: 400px;
-    margin: $spacing-lg auto 0;
-
-    .ctaButton {
-      flex: 1;
-    }
-  }
-
-  .heroImage {
-    min-height: 450px;
-    width: 100%;
-  }
-
-  .heroCard {
-    transform: rotate(-1deg);
-    width: 260px;
-  }
-
-  .heroCardContent {
-    padding: $spacing-sm;
-
-    h3 {
-      font-size: 1.2rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      margin-bottom: $spacing-sm;
-    }
-  }
-
-  .floatingIcon {
-    width: 36px;
-    height: 36px;
-    font-size: 1rem;
-
-    &.icon1 {
-      left: 8%;
-      top: 25%;
-    }
-
-    &.icon2 {
-      left: 12%;
-      top: 65%;
-    }
-
-    &.icon3 {
-      right: 12%;
-      top: 20%;
-    }
-
-    &.icon4 {
-      right: 15%;
-      top: 55%;
-    }
-  }
-
-  .mobileStats {
-    display: flex;
-    gap: $spacing-md;
-    padding: $spacing-lg $spacing-md;
-    max-width: 450px;
-    margin: $spacing-lg auto 0;
-    background: rgba($primary, 0.03);
-    border-radius: $radius-lg;
-    justify-content: center;
-
-    .statItem {
-      text-align: center;
-    }
-
-    .statNumber {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: $primary;
-    }
-
-    .statLabel {
-      font-size: 0.7rem;
-      color: $dark-gray;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-  }
-}
-
-@include respond-to(md) {
-  .hero {
-    padding: $spacing-xl $spacing-md;
-  }
-
-  .heroTitle {
-    font-size: 2.75rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1rem;
-    max-width: 90%;
-  }
-
-  .heroBadge {
-    font-size: 0.8rem;
-  }
-
-  .heroImage {
-    min-height: 400px;
-  }
-
-  .heroCard {
-    width: 240px;
-  }
-
-  .heroCardContent {
-    h3 {
-      font-size: 1.1rem;
-    }
-
-    p {
-      font-size: 0.85rem;
-      margin-bottom: $spacing-sm;
-    }
-  }
-
-  .ctaButtons {
-    flex-direction: column;
-    gap: $spacing-sm;
-    margin-bottom: $spacing-lg;
-
-    .ctaButton {
-      width: 100%;
-      min-height: 48px;
-      justify-content: center;
-    }
-  }
-
-  .floatingIcon {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-
-    &.icon1 {
-      left: 6%;
-      top: 25%;
-    }
-
-    &.icon2 {
-      left: 10%;
-      top: 65%;
-    }
-
-    &.icon3 {
-      right: 10%;
-      top: 20%;
-    }
-
-    &.icon4 {
-      right: 12%;
-      top: 55%;
-    }
-  }
-
-  .mobileStats {
-    max-width: 400px;
-    padding: $spacing-md $spacing-sm;
-  }
-}
-
-@include respond-to(sm) {
-  .hero {
-    flex-direction: column;
-    padding: $spacing-lg $spacing-md;
-    margin: $spacing-md auto;
-    min-height: auto;
-    gap: $spacing-lg;
-  }
-
-  .heroContent {
-    text-align: center;
-  }
-
-  .heroBadge {
-    margin: 0 auto $spacing-lg;
-    font-size: 0.8rem;
-    padding: $spacing-xs $spacing-md;
-  }
-
-  .heroTitle {
-    font-size: 2.5rem;
-    margin-bottom: $spacing-md;
-    max-width: 100%;
-  }
-
-  .heroSubtitle {
-    font-size: 0.95rem;
-    max-width: 100%;
-    line-height: 1.6;
-    margin-bottom: $spacing-lg;
-  }
-
-  .ctaButtons {
-    flex-direction: column;
-    gap: $spacing-sm;
-    margin-bottom: $spacing-lg;
-
-    .ctaButton {
-      width: 100%;
-      min-height: 48px;
-      font-size: 0.95rem;
-      padding: $spacing-sm $spacing-lg;
-      justify-content: center;
-    }
-  }
-
-  .mobileStats {
-    flex-direction: row;
-    gap: $spacing-sm;
-    padding: $spacing-md $spacing-sm;
-    max-width: 100%;
-    justify-content: center;
-
-    .statItem {
-      flex: 1;
-      text-align: center;
-    }
-
-    .statNumber {
-      font-size: 1.1rem;
-    }
-
-    .statLabel {
-      font-size: 0.65rem;
-    }
-  }
-
-  .heroImage {
-    min-height: 320px;
-    padding-bottom: $spacing-md;
-  }
-
-  .heroCard {
-    width: 280px;
-    transform: rotate(-2deg);
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-
-    &:hover {
-      transform: rotate(0deg) translateY(-4px);
-    }
-
-    &:active {
-      transform: rotate(0deg) translateY(-1px);
-    }
-  }
-
-  .heroCardContent {
-    padding: $spacing-sm;
-    text-align: center;
-
-    h3 {
-      font-size: 1.3rem;
-    }
-
-    p {
-      font-size: 0.9rem;
-      margin-bottom: $spacing-lg;
-    }
-  }
-
-  .floatingIcon {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-
-    &.icon1 {
-      left: 2%;
-      top: 8%;
-    }
-
-    &.icon2 {
-      left: 3%;
-      top: 75%;
-    }
-
-    &.icon3 {
-      right: 3%;
-      top: 8%;
-    }
-
-    &.icon4 {
-      right: 2%;
-      top: 75%;
-    }
-  }
-
-  .shape {
-    &.shape1 {
-      width: 200px;
-      height: 200px;
-      top: 10%;
-      right: -50px;
-    }
-
-    &.shape2 {
-      width: 150px;
-      height: 150px;
-      bottom: 20%;
-      left: -30px;
-    }
-
-    &.shape3 {
-      width: 100px;
-      height: 100px;
-      top: 60%;
-      right: 10%;
-    }
   }
 }

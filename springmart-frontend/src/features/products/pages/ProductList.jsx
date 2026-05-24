@@ -16,7 +16,7 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
     const [page, setPage] = useState(0);
     const [hasMore, setHasMore] = useState(true);
 
-    const loadProducts = useCallback(async (pageToLoad, replace = true) => {
+    const loadProducts = useCallback(async (pageToLoad, replace = true, retryCount = 0) => {
         setLoading(true);
         setError(null);
 
@@ -25,20 +25,28 @@ function ProductList({ searchQuery = "", imageVersion, refreshTrigger = 0 }) {
                 const matches = await searchProducts(normalizedSearchQuery);
                 setProducts(matches);
                 setHasMore(false);
+                setLoading(false);
                 return;
             }
 
             const response = await getProductsPage(pageToLoad, PAGE_SIZE);
             setProducts((currentProducts) => (replace ? response.items : [...currentProducts, ...response.items]));
             setHasMore(response.hasMore);
-        } catch (requestError) {
-            const errorMessage = requestError?.message || "Failed to load products. Please try again later.";
-            setError(errorMessage);
-            if (replace) {
-                setProducts([]);
-            }
-        } finally {
             setLoading(false);
+        } catch (requestError) {
+            // Auto retry on network errors or 5xx server boot errors (Render server spinning up)
+            if (!requestError.status || requestError.status >= 500) {
+                setTimeout(() => {
+                    loadProducts(pageToLoad, replace, retryCount + 1);
+                }, 8000);
+            } else {
+                const errorMessage = requestError?.message || "Failed to load products. Please try again later.";
+                setError(errorMessage);
+                if (replace) {
+                    setProducts([]);
+                }
+                setLoading(false);
+            }
         }
     }, [normalizedSearchQuery]);
 

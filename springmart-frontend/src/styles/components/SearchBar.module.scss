@@ -4,31 +4,30 @@
 .searchBar {
   display: flex;
   align-items: center;
-  background: rgba($dark, 0.04);
-  border: 1px solid $light-gray;
-  border-radius: $radius-full;
-  padding: 3px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid transparent;
+  border-radius: $radius-sm; /* More squared, Apple-like */
+  padding: 2px 2px 2px 8px;
   transition: $transition;
-  height: 42px;
+  height: 32px; /* Apple nav search is super compact */
   width: 100%;
-  max-width: 420px;
+  max-width: 320px;
 
   &:focus-within {
-    border-color: $emerald;
-    box-shadow: 0 0 0 3px rgba($emerald, 0.1);
+    border-color: rgba(0, 102, 204, 0.5);
     background: $white;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
   }
 }
 
 .searchIcon {
   flex-shrink: 0;
-  margin-left: $spacing-sm;
-  color: $gray;
-  font-size: 1rem;
+  color: $secondary;
+  font-size: 0.85rem;
   transition: color 0.2s ease;
 
   .searchBar:focus-within & {
-    color: $emerald;
+    color: $primary;
   }
 }
 
@@ -36,10 +35,10 @@
   flex: 1;
   background: transparent;
   border: none;
-  padding: $spacing-xs $spacing-sm;
+  padding: 0 8px;
   color: $dark;
-  font-size: 0.9rem;
-  height: 36px;
+  font-size: 0.8rem;
+  height: 100%;
   min-width: 0;
   outline: none;
   font-family: inherit;
@@ -51,22 +50,20 @@
 
 .searchButton {
   flex-shrink: 0;
-  background: $emerald;
+  background: $primary;
   color: $white;
   border: none;
-  padding: 0 $spacing-md;
-  height: 34px;
-  border-radius: $radius-full;
-  font-size: 0.85rem;
-  font-weight: 600;
+  padding: 0 10px;
+  height: 26px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
   cursor: pointer;
   transition: $transition;
-  margin-right: 1px;
   font-family: inherit;
-  letter-spacing: 0.01em;
 
   &:hover {
-    background: $emerald-dark;
+    background: $primary-dark;
   }
 
   &:active {
@@ -77,60 +74,6 @@
 /* Responsive */
 @include respond-to(md) {
   .searchBar {
-    height: 38px;
-    max-width: 320px;
-  }
-
-  .searchInput {
-    height: 32px;
-    font-size: 0.85rem;
-    padding: $spacing-xs $spacing-xs;
-  }
-
-  .searchButton {
-    height: 30px;
-    font-size: 0.8rem;
-    padding: 0 $spacing-sm;
-  }
-}
-
-@include respond-to(sm) {
-  .searchBar {
-    height: 40px;
     max-width: 100%;
-  }
-
-  .searchInput {
-    height: 34px;
-    font-size: 0.9rem;
-  }
-
-  .searchButton {
-    height: 32px;
-    font-size: 0.85rem;
-    padding: 0 $spacing-md;
-  }
-}
-
-/* Filters (used on ProductList page) */
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1rem;
-  width: 100%;
-
-  select {
-    padding: 0.5rem;
-    border: 1px solid $light-gray;
-    border-radius: $radius;
-    font-size: 1rem;
-    outline: none;
-    transition: $transition-fast;
-
-    &:focus {
-      border-color: $primary;
-      box-shadow: 0 0 0 3px rgba($primary, 0.1);
-    }
   }
 }

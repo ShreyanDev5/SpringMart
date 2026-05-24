@@ -2,136 +2,56 @@
 @use '../index' as *;
 
 .productListContainer {
-  padding: $spacing-3xl 0;
+  padding: $spacing-xl $spacing-lg;
   max-width: $container-width;
-  margin: 0 auto;
+  margin: $spacing-xl auto;
+  background: #fafafc; /* Beautiful soft layered surface to unify layout with homepage */
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
 
   @include respond-to(md) {
-    padding: $spacing-2xl 0;
-  }
-
-  @include respond-to(sm) {
-    padding: $spacing-xl 0;
+    padding: $spacing-lg $spacing-sm;
+    margin: $spacing-md $spacing-sm;
+    border-radius: 16px;
   }
 }
 
 .pageTitle {
-  font-size: 2.75rem;
-  font-weight: 800;
-  margin-bottom: $spacing-2xl;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: $spacing-xl;
   text-align: center;
   color: $dark;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 
   @include respond-to(md) {
-    font-size: 2.25rem;
-    margin-bottom: $spacing-xl;
-  }
-
-  @include respond-to(sm) {
-    font-size: 1.75rem;
-    padding: 0 $spacing-sm;
+    font-size: 1.65rem;
+    margin-bottom: $spacing-lg;
   }
 }
 
 .loadingContainer {
   display: flex;
   justify-content: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: $spacing-lg;
 }
 
 .productGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: $spacing-lg;
-  padding: 0 $spacing-md;
-
-  @include respond-to(lg) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-md;
-  }
+  gap: 1.5rem;
+  padding: 0;
 
   @include respond-to(md) {
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
-    padding: 0 $spacing-sm;
+    gap: 1rem;
   }
 
   @include respond-to(sm) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-sm;
-    padding: 0 $spacing-xs;
-  }
-
-  @include respond-to(xs) {
     grid-template-columns: 1fr;
-    gap: $spacing-sm;
-  }
-}
-
-/* Skeleton Cards */
-.skeletonCard {
-  background: $white;
-  border-radius: $radius-xl;
-  overflow: hidden;
-  box-shadow: $shadow-sm;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-}
-
-.skeletonImage {
-  width: 100%;
-  height: 220px;
-  background: linear-gradient(90deg, $lighter-gray 25%, $light-gray 50%, $lighter-gray 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-
-  @include respond-to(md) {
-    height: 200px;
-  }
-
-  @include respond-to(sm) {
-    height: 180px;
-  }
-}
-
-.skeletonContent {
-  padding: $spacing-md;
-}
-
-.skeletonLine {
-  height: 14px;
-  background: linear-gradient(90deg, $lighter-gray 25%, $light-gray 50%, $lighter-gray 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: $radius-sm;
-  margin-bottom: $spacing-sm;
-
-  &:nth-child(1) {
-    width: 80%;
-  }
-
-  &:nth-child(2) {
-    width: 60%;
-  }
-
-  &:nth-child(3) {
-    width: 40%;
-    height: 18px;
-  }
-
-  &:nth-child(4) {
-    width: 30%;
-    height: 10px;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-
-  100% {
-    background-position: 200% 0;
+    gap: 1rem;
+    padding: 0 $spacing-xs;
   }
 }
 
@@ -139,29 +59,31 @@
 .loadMoreContainer {
   display: flex;
   justify-content: center;
-  margin-top: $spacing-2xl;
+  margin-top: $spacing-xl;
 }
 
 .loadMoreButton {
   display: inline-flex;
   align-items: center;
   gap: $spacing-xs;
-  padding: $spacing-sm $spacing-xl;
-  background: rgba($primary, 0.06);
+  padding: 0.5rem 1.5rem;
+  background: $white;
   color: $primary;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: $radius-full;
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: $transition;
+  transition: $transition-fast;
+  box-shadow: $shadow-sm;
 
   &:hover {
-    background: rgba($primary, 0.12);
-    transform: translateY(-1px);
+    background: $white;
+    border-color: $primary;
+    box-shadow: $shadow;
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.98);
   }
 }

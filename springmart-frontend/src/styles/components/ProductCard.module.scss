@@ -10,50 +10,55 @@
   height: 100%;
   position: relative;
   background: $white;
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  max-width: 100%;
-  margin: 0 auto;
-  width: 100%;
-  border-radius: $radius-xl;
-  box-shadow: $shadow;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 
   &:hover,
   &.touchHover {
-    transform: translateY(-3px);
-    box-shadow: $shadow-md;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 102, 204, 0.08);
+    border-color: rgba(0, 102, 204, 0.15);
+
+    .productImage {
+      transform: scale(1.02);
+    }
   }
 }
 
-/* Product Image */
-.productImage {
+/* Product Image Container */
+.imageContainer {
   width: 100%;
   height: 220px;
+  overflow: hidden;
+  background: #fdfdfd; /* Clean product shot background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.productImage {
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
-  background: $lighter-gray;
-  padding: $spacing-sm;
-
-  @include respond-to(md) {
-    height: 200px;
-  }
-
-  @include respond-to(sm) {
-    height: 180px;
-  }
+  padding: $spacing-md;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Product Details */
 .productDetails {
-  padding: $spacing-md;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 
   h3 {
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     color: $dark;
-    margin-bottom: $spacing-xs;
+    margin-bottom: 0.25rem;
     line-height: 1.3;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -64,67 +69,83 @@
 /* Meta Info */
 .metaInfo {
   display: flex;
-  gap: $spacing-md;
-  margin-bottom: $spacing-xs;
-  font-size: 0.8rem;
-  color: $dark-gray;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  color: $secondary-light;
 }
 
 .brand,
 .category {
-  display: flex;
-  align-items: center;
-  gap: $spacing-3xs;
+  display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: $secondary;
+}
+
+.separator {
+  color: rgba(0, 0, 0, 0.15);
+  font-size: 0.7rem;
+  user-select: none;
 }
 
 .metaIcon {
   flex-shrink: 0;
-  font-size: 0.75rem;
-  color: $gray;
+  font-size: 0.7rem;
+  color: $secondary-light;
 }
 
 /* Price */
 .price {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: $primary-dark;
-  margin-bottom: $spacing-xs;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $dark;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
-/* Stock Status */
+/* Stock Status - Minimal Apple design style */
 .stock {
   font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: $spacing-md;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
   display: inline-flex;
   align-items: center;
-  gap: $spacing-2xs;
-  padding: $spacing-3xs $spacing-xs;
-  border-radius: $radius-sm;
-  width: fit-content;
+  gap: 6px;
+  color: $secondary;
+
+  &::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
 
   &.in {
-    color: $success;
-    background: rgba($success, 0.08);
+    color: $secondary;
+    &::before {
+      background-color: $success;
+    }
   }
 
   &.out {
-    color: $error;
-    background: rgba($error, 0.08);
+    color: $secondary;
+    &::before {
+      background-color: $error;
+    }
   }
 }
 
-/* Action Buttons */
+/* Action Buttons - Sophisticated & understated */
 .productActions {
   display: flex;
   gap: $spacing-xs;
   margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  padding-top: 0.75rem;
 }
 
 .actionButton {
@@ -132,14 +153,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: $spacing-2xs;
-  padding: $spacing-xs $spacing-sm;
-  border-radius: $radius-md;
-  font-size: 0.8rem;
+  gap: 4px;
+  padding: 0.5rem $spacing-xs;
+  border-radius: $radius-sm;
+  font-size: 0.75rem;
   font-weight: 500;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: $transition;
+  transition: $transition-fast;
 
   &:active {
     transform: scale(0.97);
@@ -147,20 +168,25 @@
 }
 
 .editButton {
-  background: rgba($primary, 0.08);
+  background: rgba(0, 102, 204, 0.04);
   color: $primary;
+  border-color: rgba(0, 102, 204, 0.1);
 
   &:hover {
-    background: rgba($primary, 0.14);
+    background: rgba(0, 102, 204, 0.08);
+    border-color: rgba(0, 102, 204, 0.2);
   }
 }
 
 .deleteButton {
-  background: rgba($error, 0.08);
-  color: $error;
+  background: transparent;
+  color: $secondary;
+  border-color: rgba(0, 0, 0, 0.08);
 
   &:hover {
-    background: rgba($error, 0.14);
+    background: rgba(255, 59, 48, 0.05);
+    color: $error;
+    border-color: rgba(255, 59, 48, 0.15);
   }
 }
 
@@ -170,47 +196,16 @@
     padding: $spacing-sm;
 
     h3 {
-      font-size: 1rem;
-    }
-  }
-
-  .price {
-    font-size: 1.2rem;
-  }
-
-  .actionButton {
-    font-size: 0.75rem;
-    padding: $spacing-2xs $spacing-xs;
-  }
-}
-
-@include respond-to(sm) {
-  .productCard {
-    border-radius: $radius-lg;
-  }
-
-  .productDetails {
-    padding: $spacing-sm;
-
-    h3 {
       font-size: 0.95rem;
     }
-  }
-
-  .metaInfo {
-    font-size: 0.75rem;
-    gap: $spacing-sm;
   }
 
   .price {
     font-size: 1.1rem;
   }
 
-  .stock {
+  .actionButton {
     font-size: 0.7rem;
-  }
-
-  .productActions {
-    gap: $spacing-2xs;
+    padding: 0.4rem 0.5rem;
   }
 }
