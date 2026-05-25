@@ -25,16 +25,19 @@
 - `application-production.properties` still uses H2, but also adds deployed-frontend CORS origins and disables the H2 console.
 
 ## Developer workflow
-- Use the Maven wrapper from the repo root:
+- Use the Maven wrapper from the backend directory:
   ```powershell
+  cd springmart-backend
   .\mvnw.cmd test
   ```
   or on Unix-like shells:
   ```bash
+  cd springmart-backend
   ./mvnw test
   ```
 - Package the app with:
   ```powershell
+  cd springmart-backend
   .\mvnw.cmd clean package -DskipTests
   ```
   when you need the runnable JAR.
