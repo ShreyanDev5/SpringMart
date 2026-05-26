@@ -13,18 +13,27 @@ import java.util.Date;
 import java.util.List;
 
 @Configuration
-public class DataLoader {
+public class DataLoader
+{
     @Bean
-    CommandLineRunner loadDemoData(ProductRepository productRepository) {
-        return args -> {
-            if (productRepository.count() == 0) {
-                java.util.function.Function<String, byte[]> loadImage = resourcePath -> {
+    CommandLineRunner loadDemoData(ProductRepository productRepository)
+    {
+        return args ->
+        {
+            if (productRepository.count() == 0)
+            {
+                java.util.function.Function<String, byte[]> loadImage = resourcePath ->
+                {
                     Resource res = new ClassPathResource(resourcePath);
-                    try (InputStream is = res.getInputStream()) {
-                        if (is != null) {
+                    try (InputStream is = res.getInputStream())
+                    {
+                        if (is != null)
+                        {
                             return is.readAllBytes();
                         }
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e)
+                    {
                         System.out.println("Image not found: " + resourcePath);
                     }
                     return null;
@@ -151,7 +160,9 @@ public class DataLoader {
 
                 productRepository.saveAll(demoProducts);
                 System.out.println("✅ Demo products loaded.");
-            } else {
+            }
+            else
+            {
                 System.out.println("ℹ️ Products already exist. Skipping demo load.");
             }
         };

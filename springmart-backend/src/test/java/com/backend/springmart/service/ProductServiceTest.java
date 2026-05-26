@@ -16,7 +16,8 @@ import static org.mockito.Mockito.*;
 
 // Mockito lets this test focus on ProductService without starting Spring or a real database.
 @ExtendWith(MockitoExtension.class)
-class ProductServiceTest {
+class ProductServiceTest
+{
 
     // Fake repository used to control database behavior in each test.
     @Mock
@@ -27,7 +28,8 @@ class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    void addOrUpdateProduct_whenAddingNewProduct_shouldReturnSavedProduct() {
+    void addOrUpdateProduct_whenAddingNewProduct_shouldReturnSavedProduct()
+    {
         // Arrange: a brand-new product should go straight to save().
         Product productToSave = new Product();
         productToSave.setName("Test Product");
@@ -45,7 +47,8 @@ class ProductServiceTest {
     }
 
     @Test
-    void addOrUpdateProduct_whenUpdatingExistingProduct_shouldReturnUpdatedProduct() {
+    void addOrUpdateProduct_whenUpdatingExistingProduct_shouldReturnUpdatedProduct()
+    {
         // Arrange: the service should load the existing row before saving an update.
         Product existingProduct = new Product();
         existingProduct.setId(1);

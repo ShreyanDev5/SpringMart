@@ -18,42 +18,51 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class ProductController {
+public class ProductController
+{
 
     private final ProductService service;
 
-    public ProductController(ProductService service) {
+    public ProductController(ProductService service)
+    {
         this.service = service;
     }
 
     @GetMapping("/")
-    public ResponseEntity<String> hello() {
+    public ResponseEntity<String> hello()
+    {
         return ResponseEntity.ok("Hello from Spring Boot!");
     }
 
     @GetMapping("/products")
     public ResponseEntity<Page<Product>> getProducts(@RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "10") int size)
+    {
         Page<Product> products = service.getAllProducts(PageRequest.of(page, size));
-        if (products.isEmpty()) {
+        if (products.isEmpty())
+        {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(products);
     }
 
     @GetMapping("/products/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable int id) {
+    public ResponseEntity<Product> getProductById(@PathVariable int id)
+    {
         Product product = service.getProductById(id);
-        if (product == null) {
+        if (product == null)
+        {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(product);
     }
 
     @GetMapping("/products/image/{id}")
-    public ResponseEntity<byte[]> getProductImage(@PathVariable int id) {
+    public ResponseEntity<byte[]> getProductImage(@PathVariable int id)
+    {
         Product product = service.getProductById(id);
-        if (product == null || product.getImageData() == null) {
+        if (product == null || product.getImageData() == null)
+        {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok()
@@ -62,9 +71,11 @@ public class ProductController {
     }
 
     @GetMapping("/products/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword) {
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String keyword)
+    {
         List<Product> products = service.searchProducts(keyword);
-        if (products.isEmpty()) {
+        if (products.isEmpty())
+        {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(products);
@@ -72,86 +83,113 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> addProduct(@Valid @RequestPart ProductRequest product,
-            @RequestPart(required = false) MultipartFile imageFile) {
-        try {
+            @RequestPart(required = false) MultipartFile imageFile)
+    {
+        try
+        {
             Product createdProduct = service.addOrUpdateProduct(toProduct(product), imageFile);
             return ResponseEntity.created(URI.create("/api/products/" + createdProduct.getId()))
                     .body(createdProduct);
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable int id, @RequestPart ProductRequest product,
-            @RequestPart(required = false) MultipartFile imageFile) {
-        try {
+            @RequestPart(required = false) MultipartFile imageFile)
+    {
+        try
+        {
             Product existingProduct = service.getProductById(id);
-            if (existingProduct == null) {
+            if (existingProduct == null)
+            {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
             }
             Product updatedProduct = service.addOrUpdateProduct(mergeProduct(existingProduct, product, id), imageFile);
             return ResponseEntity.ok(updatedProduct);
-        } catch (RuntimeException e) {
+        }
+        catch (RuntimeException e)
+        {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred");
         }
     }
 
     @DeleteMapping("/products/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable int id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable int id)
+    {
         Product product = service.getProductById(id);
-        if (product == null) {
+        if (product == null)
+        {
             return ResponseEntity.notFound().build();
         }
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
 
-    private Product toProduct(ProductRequest request) {
+    private Product toProduct(ProductRequest request)
+    {
         Product product = new Product();
         product.setName(request.getName());
         product.setPrice(request.getPrice());
         product.setDescription(request.getDescription());
         product.setCategory(request.getCategory());
-        if (request.getQuantity() != null) {
+        if (request.getQuantity() != null)
+        {
             product.setQuantity(request.getQuantity());
         }
         product.setBrand(request.getBrand());
-        if (request.getInStock() != null) {
+        if (request.getInStock() != null)
+        {
             product.setInStock(request.getInStock());
         }
         product.setReleaseDate(request.getReleaseDate());
         return product;
     }
 
-    private Product mergeProduct(Product existingProduct, ProductRequest request, int id) {
+    private Product mergeProduct(Product existingProduct, ProductRequest request, int id)
+    {
         existingProduct.setId(id);
-        if (request.getName() != null) {
+        if (request.getName() != null)
+        {
             existingProduct.setName(request.getName());
         }
-        if (request.getPrice() != null) {
+        if (request.getPrice() != null)
+        {
             existingProduct.setPrice(request.getPrice());
         }
-        if (request.getDescription() != null) {
+        if (request.getDescription() != null)
+        {
             existingProduct.setDescription(request.getDescription());
         }
-        if (request.getCategory() != null) {
+        if (request.getCategory() != null)
+        {
             existingProduct.setCategory(request.getCategory());
         }
-        if (request.getQuantity() != null) {
+        if (request.getQuantity() != null)
+        {
             existingProduct.setQuantity(request.getQuantity());
         }
-        if (request.getBrand() != null) {
+        if (request.getBrand() != null)
+        {
             existingProduct.setBrand(request.getBrand());
         }
-        if (request.getInStock() != null) {
+        if (request.getInStock() != null)
+        {
             existingProduct.setInStock(request.getInStock());
         }
-        if (request.getReleaseDate() != null) {
+        if (request.getReleaseDate() != null)
+        {
             existingProduct.setReleaseDate(request.getReleaseDate());
         }
         return existingProduct;

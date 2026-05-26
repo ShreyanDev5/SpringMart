@@ -12,63 +12,81 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Service
-public class ProductService {
+public class ProductService
+{
     @Autowired
     ProductRepository repo;
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts()
+    {
         return repo.findAll();
     }
 
-    public Page<Product> getAllProducts(Pageable pageable) {
+    public Page<Product> getAllProducts(Pageable pageable)
+    {
         return repo.findAll(pageable);
     }
 
-    public Product getProductById(int productId) {
+    public Product getProductById(int productId)
+    {
         return repo.findById(productId).orElse(null);
     }
 
-    public List<Product> searchProducts(String keyword) {
-        if (keyword == null || keyword.isEmpty()) {
+    public List<Product> searchProducts(String keyword)
+    {
+        if (keyword == null || keyword.isEmpty())
+        {
             return getAllProducts();
         }
         return repo.searchProducts(keyword);
     }
 
-    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile) {
+    public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
+    {
         Product existing = (product.getId() != 0) ? repo.findById(product.getId()).orElse(null) : null;
-        if (product.getId() != 0 && existing == null) {
+        if (product.getId() != 0 && existing == null)
+        {
             throw new RuntimeException("Product not found");
         }
 
-        try {
+        try
+        {
             updateImageFields(product, imageFile, existing);
-            if (existing != null) {
+            if (existing != null)
+            {
                 updateMissingFields(product, existing);
             }
             return repo.save(product);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             throw new RuntimeException("Failed to process product: " + e.getMessage(), e);
         }
     }
 
-    public void deleteProduct(int productId) {
+    public void deleteProduct(int productId)
+    {
         repo.deleteById(productId);
     }
 
-    private void updateImageFields(Product product, MultipartFile imageFile, Product existing) throws Exception {
-        if (imageFile != null && !imageFile.isEmpty()) {
+    private void updateImageFields(Product product, MultipartFile imageFile, Product existing) throws Exception
+    {
+        if (imageFile != null && !imageFile.isEmpty())
+        {
             product.setImageName(imageFile.getOriginalFilename());
             product.setImageType(imageFile.getContentType());
             product.setImageData(imageFile.getBytes());
-        } else if (existing != null) {
+        }
+        else if (existing != null)
+        {
             product.setImageName(existing.getImageName());
             product.setImageType(existing.getImageType());
             product.setImageData(existing.getImageData());
         }
     }
 
-    private void updateMissingFields(Product product, Product existing) {
+    private void updateMissingFields(Product product, Product existing)
+    {
         if (product.getName() == null)
             product.setName(existing.getName());
         if (product.getPrice() == null)

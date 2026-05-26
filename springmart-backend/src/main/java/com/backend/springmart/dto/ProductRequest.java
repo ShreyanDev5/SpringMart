@@ -13,7 +13,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductRequest {
+public class ProductRequest
+{
     @NotBlank(message = "Name is required")
     private String name;
 
@@ -36,4 +37,3 @@ public class ProductRequest {
     private Boolean inStock;
     private Date releaseDate;
 }
-
