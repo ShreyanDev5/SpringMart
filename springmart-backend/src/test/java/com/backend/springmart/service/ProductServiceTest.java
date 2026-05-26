@@ -14,33 +14,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
-// Mockito lets this test focus on ProductService without starting Spring or a real database.
+// Uses MockitoExtension to isolate ProductService tests from the Spring ApplicationContext and external database dependencies.
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest
 {
 
-    // Fake repository used to control database behavior in each test.
+    // Mocked repository instance to simulate database persistence behavior.
     @Mock
     private ProductRepository productRepository;
 
-    // Real service instance with the fake repository injected into it.
+    // System Under Test (SUT) with the mocked repository automatically injected.
     @InjectMocks
     private ProductService productService;
 
     @Test
     void addOrUpdateProduct_whenAddingNewProduct_shouldReturnSavedProduct()
     {
-        // Arrange: a brand-new product should go straight to save().
+        // Arrange: Set up a new product request that should be directly saved.
         Product productToSave = new Product();
         productToSave.setName("Test Product");
         productToSave.setPrice(100);
 
         when(productRepository.save(any(Product.class))).thenReturn(productToSave);
 
-        // Act
+        // Act: Execute the service method under test
         Product savedProduct = productService.addOrUpdateProduct(productToSave, null);
 
-        // Assert
+        // Assert: Verify correct results and mock interactions
         assertNotNull(savedProduct);
         assertEquals("Test Product", savedProduct.getName());
         verify(productRepository, times(1)).save(any(Product.class));
@@ -49,7 +49,7 @@ class ProductServiceTest
     @Test
     void addOrUpdateProduct_whenUpdatingExistingProduct_shouldReturnUpdatedProduct()
     {
-        // Arrange: the service should load the existing row before saving an update.
+        // Arrange: Set up mock behavior to simulate loading an existing product from the database before applying the update.
         Product existingProduct = new Product();
         existingProduct.setId(1);
         existingProduct.setName("Old Name");
@@ -63,10 +63,10 @@ class ProductServiceTest
         when(productRepository.findById(1)).thenReturn(Optional.of(existingProduct));
         when(productRepository.save(any(Product.class))).thenReturn(updatedInfo);
 
-        // Act
+        // Act: Execute the service method under test
         Product updatedProduct = productService.addOrUpdateProduct(updatedInfo, null);
 
-        // Assert
+        // Assert: Verify correct results and mock interactions
         assertNotNull(updatedProduct);
         assertEquals("New Name", updatedProduct.getName());
         verify(productRepository, times(1)).findById(1);
