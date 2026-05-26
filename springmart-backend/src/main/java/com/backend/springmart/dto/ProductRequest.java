@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * Data Transfer Object (DTO) for creating or updating a product.
+ * Enforces declarative input validation constraints before standard controller processing.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

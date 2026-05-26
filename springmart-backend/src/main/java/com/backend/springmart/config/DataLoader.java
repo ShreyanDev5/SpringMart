@@ -12,16 +12,28 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Configuration class responsible for seeding demo product data on startup.
+ * Seeds data only if the database is currently empty.
+ */
 @Configuration
 public class DataLoader
 {
+    /**
+     * Initializes demo product data inside the database on application startup.
+     *
+     * @param productRepository repository used to check database count and persist products
+     * @return a CommandLineRunner that executes the seeding logic
+     */
     @Bean
     CommandLineRunner loadDemoData(ProductRepository productRepository)
     {
         return args ->
         {
+            // Seed the database only if no products are present
             if (productRepository.count() == 0)
             {
+                // Helper function to load demo product image bytes from classpath resources
                 java.util.function.Function<String, byte[]> loadImage = resourcePath ->
                 {
                     Resource res = new ClassPathResource(resourcePath);
@@ -39,6 +51,7 @@ public class DataLoader
                     return null;
                 };
 
+                // Create a list of initial seed products with realistic descriptions, categories, and image payloads
                 List<Product> demoProducts = List.of(
                         new Product(
                                 0,

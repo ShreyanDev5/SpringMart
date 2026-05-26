@@ -7,6 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
 
+/**
+ * Persistent JPA Entity mapped to the relational database table "Product".
+ * Represents a catalog item inside SpringMart, with support for product meta-information, inventory metrics, and binary image data.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,8 +43,11 @@ public class Product
     private boolean inStock;
     private Date releaseDate;
 
+    // Image-related metadata
     private String imageName;
     private String imageType;
+
+    // Stores original binary image bytes directly inside the database
     @Lob
     private byte[] imageData;
 }
