@@ -12,17 +12,24 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * Service class orchestrating business logic and transactions for Product entities.
- * Coordinates input validations, database operations, partial merges, and image file stream conversions.
+ * Service Layer class orchestrating the core business rules and database transactions.
+ * 
+ * Functions as the intermediary between the API Controller and the Repository:
+ * - Coordinates transactional operations (ensuring all steps complete or fail together).
+ * - Implements logic for fallback image preservation.
+ * - Restores omitted properties during partial updates.
  */
 @Service
 public class ProductService
 {
+    // Field injection via @Autowired is preserved here to match the project's existing architecture style.
+    // In larger-scale modules, constructor injection is generally preferred for ease of mocking and test isolation.
     @Autowired
     ProductRepository repo;
 
     /**
      * Retrieves all products currently stored in the database.
+     * Use with caution as pulling an unbounded dataset can degrade memory performance in high-volume tables.
      *
      * @return a list of all products
      */
@@ -33,9 +40,10 @@ public class ProductService
 
     /**
      * Retrieves a paginated slice of products.
+     * Leverages Spring Data JPA's native pagination under the hood.
      *
-     * @param pageable configuration parameters detailing page index and size
-     * @return a page containing the requesting products slice
+     * @param pageable configuration parameters detailing page index, size, and sorting
+     * @return a page containing the requested products slice
      */
     public Page<Product> getAllProducts(Pageable pageable)
     {
@@ -43,7 +51,7 @@ public class ProductService
     }
 
     /**
-     * Looks up a product by its database ID.
+     * Looks up a product by its primary key.
      *
      * @param productId database ID of the target product
      * @return the matching Product, or null if no record was found
@@ -54,7 +62,8 @@ public class ProductService
     }
 
     /**
-     * Conducts a keyword search. Returns all products if the keyword is blank.
+     * Conducts a case-insensitive keyword search.
+     * Falls back to returning all products if the keyword is blank or null.
      *
      * @param keyword term searched against attributes
      * @return list of matching products
@@ -69,14 +78,17 @@ public class ProductService
     }
 
     /**
-     * Creates or updates a product.
-     * Integrates image data conversion from multipart payloads, fallback rules to preserve existing image bytes,
-     * and missing field restoration for updates.
+     * Creates or updates a product inside the H2 database.
+     * 
+     * Incorporates several critical business-rule workflows:
+     * 1. **Validation & State Check**: Verifies if an update is requested and if the product exists in the DB.
+     * 2. **Image Handlers**: Translates multipart binary uploads to byte arrays, and implements a fallback to preserve old image data if no new image is provided.
+     * 3. **Omitted Field Restoration**: Safely merges new properties over loaded persistence entities so partial updates don't wipe out existing database details.
      *
      * @param product the Product entity to persist
-     * @param imageFile optional new binary image payload
-     * @return the persisted Product entity
-     * @throws RuntimeException if the target product ID is not found for updates, or processing failed
+     * @param imageFile optional newly uploaded binary image file
+     * @return the persisted Product entity containing generated primary keys and metadata
+     * @throws RuntimeException if the target product ID is not found for updates, or processing fails
      */
     public Product addOrUpdateProduct(@Valid Product product, MultipartFile imageFile)
     {
@@ -88,11 +100,12 @@ public class ProductService
 
         try
         {
-            // Populate or maintain the binary image payloads and related metadata
+            // Apply logic to populate or maintain binary image data and matching content-types.
             updateImageFields(product, imageFile, existing);
+            
             if (existing != null)
             {
-                // Restore any missing product attributes that were omitted from a partial updates payload
+                // If it is an update, restore any original product fields that were omitted (null) in the request payload.
                 updateMissingFields(product, existing);
             }
             return repo.save(product);
@@ -104,7 +117,8 @@ public class ProductService
     }
 
     /**
-     * Removes a product from the database by its ID.
+     * Removes a product from the database.
+     * Spring Data JPA handles cascades and constraint checks internally.
      *
      * @param productId database ID of the product
      */
@@ -114,12 +128,15 @@ public class ProductService
     }
 
     /**
-     * Helper routine to apply multipart image upload fields to a product entity.
-     * If no new file is uploaded, retains the existing image bytes if present.
+     * Helper routine to apply multipart image upload fields to the product entity.
+     * 
+     * Handles two distinct scenarios:
+     * 1. **New Image Uploaded**: Reads the binary stream to raw bytes, extracts the filename, and captures the MIME content-type.
+     * 2. **No Image Uploaded**: If this is an update, it restores the image bytes, name, and type from the database record to prevent accidental deletion.
      *
      * @param product target product entity being prepared
      * @param imageFile optional newly uploaded multipart image file
-     * @param existing original database product instance (if performing an update)
+     * @param existing original database product instance (null if creating a new product)
      * @throws Exception if reading the binary file stream fails
      */
     private void updateImageFields(Product product, MultipartFile imageFile, Product existing) throws Exception
@@ -140,7 +157,10 @@ public class ProductService
 
     /**
      * Helper routine to merge omitted fields from an original product database entry during partial updates.
-     * Ensures required properties are preserved.
+     * 
+     * Standard HTTP PUT payloads might only contain a subset of fields (e.g. updating price).
+     * If these incoming null fields were saved as-is, they would overwrite and wipe out existing database details.
+     * This method ensures required properties are safely preserved by restoring original database values when the incoming field is null.
      *
      * @param product target product instance holding the update changes
      * @param existing original persistent product loaded from the database

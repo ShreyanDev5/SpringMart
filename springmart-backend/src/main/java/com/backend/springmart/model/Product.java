@@ -9,7 +9,11 @@ import java.util.Date;
 
 /**
  * Persistent JPA Entity mapped to the relational database table "Product".
- * Represents a catalog item inside SpringMart, with support for product meta-information, inventory metrics, and binary image data.
+ * 
+ * Configured as a standard Java Bean carrying Object-Relational Mapping (ORM) metadata:
+ * - {@code @Entity}: Declares this class as a JPA entity managed by Hibernate (the default persistence provider).
+ * - {@code @Id}: Flags the primary key.
+ * - {@code @GeneratedValue(strategy = GenerationType.IDENTITY)}: Indicates database-native auto-incrementing identity values.
  */
 @Data
 @AllArgsConstructor
@@ -43,11 +47,16 @@ public class Product
     private boolean inStock;
     private Date releaseDate;
 
-    // Image-related metadata
+    // Image-related metadata (stored as standard string columns)
     private String imageName;
-    private String imageType;
+    private String imageType; // Captures the MIME type (e.g., image/jpeg) to construct accurate HTTP streams.
 
-    // Stores original binary image bytes directly inside the database
+    /**
+     * Stores original binary image bytes directly inside the database.
+     * 
+     * The {@code @Lob} (Large Object) annotation instructs Hibernate and the database engine 
+     * to allocate a BLOB (Binary Large Object) column instead of a standard VARCHAR/VARBINARY.
+     */
     @Lob
     private byte[] imageData;
 }

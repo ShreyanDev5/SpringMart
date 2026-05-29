@@ -13,27 +13,31 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Configuration class responsible for seeding demo product data on startup.
- * Seeds data only if the database is currently empty.
+ * DataLoader is a configuration component that runs during application boot.
+ * It seeds the relational database with realistic demo inventory items if the database is currently empty.
+ * This guarantees an immediate out-of-the-box working catalog without requiring manual database initialization.
  */
 @Configuration
 public class DataLoader
 {
     /**
-     * Initializes demo product data inside the database on application startup.
+     * Creates a {@link CommandLineRunner} bean. Spring Boot automatically executes all registered 
+     * CommandLineRunners after the application context is fully loaded and before the startup completes.
      *
-     * @param productRepository repository used to check database count and persist products
-     * @return a CommandLineRunner that executes the seeding logic
+     * @param productRepository the persistent repository to check inventory counts and save seed data
+     * @return an executable runner containing the data-seeding sequence
      */
     @Bean
     CommandLineRunner loadDemoData(ProductRepository productRepository)
     {
         return args ->
         {
-            // Seed the database only if no products are present
+            // Ensure idempotency: only insert seed records if the database has 0 items.
+            // This prevents duplicate keys and redundant database writes on successive restarts.
             if (productRepository.count() == 0)
             {
-                // Helper function to load demo product image bytes from classpath resources
+                // A functional helper that extracts binary image bytes from the classpath (src/main/resources).
+                // Uses Java's try-with-resources to automatically close the InputStream, preventing resource leaks.
                 java.util.function.Function<String, byte[]> loadImage = resourcePath ->
                 {
                     Resource res = new ClassPathResource(resourcePath);
@@ -46,12 +50,13 @@ public class DataLoader
                     }
                     catch (IOException e)
                     {
-                        System.out.println("Image not found: " + resourcePath);
+                        System.err.println("CRITICAL: Seed image not found at classpath path: " + resourcePath);
                     }
                     return null;
                 };
 
-                // Create a list of initial seed products with realistic descriptions, categories, and image payloads
+                // Initialize standard seed catalog. Demo items showcase varied data types (e.g., fractional quantities, 
+                // different MIME types, large pricing metrics, and various brands) to verify frontend alignment.
                 List<Product> demoProducts = List.of(
                         new Product(
                                 0,
@@ -172,11 +177,11 @@ public class DataLoader
                                 loadImage.apply("images/shoe.png")));
 
                 productRepository.saveAll(demoProducts);
-                System.out.println("✅ Demo products loaded.");
+                System.out.println("✅ Database was empty. Successfully loaded 9 demo products with seed images.");
             }
             else
             {
-                System.out.println("ℹ️ Products already exist. Skipping demo load.");
+                System.out.println("ℹ️ Products already exist in H2 database. Skipping seed execution.");
             }
         };
     }

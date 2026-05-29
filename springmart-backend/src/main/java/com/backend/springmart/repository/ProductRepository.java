@@ -9,18 +9,25 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Spring Data JPA Repository interface mapping operations to the Product entity.
- * Generates automated SQL and manages custom database queries.
+ * Data Access Layer interface extending {@link JpaRepository}.
+ * 
+ * Spring Data JPA dynamically generates concrete implementations at runtime:
+ * - Provides generic CRUD (Create, Read, Update, Delete) and pagination methods without boilerplate.
+ * - Handles type mappings and manages H2 database connections automatically.
  */
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>
 {
     /**
-     * Conducts a keyword search case-insensitively across multiple entity attributes.
-     * Matches name, description, category, or brand.
+     * Conducts a flexible keyword search case-insensitively across multiple Product entity attributes.
+     * 
+     * Uses JPQL (Java Persistence Query Language):
+     * - Queries are formulated against JPA class attributes (e.g., 'p.name', 'p.brand') rather than raw database column names.
+     * - SQL case-insensitivity is achieved by converting both sides to lower-case using {@code LOWER()}.
+     * - The {@code CONCAT('%', :keyword, '%')} clauses perform substring matching equivalent to a SQL wild-card LIKE operator.
      *
-     * @param keyword term searched against attributes
-     * @return list of matching products found in the database
+     * @param keyword search term inputted by the user
+     * @return list of all matching products found in H2
      */
     @Query("SELECT p FROM Product p WHERE " +
             "LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
