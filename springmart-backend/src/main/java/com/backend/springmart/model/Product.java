@@ -16,8 +16,8 @@ import java.util.Date;
  * - {@code @GeneratedValue(strategy = GenerationType.IDENTITY)}: Indicates database-native auto-incrementing identity values.
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Product
 {
