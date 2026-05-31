@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Service Layer class orchestrating the core business rules and database transactions.
- * 
+ *
  * Functions as the intermediary between the API Controller and the Repository:
  * - Coordinates transactional operations (ensuring all steps complete or fail together).
  * - Implements logic for fallback image preservation.
@@ -79,11 +79,11 @@ public class ProductService
 
     /**
      * Creates or updates a product inside the H2 database.
-     * 
+     *
      * Incorporates several critical business-rule workflows:
-     * 1. **Validation & State Check**: Verifies if an update is requested and if the product exists in the DB.
-     * 2. **Image Handlers**: Translates multipart binary uploads to byte arrays, and implements a fallback to preserve old image data if no new image is provided.
-     * 3. **Omitted Field Restoration**: Safely merges new properties over loaded persistence entities so partial updates don't wipe out existing database details.
+     * 1. Validation & State Check: Verifies if an update is requested and if the product exists in the DB.
+     * 2. Image Handlers: Translates multipart binary uploads to byte arrays, and implements a fallback to preserve old image data if no new image is provided.
+     * 3. Omitted Field Restoration: Safely merges incoming changes with the existing database record so partial updates don't wipe out existing details.
      *
      * @param product the Product entity to persist
      * @param imageFile optional newly uploaded binary image file
@@ -102,7 +102,7 @@ public class ProductService
         {
             // Apply logic to populate or maintain binary image data and matching content-types.
             updateImageFields(product, imageFile, existing);
-            
+
             if (existing != null)
             {
                 // If it is an update, restore any original product fields that were omitted (null) in the request payload.
@@ -129,10 +129,10 @@ public class ProductService
 
     /**
      * Helper routine to apply multipart image upload fields to the product entity.
-     * 
+     *
      * Handles two distinct scenarios:
-     * 1. **New Image Uploaded**: Reads the binary stream to raw bytes, extracts the filename, and captures the MIME content-type.
-     * 2. **No Image Uploaded**: If this is an update, it restores the image bytes, name, and type from the database record to prevent accidental deletion.
+     * 1. New Image Uploaded: Reads the binary stream to raw bytes, extracts the filename, and captures the MIME content-type.
+     * 2. No Image Uploaded: If this is an update, it restores the image bytes, name, and type from the database record to prevent accidental deletion.
      *
      * @param product target product entity being prepared
      * @param imageFile optional newly uploaded multipart image file
@@ -157,7 +157,7 @@ public class ProductService
 
     /**
      * Helper routine to merge omitted fields from an original product database entry during partial updates.
-     * 
+     *
      * Standard HTTP PUT payloads might only contain a subset of fields (e.g. updating price).
      * If these incoming null fields were saved as-is, they would overwrite and wipe out existing database details.
      * This method ensures required properties are safely preserved by restoring original database values when the incoming field is null.
