@@ -137,6 +137,10 @@ export function toProductFieldValue(name, value, type, checked) {
 export function getFriendlyProductErrorMessage(error, fallbackMessage) {
     const rawMessage = error?.payload?.message || error?.message || fallbackMessage;
 
+    if (rawMessage.includes("Failed to fetch")) {
+        return "Network error: Failed to connect to the server. Please check if the backend is running or if the uploaded file is too large.";
+    }
+
     if (rawMessage.includes("Cannot deserialize value of type `java.lang.Integer`")) {
         const match = rawMessage.match(/from String "(.*?)"/);
         const receivedValue = match ? match[1] : "a decimal value";

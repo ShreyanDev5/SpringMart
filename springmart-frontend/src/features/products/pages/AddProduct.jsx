@@ -43,6 +43,7 @@ function AddProduct({ onProductUpdate }) {
 
     function handleImageChange(event) {
         const file = event.target.files?.[0];
+        const inputElement = event.target;
 
         if (!file) {
             return;
@@ -50,24 +51,56 @@ function AddProduct({ onProductUpdate }) {
 
         if (file.size > 5 * 1024 * 1024) {
             showErrorToast("Image size should be less than 5MB");
+            inputElement.value = "";
+            setImage(null);
+            setImagePreview(null);
             return;
         }
 
         if (!file.type.startsWith("image/")) {
             showErrorToast("Please upload a valid image file (JPG, PNG, etc.)");
+            inputElement.value = "";
+            setImage(null);
+            setImagePreview(null);
             return;
         }
 
-        if (imagePreview?.startsWith("blob:")) {
-            URL.revokeObjectURL(imagePreview);
-        }
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
 
-        setImage(file);
-        setImagePreview(URL.createObjectURL(file));
-        setErrors((currentErrors) => ({
-            ...currentErrors,
-            image: undefined,
-        }));
+        img.onload = () => {
+            if (img.width > 1920 || img.height > 1080) {
+                showErrorToast("Image dimensions exceed the allowed limit (max 1920x1080px)");
+                setErrors((currentErrors) => ({
+                    ...currentErrors,
+                    image: "Image dimensions exceed the allowed limit (max 1920x1080px)",
+                }));
+                setImage(null);
+                setImagePreview(null);
+                inputElement.value = "";
+                URL.revokeObjectURL(objectUrl);
+            } else {
+                if (imagePreview?.startsWith("blob:")) {
+                    URL.revokeObjectURL(imagePreview);
+                }
+                setImage(file);
+                setImagePreview(objectUrl);
+                setErrors((currentErrors) => ({
+                    ...currentErrors,
+                    image: undefined,
+                }));
+            }
+        };
+
+        img.onerror = () => {
+            showErrorToast("Failed to load image for validation");
+            setImage(null);
+            setImagePreview(null);
+            inputElement.value = "";
+            URL.revokeObjectURL(objectUrl);
+        };
+
+        img.src = objectUrl;
     }
 
     async function handleSubmit(event) {

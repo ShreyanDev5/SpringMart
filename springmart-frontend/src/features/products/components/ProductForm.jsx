@@ -211,7 +211,7 @@ function ProductForm({
                     {errors.image && <span id="image-error" className={styles.validationMessage}>{errors.image}</span>}
                     {!errors.image && (
                         <span id="image-info" className={styles.helperText}>
-                            JPG, PNG, or GIF (max 5MB)
+                            JPG, PNG, or GIF (max 5MB, max 1920x1080px)
                         </span>
                     )}
                     {imagePreview && (
