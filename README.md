@@ -19,7 +19,7 @@ SpringMart is a full-stack e-commerce application with a **Spring Boot** backend
 ### 🏠 Home Page
 <img src="public/home_page.png" width="500" alt="SpringMart Home Page">
 
-*Browse, filter, and search products.*
+*Browse and search products.*
 
 ### 🔍 Product Details
 <img src="public/product_page.png" width="500" alt="Product Details Page">
@@ -126,3 +126,7 @@ Endpoints are prefixed with `/api`:
 
 *   **Backend**: Deployed on Render via `render.yaml`.
 *   **Frontend**: Deployed on Netlify via `netlify.toml`.
+
+---
+
+> **Note**: The frontend of this project was built using AI tools.
