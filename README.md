@@ -1,25 +1,41 @@
 # 🛒 SpringMart
 
-SpringMart is a full-stack e-commerce showcase application built with a robust **Spring Boot** backend and a modern **React** frontend. It serves as a production-grade demonstration of full-CRUD product management, advanced search capabilities, image upload/retrieval, and elegant responsive web design.
+SpringMart is a full-stack e-commerce application with a **Spring Boot** backend and a **React** frontend. It features product management (CRUD), search, paginated listings, and image handling.
 
 ---
 
-## ✨ Features at a Glance
+## ✨ Features
 
-*   **📦 Full CRUD Management**: Easily create, view, update, and delete products.
-*   **🔍 High-Performance Search**: Customized JPQL keyword search traversing product names, descriptions, categories, and brands.
-*   **🖼️ Image Handling**: Real-time image upload and retrieval, served directly as raw bytes with matching content types.
-*   **⚡ Paginated Listings**: Fast, memory-efficient paginated product browsing on both frontend and backend.
-*   **🐳 Containerized Dev**: Fully configured Docker and Docker Compose environment for seamless local runs.
+*   **📦 Product CRUD**: Create, view, update, and delete products.
+*   **🔍 Keyword Search**: Search across name, description, category, and brand using a custom JPQL query.
+*   **🖼️ Image Uploads**: Upload and retrieve product images as raw bytes.
+*   **⚡ Pagination**: Paginated listings on both frontend and backend.
+*   **🐳 Docker Support**: Run the backend using Docker.
+
+---
+
+## 📸 App Preview
+
+### 🏠 Home Page
+![SpringMart Home Page](public/home_page.png)
+*Browse, filter, and search products.*
+
+### 🔍 Product Details
+![Product Details Page](public/product_page.png)
+*View product details and images.*
+
+### ➕ Add/Edit Product
+![Add Product Page](public/add_page.png)
+*Add or update products with form validation.*
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technologies Used |
+| Layer | Technologies |
 | :--- | :--- |
-| **Backend** | Java 21, Spring Boot 3.4.5, Spring Data JPA, Maven, H2 (on-disk / memory) |
-| **Frontend** | React 19, React Router, Sass (Modules), React Toastify, React Icons |
+| **Backend** | Java 21, Spring Boot 3.4.5, Spring Data JPA, H2 Database, Maven |
+| **Frontend** | React 19, React Router, Sass, React Toastify, React Icons |
 | **Deployment** | Docker, Netlify, Render |
 
 ---
@@ -28,31 +44,40 @@ SpringMart is a full-stack e-commerce showcase application built with a robust *
 
 ```text
 SpringMart/
-├── springmart-backend/       # Spring Boot REST API & Persistence Layer
-├── springmart-frontend/      # React SPA Client Application
-├── Dockerfile                # Multi-stage Dockerfile for Backend Deployment
-├── docker-compose.yml        # Docker Compose Configuration for Monorepo
-├── render.yaml               # Render Backend Deployment Descriptor
-└── netlify.toml              # Netlify Frontend Deployment Descriptor
+├── public/                   # Screenshots and README assets
+├── springmart-backend/       # Spring Boot REST API
+├── springmart-frontend/      # React Frontend SPA
+├── Dockerfile                # Backend Dockerfile
+├── docker-compose.yml        # Docker Compose configuration (runs backend)
+├── render.yaml               # Render backend deployment settings
+└── netlify.toml              # Netlify frontend deployment settings
 ```
 
 ---
 
 ## 🚀 Getting Started
 
+### Prerequisites
+Requires **Node.js (>=20)** and **Java (21)**.
+
 ### 1. Run the Backend
+*   **Windows (PowerShell)**:
+    ```powershell
+    cd springmart-backend
+    .\mvnw.cmd spring-boot:run
+    ```
+*   **macOS / Linux**:
+    ```bash
+    cd springmart-backend
+    chmod +x mvnw
+    ./mvnw spring-boot:run
+    ```
 
-```bash
-cd springmart-backend
-./mvnw spring-boot:run
-```
-
-*   **API URL**: `http://localhost:8080`
+*   **API Base URL**: `http://localhost:8080`
 *   **H2 Console**: `http://localhost:8080/h2-console`
-*   *Note: On startup, a demo database is seeded automatically with 9 sample products and high-quality images.*
+*   *Note: Automatically seeds 9 demo products on startup if the database is empty.*
 
 ### 2. Run the Frontend
-
 ```bash
 cd springmart-frontend
 npm install
@@ -60,37 +85,41 @@ npm start
 ```
 
 *   **App URL**: `http://localhost:3000`
-*   *Note: The frontend is configured to automatically route requests to the local backend during development.*
+*   *Note: Proxy configuration routes API requests to the local backend during development.*
+
+### 3. Run with Docker Compose (Backend only)
+```bash
+docker compose up --build
+```
 
 ---
 
 ## 🔌 API Reference
 
-All backend API endpoints are exposed under `/api` and handle JSON or multipart requests:
+Endpoints are prefixed with `/api`:
 
 | Endpoint | Method | Description |
 | :--- | :--- | :--- |
-| `/api/products` | `GET` | Retrieve paginated list of products |
-| `/api/products/{id}` | `GET` | Get detailed information for a single product |
+| `/api/products` | `GET` | Get a paginated list of products |
+| `/api/products/{id}` | `GET` | Get details for a single product |
 | `/api/products/search` | `GET` | Search products by name, description, brand, or category |
 | `/api/products` | `POST` | Create a new product (handles `multipart/form-data`) |
-| `/api/products/{id}` | `PUT` | Update fields / image of an existing product |
+| `/api/products/{id}` | `PUT` | Update an existing product (handles `multipart/form-data`) |
 | `/api/products/{id}` | `DELETE` | Delete a product |
-| `/api/products/image/{id}` | `GET` | Retrieve the product image bytes with appropriate MIME type |
+| `/api/products/image/{id}` | `GET` | Retrieve a product's image bytes |
 
 ---
 
-## 🏛️ Architecture & Clean Code
+## 🏛️ Architecture & Code Design
 
-*   **Separation of Concerns**: Strictly follows the `Controller -> Service -> Repository -> JPA Entity` request flow.
-*   **Thin Controllers**: HTTP mapping and request schema mapping (`ProductRequest` DTO) are decoupled from the core business layer.
-*   **Robust Service Layer**: The `ProductService` encapsulates validation, partial update logic, and smart image state preservation.
-*   **Clean JPA Queries**: A single, custom JPQL query handles flexible keyword matches across multiple entity attributes.
+*   **Layered Design**: Follows `Controller -> Service -> Repository -> JPA Entity`.
+*   **DTO mapping**: Maps HTTP requests to DTOs and then to JPA entities.
+*   **Business Logic**: Service layer handles validation, updates, and image preservation.
+*   **Queries**: Single JPQL query for case-insensitive keyword search.
 
 ---
 
 ## 🌐 Production Deployment
 
-The project is pre-configured for automated, cloud-based deployments:
-*   **Backend**: Deployed via **Render** using the root `render.yaml` and `Dockerfile`.
-*   **Frontend**: Deployed via **Netlify** using the root `netlify.toml` for optimized SPA routing.
+*   **Backend**: Deployed on Render via `render.yaml`.
+*   **Frontend**: Deployed on Netlify via `netlify.toml`.
