@@ -17,15 +17,18 @@ SpringMart is a full-stack e-commerce application with a **Spring Boot** backend
 ## 📸 App Preview
 
 ### 🏠 Home Page
-![SpringMart Home Page](public/home_page.png)
+<img src="public/home_page.png" width="500" alt="SpringMart Home Page">
+
 *Browse, filter, and search products.*
 
 ### 🔍 Product Details
-![Product Details Page](public/product_page.png)
+<img src="public/product_page.png" width="500" alt="Product Details Page">
+
 *View product details and images.*
 
 ### ➕ Add/Edit Product
-![Add Product Page](public/add_page.png)
+<img src="public/add_page.png" width="500" alt="Add Product Page">
+
 *Add or update products with form validation.*
 
 ---
