@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <!-- Rounded white background for perfect visibility in dark and light browser theme tabs -->
+    <rect width="24" height="24" rx="6" fill="#ffffff" />
+    <!-- Symmetrical scaling of 0.75 to balance margins and icon visibility -->
+    <g transform="translate(3, 3) scale(0.75)" fill="none" stroke="#1d1d1f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="20" r="1" fill="#1d1d1f" />
+        <circle cx="18" cy="20" r="1" fill="#1d1d1f" />
+        <path d="M3 3h2.5l2 11h12l2.5-8H6.5" />
+    </g>
+</svg>
