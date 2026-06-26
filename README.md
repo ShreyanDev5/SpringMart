@@ -97,8 +97,8 @@ All endpoints are prefixed with `/api`:
 
 ## 🌐 Deployment
 
-*   **Backend**: Render (`render.yaml`)
-*   **Frontend**: Netlify (`netlify.toml`)
+* **Platform**: [Netlify](https://netlify.com)
+* **Live Link**: [springmart.netlify.app](https://springmart.netlify.app/)
 
 ---
 
